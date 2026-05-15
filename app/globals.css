@@ -1,26 +1,48 @@
 @import "tailwindcss";
 
+/* 🎨 Палитра Alfa Z — «Полночный закат» */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #FFFBF5;       /* Тёплый кремовый фон */
+  --foreground: #0F0F1A;       /* Графит — основной текст */
+  --surface: #FFFFFF;          /* Карточки и поверхности */
+  --accent: #FF6B47;           /* Коралл — главный акцент */
+  --accent-hover: #E55A3A;     /* Тёмный коралл — для hover */
+  --accent-soft: #FFB088;      /* Персик — вторичный */
+  --muted: #F5E6D3;            /* Песочный — мягкий фон */
+  --border: #E8DDD0;           /* Границы */
 }
 
+/* 🌙 Тёмная тема (автоматически по системным настройкам Mac) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0F0F1A;     /* Графит фон */
+    --foreground: #F5E6D3;     /* Песочный текст */
+    --surface: #1A1A25;        /* Карточки в темноте */
+    --accent: #FF6B47;         /* Коралл всегда яркий */
+    --accent-hover: #FF8A66;   /* Светлее на hover */
+    --accent-soft: #FFB088;
+    --muted: #2A2A35;
+    --border: #2A2A35;
+  }
+}
+
+/* 🔧 Связываем токены с Tailwind */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-surface: var(--surface);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-bricolage);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
