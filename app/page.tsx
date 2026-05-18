@@ -332,10 +332,10 @@ export default function Home() {
           </motion.div>
           <div className="grid md:grid-cols-2 gap-5 lg:gap-6">
             {[
-              { emoji: "📱", title: "Мобильная разработка", tagline: "FlutterFlow → Flutter → Firebase", desc: "Создаём приложения для Android и iOS. От квиза «Какой ты персонаж» до мини-Instagram для класса.", result: "Финал в Google Play + AdMob + профиль на Upwork", lessons: "48 уроков · 24 недели", age: "14–17 лет", certs: "14+ сертификатов", stack: ["Flutter", "Dart", "Firebase", "Flame", "Codemagic"], bgClass: "bg-gradient-to-br from-accent/15 via-accent-soft/10 to-transparent" },
-              { emoji: "🎮", title: "Геймдев на Unity", tagline: "Unity 6 + C# + 2D", desc: "Делаем игры жанров Mario, Hollow Knight, Celeste. Финальная игра на 3 платформах.", result: "Игра на itch.io + Google Play + App Store", lessons: "50 уроков · 25 недель", age: "13–18 лет", certs: "5–8 игр в портфолио", stack: ["Unity 6", "C#", "Piskel", "Git"], bgClass: "bg-gradient-to-br from-accent-soft/20 via-muted/30 to-transparent" },
-              { emoji: "🌐", title: "Веб-разработка", tagline: "HTML → CSS → JavaScript → React", desc: "Учимся делать современные сайты как профессионалы. От первого Hello, World до React-приложения.", result: "React-приложение в интернете + GitHub-портфолио", lessons: "48 уроков · 24 недели", age: "12–17 лет", certs: "6 сертификатов", stack: ["React", "TypeScript", "Tailwind", "Git"], bgClass: "bg-gradient-to-br from-foreground/[0.04] via-muted/40 to-transparent" },
-              { emoji: "⚙️", title: "Бэкенд на Python", tagline: "Python → SQL → Flask → Docker", desc: "«Мозги» сайтов и приложений. Создаём Telegram-бот, который работает 24/7, и боевой REST API.", result: "Telegram-бот 24/7 + REST API на Docker в интернете", lessons: "52 урока · 26 недель", age: "13–18 лет", certs: "5–7 проектов в портфолио", stack: ["Python", "Flask", "FastAPI", "SQL", "Docker"], bgClass: "bg-gradient-to-br from-muted/30 via-accent-soft/10 to-transparent" },
+              { emoji: "📱", title: "Мобильная разработка", tagline: "FlutterFlow → Flutter → Firebase", desc: "Создаём приложения для Android и iOS. От квиза «Какой ты персонаж» до мини-Instagram для класса.", result: "Финал в Google Play + AdMob + профиль на Upwork", lessons: "48 уроков · 24 недели", age: "14–17 лет", certs: "14+ сертификатов", stack: ["Flutter", "Dart", "Firebase", "Flame", "Codemagic"], bgClass: "bg-gradient-to-br from-accent/15 via-accent-soft/10 to-transparent", coursePage: null },
+              { emoji: "🎮", title: "Геймдев на Unity", tagline: "Unity 6 + C# + 2D", desc: "Делаем игры жанров Mario, Hollow Knight, Celeste. Финальная игра на 3 платформах.", result: "Игра на itch.io + Google Play + App Store", lessons: "50 уроков · 25 недель", age: "13–18 лет", certs: "5–8 игр в портфолио", stack: ["Unity 6", "C#", "Piskel", "Git"], bgClass: "bg-gradient-to-br from-accent-soft/20 via-muted/30 to-transparent", coursePage: null },
+              { emoji: "🌐", title: "Веб-разработка", tagline: "HTML → CSS → JavaScript → React", desc: "Учимся делать современные сайты как профессионалы. От первого Hello, World до React-приложения.", result: "React-приложение в интернете + GitHub-портфолио", lessons: "48 уроков · 24 недели", age: "12–17 лет", certs: "6 сертификатов", stack: ["React", "TypeScript", "Tailwind", "Git"], bgClass: "bg-gradient-to-br from-foreground/[0.04] via-muted/40 to-transparent", coursePage: "/courses/web" },
+              { emoji: "⚙️", title: "Бэкенд на Python", tagline: "Python → SQL → Flask → Docker", desc: "«Мозги» сайтов и приложений. Создаём Telegram-бот, который работает 24/7, и боевой REST API.", result: "Telegram-бот 24/7 + REST API на Docker в интернете", lessons: "52 урока · 26 недель", age: "13–18 лет", certs: "5–7 проектов в портфолио", stack: ["Python", "Flask", "FastAPI", "SQL", "Docker"], bgClass: "bg-gradient-to-br from-muted/30 via-accent-soft/10 to-transparent", coursePage: null },
             ].map((course, i) => (
               <motion.div key={i} variants={staggerItem} whileHover={{ y: -8, transition: { duration: 0.2 } }} className={`group relative p-7 lg:p-8 rounded-2xl ${course.bgClass} border border-border hover:border-accent/40 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col`}>
                 <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">{course.emoji}</div>
@@ -354,9 +354,20 @@ export default function Home() {
                 <div className="flex flex-wrap gap-1.5 mb-5">
                   {course.stack.map((tech, idx) => (<span key={idx} className="px-2.5 py-1 rounded-md bg-foreground/5 text-xs font-medium text-foreground/70">{tech}</span>))}
                 </div>
-                <button onClick={() => openApply(course.title)} className="mt-auto inline-flex items-center justify-center gap-2 w-full px-5 py-3 bg-foreground/5 hover:bg-accent hover:text-white text-foreground rounded-xl font-semibold transition-all duration-300">
-                  Записаться на этот курс <span>→</span>
-                </button>
+                <div className="mt-auto flex flex-col sm:flex-row gap-2">
+                  {course.coursePage ? (
+                    <a href={course.coursePage} className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-foreground hover:bg-foreground/85 text-surface rounded-xl font-semibold transition-all hover:scale-[1.01]">
+                      Подробнее <span>→</span>
+                    </a>
+                  ) : (
+                    <span className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-foreground/5 text-foreground/45 rounded-xl font-medium text-sm cursor-default">
+                      Страница — скоро
+                    </span>
+                  )}
+                  <button onClick={() => openApply(course.title)} className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-accent hover:bg-accent-hover text-white rounded-xl font-semibold transition-all hover:scale-[1.01] shadow-md shadow-accent/20">
+                    Записаться <span>→</span>
+                  </button>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -746,7 +757,7 @@ export default function Home() {
               <ul className="space-y-2.5 text-sm">
                 <li><a href="#courses" className="text-surface/60 hover:text-accent transition-colors">Мобильная разработка</a></li>
                 <li><a href="#courses" className="text-surface/60 hover:text-accent transition-colors">Геймдев на Unity</a></li>
-                <li><a href="#courses" className="text-surface/60 hover:text-accent transition-colors">Веб-разработка</a></li>
+                <li><a href="/courses/web" className="text-surface/60 hover:text-accent transition-colors">Веб-разработка</a></li>
                 <li><a href="#courses" className="text-surface/60 hover:text-accent transition-colors">Бэкенд на Python</a></li>
               </ul>
             </div>
