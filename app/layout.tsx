@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Manrope } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 // Шрифт для крупных заголовков
@@ -40,6 +41,12 @@ export default function RootLayout({
     <html lang="ru">
       <body className={`${bricolage.variable} ${manrope.variable} antialiased`}>
         {children}
+
+        {/* 💬 Jivo онлайн-консультант */}
+        <Script
+          src="//code.jivo.ru/widget/tYX0zpB552"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

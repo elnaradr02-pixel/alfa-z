@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
-/* 🎨 Палитра Alfa Z — «Полночный закат» */
+/* ═══════════════════════════════════════════════
+   🎨 ПАЛИТРА ALFA Z — «Полночный закат»
+   ═══════════════════════════════════════════════ */
+
 :root {
   --background: #FFFBF5;
   --foreground: #0F0F1A;
@@ -38,10 +41,13 @@
   --font-display: var(--font-bricolage);
 }
 
-/* 🌊 Плавный скролл — при клике на якоря (#courses, #about и т.п.) */
+/* ═══════════════════════════════════════════════
+   🌊 БАЗОВЫЕ СТИЛИ
+   ═══════════════════════════════════════════════ */
+
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px; /* учитываем sticky-header */
+  scroll-padding-top: 80px;
 }
 
 body {
@@ -51,9 +57,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* ═══════════════════════════════════════
-   ✨ CSS-анимации (для Hero при загрузке)
-   ═══════════════════════════════════════ */
+/* ═══════════════════════════════════════════════
+   ✨ АНИМАЦИИ
+   ═══════════════════════════════════════════════ */
 
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(24px); }
@@ -77,4 +83,31 @@ body {
 
 .animate-soft-pulse {
   animation: softPulse 2.4s ease-in-out infinite;
+}
+
+/* ═══════════════════════════════════════════════
+   💬 СКРЫВАЕМ ДЕФОЛТНЫЙ ВИДЖЕТ JIVO ПОЛНОСТЬЮ
+   (расширенный универсальный подход)
+
+   Ловим все возможные варианты элементов Jivo:
+   - jdiv (старые версии)
+   - iframe (с src/id/name содержащим "jivo")
+   - div с id или class содержащим "jivo"
+   - элементы с data-атрибутами Jivo
+   ═══════════════════════════════════════════════ */
+
+body:not(.jivo-open) jdiv,
+body:not(.jivo-open) iframe[src*="jivo"],
+body:not(.jivo-open) iframe[name*="jivo"],
+body:not(.jivo-open) iframe[id*="jivo" i],
+body:not(.jivo-open) div[id*="jivo" i],
+body:not(.jivo-open) div[class*="jivo" i],
+body:not(.jivo-open) [data-jivo],
+body:not(.jivo-open) [data-test*="jivo" i],
+body:not(.jivo-open) [class*="copyrightBar" i],
+body:not(.jivo-open) [class*="welcome" i]:not(header):not(nav):not(section):not(main) {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
