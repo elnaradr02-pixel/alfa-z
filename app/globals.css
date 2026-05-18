@@ -2,31 +2,29 @@
 
 /* 🎨 Палитра Alfa Z — «Полночный закат» */
 :root {
-  --background: #FFFBF5;       /* Тёплый кремовый фон */
-  --foreground: #0F0F1A;       /* Графит — основной текст */
-  --surface: #FFFFFF;          /* Карточки и поверхности */
-  --accent: #FF6B47;           /* Коралл — главный акцент */
-  --accent-hover: #E55A3A;     /* Тёмный коралл — для hover */
-  --accent-soft: #FFB088;      /* Персик — вторичный */
-  --muted: #F5E6D3;            /* Песочный — мягкий фон */
-  --border: #E8DDD0;           /* Границы */
+  --background: #FFFBF5;
+  --foreground: #0F0F1A;
+  --surface: #FFFFFF;
+  --accent: #FF6B47;
+  --accent-hover: #E55A3A;
+  --accent-soft: #FFB088;
+  --muted: #F5E6D3;
+  --border: #E8DDD0;
 }
 
-/* 🌙 Тёмная тема (автоматически по системным настройкам Mac) */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0F0F1A;     /* Графит фон */
-    --foreground: #F5E6D3;     /* Песочный текст */
-    --surface: #1A1A25;        /* Карточки в темноте */
-    --accent: #FF6B47;         /* Коралл всегда яркий */
-    --accent-hover: #FF8A66;   /* Светлее на hover */
+    --background: #0F0F1A;
+    --foreground: #F5E6D3;
+    --surface: #1A1A25;
+    --accent: #FF6B47;
+    --accent-hover: #FF8A66;
     --accent-soft: #FFB088;
     --muted: #2A2A35;
     --border: #2A2A35;
   }
 }
 
-/* 🔧 Связываем токены с Tailwind */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -40,9 +38,43 @@
   --font-display: var(--font-bricolage);
 }
 
+/* 🌊 Плавный скролл — при клике на якоря (#courses, #about и т.п.) */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* учитываем sticky-header */
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════════════════════════════════
+   ✨ CSS-анимации (для Hero при загрузке)
+   ═══════════════════════════════════════ */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+@keyframes softPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+
+.animate-soft-pulse {
+  animation: softPulse 2.4s ease-in-out infinite;
 }
