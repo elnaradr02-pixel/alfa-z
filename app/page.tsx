@@ -332,10 +332,10 @@ export default function Home() {
           </motion.div>
           <div className="grid md:grid-cols-2 gap-5 lg:gap-6">
             {[
-              { emoji: "📱", title: "Мобильная разработка", tagline: "FlutterFlow → Flutter → Firebase", desc: "Создаём приложения для Android и iOS. От квиза «Какой ты персонаж» до мини-Instagram для класса.", result: "Финал в Google Play + AdMob + профиль на Upwork", lessons: "48 уроков · 24 недели", age: "14–17 лет", certs: "14+ сертификатов", stack: ["Flutter", "Dart", "Firebase", "Flame", "Codemagic"], bgClass: "bg-gradient-to-br from-accent/15 via-accent-soft/10 to-transparent", coursePage: null },
-              { emoji: "🎮", title: "Геймдев на Unity", tagline: "Unity 6 + C# + 2D", desc: "Делаем игры жанров Mario, Hollow Knight, Celeste. Финальная игра на 3 платформах.", result: "Игра на itch.io + Google Play + App Store", lessons: "50 уроков · 25 недель", age: "13–18 лет", certs: "5–8 игр в портфолио", stack: ["Unity 6", "C#", "Piskel", "Git"], bgClass: "bg-gradient-to-br from-accent-soft/20 via-muted/30 to-transparent", coursePage: null },
+              { emoji: "📱", title: "Мобильная разработка", tagline: "FlutterFlow → Flutter → Firebase", desc: "Создаём приложения для Android и iOS. От квиза «Какой ты персонаж» до мини-Instagram для класса.", result: "Финал в Google Play + AdMob + профиль на Upwork", lessons: "48 уроков · 24 недели", age: "14–17 лет", certs: "14+ сертификатов", stack: ["Flutter", "Dart", "Firebase", "Flame", "Codemagic"], bgClass: "bg-gradient-to-br from-accent/15 via-accent-soft/10 to-transparent", coursePage: "/courses/mobdev" },
+              { emoji: "🎮", title: "Геймдев на Unity", tagline: "Unity 6 + C# + 2D", desc: "Делаем игры жанров Mario, Hollow Knight, Celeste. Финальная игра на 3 платформах.", result: "Игра на itch.io + Google Play + App Store", lessons: "50 уроков · 25 недель", age: "13–18 лет", certs: "5–8 игр в портфолио", stack: ["Unity 6", "C#", "Piskel", "Git"], bgClass: "bg-gradient-to-br from-accent-soft/20 via-muted/30 to-transparent", coursePage: "/courses/gamedev" },
               { emoji: "🌐", title: "Веб-разработка", tagline: "HTML → CSS → JavaScript → React", desc: "Учимся делать современные сайты как профессионалы. От первого Hello, World до React-приложения.", result: "React-приложение в интернете + GitHub-портфолио", lessons: "48 уроков · 24 недели", age: "12–17 лет", certs: "6 сертификатов", stack: ["React", "TypeScript", "Tailwind", "Git"], bgClass: "bg-gradient-to-br from-foreground/[0.04] via-muted/40 to-transparent", coursePage: "/courses/web" },
-              { emoji: "⚙️", title: "Бэкенд на Python", tagline: "Python → SQL → Flask → Docker", desc: "«Мозги» сайтов и приложений. Создаём Telegram-бот, который работает 24/7, и боевой REST API.", result: "Telegram-бот 24/7 + REST API на Docker в интернете", lessons: "52 урока · 26 недель", age: "13–18 лет", certs: "5–7 проектов в портфолио", stack: ["Python", "Flask", "FastAPI", "SQL", "Docker"], bgClass: "bg-gradient-to-br from-muted/30 via-accent-soft/10 to-transparent", coursePage: null },
+              { emoji: "⚙️", title: "Бэкенд на Python", tagline: "Python → SQL → Flask → Docker", desc: "«Мозги» сайтов и приложений. Создаём Telegram-бот, который работает 24/7, и боевой REST API.", result: "Telegram-бот 24/7 + REST API на Docker в интернете", lessons: "52 урока · 26 недель", age: "13–18 лет", certs: "5–7 проектов в портфолио", stack: ["Python", "Flask", "FastAPI", "SQL", "Docker"], bgClass: "bg-gradient-to-br from-muted/30 via-accent-soft/10 to-transparent", coursePage: "/courses/backend" },
             ].map((course, i) => (
               <motion.div key={i} variants={staggerItem} whileHover={{ y: -8, transition: { duration: 0.2 } }} className={`group relative p-7 lg:p-8 rounded-2xl ${course.bgClass} border border-border hover:border-accent/40 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col`}>
                 <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">{course.emoji}</div>
@@ -755,10 +755,10 @@ export default function Home() {
             <div>
               <h4 className="font-display font-bold mb-4 text-surface">Курсы</h4>
               <ul className="space-y-2.5 text-sm">
-                <li><a href="#courses" className="text-surface/60 hover:text-accent transition-colors">Мобильная разработка</a></li>
-                <li><a href="#courses" className="text-surface/60 hover:text-accent transition-colors">Геймдев на Unity</a></li>
+                <li><a href="/courses/mobdev" className="text-surface/60 hover:text-accent transition-colors">Мобильная разработка</a></li>
+                <li><a href="/courses/gamedev" className="text-surface/60 hover:text-accent transition-colors">Геймдев на Unity</a></li>
                 <li><a href="/courses/web" className="text-surface/60 hover:text-accent transition-colors">Веб-разработка</a></li>
-                <li><a href="#courses" className="text-surface/60 hover:text-accent transition-colors">Бэкенд на Python</a></li>
+                <li><a href="/courses/backend" className="text-surface/60 hover:text-accent transition-colors">Бэкенд на Python</a></li>
               </ul>
             </div>
             <div>
