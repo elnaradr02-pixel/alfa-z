@@ -31,6 +31,14 @@ function FloatingMessengers() {
   const [jivoOpen, setJivoOpen] = useState(false);
   const { scrollY } = useScroll();
 
+  // На мобиле — стартуем со свёрнутыми кнопками
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.innerWidth < 768) {
+      setCollapsed(true);
+    }
+  }, []);
+
   useEffect(() => {
     const unsubscribe = scrollY.on("change", (value) => {
       setShow(value > 300);
@@ -104,7 +112,7 @@ function FloatingMessengers() {
   return (
     <AnimatePresence>
       {show && (
-        <motion.div initial={{ opacity: 0, scale: 0.8, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.8, y: 20 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }} className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 items-end">
+        <motion.div initial={{ opacity: 0, scale: 0.8, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.8, y: 20 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }} className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col gap-2.5 sm:gap-3 items-end">
           <AnimatePresence>
             {!collapsed && buttons.map((btn, i) => (
               <motion.a
@@ -121,7 +129,7 @@ function FloatingMessengers() {
                 aria-label={btn.tooltip}
               >
                 <span className="absolute right-full mr-3 px-3 py-1.5 rounded-lg bg-foreground text-surface text-xs font-semibold whitespace-nowrap shadow-lg opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 pointer-events-none">{btn.tooltip}</span>
-                <div className={`relative w-14 h-14 rounded-full ${btn.bg} text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform duration-300`}>
+                <div className={`relative w-12 h-12 sm:w-14 sm:h-14 rounded-full ${btn.bg} text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform duration-300`}>
                   {btn.pulse && <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-40" />}
                   <span className="relative">{btn.icon}</span>
                 </div>
@@ -134,7 +142,7 @@ function FloatingMessengers() {
             aria-label={collapsed ? "Связаться с нами" : "Свернуть"}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className={`group relative w-14 h-14 rounded-full ${collapsed ? "bg-[#FF6B47]" : "bg-foreground"} text-white flex items-center justify-center shadow-xl transition-colors duration-300`}
+            className={`group relative w-12 h-12 sm:w-14 sm:h-14 rounded-full ${collapsed ? "bg-[#FF6B47]" : "bg-foreground"} text-white flex items-center justify-center shadow-xl transition-colors duration-300`}
           >
             {collapsed && (
               <span className="absolute right-full mr-3 px-3 py-1.5 rounded-lg bg-foreground text-surface text-xs font-semibold whitespace-nowrap shadow-lg opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 pointer-events-none">Связаться с нами</span>
@@ -295,10 +303,22 @@ const scrollViewport = { once: true, amount: 0.15 };
 export default function Home() {
   const [applyOpen, setApplyOpen] = useState(false);
   const [defaultCourse, setDefaultCourse] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const openApply = (course = "") => {
     setDefaultCourse(course);
     setApplyOpen(true);
   };
+
+  // Закрывать меню при клике на пункт + блокировать скролл когда меню открыто
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileMenuOpen]);
 
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll();
@@ -317,8 +337,10 @@ export default function Home() {
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border">
         <nav className="max-w-7xl mx-auto px-6 sm:px-8 py-4 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-white font-display font-bold text-lg shadow-lg shadow-accent/30">Az</div>
-            <span className="font-display font-bold text-xl tracking-tight">Alfa Z</span>
+            <img src="/logos/logo-icon.svg" alt="Alfa Z logo" width="40" height="40" className="w-10 h-10 rounded-xl shadow-lg shadow-accent/30" />
+            <span className="font-display font-bold text-xl tracking-tight">
+              <span className="text-accent">α</span>lfa <span className="text-accent">Z</span>
+            </span>
           </a>
           <ul className="hidden lg:flex items-center gap-8 text-sm font-medium text-foreground/70">
             <li><a href="#courses" className="hover:text-foreground transition-colors">Курсы</a></li>
@@ -327,12 +349,117 @@ export default function Home() {
             <li><a href="#schedule" className="hover:text-foreground transition-colors">Расписание</a></li>
             <li><a href="#reviews" className="hover:text-foreground transition-colors">Отзывы</a></li>
           </ul>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <button className="hidden sm:inline-flex text-sm font-medium text-foreground/70 hover:text-foreground transition-colors">Войти</button>
-            <button onClick={() => openApply()} className="px-5 py-2.5 rounded-full bg-accent hover:bg-accent-hover text-white text-sm font-semibold transition-all hover:scale-[1.03] shadow-md shadow-accent/20">Пробный урок</button>
+            <button onClick={() => openApply()} className="px-4 sm:px-5 py-2.5 rounded-full bg-accent hover:bg-accent-hover text-white text-xs sm:text-sm font-semibold transition-all hover:scale-[1.03] shadow-md shadow-accent/20 whitespace-nowrap">Пробный урок</button>
+            {/* 🍔 Бургер-кнопка — только на мобиле и планшете */}
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              aria-label="Открыть меню"
+              className="lg:hidden w-10 h-10 rounded-full flex items-center justify-center hover:bg-muted transition-colors"
+            >
+              <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 6h18M3 12h18M3 18h18"/>
+              </svg>
+            </button>
           </div>
         </nav>
       </header>
+
+      {/* 📱 МОБИЛЬНОЕ МЕНЮ — fullscreen overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[100] bg-background overflow-y-auto lg:hidden"
+          >
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="min-h-full flex flex-col"
+            >
+              {/* Header меню */}
+              <div className="sticky top-0 bg-background/95 backdrop-blur-md border-b border-border z-10 flex items-center justify-between px-6 py-4">
+                <div className="flex items-center gap-2.5">
+                  <img src="/logos/logo-icon.svg" alt="Alfa Z logo" width="40" height="40" className="w-10 h-10 rounded-xl" />
+                  <span className="font-display font-bold text-xl tracking-tight">
+                    <span className="text-accent">α</span>lfa <span className="text-accent">Z</span>
+                  </span>
+                </div>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  aria-label="Закрыть меню"
+                  className="w-10 h-10 rounded-full bg-muted hover:bg-border flex items-center justify-center transition-colors"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+                    <path d="M18 6 6 18M6 6l12 12"/>
+                  </svg>
+                </button>
+              </div>
+
+              {/* Навигация */}
+              <nav className="flex-1 px-6 py-6">
+                <ul className="space-y-1">
+                  {[
+                    { href: "#courses", label: "Курсы", emoji: "📚" },
+                    { href: "#about", label: "О школе", emoji: "🎓" },
+                    { href: "#pricing", label: "Цены", emoji: "💰" },
+                    { href: "#schedule", label: "Расписание", emoji: "📅" },
+                    { href: "#reviews", label: "Отзывы", emoji: "💬" },
+                    { href: "#faq", label: "Частые вопросы", emoji: "❓" },
+                  ].map((item, i) => (
+                    <motion.li
+                      key={item.href}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.05 + i * 0.04 }}
+                    >
+                      <a
+                        href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center justify-between gap-3 py-4 px-4 rounded-2xl hover:bg-muted active:bg-border transition-colors group"
+                      >
+                        <span className="flex items-center gap-3">
+                          <span className="text-2xl">{item.emoji}</span>
+                          <span className="font-display text-lg font-semibold">{item.label}</span>
+                        </span>
+                        <span className="text-accent text-xl group-hover:translate-x-1 transition-transform">→</span>
+                      </a>
+                    </motion.li>
+                  ))}
+                </ul>
+
+                {/* Контакты */}
+                <div className="mt-8 pt-6 border-t border-border space-y-3">
+                  <a href="https://wa.me/77001234567" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 py-3 px-4 rounded-2xl hover:bg-muted transition-colors">
+                    <span className="text-2xl">📞</span>
+                    <span className="text-sm font-medium">+7 (700) 123-45-67</span>
+                  </a>
+                  <a href="mailto:hello@alfa-z.kz" className="flex items-center gap-3 py-3 px-4 rounded-2xl hover:bg-muted transition-colors">
+                    <span className="text-2xl">📧</span>
+                    <span className="text-sm font-medium">hello@alfa-z.kz</span>
+                  </a>
+                </div>
+              </nav>
+
+              {/* CTA внизу */}
+              <div className="sticky bottom-0 px-6 py-5 bg-background/95 backdrop-blur-md border-t border-border">
+                <button
+                  onClick={() => { setMobileMenuOpen(false); openApply(); }}
+                  className="w-full py-4 bg-accent hover:bg-accent-hover text-white rounded-full font-display font-bold text-base shadow-lg shadow-accent/30 transition-all"
+                >
+                  Записаться на пробный урок →
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <section ref={heroRef} className="relative h-screen min-h-[640px] max-h-[900px] flex items-center overflow-hidden">
         <motion.video autoPlay loop muted playsInline poster="/hero-poster.jpg" style={{ y: videoY, scale: videoScale }} className="absolute inset-0 w-full h-full object-cover z-0">
@@ -530,9 +657,9 @@ export default function Home() {
                 <p className="text-xs text-foreground/50 mt-1">8 уроков по 90 минут</p>
               </div>
 
-              {/* Стрелка */}
-              <div className="flex sm:flex-col items-center justify-center gap-2">
-                <div className="text-4xl sm:text-5xl text-accent">→</div>
+              {/* Стрелка — на мобиле вниз, на десктопе вправо */}
+              <div className="flex sm:flex-col items-center justify-center gap-2 py-2 sm:py-0">
+                <div className="text-4xl sm:text-5xl text-accent rotate-90 sm:rotate-0">→</div>
                 <p className="text-xs font-semibold text-accent uppercase tracking-wider whitespace-nowrap text-center">все 8<br />уроков</p>
               </div>
 
@@ -923,8 +1050,10 @@ export default function Home() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-12">
             <div className="lg:col-span-1">
               <div className="flex items-center gap-3 mb-5">
-                <div className="w-11 h-11 rounded-xl bg-accent flex items-center justify-center font-bold text-lg shadow-lg shadow-accent/30">Az</div>
-                <span className="font-display text-2xl font-bold">Alfa Z</span>
+                <img src="/logos/logo-icon.svg" alt="Alfa Z logo" width="44" height="44" className="w-11 h-11 rounded-xl shadow-lg shadow-accent/30" />
+                <span className="font-display text-2xl font-bold">
+                  <span className="text-accent">α</span>lfa <span className="text-accent">Z</span>
+                </span>
               </div>
               <p className="text-surface/65 text-sm leading-relaxed mb-6">Школа программирования для подростков 12–17 лет. Живые уроки, реальные проекты, преподаватели из Kaspi, Halyk, inDriver.</p>
               <div className="flex gap-2">
