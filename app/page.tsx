@@ -500,31 +500,90 @@ export default function Home() {
 
       <motion.section id="pricing" className="relative py-20 sm:py-28 border-t border-border bg-gradient-to-b from-background via-muted/10 to-background" initial="hidden" whileInView="visible" viewport={scrollViewport} variants={staggerContainer}>
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
-          <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+
+          {/* Заголовок секции */}
+          <motion.div variants={fadeInUp} className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
             <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-3">Цены и оплата</p>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight mb-4">
-              Доступно. <span className="text-accent">Прозрачно. Без переплат.</span>
+              Доступно. <span className="text-accent">Прозрачно. Честно.</span>
             </h2>
             <p className="text-lg text-foreground/70">
-              Месячный абонемент <span className="font-bold text-foreground">47 500 ₸</span>. Платишь только за те месяцы, когда ребёнок учится.
+              Первый месяц <span className="font-bold text-foreground">75 000 ₸</span>. Если ребёнок не пропустит ни одного урока — со 2-го месяца платите <span className="font-bold text-accent">47 500 ₸</span> до конца обучения.
             </p>
           </motion.div>
+
+          {/* 🎯 БОЛЬШАЯ ВИЗУАЛИЗАЦИЯ "БЫЛО → СТАЛО" */}
+          <motion.div variants={fadeInUp} className="max-w-4xl mx-auto mb-12 p-8 sm:p-10 lg:p-12 rounded-3xl bg-gradient-to-br from-accent/10 via-accent-soft/10 to-transparent border-2 border-accent/30">
+            <div className="text-center mb-6">
+              <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-2">Дисциплинарная скидка</p>
+              <h3 className="font-display text-2xl sm:text-3xl font-bold leading-tight">
+                Награждаем тех, <span className="text-accent">кто старается</span>
+              </h3>
+            </div>
+
+            <div className="grid sm:grid-cols-[1fr_auto_1fr] gap-6 sm:gap-8 items-center">
+              {/* Первый месяц */}
+              <div className="text-center">
+                <p className="text-xs font-semibold text-foreground/50 uppercase tracking-wider mb-3">Первый месяц</p>
+                <p className="font-display text-5xl lg:text-6xl font-bold text-foreground leading-none mb-2 tabular-nums">75 000 <span className="text-2xl text-foreground/60">₸</span></p>
+                <p className="text-sm text-foreground/65 mt-2">Стандартная цена</p>
+                <p className="text-xs text-foreground/50 mt-1">8 уроков по 90 минут</p>
+              </div>
+
+              {/* Стрелка */}
+              <div className="flex sm:flex-col items-center justify-center gap-2">
+                <div className="text-4xl sm:text-5xl text-accent">→</div>
+                <p className="text-xs font-semibold text-accent uppercase tracking-wider whitespace-nowrap text-center">все 8<br />уроков</p>
+              </div>
+
+              {/* Со 2-го месяца */}
+              <div className="text-center">
+                <p className="text-xs font-semibold text-accent uppercase tracking-wider mb-3">Со 2-го месяца</p>
+                <p className="font-display text-5xl lg:text-6xl font-bold text-accent leading-none mb-2 tabular-nums">47 500 <span className="text-2xl text-accent/60">₸</span></p>
+                <p className="text-sm text-foreground/65 mt-2">Экономия <span className="font-bold">27 500 ₸</span></p>
+                <p className="text-xs text-foreground/50 mt-1">До конца обучения</p>
+              </div>
+            </div>
+
+            <div className="mt-7 pt-6 border-t border-accent/20 grid sm:grid-cols-3 gap-3 text-sm">
+              <div className="flex items-start gap-2">
+                <span className="text-accent text-base flex-shrink-0">✓</span>
+                <span className="text-foreground/75 leading-snug">Все 8 уроков 1-го месяца — скидка фиксируется</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-accent text-base flex-shrink-0">🏥</span>
+                <span className="text-foreground/75 leading-snug">Болезнь со справкой — не считается пропуском</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-accent text-base flex-shrink-0">🔒</span>
+                <span className="text-foreground/75 leading-snug">Цена 47 500 ₸ закрепляется на весь курс</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* 🎁 3 ВАРИАНТА ОПЛАТЫ ПЕРВОГО МЕСЯЦА */}
+          <motion.div variants={fadeInUp} className="text-center mb-8">
+            <h3 className="font-display text-xl sm:text-2xl font-bold mb-2">3 варианта оплаты первого месяца</h3>
+            <p className="text-sm text-foreground/65">Выберите удобный для вас формат</p>
+          </motion.div>
+
           <div className="grid md:grid-cols-3 gap-5 lg:gap-6 mb-14">
             {[
-              { emoji: "📅", badge: null, title: "Помесячно", subtitle: "Стандартный формат", price: "47 500", priceUnit: "₸ / месяц", description: "Платите только за те месяцы, когда ребёнок ходит. Можно прекратить в любой момент.", features: ["Без обязательств на год", "Удобно для пробы", "Оплата картой или Kaspi"], ctaText: "Подходит для начала", bgClass: "bg-surface border-border", highlight: false },
-              { emoji: "🔥", badge: "Популярно", title: "Kaspi-рассрочка", subtitle: "На 6 месяцев", price: "47 500", priceUnit: "₸ / месяц × 6", description: "Оформляете рассрочку 285 000 ₸ на полугодие. 0% переплаты, без справок, без поручителей.", features: ["0% переплаты", "Решение за 5 минут в Kaspi", "Удобный график списаний"], ctaText: "Самый удобный способ", bgClass: "bg-gradient-to-br from-accent/10 via-accent-soft/10 to-transparent border-accent/40", highlight: true },
-              { emoji: "🎁", badge: "Экономия 28 500 ₸", title: "Полугодие со скидкой", subtitle: "Оплата 6 мес сразу", price: "42 750", priceUnit: "₸ / месяц", description: "Платите 256 500 ₸ за 6 месяцев сразу — получаете скидку 10% на каждый месяц.", features: ["Скидка 10% на каждый месяц", "Экономия 28 500 ₸", "Стоимость зафиксирована"], ctaText: "Самая выгодная цена", bgClass: "bg-surface border-border", highlight: false },
+              { emoji: "📅", badge: null, title: "Стандарт", subtitle: "Базовая цена", price: "75 000", priceUnit: "₸ — первый месяц", priceFooter: "со 2-го месяца: 47 500 ₸", description: "Платите за первый месяц стандартную цену. Если посетите все 8 уроков — со 2-го месяца цена 47 500 ₸.", features: ["Без обязательств на год", "Оплата картой или Kaspi", "Можно прекратить в любой момент"], ctaText: "Подходит для большинства", bgClass: "bg-surface border-border", highlight: false },
+              { emoji: "💛", badge: "Льготная цена −20%", title: "Льготникам", subtitle: "Многодетным, инвалидам и др.", price: "60 000", priceUnit: "₸ — первый месяц", priceFooter: "со 2-го месяца: 47 500 ₸", description: "Скидка 20% на первый месяц для семей с особым статусом. Со 2-го месяца — стандартная скидка 47 500 ₸.", features: ["Удостоверение многодетной", "Справка из ЦОН / Акимат", "Справка об инвалидности"], ctaText: "Социальная скидка", bgClass: "bg-gradient-to-br from-accent/10 via-accent-soft/10 to-transparent border-accent/40", highlight: true },
+              { emoji: "🔥", badge: "Популярно", title: "Kaspi-рассрочка", subtitle: "На 3 или 6 месяцев", price: "0%", priceUnit: "переплаты", priceFooter: "первый платёж: 75 000 / 60 000 ₸", description: "Любой тариф можно оформить через Kaspi-рассрочку 0% на 3 или 6 месяцев. Без справок, без поручителей.", features: ["Решение за 5 минут", "Без процентов", "Удобный график списаний"], ctaText: "Удобный способ", bgClass: "bg-surface border-border", highlight: false },
             ].map((plan, i) => (
               <motion.div key={i} variants={staggerItem} whileHover={{ y: -8, transition: { duration: 0.2 } }} className={`relative p-6 lg:p-8 rounded-2xl border-2 ${plan.bgClass} transition-all duration-300 hover:shadow-xl flex flex-col`}>
-                {plan.badge && (<div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg ${plan.highlight ? 'bg-accent text-white' : 'bg-accent-soft text-foreground'}`}>{plan.badge}</div>)}
+                {plan.badge && (<div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg whitespace-nowrap ${plan.highlight ? 'bg-accent text-white' : 'bg-accent-soft text-foreground'}`}>{plan.badge}</div>)}
                 <div className="text-4xl mb-4">{plan.emoji}</div>
                 <h3 className="font-display text-2xl font-bold mb-1">{plan.title}</h3>
                 <p className="text-sm text-foreground/60 mb-5">{plan.subtitle}</p>
-                <div className="mb-5 pb-5 border-b border-border">
+                <div className="mb-4 pb-5 border-b border-border">
                   <div className="flex items-baseline gap-1.5">
                     <span className="font-display text-4xl lg:text-5xl font-bold text-foreground tabular-nums">{plan.price}</span>
                   </div>
                   <p className="text-sm text-foreground/60 mt-1">{plan.priceUnit}</p>
+                  <p className="text-xs text-accent font-semibold mt-2">{plan.priceFooter}</p>
                 </div>
                 <p className="text-sm text-foreground/70 leading-relaxed mb-5 min-h-[60px]">{plan.description}</p>
                 <ul className="space-y-2.5 mb-6">
@@ -539,6 +598,7 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
+
           <motion.div variants={fadeInUp} className="bg-surface border border-border rounded-3xl p-8 sm:p-10 lg:p-12 mb-12">
             <div className="text-center mb-8">
               <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-2">Что входит в стоимость</p>
@@ -546,7 +606,7 @@ export default function Home() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {[
-                { emoji: "🎓", title: "Живые групповые уроки", desc: "48–52 урока в Zoom, по 90 минут, 2 раза в неделю. Группы до 8 человек." },
+                { emoji: "🎓", title: "Живые групповые уроки", desc: "48–52 урока в Discord, по 90 минут, 2 раза в неделю. Группы до 8 человек." },
                 { emoji: "📝", title: "Домашние задания", desc: "С проверкой от преподавателя. Облегчённый уровень — если основной не получается." },
                 { emoji: "👩‍💻", title: "Куратор между уроками", desc: "Личный куратор отвечает в чате 24/7 на вопросы по ДЗ и проектам." },
                 { emoji: "🏅", title: "Сертификаты каждые 3 недели", desc: "За каждый пройденный блок. 6–14 сертификатов за весь курс." },
@@ -563,6 +623,7 @@ export default function Home() {
               ))}
             </div>
           </motion.div>
+
           <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-accent/15 via-accent-soft/15 to-muted/30 border-2 border-accent/20">
             <div className="text-5xl mb-4">🎁</div>
             <h3 className="font-display text-2xl sm:text-3xl font-bold mb-3">
@@ -788,7 +849,7 @@ export default function Home() {
               { quote: "Сыну 13, был замкнутый, в школе сложно с математикой. За 4 месяца на курсе геймдева сделал свою игру в Steam-стиле, показывает всему классу. Поведение тоже изменилось — появилось «я могу».", author: "Гульнара Т.", role: "мама Айдара, 13 лет", course: "Геймдев", rating: 5, initials: "ГТ" },
               { quote: "Я учусь на веб-разработке. До Alfa Z пробовал YouTube — забросил через неделю. Тут другое: преподаватель видит, что я делаю, исправляет ошибки сразу. Уже сверстал портфолио для себя.", author: "Данияр К.", role: "ученик, 16 лет", course: "Веб-разработка", rating: 5, initials: "ДК" },
               { quote: "Долго выбирали школу. Решила Alfa Z — потому что подкупила честность: «мы не обещаем работу в Google». Дочери 15, делает мобильное приложение, скачали ей АРК — мы в семье им пользуемся.", author: "Айгуль М.", role: "мама Алии, 15 лет", course: "Мобильная разработка", rating: 5, initials: "АМ" },
-              { quote: "Сначала переживала про «зум-уроки» — думала будет как школьная дистанционка. Совсем другое: маленькая группа, преподаватель помнит, что мой сын делал на прошлом уроке. Чувствуется внимание.", author: "Жанна С.", role: "мама Тимура, 14 лет", course: "Бэкенд", rating: 5, initials: "ЖС" },
+              { quote: "Сначала переживала про онлайн-уроки в Discord — думала будет как школьная дистанционка. Совсем другое: маленькая группа, преподаватель помнит, что мой сын делал на прошлом уроке. Чувствуется внимание.", author: "Жанна С.", role: "мама Тимура, 14 лет", course: "Бэкенд", rating: 5, initials: "ЖС" },
               { quote: "Делаю Telegram-бота, который проверяет расписание автобусов. Реально полезная штука, и одноклассники просят добавить их школу. Препод не подсказывает в лоб — задаёт вопросы, чтобы я сам нашёл.", author: "Арман Ж.", role: "ученик, 15 лет", course: "Бэкенд", rating: 5, initials: "АЖ" },
               { quote: "Понравилось, что после каждого урока — ссылка на работающий результат. Не «через год покажем». Дочка горда, когда я открываю на своём телефоне её приложение. Раньше такого не было.", author: "Бахытжан Р.", role: "папа Камилы, 14 лет", course: "Мобильная разработка", rating: 5, initials: "БР" },
             ].map((review, i) => (
@@ -824,10 +885,12 @@ export default function Home() {
           <div className="space-y-3">
             {[
               { q: "Когда стартует обучение?", a: "Первый поток школы стартует 1 июля 2026 года. Все 4 направления одновременно. Занятия в 20:00 по будням — Вт+Чт или Ср+Пт, на выбор. Если время не подходит — напишите, подберём удобный график." },
-              { q: "Сколько стоит обучение?", a: "Месячный абонемент — 47 500 ₸. Есть три способа оплаты: помесячно, Kaspi-рассрочка на полугодие (0% переплаты) или скидка 10% при оплате 6 месяцев сразу (42 750 ₸/мес). Подробности — в разделе «Цены»." },
+              { q: "Сколько стоит обучение?", a: "Первый месяц — 75 000 ₸ (8 уроков по 90 минут). Если ребёнок посетит все 8 уроков первого месяца — со 2-го месяца цена снижается до 47 500 ₸ до конца обучения. Болезнь со справкой не считается пропуском. Для многодетных семей, родителей с инвалидностью и других льготных категорий — скидка 20% на первый месяц (60 000 ₸). Также доступна Kaspi-рассрочка 0% на 3 или 6 месяцев." },
+              { q: "Что если ребёнок пропустит урок в первый месяц?", a: "Если пропуск без медицинской справки — скидка 47 500 ₸ не активируется, второй месяц также будет 75 000 ₸. Если ребёнок заболел и есть справка от врача — пропуск не считается, скидка сохраняется. Это сделано, чтобы мотивировать ребёнка ходить регулярно — это главное условие успеха в обучении." },
+              { q: "Какие документы нужны для льготной цены?", a: "Любой из документов: удостоверение многодетной семьи, справка из ЦОН или Акимата о льготном статусе, справка об инвалидности (своей или ребёнка). Документ один раз показываете при оформлении — и получаете скидку 20% на первый месяц (60 000 ₸ вместо 75 000 ₸)." },
               { q: "С какого возраста можно учиться?", a: "Веб-разработка — с 12 лет, остальные курсы — с 13. Верхняя граница — 17–18 лет." },
               { q: "Что нужно для старта? Какой нужен компьютер?", a: "Любой компьютер не старше 5–7 лет — Windows, Mac или мощный Chromebook. Для геймдева на Unity нужно 8 ГБ RAM минимум." },
-              { q: "Как проходят занятия? Это записи или живые?", a: "Живые групповые уроки 2 раза в неделю по 90 минут в Zoom. Группы маленькие — до 8 человек." },
+              { q: "Как проходят занятия? Это записи или живые?", a: "Живые групповые уроки 2 раза в неделю по 90 минут в Discord. Группы маленькие — до 8 человек." },
               { q: "Безопасно ли это для ребёнка?", a: "Все преподаватели проходят отбор и подписывают договор о работе с детьми. На уроках всегда включена камера у всех." },
               { q: "А если ребёнок передумает?", a: "Первый месяц — пробный. Если в течение 14 дней решит, что не его — вернём деньги полностью, без вопросов." },
               { q: "Чем вы отличаетесь от Kodland и других школ?", a: "Главное: мы открыто учим работать с AI, а не делаем вид, что его нет. Второе: облегчённые задания через 48 часов. Третье: конкретный результат после каждого урока." },
