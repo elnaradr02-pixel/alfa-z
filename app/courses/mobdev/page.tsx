@@ -434,7 +434,7 @@ export default function MobileCoursePage() {
               { emoji: "📱", title: "ClassGram", subtitle: "Мини-Instagram для класса", desc: "Лента, фото с геометкой, лайки, комменты, push-уведомления. Ученик делится с одноклассниками — те регистрируются и пользуются. Виральная подростковая тема — родители видят как ребёнок становится автором приложения, которым пользуется его класс." },
               { emoji: "🎮", title: "Flappy Bird на Flame", subtitle: "Настоящая 2D игра в портфолио", desc: "На уроках M6 делаем клон Flappy Bird на движке Flame. Публикуем на itch.io — друзья играют, лидерборд. Редкая фича: ни у одной школы программирования для подростков нет реального геймдева в курсе мобильной разработки." },
               { emoji: "💰", title: "День X — реальный заработок", subtitle: "Урок 30: AdMob + Upwork + Kwork", desc: "Не теория «как зарабатывать», а реальные действия: интегрируем AdMob test-баннер в ClassGram, регистрируемся на Upwork с настоящим портфолио, создаём услугу на Kwork «Сделаю Flutter-приложение». Ребёнок выходит из урока с активными фрилансер-профилями." },
-              { emoji: "👤", title: "1-на-1 с разработчиком", subtitle: "30 минут персональной mentor-сессии", desc: "В M8 (урок 47) — 30-минутный Zoom 1-на-1 с действующим Mobile Developer из Kaspi.kz, inDriver, Halyk Bank или Яндекса. Персональный ревью резюме, LinkedIn и проектов. Это БОЛЬШАЯ ценность — обычно такие сессии стоят $50-100." },
+              { emoji: "👤", title: "1-на-1 с разработчиком", subtitle: "30 минут персональной mentor-сессии", desc: "В M8 (урок 47) — 30-минутный Discord-созвон 1-на-1 с действующим Mobile Developer из Kaspi.kz, inDriver, Halyk Bank или Яндекса. Персональный ревью резюме, LinkedIn и проектов. Это БОЛЬШАЯ ценность — обычно такие сессии стоят $50-100." },
             ].map((item, i) => (
               <motion.div key={i} variants={staggerItem} whileHover={{ y: -8 }} className="p-7 lg:p-8 rounded-2xl bg-gradient-to-br from-accent/8 via-accent-soft/8 to-transparent border-2 border-accent/20 hover:border-accent/40 hover:shadow-xl transition-all duration-300">
                 <div className="flex items-start gap-4 mb-4">
@@ -751,13 +751,17 @@ export default function MobileCoursePage() {
             <motion.div variants={staggerItem} className="p-7 lg:p-9 rounded-3xl bg-surface border-2 border-border hover:border-accent/30 transition-colors">
               <div className="text-5xl mb-4">💰</div>
               <h3 className="font-display text-2xl font-bold mb-2">Цена</h3>
-              <p className="font-display text-5xl lg:text-6xl font-bold text-accent leading-none mb-2 tabular-nums">47 500 <span className="text-2xl text-foreground/60">₸</span></p>
-              <p className="text-sm text-foreground/65 mb-5">в месяц · абонемент</p>
+              <div className="flex items-baseline gap-2 flex-wrap mb-2">
+                <span className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-none tabular-nums">75 000 ₸</span>
+                <span className="text-foreground/40 text-xl">→</span>
+                <span className="font-display text-3xl lg:text-4xl font-bold text-accent leading-none tabular-nums">47 500 ₸</span>
+              </div>
+              <p className="text-sm text-foreground/65 mb-5">Первый месяц · со 2-го месяца при посещении всех 8 уроков</p>
 
               <div className="space-y-2 text-sm text-foreground/70 mb-6">
-                <p className="flex gap-2"><span className="text-accent">✓</span> Помесячно — платите когда учитесь</p>
-                <p className="flex gap-2"><span className="text-accent">✓</span> Kaspi-рассрочка на 6 мес, 0% переплаты</p>
-                <p className="flex gap-2"><span className="text-accent">✓</span> Скидка 10% при оплате 6 мес сразу</p>
+                <p className="flex gap-2"><span className="text-accent">💛</span> Льготникам (многодетные, инвалиды) — 60 000 ₸ за первый месяц</p>
+                <p className="flex gap-2"><span className="text-accent">🔥</span> Kaspi-рассрочка 0% на 3 или 6 месяцев</p>
+                <p className="flex gap-2"><span className="text-accent">🔒</span> Цена 47 500 ₸ закрепляется до конца обучения</p>
               </div>
 
               <a href="/#pricing" className="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-hover transition-colors">
@@ -810,7 +814,7 @@ export default function MobileCoursePage() {
           </motion.button>
 
           <motion.p variants={fadeInUp} className="text-sm text-foreground/50 mt-6">
-            60 минут · в Zoom · менеджер свяжется в течение часа
+            60 минут · в Discord · менеджер свяжется в течение часа
           </motion.p>
         </div>
       </motion.section>
