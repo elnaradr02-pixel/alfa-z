@@ -753,15 +753,14 @@ export default function MobileCoursePage() {
               <h3 className="font-display text-2xl font-bold mb-2">Цена</h3>
               <div className="flex items-baseline gap-2 flex-wrap mb-2">
                 <span className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-none tabular-nums">75 000 ₸</span>
-                <span className="text-foreground/40 text-xl">→</span>
-                <span className="font-display text-3xl lg:text-4xl font-bold text-accent leading-none tabular-nums">47 500 ₸</span>
+                <span className="text-foreground/50 text-lg">/ месяц</span>
               </div>
-              <p className="text-sm text-foreground/65 mb-5">Первый месяц · со 2-го месяца при посещении всех 8 уроков</p>
+              <p className="text-sm text-foreground/65 mb-5">Одинаково весь период обучения · без скрытых доплат</p>
 
               <div className="space-y-2 text-sm text-foreground/70 mb-6">
-                <p className="flex gap-2"><span className="text-accent">💛</span> Льготникам (многодетные, инвалиды) — 60 000 ₸ за первый месяц</p>
+                <p className="flex gap-2"><span className="text-accent">💛</span> Льготникам (многодетные, инвалиды) — 60 000 ₸ в месяц</p>
                 <p className="flex gap-2"><span className="text-accent">🔥</span> Kaspi-рассрочка 0% на 3 или 6 месяцев</p>
-                <p className="flex gap-2"><span className="text-accent">🔒</span> Цена 47 500 ₸ закрепляется до конца обучения</p>
+                <p className="flex gap-2"><span className="text-accent">🔒</span> Цена фиксирована на весь курс</p>
               </div>
 
               <a href="/#pricing" className="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-hover transition-colors">

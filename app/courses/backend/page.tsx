@@ -588,10 +588,9 @@ export default function BackendCourse() {
             <div className="text-sm uppercase tracking-wider opacity-60 mb-3">Цена</div>
             <div className="flex items-baseline justify-center gap-3 flex-wrap mb-3">
               <span className="text-4xl lg:text-5xl font-bold">75 000 ₸</span>
-              <span className="text-white/40 text-2xl">→</span>
-              <span className="text-4xl lg:text-5xl font-bold text-[#FF6B47]">47 500 ₸</span>
+              <span className="text-white/50 text-2xl">/ месяц</span>
             </div>
-            <div className="text-white/60 text-sm">Первый месяц · со 2-го месяца при посещении всех 8 уроков</div>
+            <div className="text-white/60 text-sm">Одинаково весь период обучения · льготным категориям 60 000 ₸ · Kaspi-рассрочка 0%</div>
           </div>
 
           <div className="space-y-3 mb-8">
@@ -611,7 +610,7 @@ export default function BackendCourse() {
             <div className="p-4 bg-[#FF6B47]/15 rounded-xl border border-[#FF6B47]/30">
               <div className="text-sm opacity-80 mb-1">Льготникам −20%</div>
               <div className="text-xl font-bold">60 000 ₸</div>
-              <div className="text-xs opacity-60">первый месяц</div>
+              <div className="text-xs opacity-60">в месяц</div>
             </div>
             <div className="p-4 bg-white/5 rounded-xl border border-white/10">
               <div className="text-sm opacity-60 mb-1">Kaspi-рассрочка</div>

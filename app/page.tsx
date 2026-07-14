@@ -2,6 +2,17 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useInView, animate, useMotionValue, AnimatePresence } from "framer-motion";
+import dynamic from "next/dynamic";
+import { useDeviceCapabilities } from "./components/useDeviceCapabilities";
+import HeroHeadline from "./components/HeroHeadline";
+import TiltCard from "./components/TiltCard";
+import CourseVisual from "./components/CourseVisual";
+import Icon, { type IconName } from "./components/Icon";
+import HowWeTeach from "./components/HowWeTeach";
+import ReviewsCarousel from "./components/ReviewsCarousel";
+
+// three.js для hero едет отдельным чанком и только на клиенте (ssr:false).
+const HeroCanvas = dynamic(() => import("./components/HeroCanvas"), { ssr: false });
 
 // 🔢 Компонент анимированного счётчика
 function AnimatedCounter({ to, suffix = "" }) {
@@ -275,6 +286,7 @@ function ApplyModal({ open, onClose, defaultCourse = "" }) {
                     <label className="block text-sm font-semibold mb-1.5">Какой курс интересует?</label>
                     <select value={course} onChange={(e) => setCourse(e.target.value)} className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all">
                       <option value="">Выбрать на пробном уроке</option>
+                      <option value="Гарвардский курс CS50">🎓 Гарвардский курс CS50</option>
                       <option value="Мобильная разработка">📱 Мобильная разработка</option>
                       <option value="Геймдев на Unity">🎮 Геймдев на Unity</option>
                       <option value="Веб-разработка">🌐 Веб-разработка</option>
@@ -304,6 +316,7 @@ export default function Home() {
   const [applyOpen, setApplyOpen] = useState(false);
   const [defaultCourse, setDefaultCourse] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { canRender3D } = useDeviceCapabilities();
   const openApply = (course = "") => {
     setDefaultCourse(course);
     setApplyOpen(true);
@@ -467,6 +480,8 @@ export default function Home() {
         </motion.video>
         <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/85 via-black/60 to-black/20" />
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
+        {/* 🪐 Плавающие 3D-иконки направлений с параллаксом — только десктоп */}
+        {canRender3D && <HeroCanvas />}
         <motion.div style={{ y: heroContentY, opacity: heroContentOpacity }} className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-accent/15 backdrop-blur-md border border-accent/40 mb-7 animate-fade-in-up">
@@ -476,11 +491,9 @@ export default function Home() {
               </span>
               <span className="text-sm font-semibold text-white tracking-wide">Старт первого потока — 1 июля 2026</span>
             </div>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.05] tracking-tight mb-6 animate-fade-in-up delay-100">
-              Школа программирования <span className="text-accent">для подростков 12 – 17 лет</span>
-            </h1>
+            <HeroHeadline />
             <p className="text-lg sm:text-xl text-white/85 leading-relaxed mb-9 max-w-xl animate-fade-in-up delay-200">
-              Учим IT с нуля до уровня junior. Живые уроки с практикующими разработчиками. 4 направления: мобильная разработка, геймдев, фронтенд, бэкенд.
+              Учим IT с нуля до уровня junior. Живые уроки с практикующими разработчиками. 5 направлений: Гарвардский курс CS50, мобильная разработка, геймдев, фронтенд, бэкенд.
             </p>
             <div className="flex flex-wrap gap-3 sm:gap-4 mb-10 animate-fade-in-up delay-300">
               <button onClick={() => openApply()} className="inline-flex items-center gap-2 px-7 py-4 bg-accent hover:bg-accent-hover text-white rounded-full font-semibold hover:scale-[1.02] transition-all duration-300 shadow-2xl shadow-accent/40">
@@ -488,23 +501,26 @@ export default function Home() {
               </button>
               <a href="#courses" className="inline-flex items-center gap-2 px-7 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-full font-semibold hover:bg-white/20 transition-all duration-300">Программа курсов</a>
             </div>
-            <div className="flex items-center gap-4 animate-fade-in-up delay-400">
-              <div className="flex -space-x-2">
-                {["А", "М", "Д", "К", "Т"].map((letter, i) => (
-                  <div key={i} className="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-accent-soft border-2 border-white/90 flex items-center justify-center text-white font-bold text-sm shadow-lg">{letter}</div>
-                ))}
-              </div>
-              <div>
-                <div className="flex items-center gap-1.5"><div className="flex text-yellow-400 text-base">★★★★★</div><span className="text-white font-bold ml-1">4.9</span></div>
-                <p className="text-sm text-white/70 mt-0.5">500+ родителей рекомендуют</p>
-              </div>
+            <div className="flex flex-wrap gap-x-6 gap-y-3 animate-fade-in-up delay-400">
+              {[
+                { icon: "graduation" as IconName, text: "Программа Гарварда CS50" },
+                { icon: "code" as IconName, text: "Преподаватели-практики" },
+                { icon: "award" as IconName, text: "Вернём деньги за 14 дней" },
+              ].map((t) => (
+                <div key={t.text} className="flex items-center gap-2.5">
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 border border-white/15 text-accent"><Icon name={t.icon} className="h-4 w-4" /></span>
+                  <span className="text-sm font-medium text-white/85">{t.text}</span>
+                </div>
+              ))}
             </div>
           </div>
         </motion.div>
         <div className="absolute bottom-6 right-6 z-20 flex items-center gap-3 px-4 sm:px-5 py-2.5 sm:py-3 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-2xl animate-fade-in-up delay-500">
-          <div className="flex flex-col items-center"><span className="text-yellow-400 text-base leading-none">★</span><span className="text-white font-bold text-base sm:text-lg leading-tight mt-0.5">4.9</span></div>
-          <div className="w-px h-9 bg-white/30" />
-          <div><p className="text-white font-semibold text-xs sm:text-sm leading-tight">500+ учеников</p><p className="text-white/70 text-[10px] sm:text-xs mt-0.5">в Казахстане</p></div>
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full rounded-full bg-accent opacity-60 animate-ping" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
+          </span>
+          <div><p className="text-white font-semibold text-xs sm:text-sm leading-tight">Идёт набор в первый поток</p><p className="text-white/70 text-[10px] sm:text-xs mt-0.5">группы до 8 человек · старт 1 июля 2026</p></div>
         </div>
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-2 animate-fade-in-up delay-500">
           <span className="text-white/60 text-xs uppercase tracking-widest">Прокрутите вниз</span>
@@ -517,20 +533,20 @@ export default function Home() {
       <motion.section className="relative py-20 sm:py-24 bg-gradient-to-b from-background to-muted/20 border-t border-border" initial="hidden" whileInView="visible" viewport={scrollViewport} variants={staggerContainer}>
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
           <motion.div variants={fadeInUp} className="text-center mb-12 sm:mb-16 max-w-2xl mx-auto">
-            <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-3">В цифрах</p>
+            <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-3">Почему это серьёзно</p>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
-              Школа, в которой <span className="text-accent">учатся уже сегодня</span>
+              Не хобби-кружок, а <span className="text-accent">настоящая IT-программа</span>
             </h2>
           </motion.div>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
             {[
-              { value: 500, suffix: "+", label: "учеников в Казахстане", emoji: "👨‍🎓" },
-              { value: 4, suffix: "", label: "направления обучения", emoji: "🎯" },
-              { value: 48, suffix: "+", label: "уроков в каждом курсе", emoji: "📚" },
-              { value: 95, suffix: "%", label: "продолжают на 2-й курс", emoji: "🚀" },
+              { value: 5, suffix: "", label: "направлений — от Гарвардского CS50 до геймдева", icon: "target" as IconName },
+              { value: 49, suffix: "", label: "занятий в курсе CS50: C, Python, SQL, веб", icon: "graduation" as IconName },
+              { value: 8, suffix: "", label: "человек максимум в группе, не поток из 100", icon: "users" as IconName },
+              { value: 14, suffix: "", label: "дней на возврат денег — без вопросов", icon: "award" as IconName },
             ].map((stat, i) => (
               <motion.div key={i} variants={staggerItem} whileHover={{ y: -6, transition: { duration: 0.2 } }} className="p-6 sm:p-7 lg:p-8 rounded-2xl bg-surface border border-border text-center hover:border-accent/40 hover:shadow-xl transition-all duration-300">
-                <div className="text-3xl sm:text-4xl mb-3">{stat.emoji}</div>
+                <div className="mx-auto mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent"><Icon name={stat.icon} className="h-6 w-6" /></div>
                 <p className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-accent mb-2 leading-none tabular-nums">
                   <AnimatedCounter to={stat.value} suffix={stat.suffix} />
                 </p>
@@ -541,8 +557,9 @@ export default function Home() {
         </div>
       </motion.section>
 
-      <motion.section id="about" className="relative py-20 sm:py-28 border-t border-border" initial="hidden" whileInView="visible" viewport={scrollViewport} variants={staggerContainer}>
-        <div className="max-w-7xl mx-auto px-6 sm:px-8">
+      <motion.section id="about" className="relative py-20 sm:py-28 overflow-hidden bg-[#0F0F1A] text-[#F5E6D3]" initial="hidden" whileInView="visible" viewport={scrollViewport} variants={staggerContainer}>
+        <div className="pointer-events-none absolute -top-32 left-1/4 h-72 w-72 rounded-full bg-accent/15 blur-3xl" />
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-8">
           <motion.div variants={fadeInUp} className="max-w-2xl mb-14 sm:mb-20">
             <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-3">Почему Alfa Z</p>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
@@ -551,16 +568,24 @@ export default function Home() {
           </motion.div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { emoji: "🎯", title: "Живые уроки", desc: "Никаких бесконечных записей. Преподаватель видит каждого, отвечает на вопросы прямо на занятии." },
-              { emoji: "👨‍💻", title: "Преподаватели-практики", desc: "Не теоретики из университета — все работают в IT-компаниях прямо сейчас." },
-              { emoji: "🛠", title: "Реальные проекты", desc: "К концу обучения у ученика портфолио на GitHub, которое можно показать работодателю." },
-              { emoji: "🎓", title: "Помощь после", desc: "Сертификат, помощь с резюме и подготовка к первым стажировкам в IT." },
+              { icon: "video" as IconName, title: "Живые уроки", desc: "Никаких бесконечных записей. Преподаватель видит каждого, отвечает на вопросы прямо на занятии." },
+              { icon: "code" as IconName, title: "Преподаватели-практики", desc: "Не теоретики из университета — все работают в IT-компаниях прямо сейчас." },
+              { icon: "rocket" as IconName, title: "Реальные проекты", desc: "К концу обучения у ученика портфолио на GitHub, которое можно показать работодателю." },
+              { icon: "graduation" as IconName, title: "Помощь после", desc: "Сертификат, помощь с резюме и подготовка к первым стажировкам в IT." },
             ].map((card, i) => (
-              <motion.div key={i} variants={staggerItem} whileHover={{ y: -8, transition: { duration: 0.2 } }} className="group p-6 rounded-2xl bg-surface border border-border hover:border-accent/30 hover:shadow-xl hover:shadow-accent/5 transition-all duration-300">
-                <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">{card.emoji}</div>
-                <h3 className="font-display text-xl font-bold mb-2">{card.title}</h3>
-                <p className="text-sm text-foreground/60 leading-relaxed">{card.desc}</p>
-              </motion.div>
+              <TiltCard key={i} className="h-full" max={8} lift={8}>
+                <motion.div
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: (i % 4) * 0.06 }}
+                  className="group h-full p-6 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-accent/40 hover:bg-white/[0.07] transition-colors duration-300"
+                >
+                  <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/15 text-accent transition-transform duration-300 group-hover:scale-110"><Icon name={card.icon} className="h-6 w-6" /></div>
+                  <h3 className="font-display text-xl font-bold mb-2">{card.title}</h3>
+                  <p className="text-sm text-[#F5E6D3]/60 leading-relaxed">{card.desc}</p>
+                </motion.div>
+              </TiltCard>
             ))}
           </div>
         </div>
@@ -569,51 +594,118 @@ export default function Home() {
       <motion.section id="courses" className="relative py-20 sm:py-28 bg-muted/30 border-t border-border" initial="hidden" whileInView="visible" viewport={scrollViewport} variants={staggerContainer}>
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
           <motion.div variants={fadeInUp} className="max-w-2xl mb-14 sm:mb-20">
-            <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-3">4 направления</p>
+            <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-3">5 направлений</p>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
               Серьёзные программы. <span className="text-accent">Реальные результаты.</span>
             </h2>
-            <p className="text-lg text-foreground/70 mt-4 max-w-xl">48–52 урока. Живые занятия. Защита проекта в конце. Каждые 3 недели — новый сертификат.</p>
+            <p className="text-lg text-foreground/70 mt-4 max-w-xl">От первого проекта с помощью AI до фундамента Computer Science уровня Гарварда. Живые занятия, защита проекта, сертификаты каждые 3 недели.</p>
           </motion.div>
+
+          {/* 🎓 ФЛАГМАН — Гарвардский курс CS50 (тёмная премиум-панель) */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="relative mb-6 lg:mb-8 overflow-hidden rounded-3xl border border-white/10 bg-[#0F0F1A] text-[#F5E6D3] shadow-2xl"
+          >
+            {/* Свечения фона */}
+            <div className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-accent/25 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-24 left-1/3 h-64 w-64 rounded-full bg-[#A51C30]/25 blur-3xl" />
+            <div className="relative grid lg:grid-cols-2 gap-6 lg:gap-4 items-center p-7 sm:p-9 lg:p-10">
+              <div className="order-2 lg:order-1">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/15 border border-accent/30 mb-5">
+                  <span className="text-sm">🎓</span>
+                  <span className="text-xs font-bold text-accent uppercase tracking-widest">Флагман · Программа Гарварда</span>
+                </div>
+                <h3 className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold leading-[1.05] mb-3">
+                  Гарвардский курс <span className="text-accent">CS50</span>
+                </h3>
+                <p className="text-sm font-semibold text-accent/90 mb-4">Scratch → C → Python → SQL → веб → Flask</p>
+                <p className="text-[#F5E6D3]/75 leading-relaxed mb-6 max-w-lg">
+                  Легендарный вводный курс информатики Гарварда, адаптированный на русский. Настоящий фундамент Computer Science — от того, как устроена память компьютера, до полноценного веб-приложения на Flask.
+                </p>
+                <div className="grid grid-cols-3 gap-3 mb-6 max-w-md">
+                  {[
+                    { n: "49", l: "занятий" },
+                    { n: "11", l: "модулей" },
+                    { n: "7", l: "Problem Sets" },
+                  ].map((s) => (
+                    <div key={s.l} className="rounded-2xl bg-white/5 border border-white/10 px-3 py-3 text-center">
+                      <p className="font-display text-2xl sm:text-3xl font-bold text-accent leading-none tabular-nums">{s.n}</p>
+                      <p className="text-[11px] text-[#F5E6D3]/55 mt-1">{s.l}</p>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex items-start gap-2.5 rounded-xl bg-white/5 border border-white/10 px-4 py-3 mb-6 max-w-lg">
+                  <Icon name="award" className="h-5 w-5 flex-shrink-0 text-accent mt-0.5" />
+                  <div>
+                    <p className="text-[11px] font-semibold text-[#F5E6D3]/45 uppercase tracking-wider mb-0.5">В конце курса</p>
+                    <p className="text-sm font-semibold leading-snug">Портфолио уровня CS50 + фундамент, с которым легко даётся любой язык</p>
+                  </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-2.5">
+                  <button onClick={() => openApply("Гарвардский курс CS50")} className="cursor-target inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-accent hover:bg-accent-hover text-white rounded-xl font-semibold transition-all hover:scale-[1.02] shadow-lg shadow-accent/30">
+                    Записаться на CS50 <span>→</span>
+                  </button>
+                  <a href="#pricing" className="cursor-target inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white/10 hover:bg-white/15 border border-white/15 text-[#F5E6D3] rounded-xl font-semibold transition-all">
+                    Условия и цена
+                  </a>
+                </div>
+              </div>
+              <div className="order-1 lg:order-2">
+                <CourseVisual kind="harvard" emoji="🎓" stack={["Scratch", "C", "Python", "SQL", "Flask", "JavaScript"]} glow="#A51C30" />
+              </div>
+            </div>
+          </motion.div>
+
           <div className="grid md:grid-cols-2 gap-5 lg:gap-6">
             {[
-              { emoji: "📱", title: "Мобильная разработка", tagline: "FlutterFlow → Flutter → Firebase", desc: "Создаём приложения для Android и iOS. От квиза «Какой ты персонаж» до мини-Instagram для класса.", result: "Финал в Google Play + AdMob + профиль на Upwork", lessons: "48 уроков · 24 недели", age: "14–17 лет", certs: "14+ сертификатов", stack: ["Flutter", "Dart", "Firebase", "Flame", "Codemagic"], bgClass: "bg-gradient-to-br from-accent/15 via-accent-soft/10 to-transparent", coursePage: "/courses/mobdev" },
-              { emoji: "🎮", title: "Геймдев на Unity", tagline: "Unity 6 + C# + 2D", desc: "Делаем игры жанров Mario, Hollow Knight, Celeste. Финальная игра на 3 платформах.", result: "Игра на itch.io + Google Play + App Store", lessons: "50 уроков · 25 недель", age: "13–18 лет", certs: "5–8 игр в портфолио", stack: ["Unity 6", "C#", "Piskel", "Git"], bgClass: "bg-gradient-to-br from-accent-soft/20 via-muted/30 to-transparent", coursePage: "/courses/gamedev" },
-              { emoji: "🌐", title: "Веб-разработка", tagline: "HTML → CSS → JavaScript → React", desc: "Учимся делать современные сайты как профессионалы. От первого Hello, World до React-приложения.", result: "React-приложение в интернете + GitHub-портфолио", lessons: "48 уроков · 24 недели", age: "12–17 лет", certs: "6 сертификатов", stack: ["React", "TypeScript", "Tailwind", "Git"], bgClass: "bg-gradient-to-br from-foreground/[0.04] via-muted/40 to-transparent", coursePage: "/courses/web" },
-              { emoji: "⚙️", title: "Бэкенд на Python", tagline: "Python → SQL → Flask → Docker", desc: "«Мозги» сайтов и приложений. Создаём Telegram-бот, который работает 24/7, и боевой REST API.", result: "Telegram-бот 24/7 + REST API на Docker в интернете", lessons: "52 урока · 26 недель", age: "13–18 лет", certs: "5–7 проектов в портфолио", stack: ["Python", "Flask", "FastAPI", "SQL", "Docker"], bgClass: "bg-gradient-to-br from-muted/30 via-accent-soft/10 to-transparent", coursePage: "/courses/backend" },
+              { emoji: "📱", title: "Мобильная разработка", tagline: "FlutterFlow → Flutter → Firebase", desc: "Создаём приложения для Android и iOS. От квиза «Какой ты персонаж» до мини-Instagram для класса.", result: "Финал в Google Play + AdMob + профиль на Upwork", lessons: "48 уроков · 24 недели", age: "14–17 лет", certs: "14+ сертификатов", stack: ["Flutter", "Dart", "Firebase", "Flame", "Codemagic"], bgClass: "bg-gradient-to-br from-accent/15 via-accent-soft/10 to-transparent", coursePage: "/courses/mobdev", kind: "mobdev" as const, glow: "#FF6B47" },
+              { emoji: "🎮", title: "Геймдев на Unity", tagline: "Unity 6 + C# + 2D", desc: "Делаем игры жанров Mario, Hollow Knight, Celeste. Финальная игра на 3 платформах.", result: "Игра на itch.io + Google Play + App Store", lessons: "50 уроков · 25 недель", age: "13–18 лет", certs: "5–8 игр в портфолио", stack: ["Unity 6", "C#", "Piskel", "Git"], bgClass: "bg-gradient-to-br from-accent-soft/20 via-muted/30 to-transparent", coursePage: "/courses/gamedev", kind: "gamedev" as const, glow: "#FFB088" },
+              { emoji: "🌐", title: "Веб-разработка", tagline: "HTML → CSS → JavaScript → React", desc: "Учимся делать современные сайты как профессионалы. От первого Hello, World до React-приложения.", result: "React-приложение в интернете + GitHub-портфолио", lessons: "48 уроков · 24 недели", age: "12–17 лет", certs: "6 сертификатов", stack: ["React", "TypeScript", "Tailwind", "Git"], bgClass: "bg-gradient-to-br from-foreground/[0.04] via-muted/40 to-transparent", coursePage: "/courses/web", kind: "web" as const, glow: "#FF6B47" },
+              { emoji: "⚙️", title: "Бэкенд на Python", tagline: "Python → SQL → Flask → Docker", desc: "«Мозги» сайтов и приложений. Создаём Telegram-бот, который работает 24/7, и боевой REST API.", result: "Telegram-бот 24/7 + REST API на Docker в интернете", lessons: "52 урока · 26 недель", age: "13–18 лет", certs: "5–7 проектов в портфолио", stack: ["Python", "Flask", "FastAPI", "SQL", "Docker"], bgClass: "bg-gradient-to-br from-muted/30 via-accent-soft/10 to-transparent", coursePage: "/courses/backend", kind: "backend" as const, glow: "#FF6B47" },
             ].map((course, i) => (
-              <motion.div key={i} variants={staggerItem} whileHover={{ y: -8, transition: { duration: 0.2 } }} className={`group relative p-7 lg:p-8 rounded-2xl ${course.bgClass} border border-border hover:border-accent/40 hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col`}>
-                <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">{course.emoji}</div>
-                <h3 className="font-display text-2xl lg:text-3xl font-bold mb-1.5 leading-tight">{course.title}</h3>
-                <p className="text-sm font-medium text-accent mb-4">{course.tagline}</p>
-                <p className="text-foreground/70 leading-relaxed mb-5">{course.desc}</p>
-                <div className="inline-flex items-start gap-2 px-4 py-3 rounded-xl bg-surface border border-border mb-5">
-                  <span className="text-base flex-shrink-0">🏆</span>
-                  <div><p className="text-xs font-semibold text-foreground/50 uppercase tracking-wider mb-0.5">В конце курса</p><p className="text-sm font-semibold text-foreground leading-snug">{course.result}</p></div>
-                </div>
-                <div className="space-y-2 text-sm text-foreground/70 mb-5">
-                  <div className="flex items-center gap-2"><span className="w-5 flex-shrink-0">📅</span><span>{course.lessons}</span></div>
-                  <div className="flex items-center gap-2"><span className="w-5 flex-shrink-0">👤</span><span>{course.age}</span></div>
-                  <div className="flex items-center gap-2"><span className="w-5 flex-shrink-0">🏅</span><span>{course.certs}</span></div>
-                </div>
-                <div className="flex flex-wrap gap-1.5 mb-5">
-                  {course.stack.map((tech, idx) => (<span key={idx} className="px-2.5 py-1 rounded-md bg-foreground/5 text-xs font-medium text-foreground/70">{tech}</span>))}
-                </div>
-                <div className="mt-auto flex flex-col sm:flex-row gap-2">
-                  {course.coursePage ? (
-                    <a href={course.coursePage} className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-foreground hover:bg-foreground/85 text-surface rounded-xl font-semibold transition-all hover:scale-[1.01]">
-                      Подробнее <span>→</span>
-                    </a>
-                  ) : (
-                    <span className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-foreground/5 text-foreground/45 rounded-xl font-medium text-sm cursor-default">
-                      Страница — скоро
-                    </span>
-                  )}
-                  <button onClick={() => openApply(course.title)} className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-accent hover:bg-accent-hover text-white rounded-xl font-semibold transition-all hover:scale-[1.01] shadow-md shadow-accent/20">
-                    Записаться <span>→</span>
-                  </button>
-                </div>
-              </motion.div>
+              <TiltCard key={i} className="h-full" max={7} lift={10}>
+                <motion.div
+                  initial={{ opacity: 0, y: 34 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: (i % 2) * 0.08 }}
+                  className={`group relative h-full p-6 lg:p-7 rounded-2xl ${course.bgClass} border border-border hover:border-accent/40 hover:shadow-xl transition-colors duration-300 overflow-hidden flex flex-col`}
+                >
+                  {/* 🎬 3D-сцена направления + всплывающие бейджи технологий */}
+                  <div className="mb-5">
+                    <CourseVisual kind={course.kind} emoji={course.emoji} stack={course.stack} glow={course.glow} />
+                  </div>
+                  <h3 className="font-display text-2xl lg:text-3xl font-bold mb-1.5 leading-tight">{course.title}</h3>
+                  <p className="text-sm font-medium text-accent mb-4">{course.tagline}</p>
+                  <p className="text-foreground/70 leading-relaxed mb-5">{course.desc}</p>
+                  <div className="inline-flex items-start gap-2.5 px-4 py-3 rounded-xl bg-surface border border-border mb-5">
+                    <Icon name="award" className="h-5 w-5 flex-shrink-0 text-accent mt-0.5" />
+                    <div><p className="text-xs font-semibold text-foreground/50 uppercase tracking-wider mb-0.5">В конце курса</p><p className="text-sm font-semibold text-foreground leading-snug">{course.result}</p></div>
+                  </div>
+                  <div className="space-y-2 text-sm text-foreground/70 mb-5">
+                    <div className="flex items-center gap-2.5"><Icon name="book" className="h-4 w-4 flex-shrink-0 text-accent/70" /><span>{course.lessons}</span></div>
+                    <div className="flex items-center gap-2.5"><Icon name="users" className="h-4 w-4 flex-shrink-0 text-accent/70" /><span>{course.age}</span></div>
+                    <div className="flex items-center gap-2.5"><Icon name="graduation" className="h-4 w-4 flex-shrink-0 text-accent/70" /><span>{course.certs}</span></div>
+                  </div>
+                  <div className="mt-auto flex flex-col sm:flex-row gap-2">
+                    {course.coursePage ? (
+                      <a href={course.coursePage} className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-foreground hover:bg-foreground/85 text-surface rounded-xl font-semibold transition-all hover:scale-[1.01]">
+                        Подробнее <span>→</span>
+                      </a>
+                    ) : (
+                      <span className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-foreground/5 text-foreground/45 rounded-xl font-medium text-sm cursor-default">
+                        Страница — скоро
+                      </span>
+                    )}
+                    <button onClick={() => openApply(course.title)} className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 bg-accent hover:bg-accent-hover text-white rounded-xl font-semibold transition-all hover:scale-[1.01] shadow-md shadow-accent/20">
+                      Записаться <span>→</span>
+                    </button>
+                  </div>
+                </motion.div>
+              </TiltCard>
             ))}
           </div>
           <motion.div variants={fadeInUp} className="mt-12 sm:mt-16 text-center">
@@ -635,70 +727,65 @@ export default function Home() {
               Доступно. <span className="text-accent">Прозрачно. Честно.</span>
             </h2>
             <p className="text-lg text-foreground/70">
-              Первый месяц <span className="font-bold text-foreground">75 000 ₸</span>. Если ребёнок не пропустит ни одного урока — со 2-го месяца платите <span className="font-bold text-accent">47 500 ₸</span> до конца обучения.
+              Одна понятная цена — <span className="font-bold text-foreground">75 000 ₸ в месяц</span> за всё: живые уроки, куратор 24/7, проверка ДЗ и защита проекта. Для льготных категорий — <span className="font-bold text-accent">60 000 ₸</span> (−20%). Доступна Kaspi-рассрочка 0%.
             </p>
           </motion.div>
 
-          {/* 🎯 БОЛЬШАЯ ВИЗУАЛИЗАЦИЯ "БЫЛО → СТАЛО" */}
+          {/* 🎯 ОДНА ЦЕНА — ВСЁ ВКЛЮЧЕНО */}
           <motion.div variants={fadeInUp} className="max-w-4xl mx-auto mb-12 p-8 sm:p-10 lg:p-12 rounded-3xl bg-gradient-to-br from-accent/10 via-accent-soft/10 to-transparent border-2 border-accent/30">
-            <div className="text-center mb-6">
-              <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-2">Дисциплинарная скидка</p>
+            <div className="text-center mb-8">
+              <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-2">Честная цена</p>
               <h3 className="font-display text-2xl sm:text-3xl font-bold leading-tight">
-                Награждаем тех, <span className="text-accent">кто старается</span>
+                Одна цена. <span className="text-accent">Всё включено.</span>
               </h3>
             </div>
 
-            <div className="grid sm:grid-cols-[1fr_auto_1fr] gap-6 sm:gap-8 items-center">
-              {/* Первый месяц */}
-              <div className="text-center">
-                <p className="text-xs font-semibold text-foreground/50 uppercase tracking-wider mb-3">Первый месяц</p>
+            <div className="grid sm:grid-cols-2 gap-6 sm:gap-8 items-stretch">
+              {/* Стандарт */}
+              <div className="text-center rounded-2xl bg-surface/60 border border-border p-6">
+                <p className="text-xs font-semibold text-foreground/50 uppercase tracking-wider mb-3">Стандарт</p>
                 <p className="font-display text-5xl lg:text-6xl font-bold text-foreground leading-none mb-2 tabular-nums">75 000 <span className="text-2xl text-foreground/60">₸</span></p>
-                <p className="text-sm text-foreground/65 mt-2">Стандартная цена</p>
+                <p className="text-sm text-foreground/65 mt-2">в месяц, весь период обучения</p>
                 <p className="text-xs text-foreground/50 mt-1">8 уроков по 90 минут</p>
               </div>
 
-              {/* Стрелка — на мобиле вниз, на десктопе вправо */}
-              <div className="flex sm:flex-col items-center justify-center gap-2 py-2 sm:py-0">
-                <div className="text-4xl sm:text-5xl text-accent rotate-90 sm:rotate-0">→</div>
-                <p className="text-xs font-semibold text-accent uppercase tracking-wider whitespace-nowrap text-center">все 8<br />уроков</p>
-              </div>
-
-              {/* Со 2-го месяца */}
-              <div className="text-center">
-                <p className="text-xs font-semibold text-accent uppercase tracking-wider mb-3">Со 2-го месяца</p>
-                <p className="font-display text-5xl lg:text-6xl font-bold text-accent leading-none mb-2 tabular-nums">47 500 <span className="text-2xl text-accent/60">₸</span></p>
-                <p className="text-sm text-foreground/65 mt-2">Экономия <span className="font-bold">27 500 ₸</span></p>
-                <p className="text-xs text-foreground/50 mt-1">До конца обучения</p>
+              {/* Льготникам */}
+              <div className="relative text-center rounded-2xl bg-gradient-to-br from-accent/15 to-accent-soft/10 border-2 border-accent/40 p-6">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-accent text-white text-[11px] font-bold uppercase tracking-wider whitespace-nowrap shadow-lg">Льготная −20%</div>
+                <p className="text-xs font-semibold text-accent uppercase tracking-wider mb-3 mt-1">Льготным категориям</p>
+                <p className="font-display text-5xl lg:text-6xl font-bold text-accent leading-none mb-2 tabular-nums">60 000 <span className="text-2xl text-accent/60">₸</span></p>
+                <p className="text-sm text-foreground/65 mt-2">многодетным, при инвалидности и др.</p>
+                <p className="text-xs text-foreground/50 mt-1">по подтверждающему документу</p>
               </div>
             </div>
 
             <div className="mt-7 pt-6 border-t border-accent/20 grid sm:grid-cols-3 gap-3 text-sm">
               <div className="flex items-start gap-2">
                 <span className="text-accent text-base flex-shrink-0">✓</span>
-                <span className="text-foreground/75 leading-snug">Все 8 уроков 1-го месяца — скидка фиксируется</span>
+                <span className="text-foreground/75 leading-snug">Без скрытых платежей — цена фиксирована на весь курс</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="text-accent text-base flex-shrink-0">🏥</span>
-                <span className="text-foreground/75 leading-snug">Болезнь со справкой — не считается пропуском</span>
+                <span className="text-accent text-base flex-shrink-0">💳</span>
+                <span className="text-foreground/75 leading-snug">Kaspi-рассрочка 0% на 3 или 6 месяцев</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="text-accent text-base flex-shrink-0">🔒</span>
-                <span className="text-foreground/75 leading-snug">Цена 47 500 ₸ закрепляется на весь курс</span>
+                <span className="text-accent text-base flex-shrink-0">🔓</span>
+                <span className="text-foreground/75 leading-snug">Можно прекратить в любой момент, без штрафов</span>
               </div>
             </div>
           </motion.div>
 
-          {/* 🎁 3 ВАРИАНТА ОПЛАТЫ ПЕРВОГО МЕСЯЦА */}
+          {/* 🎁 3 ФОРМАТА ОПЛАТЫ */}
           <motion.div variants={fadeInUp} className="text-center mb-8">
-            <h3 className="font-display text-xl sm:text-2xl font-bold mb-2">3 варианта оплаты первого месяца</h3>
-            <p className="text-sm text-foreground/65">Выберите удобный для вас формат</p>
+            <h3 className="font-display text-xl sm:text-2xl font-bold mb-2">3 формата оплаты</h3>
+            <p className="text-sm text-foreground/65">Выберите удобный для вас</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-5 lg:gap-6 mb-14">
             {[
-              { emoji: "📅", badge: null, title: "Стандарт", subtitle: "Базовая цена", price: "75 000", priceUnit: "₸ — первый месяц", priceFooter: "со 2-го месяца: 47 500 ₸", description: "Платите за первый месяц стандартную цену. Если посетите все 8 уроков — со 2-го месяца цена 47 500 ₸.", features: ["Без обязательств на год", "Оплата картой или Kaspi", "Можно прекратить в любой момент"], ctaText: "Подходит для большинства", bgClass: "bg-surface border-border", highlight: false },
-              { emoji: "💛", badge: "Льготная цена −20%", title: "Льготникам", subtitle: "Многодетным, инвалидам и др.", price: "60 000", priceUnit: "₸ — первый месяц", priceFooter: "со 2-го месяца: 47 500 ₸", description: "Скидка 20% на первый месяц для семей с особым статусом. Со 2-го месяца — стандартная скидка 47 500 ₸.", features: ["Удостоверение многодетной", "Справка из ЦОН / Акимат", "Справка об инвалидности"], ctaText: "Социальная скидка", bgClass: "bg-gradient-to-br from-accent/10 via-accent-soft/10 to-transparent border-accent/40", highlight: true },
-              { emoji: "🔥", badge: "Популярно", title: "Kaspi-рассрочка", subtitle: "На 3 или 6 месяцев", price: "0%", priceUnit: "переплаты", priceFooter: "первый платёж: 75 000 / 60 000 ₸", description: "Любой тариф можно оформить через Kaspi-рассрочку 0% на 3 или 6 месяцев. Без справок, без поручителей.", features: ["Решение за 5 минут", "Без процентов", "Удобный график списаний"], ctaText: "Удобный способ", bgClass: "bg-surface border-border", highlight: false },
+              { emoji: "📅", badge: null, title: "Стандарт", subtitle: "Базовая цена", price: "75 000", priceUnit: "₸ / месяц", priceFooter: "одинаково весь период обучения", description: "Прозрачная фиксированная цена за всё: живые уроки, куратор, проверка ДЗ, защита проекта.", features: ["Без обязательств на год", "Оплата картой или Kaspi", "Можно прекратить в любой момент"], ctaText: "Подходит для большинства", bgClass: "bg-surface border-border", highlight: false },
+              { emoji: "💛", badge: "Льготная цена −20%", title: "Льготникам", subtitle: "Многодетным, инвалидам и др.", price: "60 000", priceUnit: "₸ / месяц", priceFooter: "весь период обучения", description: "Скидка 20% для семей с особым статусом — по подтверждающему документу, на весь период обучения.", features: ["Удостоверение многодетной", "Справка из ЦОН / Акимат", "Справка об инвалидности"], ctaText: "Социальная скидка", bgClass: "bg-gradient-to-br from-accent/10 via-accent-soft/10 to-transparent border-accent/40", highlight: true },
+              { emoji: "🔥", badge: "Популярно", title: "Kaspi-рассрочка", subtitle: "На 3 или 6 месяцев", price: "0%", priceUnit: "переплаты", priceFooter: "делим 75 000 / 60 000 ₸ на месяцы", description: "Любой тариф можно оформить через Kaspi-рассрочку 0% на 3 или 6 месяцев. Без справок, без поручителей.", features: ["Решение за 5 минут", "Без процентов", "Удобный график списаний"], ctaText: "Удобный способ", bgClass: "bg-surface border-border", highlight: false },
             ].map((plan, i) => (
               <motion.div key={i} variants={staggerItem} whileHover={{ y: -8, transition: { duration: 0.2 } }} className={`relative p-6 lg:p-8 rounded-2xl border-2 ${plan.bgClass} transition-all duration-300 hover:shadow-xl flex flex-col`}>
                 {plan.badge && (<div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg whitespace-nowrap ${plan.highlight ? 'bg-accent text-white' : 'bg-accent-soft text-foreground'}`}>{plan.badge}</div>)}
@@ -733,15 +820,15 @@ export default function Home() {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {[
-                { emoji: "🎓", title: "Живые групповые уроки", desc: "48–52 урока в Discord, по 90 минут, 2 раза в неделю. Группы до 8 человек." },
-                { emoji: "📝", title: "Домашние задания", desc: "С проверкой от преподавателя. Облегчённый уровень — если основной не получается." },
-                { emoji: "👩‍💻", title: "Куратор между уроками", desc: "Личный куратор отвечает в чате 24/7 на вопросы по ДЗ и проектам." },
-                { emoji: "🏅", title: "Сертификаты каждые 3 недели", desc: "За каждый пройденный блок. 6–14 сертификатов за весь курс." },
-                { emoji: "🚀", title: "Защита проекта", desc: "В конце курса — реальный проект (приложение/игра/сайт/бот) в портфолио." },
-                { emoji: "💼", title: "Помощь с резюме", desc: "Помогаем составить первое CV, GitHub-профиль и подготовиться к стажировкам." },
+                { icon: "users" as IconName, title: "Живые групповые уроки", desc: "48–52 урока в Discord, по 90 минут, 2 раза в неделю. Группы до 8 человек." },
+                { icon: "clipboard" as IconName, title: "Домашние задания", desc: "С проверкой от преподавателя. Облегчённый уровень — если основной не получается." },
+                { icon: "message" as IconName, title: "Куратор между уроками", desc: "Личный куратор отвечает в чате 24/7 на вопросы по ДЗ и проектам." },
+                { icon: "award" as IconName, title: "Сертификаты каждые 3 недели", desc: "За каждый пройденный блок. 6–14 сертификатов за весь курс." },
+                { icon: "presentation" as IconName, title: "Защита проекта", desc: "В конце курса — реальный проект (приложение/игра/сайт/бот) в портфолио." },
+                { icon: "file" as IconName, title: "Помощь с резюме", desc: "Помогаем составить первое CV, GitHub-профиль и подготовиться к стажировкам." },
               ].map((item, i) => (
                 <div key={i} className="flex gap-4">
-                  <div className="text-3xl flex-shrink-0">{item.emoji}</div>
+                  <div className="flex-shrink-0 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 text-accent"><Icon name={item.icon} className="h-5 w-5" /></div>
                   <div>
                     <h4 className="font-display font-bold text-base mb-1">{item.title}</h4>
                     <p className="text-sm text-foreground/65 leading-relaxed">{item.desc}</p>
@@ -775,7 +862,7 @@ export default function Home() {
               1 июля 2026 — <span className="text-accent">старт первого потока</span>
             </h2>
             <p className="text-lg text-foreground/70">
-              Все 4 направления стартуют одновременно. Занятия 2 раза в неделю в 20:00 — выбираете удобный график.
+              Все 5 направлений стартуют одновременно. Занятия 2 раза в неделю в 20:00 — выбираете удобный график.
             </p>
           </motion.div>
 
@@ -803,6 +890,7 @@ export default function Home() {
           {/* Карточки курсов */}
           <div className="grid md:grid-cols-2 gap-5 lg:gap-6">
             {[
+              { course: "Гарвардский курс CS50", emoji: "🎓", color: "from-accent/10", days: "Вт + Чт", age: "14–18 лет", seatsLeft: 4, totalSeats: 8 },
               { course: "Веб-разработка", emoji: "🌐", color: "from-foreground/5", days: "Вт + Чт", age: "12–17 лет", seatsLeft: 3, totalSeats: 8 },
               { course: "Мобильная разработка", emoji: "📱", color: "from-accent/10", days: "Ср + Пт", age: "14–17 лет", seatsLeft: 5, totalSeats: 8 },
               { course: "Геймдев на Unity", emoji: "🎮", color: "from-accent-soft/15", days: "Вт + Чт", age: "13–18 лет", seatsLeft: 2, totalSeats: 8 },
@@ -865,67 +953,19 @@ export default function Home() {
         </div>
       </motion.section>
 
-      <section className="relative py-20 sm:py-28 border-t border-border">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8">
+      <section className="relative py-20 sm:py-28 bg-[#0F0F1A] text-[#F5E6D3]">
+        {/* Клип свечения — сиблинг, не предок sticky-элемента (иначе sticky ломается) */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/3 -right-24 h-80 w-80 rounded-full bg-accent/15 blur-3xl" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-8">
           <motion.div initial="hidden" whileInView="visible" viewport={scrollViewport} variants={fadeInUp} className="max-w-2xl mb-16 sm:mb-24">
             <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-3">Как мы учим</p>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
               Три принципа, которые <span className="text-accent">отличают Alfa Z</span>
             </h2>
           </motion.div>
-          <div className="space-y-20 sm:space-y-28">
-            {[
-              { number: "01", emoji: "🤖", title: "AI как инструмент. Не как замена", lead: "Мы не делаем вид, что ChatGPT не существует. Учим работать с ним правильно.", points: [
-                { label: "Этап 1 — vibe-coding", text: "Ученик за 3 недели получает рабочий результат с помощью AI. Видит вау-эффект, влюбляется в IT." },
-                { label: "Этап 2 — отбираем AI", text: "Учим читать чужой код, объяснять ошибки, рефакторить. AI помогает понять, а не пишет за ученика." },
-                { label: "Защита — без AI", text: "На итоговой защите ученик работает один. Всё, что показывает — его. Так же на реальных собеседованиях." },
-              ]},
-              { number: "02", emoji: "🪜", title: "Никто не застревает на уроке", lead: "У каждого домашнего задания — два уровня. Если основной не получается, открывается облегчённый.", points: [
-                { label: "Уровень 1 — основной", text: "Полноценное задание без подсказок. Если ученик справился — двигаемся дальше." },
-                { label: "Уровень 2 — облегчённый", text: "Открывается через 48 часов или по запросу. Готовый шаблон кода (60-70%), подсказки с таймкодами видео." },
-                { label: "Главное — движение", text: "Ученик не сидит неделю на одной задаче. Освоил облегчённый — идёт дальше. Уровень 2 — не стыдно." },
-              ]},
-              { number: "03", emoji: "📱", title: "Результат для родителей — после каждого урока", lead: "Не «через полгода покажем сертификат». А уже сегодня — конкретный артефакт со ссылкой.", points: [
-                { label: "После урока про Telegram-бота", text: "Родитель пишет /start своему боту в Telegram и получает ответ. Бот реально работает 24/7." },
-                { label: "После урока про мобильное", text: "Родитель устанавливает APK на свой телефон и пользуется приложением, которое сделал ребёнок." },
-                { label: "Сертификат — каждые 3 недели", text: "За весь курс ученик получает 6–14 сертификатов (по одному за каждый блок). Виден прогресс, а не «всё в конце»." },
-              ]},
-            ].map((principle, i) => {
-              const isReversed = i % 2 === 1;
-              return (
-                <motion.div key={i} initial={{ opacity: 0, y: 60 }} whileInView={{ opacity: 1, y: 0 }} viewport={scrollViewport} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }} className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-                  <div className={isReversed ? "lg:order-2" : ""}>
-                    <div className="flex items-center gap-4 mb-5">
-                      <span className="font-display text-5xl font-bold text-accent/30">{principle.number}</span>
-                      <span className="text-4xl">{principle.emoji}</span>
-                    </div>
-                    <h3 className="font-display text-3xl sm:text-4xl font-bold leading-tight mb-4">{principle.title}</h3>
-                    <p className="text-lg text-foreground/70 leading-relaxed mb-8">{principle.lead}</p>
-                    <div className="space-y-5">
-                      {principle.points.map((p, idx) => (
-                        <div key={idx} className="flex gap-4">
-                          <div className="flex-shrink-0 w-1.5 h-1.5 rounded-full bg-accent mt-2.5" />
-                          <div>
-                            <p className="font-semibold text-foreground mb-1">{p.label}</p>
-                            <p className="text-sm text-foreground/70 leading-relaxed">{p.text}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className={`relative aspect-square max-w-md mx-auto w-full ${isReversed ? "lg:order-1" : ""}`}>
-                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-accent/40 via-accent-soft/30 to-muted/50 shadow-xl shadow-accent/20 rotate-3" />
-                    <div className="absolute inset-0 rounded-3xl bg-surface border border-border shadow-lg flex items-center justify-center -rotate-3">
-                      <div className="text-center p-8">
-                        <div className="text-8xl mb-3">{principle.emoji}</div>
-                        <p className="font-display text-7xl font-bold text-accent/20">{principle.number}</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
+          <HowWeTeach />
         </div>
       </section>
 
@@ -938,28 +978,37 @@ export default function Home() {
             </h2>
             <p className="text-lg text-foreground/70 mt-4 max-w-xl">Каждый преподаватель работает в IT-компании прямо сейчас. Не «выпускник универа», а человек, который пишет код каждый день за зарплату.</p>
           </motion.div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
             {[
-              { initials: "АК", name: "Алмас К.", role: "Mobile Developer", company: "Kaspi.kz", courses: "Мобильная разработка", experience: "5 лет в IT" },
-              { initials: "ДС", name: "Дина С.", role: "Senior Game Developer", company: "Playrix (Алматы)", courses: "Геймдев на Unity", experience: "7 лет в IT" },
-              { initials: "ТМ", name: "Тимур М.", role: "Frontend Engineer", company: "inDriver", courses: "Веб-разработка", experience: "4 года в IT" },
-              { initials: "АО", name: "Айгерим О.", role: "Backend Developer", company: "Halyk Bank Digital", courses: "Бэкенд на Python", experience: "6 лет в IT" },
+              { initials: "МБ", name: "Молдаханов Бектас", role: "Frontend-разработчик", courses: "Веб-разработка", tag: "Практикующий", secret: false },
+              { initials: "МА", name: "Мадениетова Арайлым", role: "Unity Game Developer", courses: "Геймдев на Unity", tag: "Практикующий", secret: false },
+              { initials: "ЭМ", name: "Эльнара М.", role: "AI assisted developer", courses: "Мобильная разработка · AI", tag: "Практикующий", secret: false },
+              { initials: "АК", name: "Айбат К.", role: "Backend-разработчик", courses: "Бэкенд на Python", tag: "Практикующий", secret: false },
+              { initials: "🔒", name: "Секретный сениор", role: "Senior Developer", courses: "Ведёт CS50 · раскроем на старте", tag: "Скоро", secret: true },
+              { initials: "🔒", name: "Секретный сениор", role: "Senior Developer", courses: "Ведёт CS50 · раскроем на старте", tag: "Скоро", secret: true },
             ].map((teacher, i) => (
-              <motion.div key={i} variants={staggerItem} whileHover={{ y: -8, transition: { duration: 0.2 } }} className="group p-6 rounded-2xl bg-surface border border-border hover:border-accent/30 hover:shadow-xl transition-all duration-300">
-                <div className="relative w-full aspect-square rounded-xl mb-5 overflow-hidden bg-gradient-to-br from-accent via-accent-soft to-muted flex items-center justify-center">
-                  <span className="font-display text-5xl font-bold text-white drop-shadow-lg">{teacher.initials}</span>
-                  <div className="absolute bottom-3 left-3 right-3 px-3 py-1.5 rounded-lg bg-surface/95 backdrop-blur-sm text-xs font-semibold text-foreground text-center">{teacher.company}</div>
-                </div>
-                <h3 className="font-display text-xl font-bold mb-1">{teacher.name}</h3>
-                <p className="text-sm text-accent font-semibold mb-3">{teacher.role}</p>
-                <div className="space-y-1.5 text-sm text-foreground/60">
-                  <p>📚 {teacher.courses}</p>
-                  <p>⭐ {teacher.experience}</p>
-                </div>
-              </motion.div>
+              <TiltCard key={i} className="h-full" max={6} lift={8}>
+                <motion.div
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], delay: (i % 3) * 0.06 }}
+                  className="group h-full p-6 rounded-2xl bg-surface border border-border hover:border-accent/30 hover:shadow-xl transition-colors duration-300"
+                >
+                  <div className={`relative w-full aspect-square rounded-xl mb-5 overflow-hidden flex items-center justify-center ${teacher.secret ? "bg-gradient-to-br from-[#2A2A35] to-[#0F0F1A]" : "bg-gradient-to-br from-accent via-accent-soft to-muted"}`}>
+                    <span className={`font-display font-bold drop-shadow-lg ${teacher.secret ? "text-6xl" : "text-5xl text-white"}`}>{teacher.initials}</span>
+                    <div className="absolute bottom-3 left-3 right-3 px-3 py-1.5 rounded-lg bg-surface/95 backdrop-blur-sm text-xs font-semibold text-foreground text-center">{teacher.tag}</div>
+                  </div>
+                  <h3 className="font-display text-xl font-bold mb-1">{teacher.name}</h3>
+                  <p className="text-sm text-accent font-semibold mb-3">{teacher.role}</p>
+                  <div className="space-y-1.5 text-sm text-foreground/60">
+                    <p>📚 {teacher.courses}</p>
+                  </div>
+                </motion.div>
+              </TiltCard>
             ))}
           </div>
-          <motion.p variants={fadeInUp} className="text-sm text-foreground/50 mt-12 max-w-xl">⚠️ Имена и компании в карточках — пример. Когда будут реальные фото и данные преподавателей, заменим за 2 минуты.</motion.p>
+          <motion.p variants={fadeInUp} className="text-sm text-foreground/50 mt-12 max-w-xl">🔒 Двух ведущих сениор-разработчиков мы раскроем на старте первого потока — они ведут продвинутые модули Гарвардского курса CS50.</motion.p>
         </div>
       </motion.section>
 
@@ -971,31 +1020,14 @@ export default function Home() {
               Что говорят <span className="text-accent">родители и ученики</span>
             </h2>
           </motion.div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {[
+          <ReviewsCarousel reviews={[
               { quote: "Сыну 13, был замкнутый, в школе сложно с математикой. За 4 месяца на курсе геймдева сделал свою игру в Steam-стиле, показывает всему классу. Поведение тоже изменилось — появилось «я могу».", author: "Гульнара Т.", role: "мама Айдара, 13 лет", course: "Геймдев", rating: 5, initials: "ГТ" },
               { quote: "Я учусь на веб-разработке. До Alfa Z пробовал YouTube — забросил через неделю. Тут другое: преподаватель видит, что я делаю, исправляет ошибки сразу. Уже сверстал портфолио для себя.", author: "Данияр К.", role: "ученик, 16 лет", course: "Веб-разработка", rating: 5, initials: "ДК" },
               { quote: "Долго выбирали школу. Решила Alfa Z — потому что подкупила честность: «мы не обещаем работу в Google». Дочери 15, делает мобильное приложение, скачали ей АРК — мы в семье им пользуемся.", author: "Айгуль М.", role: "мама Алии, 15 лет", course: "Мобильная разработка", rating: 5, initials: "АМ" },
               { quote: "Сначала переживала про онлайн-уроки в Discord — думала будет как школьная дистанционка. Совсем другое: маленькая группа, преподаватель помнит, что мой сын делал на прошлом уроке. Чувствуется внимание.", author: "Жанна С.", role: "мама Тимура, 14 лет", course: "Бэкенд", rating: 5, initials: "ЖС" },
               { quote: "Делаю Telegram-бота, который проверяет расписание автобусов. Реально полезная штука, и одноклассники просят добавить их школу. Препод не подсказывает в лоб — задаёт вопросы, чтобы я сам нашёл.", author: "Арман Ж.", role: "ученик, 15 лет", course: "Бэкенд", rating: 5, initials: "АЖ" },
               { quote: "Понравилось, что после каждого урока — ссылка на работающий результат. Не «через год покажем». Дочка горда, когда я открываю на своём телефоне её приложение. Раньше такого не было.", author: "Бахытжан Р.", role: "папа Камилы, 14 лет", course: "Мобильная разработка", rating: 5, initials: "БР" },
-            ].map((review, i) => (
-              <motion.div key={i} variants={staggerItem} whileHover={{ y: -6, transition: { duration: 0.2 } }} className="p-6 lg:p-7 rounded-2xl bg-surface border border-border hover:border-accent/30 hover:shadow-lg transition-all duration-300 flex flex-col">
-                <div className="flex gap-0.5 mb-4">
-                  {Array.from({ length: review.rating }).map((_, idx) => (<span key={idx} className="text-accent text-lg">★</span>))}
-                </div>
-                <p className="text-foreground/80 leading-relaxed mb-6 flex-grow">«{review.quote}»</p>
-                <div className="flex items-center gap-3 pt-5 border-t border-border">
-                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-accent to-accent-soft flex items-center justify-center text-white font-bold text-sm shadow-md">{review.initials}</div>
-                  <div className="flex-grow min-w-0">
-                    <p className="font-semibold text-foreground text-sm">{review.author}</p>
-                    <p className="text-xs text-foreground/55">{review.role}</p>
-                  </div>
-                  <span className="text-xs font-semibold text-accent px-2.5 py-1 rounded-full bg-accent/10 whitespace-nowrap">{review.course}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+            ]} />
           <motion.p variants={fadeInUp} className="text-sm text-foreground/50 mt-10 max-w-xl">⚠️ Отзывы выше — пример. Когда соберём реальные у выпускников первого потока, заменим.</motion.p>
         </div>
       </motion.section>
@@ -1011,10 +1043,11 @@ export default function Home() {
           </motion.div>
           <div className="space-y-3">
             {[
-              { q: "Когда стартует обучение?", a: "Первый поток школы стартует 1 июля 2026 года. Все 4 направления одновременно. Занятия в 20:00 по будням — Вт+Чт или Ср+Пт, на выбор. Если время не подходит — напишите, подберём удобный график." },
-              { q: "Сколько стоит обучение?", a: "Первый месяц — 75 000 ₸ (8 уроков по 90 минут). Если ребёнок посетит все 8 уроков первого месяца — со 2-го месяца цена снижается до 47 500 ₸ до конца обучения. Болезнь со справкой не считается пропуском. Для многодетных семей, родителей с инвалидностью и других льготных категорий — скидка 20% на первый месяц (60 000 ₸). Также доступна Kaspi-рассрочка 0% на 3 или 6 месяцев." },
-              { q: "Что если ребёнок пропустит урок в первый месяц?", a: "Если пропуск без медицинской справки — скидка 47 500 ₸ не активируется, второй месяц также будет 75 000 ₸. Если ребёнок заболел и есть справка от врача — пропуск не считается, скидка сохраняется. Это сделано, чтобы мотивировать ребёнка ходить регулярно — это главное условие успеха в обучении." },
-              { q: "Какие документы нужны для льготной цены?", a: "Любой из документов: удостоверение многодетной семьи, справка из ЦОН или Акимата о льготном статусе, справка об инвалидности (своей или ребёнка). Документ один раз показываете при оформлении — и получаете скидку 20% на первый месяц (60 000 ₸ вместо 75 000 ₸)." },
+              { q: "Когда стартует обучение?", a: "Первый поток школы стартует 1 июля 2026 года. Все 5 направлений одновременно. Занятия в 20:00 по будням — Вт+Чт или Ср+Пт, на выбор. Если время не подходит — напишите, подберём удобный график." },
+              { q: "Сколько стоит обучение?", a: "75 000 ₸ в месяц (8 уроков по 90 минут) — одинаково весь период обучения, без скрытых доплат. В цену входит всё: живые уроки, куратор 24/7, проверка ДЗ и защита проекта. Для многодетных семей, родителей с инвалидностью и других льготных категорий — 60 000 ₸ в месяц (−20%). Также доступна Kaspi-рассрочка 0% на 3 или 6 месяцев." },
+              { q: "Что за Гарвардский курс CS50?", a: "Это легендарный вводный курс информатики Гарвардского университета (CS50), адаптированный на русский язык: 49 занятий, 11 модулей, 7 Problem Sets. Программа ведёт от Scratch и языка C через алгоритмы, структуры данных и работу с памятью к Python, SQL и полноценному веб-приложению на Flask. Даёт настоящий фундамент Computer Science, с которым потом легко даётся любой язык и направление." },
+              { q: "Что если ребёнок заболел или пропустил урок?", a: "Все занятия проходят вживую в маленьких группах, но каждый урок доступен в записи — ребёнок сможет наверстать пропущенное. Куратор поможет догнать материал в чате, а домашнее задание можно сдать позже. Болезнь со справкой мы всегда идём навстречу." },
+              { q: "Какие документы нужны для льготной цены?", a: "Любой из документов: удостоверение многодетной семьи, справка из ЦОН или Акимата о льготном статусе, справка об инвалидности (своей или ребёнка). Документ один раз показываете при оформлении — и получаете цену 60 000 ₸ в месяц (вместо 75 000 ₸) на весь период обучения." },
               { q: "С какого возраста можно учиться?", a: "Веб-разработка — с 12 лет, остальные курсы — с 13. Верхняя граница — 17–18 лет." },
               { q: "Что нужно для старта? Какой нужен компьютер?", a: "Любой компьютер не старше 5–7 лет — Windows, Mac или мощный Chromebook. Для геймдева на Unity нужно 8 ГБ RAM минимум." },
               { q: "Как проходят занятия? Это записи или живые?", a: "Живые групповые уроки 2 раза в неделю по 90 минут в Discord. Группы маленькие — до 8 человек." },
@@ -1055,7 +1088,7 @@ export default function Home() {
                   <span className="text-accent">α</span>lfa <span className="text-accent">Z</span>
                 </span>
               </div>
-              <p className="text-surface/65 text-sm leading-relaxed mb-6">Школа программирования для подростков 12–17 лет. Живые уроки, реальные проекты, преподаватели из Kaspi, Halyk, inDriver.</p>
+              <p className="text-surface/65 text-sm leading-relaxed mb-6">Школа программирования для подростков 12–17 лет. Живые уроки с практикующими разработчиками, реальные проекты и программа на базе Гарвардского курса CS50.</p>
               <div className="flex gap-2">
                 <a href="https://wa.me/77001234567" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface/10 hover:bg-accent flex items-center justify-center transition-colors" aria-label="WhatsApp"><span className="text-lg">💬</span></a>
                 <a href="https://t.me/alfaz_school" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface/10 hover:bg-accent flex items-center justify-center transition-colors" aria-label="Telegram"><span className="text-lg">✈️</span></a>
@@ -1065,6 +1098,7 @@ export default function Home() {
             <div>
               <h4 className="font-display font-bold mb-4 text-surface">Курсы</h4>
               <ul className="space-y-2.5 text-sm">
+                <li><a href="/#courses" className="text-surface/60 hover:text-accent transition-colors">🎓 Гарвардский курс CS50</a></li>
                 <li><a href="/courses/mobdev" className="text-surface/60 hover:text-accent transition-colors">Мобильная разработка</a></li>
                 <li><a href="/courses/gamedev" className="text-surface/60 hover:text-accent transition-colors">Геймдев на Unity</a></li>
                 <li><a href="/courses/web" className="text-surface/60 hover:text-accent transition-colors">Веб-разработка</a></li>

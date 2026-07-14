@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Manrope } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+import CustomCursor from "./components/CustomCursor";
 
 // Шрифт для крупных заголовков
 const bricolage = Bricolage_Grotesque({
@@ -40,6 +41,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body className={`${bricolage.variable} ${manrope.variable} antialiased`}>
+        <CustomCursor />
         {children}
 
         {/* 💬 Jivo онлайн-консультант */}
