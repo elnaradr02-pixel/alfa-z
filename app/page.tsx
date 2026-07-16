@@ -759,7 +759,7 @@ async def check(update, ctx):
     else:
         await update.message.reply_text("Угадал!")` },
             ].map((course, i) => (
-              <TiltCard key={i} className="h-full" max={7} lift={10}>
+              <TiltCard key={i} className="h-full min-w-0" max={7} lift={10}>
                 <motion.div
                   initial={{ opacity: 0, y: 34 }}
                   whileInView={{ opacity: 1, y: 0 }}

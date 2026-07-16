@@ -78,9 +78,10 @@ export default function InteractiveCode({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const canHover = window.matchMedia("(hover: hover)").matches;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setEnabled(canHover && !reduced && total <= MAX_CHARS);
+    // Идёт на всех устройствах (в т.ч. тач): постоянная «струящаяся» волна + отталкивание
+    // от курсора/пальца. Тяжёлые кадры ограничены IntersectionObserver (см. ниже).
+    setEnabled(!reduced && total <= MAX_CHARS);
   }, [total]);
 
   useEffect(() => {
@@ -126,21 +127,25 @@ export default function InteractiveCode({
 
     pre.addEventListener("pointermove", onMove);
     pre.addEventListener("pointerleave", onLeave);
+    // Палец подняли/жест прервали — сбрасываем «толчок», иначе символы залипнут смещёнными.
+    pre.addEventListener("pointerup", onLeave);
+    pre.addEventListener("pointercancel", onLeave);
 
     const ro = new ResizeObserver(() => measure());
     ro.observe(pre);
 
     let raf = 0;
+    let running = false;
     const start = performance.now();
     const tick = (now: number) => {
       const t = now - start;
       for (let i = 0; i < n; i++) {
         const el = nodes[i];
         if (!el) continue;
-        // Постоянная волна вниз — «струящийся» дрейф.
-        let tx = Math.cos(t * 0.0012 + baseY[i] * 0.045) * 0.7;
-        let ty = Math.sin(baseY[i] * 0.05 - t * 0.004 + baseX[i] * 0.012) * 1.6;
-        // Отталкивание от курсора.
+        // Постоянная волна вниз — «струящийся» дрейф (виден и без курсора, в т.ч. на тач).
+        let tx = Math.cos(t * 0.0012 + baseY[i] * 0.045) * 1.1;
+        let ty = Math.sin(baseY[i] * 0.05 - t * 0.0042 + baseX[i] * 0.012) * 2.6;
+        // Отталкивание от курсора/пальца.
         if (active) {
           const dx = baseX[i] - px;
           const dy = baseY[i] - py;
@@ -159,13 +164,25 @@ export default function InteractiveCode({
       }
       raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
+
+    // Крутим кадры только когда терминал виден — экономит батарею и держит FPS
+    // при нескольких терминалах на странице (особенно на телефоне).
+    const start_loop = () => { if (!running) { running = true; measure(); raf = requestAnimationFrame(tick); } };
+    const stop_loop = () => { if (running) { running = false; cancelAnimationFrame(raf); raf = 0; } };
+    const io = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) start_loop(); else stop_loop(); },
+      { threshold: 0 },
+    );
+    io.observe(pre);
 
     return () => {
-      cancelAnimationFrame(raf);
+      stop_loop();
       pre.removeEventListener("pointermove", onMove);
       pre.removeEventListener("pointerleave", onLeave);
+      pre.removeEventListener("pointerup", onLeave);
+      pre.removeEventListener("pointercancel", onLeave);
       ro.disconnect();
+      io.disconnect();
     };
   }, [enabled, lines]);
 
