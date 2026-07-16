@@ -1215,7 +1215,7 @@ async def check(update, ctx):
           <motion.div variants={fadeInUp} className="max-w-2xl mx-auto text-center mb-14 sm:mb-16">
             <p className="font-mono text-xs font-bold text-accent uppercase tracking-widest mb-3">{tr("Отзывы", "Пікірлер", "Reviews")}</p>
             <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
-              {tr("Что говорят ", "Не дейді ", "What ")}<span className="text-accent">{tr("родители и ученики", "ата-аналар мен оқушылар", "parents and students say")}</span>
+              {tr("Что говорят ", "Alfa Z туралы ", "What ")}<span className="text-accent">{tr("родители и ученики", "ата-аналар мен оқушылар", "parents and students say")}</span>{tr("", " не дейді?", "")}
             </h2>
           </motion.div>
           <motion.div variants={fadeInUp} className="max-w-2xl mx-auto p-8 sm:p-10 rounded-3xl bg-surface border border-border">
