@@ -66,7 +66,11 @@ export default function InteractiveCode({
 }) {
   const preRef = useRef<HTMLPreElement>(null);
   const charRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  // enabled — тяжёлая per-char анимация (отталкивание от курсора). ТОЛЬКО десктоп:
+  // на тач-устройствах сотни анимируемых спанов рвут GPU-память телефона (белый экран).
   const [enabled, setEnabled] = useState(false);
+  // mobileDrift — лёгкая CSS-анимация всего блока (1 элемент) для «жизни» на мобилке.
+  const [mobileDrift, setMobileDrift] = useState(false);
 
   // Модель символов (плоский список для рефов + построчная разметка).
   const { lines, total } = useMemo(() => {
@@ -78,10 +82,11 @@ export default function InteractiveCode({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    const canHover = window.matchMedia("(hover: hover)").matches;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    // Идёт на всех устройствах (в т.ч. тач): постоянная «струящаяся» волна + отталкивание
-    // от курсора/пальца. Тяжёлые кадры ограничены IntersectionObserver (см. ниже).
-    setEnabled(!reduced && total <= MAX_CHARS);
+    // Десктоп (есть курсор) — богатая per-char анимация. Мобилка — только лёгкий CSS-дрейф.
+    setEnabled(canHover && !reduced && total <= MAX_CHARS);
+    setMobileDrift(!canHover && !reduced && total <= MAX_CHARS);
   }, [total]);
 
   useEffect(() => {
@@ -195,7 +200,7 @@ export default function InteractiveCode({
       ref={preRef}
       className={`m-0 overflow-hidden px-4 py-4 font-mono text-[11px] sm:text-xs leading-relaxed text-white/80 ${enabled ? "cursor-crosshair" : ""} ${className}`}
     >
-      <code>
+      <code className={mobileDrift ? "code-drift block" : undefined}>
         {lines.map((row, li) => (
           <span key={li} className="block whitespace-pre">
             {row.length === 0 ? (
@@ -209,7 +214,7 @@ export default function InteractiveCode({
                     <span
                       key={`${li}-${ti}-${at}`}
                       ref={enabled ? (el) => { charRefs.current[at] = el; } : undefined}
-                      className={`inline-block whitespace-pre will-change-transform ${CLASS_NAME[tok.cls]}`}
+                      className={`inline-block whitespace-pre ${CLASS_NAME[tok.cls]}`}
                     >
                       {ch}
                     </span>

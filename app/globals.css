@@ -153,6 +153,23 @@ body::after {
   animation: blinkCaret 1.1s step-end infinite;
 }
 
+/* Лёгкий «струящийся» дрейф кода на мобилке — анимируется ОДИН элемент (<code>),
+   а не сотни символов, поэтому не грузит GPU-память телефона (без белого экрана). */
+@keyframes codeDrift {
+  0%   { transform: translate3d(0, 0, 0); }
+  25%  { transform: translate3d(1px, -2px, 0); }
+  50%  { transform: translate3d(0, -3px, 0); }
+  75%  { transform: translate3d(-1px, -1px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+.code-drift {
+  animation: codeDrift 4s ease-in-out infinite;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .code-drift { animation: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-blink { animation: none; }
 }
