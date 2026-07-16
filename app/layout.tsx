@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Manrope } from "next/font/google";
+import { Bricolage_Grotesque, Manrope, Space_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import CustomCursor from "./components/CustomCursor";
+import { LanguageProvider } from "./i18n/lang";
 
 // Шрифт для крупных заголовков
 const bricolage = Bricolage_Grotesque({
@@ -18,6 +19,14 @@ const manrope = Manrope({
   subsets: ["latin", "cyrillic"],
   display: "swap",
   weight: ["400", "500", "600", "700"],
+});
+
+// Моноширинный акцент — код-токены, теги, terminal-окна (латиница)
+const spaceMono = Space_Mono({
+  variable: "--font-space-mono",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -39,16 +48,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru">
-      <body className={`${bricolage.variable} ${manrope.variable} antialiased`}>
-        <CustomCursor />
-        {children}
+    <html lang="kk">
+      <body className={`${bricolage.variable} ${manrope.variable} ${spaceMono.variable} antialiased`}>
+        <LanguageProvider>
+          <CustomCursor />
+          {children}
 
-        {/* 💬 Jivo онлайн-консультант */}
-        <Script
-          src="//code.jivo.ru/widget/tYX0zpB552"
-          strategy="afterInteractive"
-        />
+          {/* 💬 Jivo онлайн-консультант */}
+          <Script
+            src="//code.jivo.ru/widget/tYX0zpB552"
+            strategy="afterInteractive"
+          />
+        </LanguageProvider>
       </body>
     </html>
   );

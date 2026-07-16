@@ -5,27 +5,23 @@
    ═══════════════════════════════════════════════ */
 
 :root {
-  --background: #FFFBF5;
-  --foreground: #0F0F1A;
-  --surface: #FFFFFF;
-  --accent: #FF6B47;
-  --accent-hover: #E55A3A;
-  --accent-soft: #FFB088;
-  --muted: #F5E6D3;
-  --border: #E8DDD0;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0F0F1A;
-    --foreground: #F5E6D3;
-    --surface: #1A1A25;
-    --accent: #FF6B47;
-    --accent-hover: #FF8A66;
-    --accent-soft: #FFB088;
-    --muted: #2A2A35;
-    --border: #2A2A35;
-  }
+  /* ── Палитра «Полночный закат» — ТОЛЬКО 5 цветов ──
+     Графит #0F0F1A · Коралл #FF6B47 · Персик #FFB088 · Кремовый #FFFBF5 · Сёрфейс #FFF */
+  --background: #FFFBF5;     /* кремовый — фон сайта */
+  --foreground: #0F0F1A;     /* графит — текст, footer */
+  --surface: #FFFFFF;        /* сёрфейс — карточки */
+  --accent: #FF6B47;         /* коралл — CTA, основной акцент */
+  --accent-hover: #E85535;   /* коралл темнее — hover (произв. от коралла) */
+  --accent-soft: #FFB088;    /* персик — вторичный акцент, градиенты */
+  --accent-2: #FFB088;       /* персик (алиас) */
+  --accent-3: #FFB088;       /* персик (алиас) */
+  --muted: #FBF0E6;          /* подложка — кремовый с каплей персика */
+  --border: #EAE3D8;         /* граница — светлый тёплый нейтральный (произв. от графита) */
+  /* Тёмные секции/терминалы — только графит */
+  --ink-1: #0F0F1A;
+  --ink-2: #0F0F1A;
+  --ink-3: #0F0F1A;
+  --ink-fg: #FFFBF5;         /* кремовый текст на графите */
 }
 
 @theme inline {
@@ -35,10 +31,24 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
   --color-muted: var(--muted);
   --color-border: var(--border);
+  --color-ink-1: var(--ink-1);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-ink-fg: var(--ink-fg);
   --font-sans: var(--font-manrope);
   --font-display: var(--font-bricolage);
+  --font-mono: var(--font-space-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+}
+
+/* Тёмная секция/терминал: графит #0F0F1A + мягкое коралловое свечение сверху */
+.bg-midnight {
+  background:
+    radial-gradient(1200px 500px at 80% -10%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 60%),
+    #0F0F1A;
 }
 
 /* ═══════════════════════════════════════════════
@@ -119,6 +129,32 @@ body::after {
 
 .animate-soft-pulse {
   animation: softPulse 2.4s ease-in-out infinite;
+}
+
+/* Неоновое свечение при hover — отсылка к подсветке в редакторах кода.
+   Мягкий коралловый glow вместо плоского hover. */
+.glow-hover {
+  transition: box-shadow 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+}
+.glow-hover:hover {
+  box-shadow: 0 0 0 1px rgba(255, 107, 71, 0.35), 0 12px 44px -10px rgba(255, 107, 71, 0.5);
+}
+@media (prefers-reduced-motion: reduce) {
+  .glow-hover { transition: none; }
+}
+
+/* Мигающий текстовый курсор для terminal-элементов */
+@keyframes blinkCaret {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blinkCaret 1.1s step-end infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-blink { animation: none; }
 }
 
 /* ═══════════════════════════════════════════════

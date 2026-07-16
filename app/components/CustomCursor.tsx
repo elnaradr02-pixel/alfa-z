@@ -58,33 +58,43 @@ export default function CustomCursor() {
 
   if (!enabled) return null;
 
-  const ringScale = (hovering ? 1.6 : 1) * (pressed ? 0.82 : 1);
+  const reticleScale = (hovering ? 1.55 : 1) * (pressed ? 0.85 : 1);
 
   return (
     <div className="pointer-events-none fixed inset-0 z-[9999]" aria-hidden>
-      {/* Кольцо с инерцией — деликатное, не перетягивает внимание */}
-      <motion.div
-        className="absolute top-0 left-0 rounded-full border border-accent/70"
-        style={{
-          x: ringX,
-          y: ringY,
-          width: 28,
-          height: 28,
-          marginLeft: -14,
-          marginTop: -14,
-        }}
+      {/* Прицел-ретикл (crosshair) с пружинной инерцией — «терминальный» точный курсор */}
+      <motion.svg
+        className="absolute top-0 left-0 overflow-visible"
+        width={28}
+        height={28}
+        viewBox="0 0 28 28"
+        style={{ x: ringX, y: ringY, marginLeft: -14, marginTop: -14 }}
         animate={{
-          scale: ringScale,
-          opacity: visible ? (hovering ? 1 : 0.7) : 0,
-          backgroundColor: hovering ? "rgba(255,107,71,0.08)" : "rgba(255,107,71,0)",
+          scale: reticleScale,
+          rotate: hovering ? 45 : 0,
+          opacity: visible ? (hovering ? 1 : 0.75) : 0,
         }}
-        transition={{ scale: { type: "spring", stiffness: 260, damping: 20 }, opacity: { duration: 0.2 } }}
-      />
+        transition={{
+          scale: { type: "spring", stiffness: 280, damping: 20 },
+          rotate: { type: "spring", stiffness: 220, damping: 18 },
+          opacity: { duration: 0.2 },
+        }}
+        fill="none"
+        stroke="#FF6B47"
+        strokeWidth={1.5}
+        strokeLinecap="round"
+      >
+        {/* 4 «уголка» прицела вокруг центра */}
+        <path d="M4 9 V5 a1 1 0 0 1 1 -1 H9" />
+        <path d="M24 9 V5 a1 1 0 0 0 -1 -1 H19" />
+        <path d="M4 19 V23 a1 1 0 0 0 1 1 H9" />
+        <path d="M24 19 V23 a1 1 0 0 1 -1 1 H19" />
+      </motion.svg>
       {/* Точка-ядро — движется без задержки */}
       <motion.div
         className="absolute top-0 left-0 rounded-full bg-accent"
         style={{ x, y, width: 5, height: 5, marginLeft: -2.5, marginTop: -2.5 }}
-        animate={{ scale: hovering ? 0 : 1, opacity: visible ? 0.85 : 0 }}
+        animate={{ scale: hovering ? 1.6 : 1, opacity: visible ? 0.9 : 0 }}
         transition={{ duration: 0.18 }}
       />
     </div>
