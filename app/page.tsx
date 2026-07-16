@@ -512,7 +512,7 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <section ref={heroRef} className="relative h-screen min-h-[640px] max-h-[900px] flex items-center overflow-hidden">
+      <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-20 sm:pt-24 sm:pb-16 lg:py-24">
         <motion.video autoPlay loop muted playsInline poster="/hero-poster.jpg" style={{ y: videoY, scale: videoScale }} className="absolute inset-0 w-full h-full object-cover z-0">
           <source src="/hero-video.mp4" type="video/mp4" />
         </motion.video>
