@@ -10,6 +10,7 @@ import Icon, { type IconName } from "./components/Icon";
 import HowWeTeach from "./components/HowWeTeach";
 import LevelBadges from "./components/LevelBadges";
 import LangSwitcher from "./components/LangSwitcher";
+import LiveDemos from "./components/LiveDemos";
 import { useLang } from "./i18n/lang";
 
 // three.js для hero едет отдельным чанком и только на клиенте (ssr:false).
@@ -818,32 +819,13 @@ async def check(update, ctx):
               {tr("Что ты делаешь ", "Алғашқы сабақтарда ", "What you build ")}<span className="text-accent">{tr("уже на первых уроках", "не істейсің", "from the very first lessons")}</span>
             </h2>
             <p className="text-lg text-foreground/70 mt-4">
-              {tr("Не теория в тетради — интерактив с первого занятия. Вот реальные экраны из наших уроков: жмёшь кнопки, вводишь данные, видишь результат и код рядом.", "Дәптердегі теория емес — бірінші сабақтан интерактив. Міне, сабақтарымыздың нақты экрандары: батырмаларды басасың, дерек енгізесің, нәтиже мен кодты қатар көресің.", "Not theory in a notebook — hands-on from the first class. Here are real screens from our lessons: press buttons, enter data, see the result and the code side by side.")}
+              {tr("Не теория в тетради — интерактив с первого занятия. Ниже — живые симуляторы из наших уроков: выбери курс, жми кнопки, играй, вводи данные. Это не видео и не скриншоты — работает прямо здесь.", "Дәптердегі теория емес — бірінші сабақтан интерактив. Төменде — сабақтарымыздан тірі симуляторлар: курсты таңда, батырмаларды бас, ойна, дерек енгіз. Бұл видео да, скриншот та емес — дәл осы жерде жұмыс істейді.", "Not theory in a notebook — hands-on from the first class. Below are live simulators from our lessons: pick a course, press buttons, play, enter data. Not a video, not screenshots — it works right here.")}
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-            {[
-              { img: "backend-1.png", file: "bot_simulator.py", course: tr("Бэкенд на Python", "Python-дағы бэкенд", "Backend on Python"), desc: tr("Симулятор Telegram-бота — жмёшь /start, /help и бот отвечает, как настоящий.", "Telegram-бот симуляторы — /start, /help басасың, бот нағыздай жауап береді.", "A Telegram bot simulator — press /start, /help and the bot replies like a real one.") },
-              { img: "backend-4.png", file: "guess_game.py", course: tr("Бэкенд на Python", "Python-дағы бэкенд", "Backend on Python"), desc: tr("Игра «Угадай число» — условия и циклы if / elif / else вживую.", "«Санды тап» ойыны — if / elif / else шарттары мен циклдары тірідей.", "A 'Guess the number' game — if / elif / else conditions and loops in action.") },
-              { img: "harvard-1.png", file: "box.css", course: tr("Гарвардский курс CS50", "Гарвардтың CS50 курсы", "Harvard CS50"), desc: tr("Живой предпросмотр CSS: включаешь свойства — блок меняется на глазах.", "CSS-тің тірі алдын ала қарауы: қасиеттерді қосасың — блок көз алдыңда өзгереді.", "Live CSS preview: toggle properties and the block changes before your eyes.") },
-              { img: "mobile-1.png", file: "app_builder.dart", course: tr("Мобильная разработка", "Мобильді әзірлеу", "Mobile development"), desc: tr("Как одна фраза превращается в рабочее приложение — квиз за 10 минут.", "Бір сөйлем қалай жұмыс істейтін қосымшаға айналады — 10 минутта квиз.", "How one phrase becomes a working app — a quiz in 10 minutes.") },
-              { img: "mobile-3.png", file: "scaffold.dart", course: tr("Мобильная разработка", "Мобильді әзірлеу", "Mobile development"), desc: tr("Конструктор экрана Flutter: заполняешь поля — собирается код Scaffold.", "Flutter экран конструкторы: өрістерді толтырасың — Scaffold коды жиналады.", "A Flutter screen builder: fill in fields and the Scaffold code assembles.") },
-              { img: "backend-3.png", file: "custom_bot.py", course: tr("Бэкенд на Python", "Python-дағы бэкенд", "Backend on Python"), desc: tr("Свой бот с логикой if/else: режимы кнопок, шутки, советы, «о боте».", "if/else логикасы бар өз ботың: батырма режимдері, әзілдер, кеңестер, «бот туралы».", "Your own bot with if/else logic: button modes, jokes, tips, 'about the bot'.") },
-            ].map((ex, i) => (
-              <motion.div key={ex.img} variants={staggerItem} className="flex flex-col">
-                <CodeWindow
-                  title={ex.file}
-                  image={`/assets/screenshots/${ex.img}`}
-                  imageAlt={ex.desc}
-                  imageFit="contain"
-                  stack={[ex.course]}
-                  className="glow-hover"
-                />
-                <p className="mt-3.5 text-sm text-foreground/70 leading-relaxed">{ex.desc}</p>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div variants={fadeInUp}>
+            <LiveDemos />
+          </motion.div>
         </div>
       </motion.section>
 
