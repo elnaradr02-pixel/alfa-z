@@ -4,6 +4,8 @@ import Script from "next/script";
 import "./globals.css";
 import CustomCursor from "./components/CustomCursor";
 import { LanguageProvider } from "./i18n/lang";
+import JsonLd from "./components/JsonLd";
+import { organizationLd, websiteLd } from "./lib/structured-data";
 
 // Шрифт для крупных заголовков
 const bricolage = Bricolage_Grotesque({
@@ -29,17 +31,59 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
+const SITE_URL = "https://alfa-z.kz";
+
 export const metadata: Metadata = {
-  title: "Alfa Z — Школа программирования для подростков",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Alfa Z — Школа программирования для подростков 12–17 лет",
+    template: "%s — Alfa Z",
+  },
   description:
-    "Онлайн-школа Alfa Z учит подростков IT-профессиям: мобильная разработка, геймдев, фронтенд, бэкенд. Живые уроки с практикующими преподавателями. Казахстан и СНГ.",
+    "Онлайн-школа Alfa Z: подростки 12–17 лет учатся IT с нуля до junior. Живые занятия с ментором, программа на базе Гарвардского CS50, мобильная разработка, геймдев, фронтенд, бэкенд. Единая цена 47 500 ₸/мес.",
+  applicationName: "Alfa Z",
+  category: "education",
   keywords: [
     "школа программирования",
     "программирование для подростков",
-    "IT-курсы Казахстан",
+    "IT-курсы для детей",
+    "курсы программирования Астана",
+    "курсы программирования Казахстан",
+    "обучение программированию онлайн",
+    "CS50 на русском",
+    "Python для подростков",
+    "мобильная разработка Flutter",
+    "геймдев Unity для детей",
+    "веб-разработка React",
     "Alfa Z",
-    "онлайн-обучение",
+    "бағдарламалау мектебі",
+    "балаларға арналған IT курстары",
   ],
+  authors: [{ name: "Alfa Z" }],
+  creator: "Alfa Z",
+  publisher: "ТОО «Alfa Z»",
+  alternates: { canonical: "/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    alternateLocale: ["kk_KZ", "en_US"],
+    url: SITE_URL,
+    siteName: "Alfa Z",
+    title: "Alfa Z — Школа программирования для подростков 12–17 лет",
+    description:
+      "IT с нуля до junior для подростков 12–17 лет. Живые занятия с ментором, программа на базе Гарвардского CS50, реальные проекты в портфолио.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Alfa Z — Школа программирования для подростков",
+    description:
+      "IT с нуля до junior для подростков 12–17 лет. Живые занятия с ментором, программа на базе CS50, реальные проекты.",
+  },
 };
 
 export default function RootLayout({
@@ -50,6 +94,7 @@ export default function RootLayout({
   return (
     <html lang="kk">
       <body className={`${bricolage.variable} ${manrope.variable} ${spaceMono.variable} antialiased`}>
+        <JsonLd data={[organizationLd, websiteLd]} />
         <LanguageProvider>
           <CustomCursor />
           {children}

@@ -11,6 +11,8 @@ import HowWeTeach from "./components/HowWeTeach";
 import LevelBadges from "./components/LevelBadges";
 import LangSwitcher from "./components/LangSwitcher";
 import LiveDemos from "./components/LiveDemos";
+import JsonLd from "./components/JsonLd";
+import { faqLd } from "./lib/structured-data";
 import { useLang } from "./i18n/lang";
 
 // three.js для hero едет отдельным чанком и только на клиенте (ssr:false).
@@ -369,6 +371,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background">
+      <JsonLd data={faqLd} />
       <ApplyModal open={applyOpen} onClose={() => setApplyOpen(false)} defaultCourse={defaultCourse} />
       <motion.div className="fixed top-0 left-0 right-0 h-[3px] bg-accent origin-left z-[60]" style={{ scaleX: scrollYProgress }} />
       <FloatingMessengers />
