@@ -5,6 +5,13 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Чистые URL для статических юр-документов из public/.
+  async rewrites() {
+    return [
+      { source: "/oferta", destination: "/oferta.html" },
+      { source: "/policy", destination: "/policy.html" },
+    ];
+  },
 };
 
 export default nextConfig;

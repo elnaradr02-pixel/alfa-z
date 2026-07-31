@@ -135,7 +135,7 @@ function FloatingMessengers() {
     pulse: boolean;
     icon: React.ReactNode;
   }> = [
-    { name: "WhatsApp", tooltip: "Написать в WhatsApp", href: "https://wa.me/77001234567", bg: "bg-[#25D366]", pulse: true,
+    { name: "WhatsApp", tooltip: "Написать в WhatsApp", href: "https://wa.me/77007240353", bg: "bg-[#25D366]", pulse: true,
       icon: (<svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>) },
     { name: "Telegram", tooltip: "Написать в Telegram", href: "https://t.me/alfaz_school", bg: "bg-[#229ED9]", pulse: false,
       icon: (<svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>) },
@@ -259,7 +259,7 @@ function ApplyModal({ open, onClose, defaultCourse = "" }) {
     lines.push(`Телефон: ${phone}`);
     if (course) lines.push(`Курс: ${course}`);
     const message = encodeURIComponent(lines.join("\n"));
-    window.open(`https://wa.me/77001234567?text=${message}`, "_blank");
+    window.open(`https://wa.me/77007240353?text=${message}`, "_blank");
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
@@ -483,11 +483,11 @@ export default function Home() {
 
                 {/* Контакты */}
                 <div className="mt-6 pt-6 border-t border-border space-y-3">
-                  <a href="https://wa.me/77001234567" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 py-3 px-4 rounded-2xl hover:bg-muted transition-colors">
+                  <a href="https://wa.me/77007240353" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 py-3 px-4 rounded-2xl hover:bg-muted transition-colors">
                     <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
                       <Icon name="phone" className="h-5 w-5" />
                     </span>
-                    <span className="text-sm font-medium">+7 (700) 123-45-67</span>
+                    <span className="text-sm font-medium">+7 (700) 724-03-53</span>
                   </a>
                   <a href="mailto:hello@alfa-z.kz" className="flex items-center gap-3 py-3 px-4 rounded-2xl hover:bg-muted transition-colors">
                     <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
@@ -561,7 +561,7 @@ export default function Home() {
             <span className="absolute inline-flex h-full w-full rounded-full bg-accent opacity-60 animate-ping" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-accent" />
           </span>
-          <div><p className="text-white font-semibold text-xs sm:text-sm leading-tight">{tr("Идёт набор в группы", "Топтарға қабылдау жүріп жатыр", "Enrolling now")}</p><p className="text-white/70 text-[10px] sm:text-xs mt-0.5">{tr("группы до 8 человек · места ограничены", "топтар 8 адамға дейін · орын шектеулі", "groups up to 8 · limited seats")}</p></div>
+          <div><p className="text-white font-semibold text-xs sm:text-sm leading-tight">{tr("Идёт набор", "Қабылдау жүріп жатыр", "Enrolling now")}</p><p className="text-white/70 text-[10px] sm:text-xs mt-0.5">{tr("старт сразу после оплаты · малые группы", "төлемнен кейін бірден старт · шағын топтар", "start right after payment · small groups")}</p></div>
         </div>
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-2 animate-fade-in-up delay-500">
           <span className="text-white/60 text-xs uppercase tracking-widest">{tr("Прокрутите вниз", "Төмен айналдырыңыз", "Scroll down")}</span>
@@ -644,78 +644,16 @@ export default function Home() {
             <p className="text-lg text-ink-fg/70 mt-4 max-w-xl">{tr("От первого проекта с помощью AI до фундамента Computer Science уровня Гарварда. Живые занятия, защита проекта, сертификаты каждые 3 недели.", "AI көмегімен алғашқы жобадан Гарвард деңгейіндегі Computer Science іргетасына дейін. Тікелей сабақтар, жоба қорғау, әр 3 апта сайын сертификат.", "From your first AI-assisted project to Harvard-level Computer Science fundamentals. Live classes, project defense, certificates every 3 weeks.")}</p>
           </motion.div>
 
-          {/* 🎓 ФЛАГМАН — Гарвардский курс CS50 (тёмная премиум-панель) */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mb-6 lg:mb-8 overflow-hidden rounded-3xl border border-white/12 bg-[#0F0F1A]/55 text-ink-fg shadow-2xl backdrop-blur-sm"
-          >
-            {/* Свечения фона */}
-            <div className="pointer-events-none absolute -top-24 -right-16 h-72 w-72 rounded-full bg-accent-soft/25 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-24 left-1/3 h-64 w-64 rounded-full bg-accent-3/25 blur-3xl" />
-            <div className="relative grid lg:grid-cols-2 gap-6 lg:gap-4 items-center p-7 sm:p-9 lg:p-10">
-              <div className="order-2 lg:order-1">
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/15 border border-accent/30 mb-5">
-                  <span className="text-sm">🎓</span>
-                  <span className="text-xs font-bold text-accent uppercase tracking-widest">{tr("Флагман · Программа Гарварда", "Флагман · Гарвард бағдарламасы", "Flagship · Harvard program")}</span>
-                </div>
-                <h3 className="font-display text-3xl sm:text-4xl lg:text-[2.75rem] font-bold leading-[1.05] mb-3">
-                  {tr("Гарвардский курс ", "Гарвардтың ", "Harvard ")}<span className="text-accent">CS50</span>{tr("", " курсы", " course")}
-                </h3>
-                <p className="text-sm font-semibold text-accent/90 mb-4">Scratch → C → Python → SQL → {tr("веб", "веб", "web")} → Flask</p>
-                <p className="text-[#FFFBF5]/75 leading-relaxed mb-6 max-w-lg">
-                  {tr("Легендарный вводный курс информатики Гарварда, адаптированный на русский. Настоящий фундамент Computer Science — от того, как устроена память компьютера, до полноценного веб-приложения на Flask.", "Гарвардтың информатика бойынша аңызға айналған кіріспе курсы. Computer Science-тің нағыз іргетасы — компьютер жады қалай жұмыс істейтінінен бастап Flask-тегі толыққанды веб-қосымшаға дейін.", "Harvard's legendary intro to computer science. A real Computer Science foundation — from how computer memory works to a full web app on Flask.")}
-                </p>
-                <div className="grid grid-cols-3 gap-3 mb-6 max-w-md">
-                  {[
-                    { n: "49", l: tr("занятий", "сабақ", "lessons") },
-                    { n: "11", l: tr("модулей", "модуль", "modules") },
-                    { n: "7", l: "Problem Sets" },
-                  ].map((s) => (
-                    <div key={s.l} className="rounded-2xl bg-white/5 border border-white/10 px-3 py-3 text-center">
-                      <p className="font-display text-2xl sm:text-3xl font-bold text-accent leading-none tabular-nums">{s.n}</p>
-                      <p className="text-[11px] text-[#FFFBF5]/55 mt-1">{s.l}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="flex items-start gap-2.5 rounded-xl bg-white/5 border border-white/10 px-4 py-3 mb-6 max-w-lg">
-                  <Icon name="award" className="h-5 w-5 flex-shrink-0 text-accent mt-0.5" />
-                  <div>
-                    <p className="text-[11px] font-semibold text-[#FFFBF5]/45 uppercase tracking-wider mb-0.5">{tr("В конце курса", "Курс соңында", "By the end")}</p>
-                    <p className="text-sm font-semibold leading-snug">{tr("Портфолио уровня CS50 + фундамент, с которым легко даётся любой язык", "CS50 деңгейіндегі портфолио + кез келген тіл оңай меңгерілетін іргетас", "A CS50-level portfolio + a foundation that makes any language easy")}</p>
-                  </div>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-2.5">
-                  <button onClick={() => openApply("Гарвардский курс CS50")} className="cursor-target inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-accent hover:bg-accent-hover text-white rounded-xl font-semibold transition-all hover:scale-[1.02] shadow-lg shadow-accent/30">
-                    {tr("Записаться на CS50", "CS50-ге жазылу", "Enroll in CS50")} <span>→</span>
-                  </button>
-                  <a href="#pricing" className="cursor-target inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white/10 hover:bg-white/15 border border-white/15 text-[#FFFBF5] rounded-xl font-semibold transition-all">
-                    {tr("Условия и цена", "Шарттар мен баға", "Terms & price")}
-                  </a>
-                </div>
-              </div>
-              <div className="order-1 lg:order-2">
-                <CodeWindow
-                  title="hello.c"
-                  interactive
-                  stack={["Scratch", "C", "Python", "SQL", "Flask", "JavaScript"]}
-                  code={`#include <cs50.h>
+          <div className="grid md:grid-cols-2 gap-5 lg:gap-6">
+            {[
+              { emoji: "🎓", title: tr("Гарвардский курс CS50", "Гарвардтың CS50 курсы", "Harvard CS50"), tagline: "Scratch → C → Python → SQL → Flask", desc: tr("Легендарный вводный курс информатики Гарварда на русском. Настоящий фундамент Computer Science — от устройства памяти компьютера до веб-приложения на Flask.", "Гарвардтың информатика бойынша аңызға айналған кіріспе курсы. Computer Science-тің нағыз іргетасы — компьютер жадының құрылымынан бастап Flask-тегі веб-қосымшаға дейін.", "Harvard's legendary intro to computer science. A real Computer Science foundation — from how memory works to a web app on Flask."), result: tr("Портфолио уровня CS50 + фундамент, с которым легко даётся любой язык", "CS50 деңгейіндегі портфолио + кез келген тіл оңай меңгерілетін іргетас", "A CS50-level portfolio + a foundation that makes any language easy"), lessons: tr("49 уроков · 11 модулей", "49 сабақ · 11 модуль", "49 lessons · 11 modules"), age: tr("14–18 лет", "14–18 жас", "ages 14–18"), certs: tr("7 Problem Sets + сертификаты", "7 Problem Sets + сертификаттар", "7 Problem Sets + certificates"), stack: ["Scratch", "C", "Python", "SQL", "Flask", "JavaScript"], bgClass: "bg-gradient-to-br from-accent/15 via-accent-soft/10 to-transparent", coursePage: "", kind: "cs50" as const, glow: "#FF6B47", file: "hello.c", code: `#include <cs50.h>
 #include <stdio.h>
 
 int main(void)
 {
     string name = get_string("Как тебя зовут? ");
     printf("Привет, %s!\\n", name);
-}`}
-                />
-              </div>
-            </div>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-5 lg:gap-6">
-            {[
+}` },
               { emoji: "📱", title: tr("Мобильная разработка", "Мобильді әзірлеу", "Mobile development"), tagline: "FlutterFlow → Flutter → Firebase", desc: tr("Создаём приложения для Android и iOS. От квиза «Какой ты персонаж» до мини-Instagram для класса.", "Android және iOS үшін қосымшалар жасаймыз. «Сен қай кейіпкерсің» квизінен сынып үшін мини-Instagram-ға дейін.", "We build apps for Android and iOS. From a 'Which character are you' quiz to a mini-Instagram for the class."), result: tr("Финал в Google Play + AdMob + профиль на Upwork", "Финал Google Play-де + AdMob + Upwork профилі", "Final on Google Play + AdMob + an Upwork profile"), lessons: tr("48 уроков · 24 недели", "48 сабақ · 24 апта", "48 lessons · 24 weeks"), age: tr("14–17 лет", "14–17 жас", "ages 14–17"), certs: tr("14+ сертификатов", "14+ сертификат", "14+ certificates"), stack: ["Flutter", "Dart", "Firebase", "Flame", "Codemagic"], bgClass: "bg-gradient-to-br from-accent/15 via-accent-soft/10 to-transparent", coursePage: "/courses/mobdev", kind: "mobdev" as const, glow: "#FF6B47", file: "quiz_app.dart", code: `import 'package:flutter/material.dart';
 
 void main() => runApp(const QuizApp());
@@ -839,7 +777,7 @@ async def check(update, ctx):
               {tr("Доступно. ", "Қолжетімді. ", "Affordable. ")}<span className="text-accent">{tr("Прозрачно. Честно.", "Ашық. Адал.", "Transparent. Honest.")}</span>
             </h2>
             <p className="text-lg text-foreground/70">
-              {tr("Одна понятная цена — ", "Барлығына бір түсінікті баға — ", "One clear price — ")}<span className="font-bold text-foreground">75 000 ₸ {tr("в месяц", "айына", "per month")}</span>{tr(" за всё: живые уроки, куратор 24/7, проверка ДЗ и защита проекта. Для льготных категорий — ", ": тікелей сабақтар, 24/7 куратор, ҮЖ тексеру және жоба қорғау. Жеңілдік санаттарына — ", " for everything: live lessons, a 24/7 mentor, homework review, and project defense. For eligible categories — ")}<span className="font-bold text-accent">60 000 ₸</span>{tr(" (−20%). Доступна Kaspi-рассрочка 0%.", " (−20%). Kaspi 0% бөліп төлеу қолжетімді.", " (−20%). Kaspi 0% installments available.")}
+              {tr("Единая понятная цена — ", "Бірыңғай түсінікті баға — ", "One clear price — ")}<span className="font-bold text-foreground">47 500 ₸ {tr("в месяц", "айына", "per month")}</span>{tr(" за всё: живые занятия с ментором, обратная связь после каждого урока, отчёты о прогрессе. Оплата помесячно, доступна ", ": ментормен тікелей сабақтар, әр сабақтан кейін кері байланыс, прогресс есептері. Ай сайын төлеу, ", " for everything: live lessons with a mentor, feedback after every lesson, progress reports. Billed monthly, with ")}<span className="font-bold text-accent">Kaspi Red</span>{tr(" — рассрочка 0%. Удобную оплату подберём.", " — 0% бөліп төлеу қолжетімді. Ыңғайлы төлемді таңдаймыз.", " — 0% installments available. We'll arrange convenient payment.")}
             </p>
           </motion.div>
 
@@ -852,23 +790,11 @@ async def check(update, ctx):
               </h3>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-6 sm:gap-8 items-stretch">
-              {/* Стандарт */}
-              <div className="text-center rounded-2xl bg-surface/60 border border-border p-6">
-                <p className="text-xs font-semibold text-foreground/50 uppercase tracking-wider mb-3">{tr("Стандарт", "Стандарт", "Standard")}</p>
-                <p className="font-display text-5xl lg:text-6xl font-bold text-foreground leading-none mb-2 tabular-nums">75 000 <span className="text-2xl text-foreground/60">₸</span></p>
-                <p className="text-sm text-foreground/65 mt-2">{tr("в месяц, весь период обучения", "айына, бүкіл оқу кезеңінде", "per month, the whole course")}</p>
-                <p className="text-xs text-foreground/50 mt-1">{tr("8 уроков по 90 минут", "90 минуттан 8 сабақ", "8 lessons of 90 minutes")}</p>
-              </div>
-
-              {/* Льготникам */}
-              <div className="relative text-center rounded-2xl bg-gradient-to-br from-accent/15 to-accent-soft/10 border-2 border-accent/40 p-6">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-accent text-white text-[11px] font-bold uppercase tracking-wider whitespace-nowrap shadow-lg">{tr("Льготная −20%", "Жеңілдік −20%", "Discount −20%")}</div>
-                <p className="text-xs font-semibold text-accent uppercase tracking-wider mb-3 mt-1">{tr("Льготным категориям", "Жеңілдік санаттарына", "For eligible categories")}</p>
-                <p className="font-display text-5xl lg:text-6xl font-bold text-accent leading-none mb-2 tabular-nums">60 000 <span className="text-2xl text-accent/60">₸</span></p>
-                <p className="text-sm text-foreground/65 mt-2">{tr("многодетным, при инвалидности и др.", "көп балалы, мүгедектік және т.б.", "large families, disability, etc.")}</p>
-                <p className="text-xs text-foreground/50 mt-1">{tr("по подтверждающему документу", "растайтын құжат бойынша", "with a supporting document")}</p>
-              </div>
+            <div className="max-w-md mx-auto text-center rounded-2xl bg-surface/60 border border-border p-8">
+              <p className="text-xs font-semibold text-foreground/50 uppercase tracking-wider mb-3">{tr("Единая цена", "Бірыңғай баға", "One price")}</p>
+              <p className="font-display text-5xl lg:text-6xl font-bold text-foreground leading-none mb-2 tabular-nums">47 500 <span className="text-2xl text-foreground/60">₸</span></p>
+              <p className="text-sm text-foreground/65 mt-2">{tr("в месяц · оплата помесячно", "айына · ай сайын төлеу", "per month · billed monthly")}</p>
+              <p className="text-xs text-foreground/50 mt-1">{tr("2 живых занятия в неделю по 1 часу с ментором", "аптасына 2 тірі сабақ, ментормен 1 сағаттан", "2 live 1-hour lessons a week with a mentor")}</p>
             </div>
 
             <div className="mt-7 pt-6 border-t border-accent/20 grid sm:grid-cols-3 gap-3 text-sm">
@@ -878,7 +804,7 @@ async def check(update, ctx):
               </div>
               <div className="flex items-start gap-2">
                 <span className="text-accent text-base flex-shrink-0">💳</span>
-                <span className="text-foreground/75 leading-snug">{tr("Kaspi-рассрочка 0% на 3 или 6 месяцев", "Kaspi 0% бөліп төлеу 3 не 6 айға", "Kaspi 0% installments over 3 or 6 months")}</span>
+                <span className="text-foreground/75 leading-snug">{tr("Kaspi Red — рассрочка 0%, удобную оплату подберём", "Kaspi Red — 0% бөліп төлеу, ыңғайлы төлемді таңдаймыз", "Kaspi Red — 0% installments, we'll arrange convenient payment")}</span>
               </div>
               <div className="flex items-start gap-2">
                 <span className="text-accent text-base flex-shrink-0">🔓</span>
@@ -889,15 +815,14 @@ async def check(update, ctx):
 
           {/* 🎁 3 ФОРМАТА ОПЛАТЫ */}
           <motion.div variants={fadeInUp} className="text-center mb-8">
-            <h3 className="font-display text-xl sm:text-2xl font-bold mb-2">{tr("3 формата оплаты", "3 төлем форматы", "3 payment formats")}</h3>
+            <h3 className="font-display text-xl sm:text-2xl font-bold mb-2">{tr("Форматы оплаты", "Төлем форматтары", "Payment options")}</h3>
             <p className="text-sm text-foreground/65">{tr("Выберите удобный для вас", "Өзіңізге ыңғайлысын таңдаңыз", "Choose the one that suits you")}</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-5 lg:gap-6 mb-14">
+          <div className="grid md:grid-cols-2 gap-5 lg:gap-6 mb-14 max-w-3xl mx-auto">
             {[
-              { emoji: "📅", badge: null, title: tr("Стандарт", "Стандарт", "Standard"), subtitle: tr("Базовая цена", "Негізгі баға", "Base price"), price: "75 000", priceUnit: tr("₸ / месяц", "₸ / ай", "₸ / month"), priceFooter: tr("одинаково весь период обучения", "бүкіл оқу кезеңінде бірдей", "the same for the whole course"), description: tr("Прозрачная фиксированная цена за всё: живые уроки, куратор, проверка ДЗ, защита проекта.", "Барлығына ашық бекітілген баға: тікелей сабақтар, куратор, ҮЖ тексеру, жоба қорғау.", "A transparent fixed price for everything: live lessons, a mentor, homework review, project defense."), features: [tr("Без обязательств на год", "Жылдық міндеттемесіз", "No year-long commitment"), tr("Оплата картой или Kaspi", "Картамен не Kaspi-мен төлеу", "Pay by card or Kaspi"), tr("Можно прекратить в любой момент", "Кез келген уақытта тоқтатуға болады", "Cancel anytime")], ctaText: tr("Подходит для большинства", "Көпшілікке қолайлы", "Fits most people"), bgClass: "bg-surface border-border", highlight: false },
-              { emoji: "💛", badge: tr("Льготная цена −20%", "Жеңілдік бағасы −20%", "Discount −20%"), title: tr("Льготникам", "Жеңілдік санатына", "Discounted"), subtitle: tr("Многодетным, инвалидам и др.", "Көп балалы, мүгедектік және т.б.", "Large families, disability, etc."), price: "60 000", priceUnit: tr("₸ / месяц", "₸ / ай", "₸ / month"), priceFooter: tr("весь период обучения", "бүкіл оқу кезеңінде", "the whole course"), description: tr("Скидка 20% для семей с особым статусом — по подтверждающему документу, на весь период обучения.", "Ерекше мәртебелі отбасыларға 20% жеңілдік — растайтын құжат бойынша, бүкіл оқу кезеңіне.", "A 20% discount for families with special status — with a supporting document, for the whole course."), features: [tr("Удостоверение многодетной", "Көп балалы отбасы куәлігі", "Large-family certificate"), tr("Справка из ЦОН / Акимат", "ЦОН / Әкімдіктен анықтама", "Certificate from PSC / Akimat"), tr("Справка об инвалидности", "Мүгедектік туралы анықтама", "Disability certificate")], ctaText: tr("Социальная скидка", "Әлеуметтік жеңілдік", "Social discount"), bgClass: "bg-gradient-to-br from-accent/10 via-accent-soft/10 to-transparent border-accent/40", highlight: true },
-              { emoji: "🔥", badge: tr("Популярно", "Танымал", "Popular"), title: tr("Kaspi-рассрочка", "Kaspi бөліп төлеу", "Kaspi installments"), subtitle: tr("На 3 или 6 месяцев", "3 не 6 айға", "Over 3 or 6 months"), price: "0%", priceUnit: tr("переплаты", "артық төлем", "overpayment"), priceFooter: tr("делим 75 000 / 60 000 ₸ на месяцы", "75 000 / 60 000 ₸-ні айларға бөлеміз", "we split 75,000 / 60,000 ₸ across months"), description: tr("Любой тариф можно оформить через Kaspi-рассрочку 0% на 3 или 6 месяцев. Без справок, без поручителей.", "Кез келген тарифті Kaspi 0% бөліп төлеумен 3 не 6 айға рәсімдеуге болады. Анықтамасыз, кепілгерсіз.", "Any plan can be arranged via Kaspi 0% installments over 3 or 6 months. No certificates, no guarantors."), features: [tr("Решение за 5 минут", "5 минутта шешім", "A decision in 5 minutes"), tr("Без процентов", "Пайызсыз", "No interest"), tr("Удобный график списаний", "Ыңғайлы есептен шығару кестесі", "A convenient payment schedule")], ctaText: tr("Удобный способ", "Ыңғайлы тәсіл", "A convenient option"), bgClass: "bg-surface border-border", highlight: false },
+              { emoji: "📅", badge: null, title: tr("Помесячно", "Ай сайын", "Monthly"), subtitle: tr("Единая цена", "Бірыңғай баға", "One price"), price: "47 500", priceUnit: tr("₸ / месяц", "₸ / ай", "₸ / month"), priceFooter: tr("оплата помесячно, без обязательств", "ай сайын төлеу, міндеттемесіз", "billed monthly, no commitment"), description: tr("Прозрачная цена за всё: живые занятия с ментором, обратная связь после каждого урока, отчёты о прогрессе каждые 3 недели.", "Барлығына ашық баға: ментормен тікелей сабақтар, әр сабақтан кейін кері байланыс, әр 3 апта сайын прогресс есептері.", "A transparent price for everything: live lessons with a mentor, feedback after every lesson, progress reports every 3 weeks."), features: [tr("Старт сразу после оплаты", "Төлемнен кейін бірден старт", "Start right after payment"), tr("Оплата картой или Kaspi", "Картамен не Kaspi-мен төлеу", "Pay by card or Kaspi"), tr("Можно прекратить в любой момент", "Кез келген уақытта тоқтатуға болады", "Cancel anytime")], ctaText: tr("Подходит для большинства", "Көпшілікке қолайлы", "Fits most people"), bgClass: "bg-surface border-border", highlight: false },
+              { emoji: "🔥", badge: tr("Популярно", "Танымал", "Popular"), title: "Kaspi Red", subtitle: tr("Рассрочка на 3 или 6 месяцев", "3 не 6 айға бөліп төлеу", "Installments over 3 or 6 months"), price: "0%", priceUnit: tr("переплаты", "артық төлем", "overpayment"), priceFooter: tr("делим 47 500 ₸ на месяцы", "47 500 ₸-ні айларға бөлеміз", "we split 47,500 ₸ across months"), description: tr("Оформляем через Kaspi Red — рассрочка 0% на 3 или 6 месяцев. Без справок и поручителей. Удобную оплату подберём.", "Kaspi Red арқылы рәсімдейміз — 3 не 6 айға 0% бөліп төлеу. Анықтамасыз, кепілгерсіз. Ыңғайлы төлемді таңдаймыз.", "Arranged via Kaspi Red — 0% installments over 3 or 6 months. No certificates or guarantors. We'll arrange convenient payment."), features: [tr("Решение за 5 минут", "5 минутта шешім", "A decision in 5 minutes"), tr("Без процентов", "Пайызсыз", "No interest"), tr("Удобный график списаний", "Ыңғайлы есептен шығару кестесі", "A convenient payment schedule")], ctaText: tr("Удобный способ", "Ыңғайлы тәсіл", "A convenient option"), bgClass: "bg-surface border-border", highlight: false },
             ].map((plan, i) => (
               <motion.div key={i} variants={staggerItem} whileHover={{ y: -8, transition: { duration: 0.2 } }} className={`relative p-6 lg:p-8 rounded-2xl border-2 ${plan.bgClass} transition-all duration-300 hover:shadow-xl flex flex-col`}>
                 {plan.badge && (<div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg whitespace-nowrap ${plan.highlight ? 'bg-accent text-white' : 'bg-accent-soft text-foreground'}`}>{plan.badge}</div>)}
@@ -932,7 +857,7 @@ async def check(update, ctx):
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {[
-                { icon: "users" as IconName, title: tr("Живые групповые уроки", "Тікелей топтық сабақтар", "Live group lessons"), desc: tr("48–52 урока в Discord, по 90 минут, 2 раза в неделю. Группы до 8 человек.", "Discord-та 48–52 сабақ, 90 минуттан, аптасына 2 рет. Топтар 8 адамға дейін.", "48–52 lessons on Discord, 90 minutes each, twice a week. Groups of up to 8.") },
+                { icon: "users" as IconName, title: tr("Живые занятия с ментором", "Ментормен тікелей сабақтар", "Live lessons with a mentor"), desc: tr("2 живых занятия в неделю по 1 часу в Discord + записанные материалы. Ментор доводит каждого ученика до результата и на связи 24/7.", "Discord-та аптасына 2 тірі сабақ, 1 сағаттан + жазба материалдар. Ментор әр оқушыны нәтижеге жеткізеді және 24/7 байланыста.", "2 live 1-hour lessons a week on Discord + recorded materials. The mentor brings each student to the result and is in touch 24/7.") },
                 { icon: "clipboard" as IconName, title: tr("Домашние задания", "Үй тапсырмалары", "Homework"), desc: tr("С проверкой от преподавателя. Облегчённый уровень — если основной не получается.", "Ұстаз тексеруімен. Жеңілдетілген деңгей — негізгісі шықпаса.", "Reviewed by the instructor. An easier level if the main one doesn't work out.") },
                 { icon: "message" as IconName, title: tr("Куратор между уроками", "Сабақ аралығында куратор", "A mentor between lessons"), desc: tr("Личный куратор отвечает в чате 24/7 на вопросы по ДЗ и проектам.", "Жеке куратор чатта 24/7 ҮЖ мен жобалар бойынша сұрақтарға жауап береді.", "A personal mentor answers homework and project questions in chat 24/7.") },
                 { icon: "award" as IconName, title: tr("Сертификаты каждые 3 недели", "Әр 3 апта сайын сертификат", "Certificates every 3 weeks"), desc: tr("За каждый пройденный блок. 6–14 сертификатов за весь курс.", "Әр өткен блокқа. Бүкіл курсқа 6–14 сертификат.", "For every block completed. 6–14 certificates over the whole course.") },
@@ -974,7 +899,7 @@ async def check(update, ctx):
               {tr("Подберём ", "", "We'll find ")}<span className="text-accent">{tr("удобное расписание", "ыңғайлы кесте таңдаймыз", "a schedule that suits you")}</span>
             </h2>
             <p className="text-lg text-foreground/70">
-              {tr("Набор в группы идёт постоянно. Занятия 2 раза в неделю по 90 минут — а дни и время подберём под вашего ребёнка: утром, днём или вечером, чтобы не мешало школе и секциям.", "Топтарға қабылдау үнемі жүреді. Сабақтар аптасына 2 рет, 90 минуттан — ал күндер мен уақытты балаңызға қарай таңдаймыз: таңертең, күндіз не кешке, мектеп пен үйірмелерге кедергі болмас үшін.", "Enrollment runs continuously. Classes are twice a week for 90 minutes — and we'll pick days and times to fit your child: morning, afternoon, or evening, so it doesn't clash with school and activities.")}
+              {tr("Никакого потока и ожидания: занятия начинаются сразу после оплаты абонемента. Живые занятия с ментором 2 раза в неделю по 1 часу — а дни и время подберём под вашего ребёнка: утром, днём или вечером, чтобы не мешало школе и секциям.", "Ешқандай ағын мен күту жоқ: сабақтар абонемент төленгеннен кейін бірден басталады. Ментормен тірі сабақтар аптасына 2 рет, 1 сағаттан — ал күндер мен уақытты балаңызға қарай таңдаймыз: таңертең, күндіз не кешке, мектеп пен үйірмелерге кедергі болмас үшін.", "No cohorts, no waiting: lessons start right after you pay for the subscription. Live lessons with a mentor twice a week for 1 hour — and we'll pick days and times to fit your child: morning, afternoon, or evening, so it doesn't clash with school and activities.")}
             </p>
           </motion.div>
 
@@ -983,13 +908,13 @@ async def check(update, ctx):
             <div className="grid sm:grid-cols-3 gap-5 sm:gap-6 text-center">
               <div>
                 <span className="mx-auto mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent"><Icon name="calendar" className="h-6 w-6" /></span>
-                <p className="font-display text-2xl sm:text-3xl font-bold text-foreground leading-tight">{tr("Набор открыт", "Қабылдау ашық", "Enrollment open")}</p>
-                <p className="text-sm text-foreground/60 mt-1">{tr("старт по мере набора", "топ жиналған сайын басталады", "starts as groups fill")}</p>
+                <p className="font-display text-2xl sm:text-3xl font-bold text-foreground leading-tight">{tr("Старт сразу", "Бірден старт", "Start now")}</p>
+                <p className="text-sm text-foreground/60 mt-1">{tr("сразу после оплаты", "төлемнен кейін бірден", "right after payment")}</p>
               </div>
               <div className="sm:border-x sm:border-accent/20">
                 <span className="mx-auto mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent"><Icon name="clock" className="h-6 w-6" /></span>
                 <p className="font-display text-2xl sm:text-3xl font-bold text-foreground leading-tight">{tr("2 раза", "2 рет", "2×")}</p>
-                <p className="text-sm text-foreground/60 mt-1">{tr("в неделю, по 90 минут", "аптасына, 90 минуттан", "a week, 90 minutes each")}</p>
+                <p className="text-sm text-foreground/60 mt-1">{tr("в неделю, по 1 часу", "аптасына, 1 сағаттан", "a week, 1 hour each")}</p>
               </div>
               <div>
                 <span className="mx-auto mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent"><Icon name="calendar" className="h-6 w-6" /></span>
@@ -1035,7 +960,7 @@ async def check(update, ctx):
                     </div>
                     <div className="flex items-center gap-2">
                       <Icon name="rocket" className="h-4 w-4 flex-shrink-0 text-accent/70" />
-                      <span>{tr("Старт: по мере набора группы", "Басталуы: топ жиналған сайын", "Start: as the group fills")}</span>
+                      <span>{tr("Старт: сразу после оплаты", "Басталуы: төлемнен кейін бірден", "Start: right after payment")}</span>
                     </div>
                   </div>
 
@@ -1222,14 +1147,13 @@ async def check(update, ctx):
           </motion.div>
           <div className="space-y-3">
             {[
-              { q: tr("Когда стартует обучение и какое расписание?", "Оқу қашан басталады және кесте қандай?", "When does training start and what's the schedule?"), a: tr("Набор в группы идёт постоянно, занятия начинаются по мере комплектации группы (обычно занята за 1–2 недели). Все 5 направлений доступны. Занятия 2 раза в неделю по 90 минут — а дни и время подберём под вашего ребёнка (утро, день или вечер), чтобы не мешало школе и секциям. Актуальные свободные окна уточняйте в WhatsApp.", "Топтарға қабылдау үнемі жүреді, сабақтар топ жиналған сайын басталады (әдетте 1–2 аптада толады). 5 бағыттың бәрі қолжетімді. Сабақтар аптасына 2 рет, 90 минуттан — ал күндер мен уақытты балаңызға қарай таңдаймыз (таңертең, күндіз не кешке), мектеп пен үйірмелерге кедергі болмас үшін. Бос орындарды WhatsApp-тан нақтылаңыз.", "Enrollment runs continuously; classes start as each group fills (usually within 1–2 weeks). All 5 tracks are available. Classes are twice a week for 90 minutes — and we'll pick days and times to fit your child (morning, afternoon, or evening) so it doesn't clash with school and activities. Ask about open slots on WhatsApp.") },
-              { q: tr("Сколько стоит обучение?", "Оқу қанша тұрады?", "How much does it cost?"), a: tr("75 000 ₸ в месяц (8 уроков по 90 минут) — одинаково весь период обучения, без скрытых доплат. В цену входит всё: живые уроки, куратор 24/7, проверка ДЗ и защита проекта. Для многодетных семей, родителей с инвалидностью и других льготных категорий — 60 000 ₸ в месяц (−20%). Также доступна Kaspi-рассрочка 0% на 3 или 6 месяцев.", "Айына 75 000 ₸ (90 минуттан 8 сабақ) — бүкіл оқу кезеңінде бірдей, жасырын қосымша төлемсіз. Бағаға бәрі кіреді: тікелей сабақтар, 24/7 куратор, ҮЖ тексеру және жоба қорғау. Көп балалы отбасыларға, мүгедектігі бар ата-аналарға және басқа жеңілдік санаттарына — айына 60 000 ₸ (−20%). Сондай-ақ Kaspi 0% бөліп төлеу 3 не 6 айға қолжетімді.", "75,000 ₸ per month (8 lessons of 90 minutes) — the same for the whole course, with no hidden fees. Everything is included: live lessons, a 24/7 mentor, homework review, and project defense. For large families, parents with a disability, and other eligible categories — 60,000 ₸ per month (−20%). Kaspi 0% installments over 3 or 6 months are also available.") },
+              { q: tr("Когда стартует обучение и какое расписание?", "Оқу қашан басталады және кесте қандай?", "When does training start and what's the schedule?"), a: tr("Никакого потока — занятия начинаются сразу после оплаты абонемента, ребёнок идёт в удобном темпе. Живые занятия с ментором 2 раза в неделю по 1 часу — а дни и время подберём под вашего ребёнка (утро, день или вечер), чтобы не мешало школе и секциям. Все 5 направлений доступны. Удобное время подберём в WhatsApp.", "Ешқандай ағын жоқ — сабақтар абонемент төленгеннен кейін бірден басталады, бала ыңғайлы қарқынмен жүреді. Ментормен тірі сабақтар аптасына 2 рет, 1 сағаттан — ал күндер мен уақытты балаңызға қарай таңдаймыз (таңертең, күндіз не кешке), мектеп пен үйірмелерге кедергі болмас үшін. 5 бағыттың бәрі қолжетімді. Ыңғайлы уақытты WhatsApp-та таңдаймыз.", "No cohorts — lessons start right after you pay for the subscription, and your child goes at a comfortable pace. Live lessons with a mentor twice a week for 1 hour — and we'll pick days and times to fit your child (morning, afternoon, or evening) so it doesn't clash with school and activities. All 5 tracks are available. We'll arrange a convenient time on WhatsApp.") },
+              { q: tr("Сколько стоит обучение?", "Оқу қанша тұрады?", "How much does it cost?"), a: tr("Единая цена — 47 500 ₸ в месяц, оплата помесячно, без скрытых доплат. В цену входит всё: 2 живых занятия в неделю по 1 часу с ментором, записанные материалы, обратная связь после каждого урока, отчёты о прогрессе каждые 3 недели и ментор на связи 24/7. Доступна рассрочка Kaspi Red 0% на 3 или 6 месяцев — удобную оплату подберём.", "Бірыңғай баға — айына 47 500 ₸, ай сайын төлеу, жасырын қосымша төлемсіз. Бағаға бәрі кіреді: ментормен аптасына 2 тірі сабақ, 1 сағаттан, жазба материалдар, әр сабақтан кейін кері байланыс, әр 3 апта сайын прогресс есептері және ментор 24/7 байланыста. Kaspi Red 0% бөліп төлеу 3 не 6 айға қолжетімді — ыңғайлы төлемді таңдаймыз.", "One price — 47,500 ₸ per month, billed monthly, with no hidden fees. Everything is included: 2 live 1-hour lessons a week with a mentor, recorded materials, feedback after every lesson, progress reports every 3 weeks, and a mentor in touch 24/7. Kaspi Red 0% installments over 3 or 6 months are available — we'll arrange convenient payment.") },
               { q: tr("Что за Гарвардский курс CS50?", "Гарвардтың CS50 курсы деген не?", "What is Harvard's CS50 course?"), a: tr("Это легендарный вводный курс информатики Гарвардского университета (CS50), адаптированный на русский язык: 49 занятий, 11 модулей, 7 Problem Sets. Программа ведёт от Scratch и языка C через алгоритмы, структуры данных и работу с памятью к Python, SQL и полноценному веб-приложению на Flask. Даёт настоящий фундамент Computer Science, с которым потом легко даётся любой язык и направление.", "Бұл — Гарвард университетінің информатика бойынша аңызға айналған кіріспе курсы (CS50): 49 сабақ, 11 модуль, 7 Problem Sets. Бағдарлама Scratch пен C тілінен алгоритмдер, деректер құрылымы және жадпен жұмыс арқылы Python, SQL және Flask-тегі толыққанды веб-қосымшаға жетелейді. Computer Science-тің нағыз іргетасын береді, онымен кейін кез келген тіл мен бағыт оңай меңгеріледі.", "It's the University's legendary intro to computer science (CS50): 49 lessons, 11 modules, 7 Problem Sets. The program goes from Scratch and the C language through algorithms, data structures, and memory to Python, SQL, and a full web app on Flask. It builds a real Computer Science foundation that makes any language or track easy afterward.") },
               { q: tr("Что если ребёнок заболел или пропустил урок?", "Бала ауырса не сабақты жіберіп алса ше?", "What if my child gets sick or misses a lesson?"), a: tr("Все занятия проходят вживую в маленьких группах, но каждый урок доступен в записи — ребёнок сможет наверстать пропущенное. Куратор поможет догнать материал в чате, а домашнее задание можно сдать позже. Болезнь со справкой мы всегда идём навстречу.", "Барлық сабақтар шағын топтарда тікелей өтеді, бірақ әр сабақтың жазбасы болады — бала жіберіп алғанын толықтыра алады. Куратор чатта материалды қууға көмектеседі, үй тапсырмасын кейінірек тапсыруға болады. Анықтамамен ауырғанда әрқашан жағдай жасаймыз.", "All classes are live in small groups, but every lesson is recorded — your child can catch up. The mentor helps recover the material in chat, and homework can be submitted later. With a doctor's note for illness, we always accommodate.") },
-              { q: tr("Какие документы нужны для льготной цены?", "Жеңілдік бағасына қандай құжаттар керек?", "What documents are needed for the discounted price?"), a: tr("Любой из документов: удостоверение многодетной семьи, справка из ЦОН или Акимата о льготном статусе, справка об инвалидности (своей или ребёнка). Документ один раз показываете при оформлении — и получаете цену 60 000 ₸ в месяц (вместо 75 000 ₸) на весь период обучения.", "Кез келген құжат: көп балалы отбасы куәлігі, ЦОН не Әкімдіктен жеңілдік мәртебесі туралы анықтама, мүгедектік туралы анықтама (өзіңіздің не баланың). Құжатты рәсімдеу кезінде бір рет көрсетесіз — және бүкіл оқу кезеңіне айына 60 000 ₸ (75 000 ₸ орнына) бағасын аласыз.", "Any of these: a large-family certificate, a discount-status certificate from the PSC (TsON) or Akimat, or a disability certificate (yours or the child's). You show the document once at signup — and get 60,000 ₸ per month (instead of 75,000 ₸) for the whole course.") },
               { q: tr("С какого возраста можно учиться?", "Қай жастан бастап оқуға болады?", "From what age can kids start?"), a: tr("Веб-разработка — с 12 лет, остальные курсы — с 13. Верхняя граница — 17–18 лет.", "Веб-әзірлеу — 12 жастан, қалған курстар — 13 жастан. Жоғарғы шек — 17–18 жас.", "Web development from age 12, the other courses from 13. The upper limit is 17–18.") },
               { q: tr("Что нужно для старта? Какой нужен компьютер?", "Бастау үшін не керек? Қандай компьютер қажет?", "What do you need to start? What computer is required?"), a: tr("Любой компьютер не старше 5–7 лет — Windows, Mac или мощный Chromebook. Для геймдева на Unity нужно 8 ГБ RAM минимум.", "5–7 жастан аспаған кез келген компьютер — Windows, Mac не қуатты Chromebook. Unity-дегі геймдев үшін кемінде 8 ГБ RAM қажет.", "Any computer no older than 5–7 years — Windows, Mac, or a powerful Chromebook. For game dev on Unity you need at least 8 GB of RAM.") },
-              { q: tr("Как проходят занятия? Это записи или живые?", "Сабақтар қалай өтеді? Жазба ма, тірі ме?", "How are classes run? Recorded or live?"), a: tr("Живые групповые уроки 2 раза в неделю по 90 минут в Discord. Группы маленькие — до 8 человек.", "Discord-та аптасына 2 рет, 90 минуттан тікелей топтық сабақтар. Топтар шағын — 8 адамға дейін.", "Live group lessons twice a week for 90 minutes on Discord. Groups are small — up to 8 students.") },
+              { q: tr("Как проходят занятия? Это записи или живые?", "Сабақтар қалай өтеді? Жазба ма, тірі ме?", "How are classes run? Recorded or live?"), a: tr("И то, и другое: записанные материалы для самостоятельного прохождения + 2 живых занятия в неделю по 1 часу с ментором в Discord. Ментор доводит каждого ученика до результата, на связи 24/7 и даёт обратную связь после каждого урока. Группы малые.", "Екеуі де: өз бетінше өту үшін жазба материалдар + Discord-та ментормен аптасына 2 тірі сабақ, 1 сағаттан. Ментор әр оқушыны нәтижеге жеткізеді, 24/7 байланыста және әр сабақтан кейін кері байланыс береді. Топтар шағын.", "Both: recorded materials for self-study + 2 live 1-hour lessons a week with a mentor on Discord. The mentor brings each student to the result, is in touch 24/7, and gives feedback after every lesson. Groups are small.") },
               { q: tr("Безопасно ли это для ребёнка?", "Бұл бала үшін қауіпсіз бе?", "Is it safe for my child?"), a: tr("Все преподаватели проходят отбор и подписывают договор о работе с детьми. На уроках всегда включена камера у всех.", "Барлық ұстаздар іріктеуден өтеді және балалармен жұмыс туралы келісімге қол қояды. Сабақтарда әрқашан бәрінің камерасы қосулы.", "All teachers are vetted and sign an agreement about working with children. Cameras are always on for everyone during lessons.") },
               { q: tr("А если ребёнок передумает?", "Ал бала ойын өзгертсе ше?", "What if my child changes their mind?"), a: tr("Первый месяц — пробный. Если в течение 14 дней решит, что не его — вернём деньги полностью, без вопросов.", "Бірінші ай — сынақ. 14 күн ішінде «бұл менікі емес» деп шешсе — ақшаны толық қайтарамыз, сұрақсыз.", "The first month is a trial. If within 14 days they decide it's not for them — we refund in full, no questions asked.") },
               { q: tr("Чем вы отличаетесь от Kodland и других школ?", "Kodland пен басқа мектептерден несімен ерекшеленесіздер?", "How are you different from Kodland and other schools?"), a: tr("Главное: мы открыто учим работать с AI, а не делаем вид, что его нет. Второе: облегчённые задания через 48 часов. Третье: конкретный результат после каждого урока.", "Ең бастысы: біз AI-мен жұмыс істеуді ашық үйретеміз, оны жоқтай сыңай танытпаймыз. Екіншіден: 48 сағаттан кейін жеңілдетілген тапсырмалар. Үшіншіден: әр сабақтан кейін нақты нәтиже.", "Most importantly: we openly teach working with AI instead of pretending it doesn't exist. Second: easier assignments unlock after 48 hours. Third: a concrete result after every lesson.") },
@@ -1252,7 +1176,7 @@ async def check(update, ctx):
           <motion.div variants={fadeInUp} className="mt-14 p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-accent/10 via-accent-soft/15 to-muted/30 border border-accent/20 text-center">
             <h3 className="font-display text-2xl sm:text-3xl font-bold mb-3">{tr("Не нашли ответ?", "Жауабын таппадыңыз ба?", "Didn't find your answer?")}</h3>
             <p className="text-foreground/70 mb-6 max-w-xl mx-auto">{tr("Напишите нам в WhatsApp — отвечаем в течение 30 минут в рабочее время. Без обязательств.", "WhatsApp-қа жазыңыз — жұмыс уақытында 30 минут ішінде жауап береміз. Міндеттемесіз.", "Message us on WhatsApp — we reply within 30 minutes during business hours. No obligations.")}</p>
-            <a href="https://wa.me/77001234567" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3.5 bg-accent hover:bg-accent-hover text-white rounded-full font-semibold hover:scale-[1.02] transition-all shadow-lg shadow-accent/30">💬 {tr("Написать в WhatsApp", "WhatsApp-қа жазу", "Message on WhatsApp")}</a>
+            <a href="https://wa.me/77007240353" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3.5 bg-accent hover:bg-accent-hover text-white rounded-full font-semibold hover:scale-[1.02] transition-all shadow-lg shadow-accent/30">💬 {tr("Написать в WhatsApp", "WhatsApp-қа жазу", "Message on WhatsApp")}</a>
           </motion.div>
         </div>
       </motion.section>
@@ -1269,7 +1193,7 @@ async def check(update, ctx):
               </div>
               <p className="text-surface/65 text-sm leading-relaxed mb-6">{tr("Школа программирования для подростков 12–17 лет. Живые уроки с практикующими разработчиками, реальные проекты и программа на базе Гарвардского курса CS50.", "12–17 жастағы жасөспірімдерге арналған бағдарламалау мектебі. Тәжірибелі әзірлеушілермен тікелей сабақтар, нақты жобалар және Гарвардтың CS50 курсы негізіндегі бағдарлама.", "A coding school for teens aged 12–17. Live lessons with working developers, real projects, and a program based on Harvard's CS50.")}</p>
               <div className="flex gap-2">
-                <a href="https://wa.me/77001234567" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface/10 hover:bg-accent flex items-center justify-center transition-colors" aria-label="WhatsApp"><span className="text-lg">💬</span></a>
+                <a href="https://wa.me/77007240353" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface/10 hover:bg-accent flex items-center justify-center transition-colors" aria-label="WhatsApp"><span className="text-lg">💬</span></a>
                 <a href="https://t.me/alfaz_school" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface/10 hover:bg-accent flex items-center justify-center transition-colors" aria-label="Telegram"><span className="text-lg">✈️</span></a>
                 <a href="https://instagram.com/alfaz.school" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-surface/10 hover:bg-accent flex items-center justify-center transition-colors" aria-label="Instagram"><span className="text-lg">📷</span></a>
               </div>
@@ -1298,7 +1222,7 @@ async def check(update, ctx):
             <div>
               <h4 className="font-display font-bold mb-4 text-surface">{tr("Контакты", "Байланыс", "Contacts")}</h4>
               <ul className="space-y-2.5 text-sm">
-                <li className="text-surface/60">📞 <a href="tel:+77001234567" className="hover:text-accent transition-colors">+7 (700) 123-45-67</a></li>
+                <li className="text-surface/60">📞 <a href="tel:+77007240353" className="hover:text-accent transition-colors">+7 (700) 724-03-53</a></li>
                 <li className="text-surface/60">✉️ <a href="mailto:hello@alfaz.kz" className="hover:text-accent transition-colors">hello@alfaz.kz</a></li>
                 <li className="text-surface/60 leading-relaxed">📍 {tr("Астана, Казахстан", "Астана, Қазақстан", "Astana, Kazakhstan")}<br /><span className="text-surface/40 text-xs">{tr("Онлайн-обучение по всей стране", "Ел бойынша онлайн оқыту", "Online learning nationwide")}</span></li>
                 <li className="text-surface/60">🕐 {tr("Пн–Сб, 10:00–19:00 (UTC+5)", "Дс–Сб, 10:00–19:00 (UTC+5)", "Mon–Sat, 10:00–19:00 (UTC+5)")}</li>
@@ -1310,9 +1234,8 @@ async def check(update, ctx):
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <p className="text-surface/50 text-sm">© 2026 Alfa Z. {tr("Все права защищены.", "Барлық құқықтар қорғалған.", "All rights reserved.")}<span className="hidden sm:inline"> · {tr("Сделано с 🧡 в Астане", "Астанада 🧡-пен жасалған", "Made with 🧡 in Astana")}</span></p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-              <a href="#" className="text-surface/50 hover:text-accent transition-colors">{tr("Публичная оферта", "Жария оферта", "Public offer")}</a>
-              <a href="#" className="text-surface/50 hover:text-accent transition-colors">{tr("Политика конфиденциальности", "Құпиялылық саясаты", "Privacy policy")}</a>
-              <a href="#" className="text-surface/50 hover:text-accent transition-colors">{tr("Условия использования", "Пайдалану шарттары", "Terms of use")}</a>
+              <a href="/oferta" className="text-surface/50 hover:text-accent transition-colors">{tr("Публичная оферта", "Жария оферта", "Public offer")}</a>
+              <a href="/policy" className="text-surface/50 hover:text-accent transition-colors">{tr("Политика конфиденциальности", "Құпиялылық саясаты", "Privacy policy")}</a>
             </div>
           </div>
         </div>

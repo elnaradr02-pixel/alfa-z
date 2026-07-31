@@ -57,7 +57,7 @@ function ApplyModal({ open, onClose, defaultCourse = "" }: { open: boolean; onCl
     lines.push(`Телефон: ${phone}`);
     if (course) lines.push(`Курс: ${course}`);
     const message = encodeURIComponent(lines.join("\n"));
-    window.open(`https://wa.me/77001234567?text=${message}`, "_blank");
+    window.open(`https://wa.me/77007240353?text=${message}`, "_blank");
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
@@ -592,14 +592,14 @@ export default function App() {
               <span className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent"><Icon name="wallet" className="h-7 w-7" /></span>
               <h3 className="font-display text-2xl font-bold mb-2">{tr("Цена", "Баға", "Price")}</h3>
               <div className="flex items-baseline gap-2 flex-wrap mb-2">
-                <span className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-none tabular-nums">75 000 ₸</span>
+                <span className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-none tabular-nums">47 500 ₸</span>
                 <span className="text-foreground/50 text-lg">/ {tr("месяц", "ай", "month")}</span>
               </div>
-              <p className="text-sm text-foreground/65 mb-5">{tr("Одинаково весь период обучения · без скрытых доплат", "Бүкіл оқу кезеңінде бірдей · жасырын төлемсіз", "The same for the whole course · no hidden fees")}</p>
+              <p className="text-sm text-foreground/65 mb-5">{tr("Единая цена · оплата помесячно · без скрытых доплат", "Бірыңғай баға · ай сайын төлеу · жасырын төлемсіз", "One flat price · paid monthly · no hidden fees")}</p>
 
               <div className="space-y-2 text-sm text-foreground/70 mb-6">
-                <p className="flex gap-2"><span className="text-accent">💛</span> {tr("Льготникам (многодетные, инвалиды) — 60 000 ₸ в месяц", "Жеңілдік санатына (көп балалы, мүгедектік) — айына 60 000 ₸", "Eligible categories (large families, disability) — 60,000 ₸ a month")}</p>
-                <p className="flex gap-2"><span className="text-accent">🔥</span> {tr("Kaspi-рассрочка 0% на 3 или 6 месяцев", "Kaspi 0% бөліп төлеу 3 не 6 айға", "Kaspi 0% installments over 3 or 6 months")}</p>
+                <p className="flex gap-2"><span className="text-accent">🔥</span> {tr("Kaspi Red — рассрочка 0%", "Kaspi Red — 0% бөліп төлеу", "Kaspi Red — 0% installments")}</p>
+                <p className="flex gap-2"><span className="text-accent">💳</span> {tr("Удобную оплату подберём", "Ыңғайлы төлемді таңдаймыз", "We'll find a convenient payment plan")}</p>
                 <p className="flex gap-2"><span className="text-accent">🔒</span> {tr("Цена фиксирована на весь курс", "Баға бүкіл курсқа бекітілген", "The price is fixed for the whole course")}</p>
               </div>
 
@@ -611,14 +611,15 @@ export default function App() {
             {/* Расписание */}
             <motion.div variants={staggerItem} className="p-7 lg:p-9 rounded-3xl bg-gradient-to-br from-accent/10 via-accent-soft/10 to-transparent border-2 border-accent/30">
               <span className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent"><Icon name="calendar" className="h-7 w-7" /></span>
-              <h3 className="font-display text-2xl font-bold mb-2">{tr("Набор в группы", "Топтарға қабылдау", "Group enrollment")}</h3>
-              <p className="font-display text-4xl lg:text-5xl font-bold text-accent leading-tight mb-2">{tr("Открыт", "Ашық", "Open")}</p>
-              <p className="text-sm text-foreground/65 mb-5">{tr("старт по мере набора группы", "топ жиналған сайын басталады", "starts as the group fills")}</p>
+              <h3 className="font-display text-2xl font-bold mb-2">{tr("Старт и формат", "Старт пен формат", "Start & format")}</h3>
+              <p className="font-display text-4xl lg:text-5xl font-bold text-accent leading-tight mb-2">{tr("Сразу", "Бірден", "Right away")}</p>
+              <p className="text-sm text-foreground/65 mb-5">{tr("старт — сразу после оплаты, занятия в удобном темпе", "старт — төлемнен кейін бірден, сабақтар ыңғайлы қарқынмен", "start — right after payment, lessons at your own pace")}</p>
 
               <div className="space-y-2 text-sm text-foreground/70 mb-6">
-                <p className="flex gap-2"><span className="text-accent">🕐</span> <strong>{tr("2 раза", "2 рет", "2×")}</strong> {tr("в неделю, по 90 мин", "аптасына, 90 минуттан", "a week, 90 min each")}</p>
-                <p className="flex gap-2"><span className="text-accent">📆</span> {tr("Гибкий график — ", "Икемді кесте — ", "Flexible schedule — ")}<em>{tr("подберём удобные дни и время", "ыңғайлы күн мен уақыт таңдаймыз", "we'll pick convenient days and times")}</em></p>
-                <p className="flex gap-2"><span className="text-accent">👥</span> {tr("Группа до 8 человек", "Топ 8 адамға дейін", "A group of up to 8")}</p>
+                <p className="flex gap-2"><span className="text-accent">🕐</span> <strong>{tr("2 живых занятия", "2 тірі сабақ", "2 live lessons")}</strong> {tr("в неделю по 1 часу с ментором", "аптасына 1 сағаттан ментормен", "a week, 1 hour each with a mentor")}</p>
+                <p className="flex gap-2"><span className="text-accent">🎥</span> {tr("Записанные материалы + обратная связь после каждого урока", "Жазылған материалдар + әр сабақтан кейін кері байланыс", "Recorded materials + feedback after every lesson")}</p>
+                <p className="flex gap-2"><span className="text-accent">📊</span> {tr("Ментор ведёт до результата, на связи 24/7, отчёт родителю каждые 3 недели", "Ментор нәтижеге дейін жетелейді, 24/7 байланыста, ата-анаға әр 3 аптада есеп", "The mentor guides to the result, available 24/7, a parent report every 3 weeks")}</p>
+                <p className="flex gap-2"><span className="text-accent">👥</span> {tr("Малые группы", "Шағын топтар", "Small groups")}</p>
               </div>
 
               <a href="/#schedule" className="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-hover transition-colors">

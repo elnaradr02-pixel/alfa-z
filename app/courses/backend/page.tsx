@@ -160,7 +160,7 @@ function makeFaqs(tr: Tr) {
   },
   {
     q: tr("Что если ребёнок застрянет на сложном уроке?", "Бала қиын сабақта тұрып қалса ше?", "What if the child gets stuck on a hard lesson?"),
-    a: tr("Каждое ДЗ имеет 2 уровня сложности. Уровень 1 — основное задание. Если не получается за 48ч — открывается Уровень 2: шаблоны кода, подсказки, каркас. Это не «облегчёнка», а scaffold для возвращения в строй. Куратор группы (1 на 10–15 учеников) отвечает на вопросы за 24ч, проверяет ДЗ за 48ч.", "Әр үй тапсырмасының 2 күрделілік деңгейі бар. 1-деңгей — негізгі тапсырма. 48 сағатта шықпаса — 2-деңгей ашылады: код үлгілері, кеңестер, қаңқа. Бұл «жеңілдетілген» емес, қатарға оралуға арналған scaffold. Топ кураторы (10–15 оқушыға 1) сұрақтарға 24 сағатта жауап береді, үй тапсырмасын 48 сағатта тексереді.", "Every homework has 2 difficulty levels. Level 1 is the main task. If it doesn't work out in 48h, Level 2 opens: code templates, hints, a scaffold. It's not a 'lite version' but a scaffold to get back on track. The group curator (1 per 10–15 students) answers questions within 24h and checks homework within 48h."),
+    a: tr("Каждое ДЗ имеет 2 уровня сложности. Уровень 1 — основное задание. Если не получается за 48ч — открывается Уровень 2: шаблоны кода, подсказки, каркас. Это не «облегчёнка», а scaffold для возвращения в строй. Личный ментор доводит каждого до результата: отвечает на вопросы, проверяет ДЗ за 48ч и на связи 24/7.", "Әр үй тапсырмасының 2 күрделілік деңгейі бар. 1-деңгей — негізгі тапсырма. 48 сағатта шықпаса — 2-деңгей ашылады: код үлгілері, кеңестер, қаңқа. Бұл «жеңілдетілген» емес, қатарға оралуға арналған scaffold. Жеке ментор әрқайсысын нәтижеге жеткізеді: сұрақтарға жауап береді, үй тапсырмасын 48 сағатта тексереді және 24/7 байланыста.", "Every homework has 2 difficulty levels. Level 1 is the main task. If it doesn't work out in 48h, Level 2 opens: code templates, hints, a scaffold. It's not a 'lite version' but a scaffold to get back on track. A personal mentor brings each student to the result: answers questions, checks homework within 48h, and is in touch 24/7."),
   },
   {
     q: tr("Какие требования к компьютеру?", "Компьютерге қандай талаптар қойылады?", "What are the computer requirements?"),
@@ -532,8 +532,8 @@ export default function BackendCourse() {
               </div>
               <div className="p-6 bg-accent-3/8 rounded-2xl border border-accent-3/20">
                 <span className="mb-3 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10 text-accent"><Icon name="users" className="h-6 w-6" /></span>
-                <h3 className="text-lg font-bold mb-2">{tr("Куратор группы", "Топ кураторы", "The group curator")}</h3>
-                <p className="text-sm text-foreground/70">{tr("1 куратор на 10–15 учеников. Отвечает на вопросы за 24ч, проверяет ДЗ за 48ч, при необходимости — личная помощь.", "10–15 оқушыға 1 куратор. Сұрақтарға 24 сағатта жауап береді, үй тапсырмасын 48 сағатта тексереді, қажет болса — жеке көмек.", "1 curator per 10–15 students. Answers questions within 24h, checks homework within 48h, and gives personal help if needed.")}</p>
+                <h3 className="text-lg font-bold mb-2">{tr("Личный ментор", "Жеке ментор", "A personal mentor")}</h3>
+                <p className="text-sm text-foreground/70">{tr("Ментор доводит каждого ученика до результата: на связи 24/7, обратная связь после каждого урока, проверка ДЗ за 48ч, отчёт родителю каждые 3 недели.", "Ментор әр оқушыны нәтижеге жеткізеді: 24/7 байланыста, әр сабақтан кейін кері байланыс, үй тапсырмасын 48 сағатта тексереді, ата-анаға әр 3 апта сайын есеп.", "The mentor brings each student to the result: in touch 24/7, feedback after every lesson, homework checked within 48h, a report to the parent every 3 weeks.")}</p>
               </div>
             </div>
 
@@ -609,23 +609,23 @@ export default function BackendCourse() {
       <section id="apply" className="max-w-6xl mx-auto px-6 py-20">
         <motion.div {...fadeIn} className="text-center mb-12">
           <h2 className="text-4xl lg:text-5xl font-bold mb-4">{tr("Стоимость", "Құны", "Pricing")}</h2>
-          <p className="text-lg text-foreground/60">{tr("Можно платить помесячно или сразу со скидкой", "Ай сайын немесе бірден жеңілдікпен төлеуге болады", "You can pay monthly or upfront with a discount")}</p>
+          <p className="text-lg text-foreground/60">{tr("Единая цена — оплата помесячно", "Бірыңғай баға — ай сайын төлеу", "One flat price — paid monthly")}</p>
         </motion.div>
 
         <div className="max-w-2xl mx-auto bg-gradient-to-br from-ink-1 to-ink-2 text-white rounded-3xl p-10 lg:p-12">
           <div className="text-center mb-8">
             <div className="text-sm uppercase tracking-wider opacity-60 mb-3">{tr("Цена", "Баға", "Price")}</div>
             <div className="flex items-baseline justify-center gap-3 flex-wrap mb-3">
-              <span className="text-4xl lg:text-5xl font-bold">75 000 ₸</span>
+              <span className="text-4xl lg:text-5xl font-bold">47 500 ₸</span>
               <span className="text-white/50 text-2xl">/ {tr("месяц", "ай", "month")}</span>
             </div>
-            <div className="text-white/60 text-sm">{tr("Одинаково весь период обучения · льготным категориям 60 000 ₸ · Kaspi-рассрочка 0%", "Оқудың бүкіл кезеңінде бірдей · жеңілдік санаттарына 60 000 ₸ · Kaspi-бөліп төлеу 0%", "The same throughout the whole course · 60 000 ₸ for eligible categories · Kaspi installments 0%")}</div>
+            <div className="text-white/60 text-sm">{tr("Единая цена весь период обучения · Kaspi Red — рассрочка 0%", "Оқудың бүкіл кезеңінде бірыңғай баға · Kaspi Red — 0% бөліп төлеу", "One flat price for the whole course · Kaspi Red — 0% installments")}</div>
           </div>
 
           <div className="space-y-3 mb-8">
             {[
-              tr("✓ 52 урока по 2 часа", "✓ 2 сағаттан 52 сабақ", "✓ 52 lessons of 2 hours"),
-              tr("✓ Куратор группы (1 на 10–15 чел)", "✓ Топ кураторы (10–15 адамға 1)", "✓ A group curator (1 per 10–15 people)"),
+              tr("✓ 2 живых занятия в неделю по 1 часу", "✓ Аптасына 2 тірі сабақ, 1 сағаттан", "✓ 2 live 1-hour lessons a week"),
+              tr("✓ Ментор ведёт каждого до результата, на связи 24/7", "✓ Ментор әрқайсысын нәтижеге жеткізеді, 24/7 байланыста", "✓ A mentor guides each student to the result, in touch 24/7"),
               tr("✓ Проверка ДЗ за 48ч", "✓ Үй тапсырмасын 48 сағатта тексеру", "✓ Homework checked within 48h"),
               tr("✓ 4 demo-day + финальная защита", "✓ 4 demo-day + финалдық қорғау", "✓ 4 demo-days + a final defense"),
               tr("✓ Сертификат + диплом", "✓ Сертификат + диплом", "✓ A certificate + a diploma"),
@@ -635,16 +635,11 @@ export default function BackendCourse() {
             ))}
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-3 mb-8">
-            <div className="p-4 bg-accent/15 rounded-xl border border-accent/30">
-              <div className="text-sm opacity-80 mb-1">{tr("Льготникам −20%", "Жеңілдік алушыларға −20%", "−20% for eligible students")}</div>
-              <div className="text-xl font-bold">60 000 ₸</div>
-              <div className="text-xs opacity-60">{tr("в месяц", "айына", "per month")}</div>
-            </div>
+          <div className="grid gap-3 mb-8">
             <div className="p-4 bg-white/5 rounded-xl border border-white/10">
-              <div className="text-sm opacity-60 mb-1">{tr("Kaspi-рассрочка", "Kaspi-бөліп төлеу", "Kaspi installments")}</div>
+              <div className="text-sm opacity-60 mb-1">{tr("Kaspi Red — рассрочка", "Kaspi Red — бөліп төлеу", "Kaspi Red — installments")}</div>
               <div className="text-xl font-bold">{tr("0% · 3 или 6 мес", "0% · 3 немесе 6 ай", "0% · 3 or 6 months")}</div>
-              <div className="text-xs opacity-60">{tr("без переплаты", "үстеме төлемсіз", "no overpayment")}</div>
+              <div className="text-xs opacity-60">{tr("без переплаты · удобную оплату подберём", "үстеме төлемсіз · ыңғайлы төлемді таңдаймыз", "no overpayment · we'll find a convenient plan")}</div>
             </div>
           </div>
 
