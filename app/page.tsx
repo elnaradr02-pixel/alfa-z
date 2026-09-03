@@ -288,12 +288,8 @@ function ApplyModal({ open, onClose, defaultCourse = "" }) {
             ) : (
               <form onSubmit={handleSubmit}>
                 <div className="mb-6">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 mb-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent animate-soft-pulse" />
-                    <span className="text-xs font-bold text-accent uppercase tracking-wider">{tr("Бесплатно", "Тегін", "Free")}</span>
-                  </div>
                   <h3 className="font-display text-2xl sm:text-3xl font-bold mb-2 leading-tight">
-                    {tr("Запись на ", "", "Sign up for a ")}<span className="text-accent">{tr("пробный урок", "Сынақ сабаққа жазылу", "free trial")}</span>
+                    {tr("Запись на ", "", "Sign up for a ")}<span className="text-accent">{tr("пробный урок", "Сынақ сабаққа жазылу", "trial lesson")}</span>
                   </h3>
                   <p className="text-foreground/65 text-sm">{tr("60 минут, без обязательств. Менеджер свяжется в течение часа.", "60 минут, міндеттемесіз. Менеджер бір сағат ішінде хабарласады.", "60 minutes, no obligations. A manager will contact you within an hour.")}</p>
                 </div>
@@ -394,7 +390,7 @@ export default function Home() {
           <div className="flex items-center gap-2 sm:gap-3">
             <LangSwitcher className="hidden sm:inline-flex" />
             <button className="hidden lg:inline-flex text-sm font-medium text-foreground/70 hover:text-foreground transition-colors">{tr("Войти", "Кіру", "Log in")}</button>
-            <button onClick={() => openApply()} className="px-4 sm:px-5 py-2.5 rounded-full bg-accent hover:bg-accent-hover text-white text-xs sm:text-sm font-semibold transition-all hover:scale-[1.03] shadow-md shadow-accent/20 whitespace-nowrap">{tr("Пробный урок", "Сынақ сабақ", "Free trial")}</button>
+            <button onClick={() => openApply()} className="px-4 sm:px-5 py-2.5 rounded-full bg-accent hover:bg-accent-hover text-white text-xs sm:text-sm font-semibold transition-all hover:scale-[1.03] shadow-md shadow-accent/20 whitespace-nowrap">{tr("Пробный урок", "Сынақ сабақ", "Trial lesson")}</button>
             {/* 🍔 Бургер-кнопка — только на мобиле и планшете */}
             <button
               onClick={() => setMobileMenuOpen(true)}
@@ -507,7 +503,7 @@ export default function Home() {
                   onClick={() => { setMobileMenuOpen(false); openApply(); }}
                   className="w-full py-4 bg-accent hover:bg-accent-hover text-white rounded-full font-display font-bold text-base shadow-lg shadow-accent/30 transition-all"
                 >
-                  {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Book a free trial")} →
+                  {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Book a trial lesson")} →
                 </button>
               </div>
             </motion.div>
@@ -541,7 +537,7 @@ export default function Home() {
             </p>
             <div className="flex flex-wrap gap-3 sm:gap-4 mb-10 animate-fade-in-up delay-300">
               <button onClick={() => openApply()} className="glow-hover inline-flex items-center gap-2 px-7 py-4 bg-accent hover:bg-accent-hover text-white rounded-full font-semibold hover:scale-[1.02] transition-all duration-300 shadow-2xl shadow-accent/40">
-                {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Book a free trial")} <span aria-hidden>→</span>
+                {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Book a trial lesson")} <span aria-hidden>→</span>
               </button>
               <a href="#courses" className="inline-flex items-center gap-2 px-7 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white rounded-full font-semibold hover:bg-white/20 transition-all duration-300">{tr("Программа курсов", "Курстар бағдарламасы", "Course catalog")}</a>
             </div>
@@ -745,7 +741,7 @@ async def check(update, ctx):
           <motion.div variants={fadeInUp} className="mt-12 sm:mt-16 text-center">
             <p className="text-ink-fg/60 text-sm mb-2">{tr("Не уверены, какой курс подходит ребёнку?", "Балаңызға қай курс лайық екенін білмейсіз бе?", "Not sure which course fits your child?")}</p>
             <button onClick={() => openApply()} className="inline-flex items-center gap-2 text-accent hover:text-accent-hover font-semibold transition-colors">
-              {tr("Записаться на бесплатный пробный урок и определиться вместе", "Тегін сынақ сабаққа жазылып, бірге шешейік", "Book a free trial and decide together")} <span>→</span>
+              {tr("Записаться на пробный урок и определиться вместе", "Сынақ сабаққа жазылып, бірге шешейік", "Book a trial lesson and decide together")} <span>→</span>
             </button>
           </motion.div>
         </div>
@@ -879,13 +875,13 @@ async def check(update, ctx):
           </motion.div>
 
           <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto p-8 lg:p-10 rounded-3xl bg-gradient-to-br from-accent/15 via-accent-soft/15 to-muted/30 border-2 border-accent/20">
-            <div className="text-5xl mb-4">🎁</div>
+            <div className="text-5xl mb-4">🚀</div>
             <h3 className="font-display text-2xl sm:text-3xl font-bold mb-3">
-              {tr("Первый урок — ", "Алғашқы сабақ — ", "The first lesson — ")}<span className="text-accent">{tr("бесплатно", "тегін", "free")}</span>
+              {tr("Начните с ", "", "Start with a ")}<span className="text-accent">{tr("пробного урока", "сынақ сабақтан бастаңыз", "trial lesson")}</span>
             </h3>
             <p className="text-foreground/70 mb-6 max-w-md mx-auto">{tr("Ребёнок попробует, познакомится с преподавателем. Если не понравится — никаких обязательств.", "Бала байқап көреді, ұстазбен танысады. Ұнамаса — ешқандай міндеттеме жоқ.", "Your child will try it and meet the instructor. If they don't like it — no obligations.")}</p>
             <button onClick={() => openApply()} className="inline-flex items-center gap-2 px-7 py-4 bg-accent hover:bg-accent-hover text-white rounded-full font-semibold hover:scale-[1.02] transition-all shadow-lg shadow-accent/30">
-              {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Book a free trial")} <span>→</span>
+              {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Book a trial lesson")} <span>→</span>
             </button>
           </motion.div>
         </div>
@@ -1161,7 +1157,7 @@ async def check(update, ctx):
               { q: tr("А если ребёнок передумает?", "Ал бала ойын өзгертсе ше?", "What if my child changes their mind?"), a: tr("Первый месяц — пробный. Если в течение 14 дней решит, что не его — вернём деньги полностью, без вопросов.", "Бірінші ай — сынақ. 14 күн ішінде «бұл менікі емес» деп шешсе — ақшаны толық қайтарамыз, сұрақсыз.", "The first month is a trial. If within 14 days they decide it's not for them — we refund in full, no questions asked.") },
               { q: tr("Чем вы отличаетесь от Kodland и других школ?", "Kodland пен басқа мектептерден несімен ерекшеленесіздер?", "How are you different from Kodland and other schools?"), a: tr("Главное: мы открыто учим работать с AI, а не делаем вид, что его нет. Второе: облегчённые задания через 48 часов. Третье: конкретный результат после каждого урока.", "Ең бастысы: біз AI-мен жұмыс істеуді ашық үйретеміз, оны жоқтай сыңай танытпаймыз. Екіншіден: 48 сағаттан кейін жеңілдетілген тапсырмалар. Үшіншіден: әр сабақтан кейін нақты нәтиже.", "Most importantly: we openly teach working with AI instead of pretending it doesn't exist. Second: easier assignments unlock after 48 hours. Third: a concrete result after every lesson.") },
               { q: tr("Получит ли ребёнок сертификат?", "Бала сертификат ала ма?", "Will my child get a certificate?"), a: tr("Да, сертификаты выдаём каждые 3 недели — 6 за веб-курс, 5–6 за остальные. Главное — рабочие проекты на GitHub.", "Иә, сертификаттарды әр 3 апта сайын береміз — веб-курсқа 6, қалғандарына 5–6. Ең бастысы — GitHub-тағы жұмыс істейтін жобалар.", "Yes, we issue certificates every 3 weeks — 6 for the web course, 5–6 for the others. Most important: working projects on GitHub.") },
-              { q: tr("Как записаться на пробный урок?", "Сынақ сабаққа қалай жазылуға болады?", "How do I sign up for a free trial?"), a: tr("Нажмите кнопку «Пробный урок» вверху — откроется короткая форма. После заполнения мы свяжемся с вами в WhatsApp в течение часа. Пробный урок бесплатный, 60 минут, без обязательств.", "Жоғарыдағы «Сынақ сабақ» батырмасын басыңыз — қысқа форма ашылады. Толтырғаннан кейін бір сағат ішінде WhatsApp арқылы хабарласамыз. Сынақ сабақ тегін, 60 минут, міндеттемесіз.", "Click the 'Free trial' button at the top — a short form opens. After you fill it in, we'll contact you on WhatsApp within an hour. The trial is free, 60 minutes, no obligations.") },
+              { q: tr("Как записаться на пробный урок?", "Сынақ сабаққа қалай жазылуға болады?", "How do I sign up for a trial lesson?"), a: tr("Нажмите кнопку «Пробный урок» вверху — откроется короткая форма. После заполнения мы свяжемся с вами в WhatsApp в течение часа. Пробный урок длится 60 минут, без обязательств.", "Жоғарыдағы «Сынақ сабақ» батырмасын басыңыз — қысқа форма ашылады. Толтырғаннан кейін бір сағат ішінде WhatsApp арқылы хабарласамыз. Сынақ сабақ 60 минутқа созылады, міндеттемесіз.", "Click the 'Trial lesson' button at the top — a short form opens. After you fill it in, we'll contact you on WhatsApp within an hour. The trial lesson lasts 60 minutes, no obligations.") },
             ].map((item, i) => (
               <motion.details key={i} variants={staggerItem} className="group rounded-2xl bg-surface border border-border hover:border-accent/30 transition-colors overflow-hidden">
                 <summary className="flex items-center justify-between gap-4 p-5 lg:p-6 cursor-pointer list-none">

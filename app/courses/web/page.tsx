@@ -84,12 +84,8 @@ function ApplyModal({ open, onClose, defaultCourse = "" }: { open: boolean; onCl
             ) : (
               <form onSubmit={handleSubmit}>
                 <div className="mb-6">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 mb-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent animate-soft-pulse" />
-                    <span className="text-xs font-bold text-accent uppercase tracking-wider">{tr("Бесплатно", "Тегін", "Free")}</span>
-                  </div>
                   <h3 className="font-display text-2xl sm:text-3xl font-bold mb-2 leading-tight">
-                    {tr("Запись на ", "", "Sign up for a ")}<span className="text-accent">{tr("пробный урок", "Сынақ сабаққа жазылу", "free trial")}</span>
+                    {tr("Запись на ", "", "Sign up for a ")}<span className="text-accent">{tr("пробный урок", "Сынақ сабаққа жазылу", "trial lesson")}</span>
                   </h3>
                   <p className="text-foreground/65 text-sm">{tr("60 минут, без обязательств.", "60 минут, міндеттемесіз.", "60 minutes, no obligations.")}</p>
                 </div>
@@ -251,7 +247,7 @@ export default function WebCoursePage() {
           <div className="flex items-center gap-3">
             <LangSwitcher className="hidden sm:inline-flex" />
             <button onClick={openApply} className="px-5 py-2.5 rounded-full bg-accent hover:bg-accent-hover text-white text-sm font-semibold transition-all hover:scale-[1.03] shadow-md shadow-accent/20 whitespace-nowrap">
-              {tr("Пробный урок", "Сынақ сабақ", "Free trial")}
+              {tr("Пробный урок", "Сынақ сабақ", "Trial lesson")}
             </button>
           </div>
         </nav>
@@ -633,16 +629,8 @@ export default function App() {
       {/* 🎁 ФИНАЛЬНЫЙ CTA */}
       <motion.section className="relative py-24 sm:py-32 border-t border-border overflow-hidden" initial="hidden" whileInView="visible" viewport={scrollViewport} variants={staggerContainer}>
         <div className="max-w-3xl mx-auto px-6 sm:px-8 text-center">
-          <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
-            <span className="relative flex w-2 h-2">
-              <span className="absolute inset-0 rounded-full bg-accent animate-soft-pulse" />
-              <span className="relative w-2 h-2 rounded-full bg-accent" />
-            </span>
-            <span className="text-xs font-bold text-accent uppercase tracking-wider">{tr("Бесплатно", "Тегін", "Free")}</span>
-          </motion.div>
-
           <motion.h2 variants={fadeInUp} className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-5">
-            {tr("Первый урок — ", "Алғашқы сабақ — ", "The first lesson — ")}<span className="text-accent">{tr("бесплатно", "тегін", "free")}</span>
+            {tr("Начните с ", "", "Start with a ")}<span className="text-accent">{tr("пробного урока", "сынақ сабақтан бастаңыз", "trial lesson")}</span>
           </motion.h2>
 
           <motion.p variants={fadeInUp} className="text-lg lg:text-xl text-foreground/70 leading-relaxed mb-10 max-w-xl mx-auto">
@@ -650,7 +638,7 @@ export default function App() {
           </motion.p>
 
           <motion.button variants={fadeInUp} onClick={openApply} className="inline-flex items-center gap-3 px-8 py-5 bg-accent hover:bg-accent-hover text-white rounded-full font-semibold text-lg hover:scale-[1.02] transition-all duration-300 shadow-2xl shadow-accent/40">
-            {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Book a free trial")} <span>→</span>
+            {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Book a trial lesson")} <span>→</span>
           </motion.button>
 
           <motion.p variants={fadeInUp} className="text-sm text-foreground/50 mt-6">

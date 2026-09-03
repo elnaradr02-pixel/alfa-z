@@ -646,7 +646,7 @@ export default function BackendCourse() {
           <button className="w-full py-4 bg-accent hover:bg-white hover:text-foreground rounded-2xl font-semibold text-lg transition">
             {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Sign up for a trial lesson")} →
           </button>
-          <p className="text-center text-sm text-white/50 mt-4">{tr("Пробный урок — бесплатно", "Сынақ сабақ — тегін", "The trial lesson is free")}</p>
+          <p className="text-center text-sm text-white/50 mt-4">{tr("Начните с пробного урока", "Сынақ сабақтан бастаңыз", "Start with a trial lesson")}</p>
         </div>
       </section>
 
@@ -697,7 +697,7 @@ export default function BackendCourse() {
             {tr("Готовы начать?", "Бастауға дайынсыз ба?", "Ready to start?")}
           </motion.h2>
           <motion.p {...fadeIn} className="text-lg text-white/60 mb-8">
-            {tr("Запишитесь на бесплатный пробный урок — посмотрим вместе подходит ли курс ребёнку.", "Тегін сынақ сабаққа жазылыңыз — курс балаға сай келе ме, бірге көреміз.", "Sign up for a free trial lesson — let's see together whether the course suits your child.")}
+            {tr("Запишитесь на пробный урок — посмотрим вместе подходит ли курс ребёнку.", "Сынақ сабаққа жазылыңыз — курс балаға сай келе ме, бірге көреміз.", "Sign up for a trial lesson — let's see together whether the course suits your child.")}
           </motion.p>
           <motion.a {...fadeIn} href="#apply" className="inline-flex items-center gap-2 px-8 py-4 bg-accent hover:bg-white hover:text-foreground rounded-2xl font-semibold text-lg transition shadow-lg">
             {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Sign up for a trial lesson")} →

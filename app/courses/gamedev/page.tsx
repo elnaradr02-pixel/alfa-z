@@ -218,7 +218,7 @@ export default function GameDevCourse() {
           <div className="flex items-center gap-3">
             <LangSwitcher className="hidden sm:inline-flex" />
             <a href="#apply" className="px-5 py-2.5 rounded-full bg-accent hover:bg-accent-hover text-white text-sm font-semibold transition-all hover:scale-[1.03] shadow-md shadow-accent/20 whitespace-nowrap">
-              {tr("Пробный урок", "Сынақ сабақ", "Free trial")}
+              {tr("Пробный урок", "Сынақ сабақ", "Trial lesson")}
             </a>
           </div>
         </nav>
@@ -626,7 +626,7 @@ public class Player : MonoBehaviour {
           <a href="#apply" className="block text-center w-full py-4 bg-accent hover:bg-white hover:text-foreground rounded-2xl font-semibold text-lg transition">
             {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Sign up for a trial lesson")} →
           </a>
-          <p className="text-center text-sm text-white/50 mt-4">{tr("Пробный урок — бесплатно", "Сынақ сабақ — тегін", "Trial lesson — free")}</p>
+          <p className="text-center text-sm text-white/50 mt-4">{tr("Начните с пробного урока", "Сынақ сабақтан бастаңыз", "Start with a trial lesson")}</p>
         </div>
       </section>
 
@@ -677,7 +677,7 @@ public class Player : MonoBehaviour {
             {tr("Готовы начать?", "Бастауға дайынсыз ба?", "Ready to start?")}
           </motion.h2>
           <motion.p {...fadeIn} className="text-lg text-white/60 mb-8">
-            {tr("Запишитесь на бесплатный пробный урок — посмотрим вместе подходит ли курс ребёнку.", "Тегін сынақ сабаққа жазылыңыз — курс балаға сай келе ме, бірге қараймыз.", "Sign up for a free trial lesson — together we'll see if the course fits your child.")}
+            {tr("Запишитесь на пробный урок — посмотрим вместе подходит ли курс ребёнку.", "Сынақ сабаққа жазылыңыз — курс балаға сай келе ме, бірге қараймыз.", "Sign up for a trial lesson — together we'll see if the course fits your child.")}
           </motion.p>
           <motion.a {...fadeIn} href="#apply" className="inline-flex items-center gap-2 px-8 py-4 bg-accent hover:bg-white hover:text-foreground rounded-2xl font-semibold text-lg transition shadow-lg">
             {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Sign up for a trial lesson")} →
