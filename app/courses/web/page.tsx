@@ -591,16 +591,14 @@ export default function App() {
                 <span className="font-display text-3xl lg:text-4xl font-bold text-foreground leading-none tabular-nums">47 500 ₸</span>
                 <span className="text-foreground/50 text-lg">/ {tr("месяц", "ай", "month")}</span>
               </div>
-              <p className="text-sm text-foreground/65 mb-5">{tr("Единая цена · оплата помесячно · без скрытых доплат", "Бірыңғай баға · ай сайын төлеу · жасырын төлемсіз", "One flat price · paid monthly · no hidden fees")}</p>
+              <p className="text-sm text-foreground/65 mb-5">{tr("Единая цена · без скрытых доплат", "Бірыңғай баға · жасырын төлемсіз", "One flat price · no hidden fees")}</p>
 
               <div className="space-y-2 text-sm text-foreground/70 mb-6">
-                <p className="flex gap-2"><span className="text-accent">🔥</span> {tr("Kaspi Red — рассрочка 0%", "Kaspi Red — 0% бөліп төлеу", "Kaspi Red — 0% installments")}</p>
-                <p className="flex gap-2"><span className="text-accent">💳</span> {tr("Удобную оплату подберём", "Ыңғайлы төлемді таңдаймыз", "We'll find a convenient payment plan")}</p>
                 <p className="flex gap-2"><span className="text-accent">🔒</span> {tr("Цена фиксирована на весь курс", "Баға бүкіл курсқа бекітілген", "The price is fixed for the whole course")}</p>
               </div>
 
               <a href="/#pricing" className="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent-hover transition-colors">
-                {tr("Подробнее про оплату", "Төлем туралы толығырақ", "More about payment")} <span>→</span>
+                {tr("Подробнее о цене", "Баға туралы толығырақ", "More about the price")} <span>→</span>
               </a>
             </motion.div>
 

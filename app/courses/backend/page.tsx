@@ -619,7 +619,7 @@ export default function BackendCourse() {
               <span className="text-4xl lg:text-5xl font-bold">47 500 ₸</span>
               <span className="text-white/50 text-2xl">/ {tr("месяц", "ай", "month")}</span>
             </div>
-            <div className="text-white/60 text-sm">{tr("Единая цена весь период обучения · Kaspi Red — рассрочка 0%", "Оқудың бүкіл кезеңінде бірыңғай баға · Kaspi Red — 0% бөліп төлеу", "One flat price for the whole course · Kaspi Red — 0% installments")}</div>
+            <div className="text-white/60 text-sm">{tr("Единая цена весь период обучения · без скрытых доплат", "Оқудың бүкіл кезеңінде бірыңғай баға · жасырын төлемсіз", "One flat price for the whole course · no hidden fees")}</div>
           </div>
 
           <div className="space-y-3 mb-8">
@@ -635,13 +635,6 @@ export default function BackendCourse() {
             ))}
           </div>
 
-          <div className="grid gap-3 mb-8">
-            <div className="p-4 bg-white/5 rounded-xl border border-white/10">
-              <div className="text-sm opacity-60 mb-1">{tr("Kaspi Red — рассрочка", "Kaspi Red — бөліп төлеу", "Kaspi Red — installments")}</div>
-              <div className="text-xl font-bold">{tr("0% · 3 или 6 мес", "0% · 3 немесе 6 ай", "0% · 3 or 6 months")}</div>
-              <div className="text-xs opacity-60">{tr("без переплаты · удобную оплату подберём", "үстеме төлемсіз · ыңғайлы төлемді таңдаймыз", "no overpayment · we'll find a convenient plan")}</div>
-            </div>
-          </div>
 
           <button className="w-full py-4 bg-accent hover:bg-white hover:text-foreground rounded-2xl font-semibold text-lg transition">
             {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Sign up for a trial lesson")} →

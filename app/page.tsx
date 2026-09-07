@@ -776,7 +776,7 @@ async def check(update, ctx):
               {tr("Доступно. ", "Қолжетімді. ", "Affordable. ")}<span className="text-accent">{tr("Прозрачно. Честно.", "Ашық. Адал.", "Transparent. Honest.")}</span>
             </h2>
             <p className="text-lg text-foreground/70">
-              {tr("Единая понятная цена — ", "Бірыңғай түсінікті баға — ", "One clear price — ")}<span className="font-bold text-foreground">47 500 ₸ {tr("в месяц", "айына", "per month")}</span>{tr(" за всё: живые занятия с ментором, обратная связь после каждого урока, отчёты о прогрессе. Оплата помесячно, доступна ", ": ментормен тікелей сабақтар, әр сабақтан кейін кері байланыс, прогресс есептері. Ай сайын төлеу, ", " for everything: live lessons with a mentor, feedback after every lesson, progress reports. Billed monthly, with ")}<span className="font-bold text-accent">Kaspi Red</span>{tr(" — рассрочка 0%. Удобную оплату подберём.", " — 0% бөліп төлеу қолжетімді. Ыңғайлы төлемді таңдаймыз.", " — 0% installments available. We'll arrange convenient payment.")}
+              {tr("Единая понятная цена — ", "Бірыңғай түсінікті баға — ", "One clear price — ")}<span className="font-bold text-foreground">47 500 ₸ {tr("в месяц", "айына", "per month")}</span>{tr(" за всё: живые занятия с ментором, обратная связь после каждого урока и отчёты о прогрессе.", ": ментормен тікелей сабақтар, әр сабақтан кейін кері байланыс және прогресс есептері.", " for everything: live lessons with a mentor, feedback after every lesson, and progress reports.")}
             </p>
           </motion.div>
 
@@ -792,18 +792,14 @@ async def check(update, ctx):
             <div className="max-w-md mx-auto text-center rounded-2xl bg-surface/60 border border-border p-8">
               <p className="text-xs font-semibold text-foreground/50 uppercase tracking-wider mb-3">{tr("Единая цена", "Бірыңғай баға", "One price")}</p>
               <p className="font-display text-5xl lg:text-6xl font-bold text-foreground leading-none mb-2 tabular-nums">47 500 <span className="text-2xl text-foreground/60">₸</span></p>
-              <p className="text-sm text-foreground/65 mt-2">{tr("в месяц · оплата помесячно", "айына · ай сайын төлеу", "per month · billed monthly")}</p>
+              <p className="text-sm text-foreground/65 mt-2">{tr("в месяц", "айына", "per month")}</p>
               <p className="text-xs text-foreground/50 mt-1">{tr("2 живых занятия в неделю по 1 часу с ментором", "аптасына 2 тірі сабақ, ментормен 1 сағаттан", "2 live 1-hour lessons a week with a mentor")}</p>
             </div>
 
-            <div className="mt-7 pt-6 border-t border-accent/20 grid sm:grid-cols-3 gap-3 text-sm">
+            <div className="mt-7 pt-6 border-t border-accent/20 grid sm:grid-cols-2 gap-3 text-sm max-w-lg mx-auto">
               <div className="flex items-start gap-2">
                 <span className="text-accent text-base flex-shrink-0">✓</span>
                 <span className="text-foreground/75 leading-snug">{tr("Без скрытых платежей — цена фиксирована на весь курс", "Жасырын төлемсіз — баға бүкіл курсқа бекітілген", "No hidden fees — the price is fixed for the whole course")}</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="text-accent text-base flex-shrink-0">💳</span>
-                <span className="text-foreground/75 leading-snug">{tr("Kaspi Red — рассрочка 0%, удобную оплату подберём", "Kaspi Red — 0% бөліп төлеу, ыңғайлы төлемді таңдаймыз", "Kaspi Red — 0% installments, we'll arrange convenient payment")}</span>
               </div>
               <div className="flex items-start gap-2">
                 <span className="text-accent text-base flex-shrink-0">🔓</span>
@@ -811,43 +807,6 @@ async def check(update, ctx):
               </div>
             </div>
           </motion.div>
-
-          {/* 🎁 3 ФОРМАТА ОПЛАТЫ */}
-          <motion.div variants={fadeInUp} className="text-center mb-8">
-            <h3 className="font-display text-xl sm:text-2xl font-bold mb-2">{tr("Форматы оплаты", "Төлем форматтары", "Payment options")}</h3>
-            <p className="text-sm text-foreground/65">{tr("Выберите удобный для вас", "Өзіңізге ыңғайлысын таңдаңыз", "Choose the one that suits you")}</p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-5 lg:gap-6 mb-14 max-w-3xl mx-auto">
-            {[
-              { emoji: "📅", badge: null, title: tr("Помесячно", "Ай сайын", "Monthly"), subtitle: tr("Единая цена", "Бірыңғай баға", "One price"), price: "47 500", priceUnit: tr("₸ / месяц", "₸ / ай", "₸ / month"), priceFooter: tr("оплата помесячно, без обязательств", "ай сайын төлеу, міндеттемесіз", "billed monthly, no commitment"), description: tr("Прозрачная цена за всё: живые занятия с ментором, обратная связь после каждого урока, отчёты о прогрессе каждые 3 недели.", "Барлығына ашық баға: ментормен тікелей сабақтар, әр сабақтан кейін кері байланыс, әр 3 апта сайын прогресс есептері.", "A transparent price for everything: live lessons with a mentor, feedback after every lesson, progress reports every 3 weeks."), features: [tr("Старт сразу после оплаты", "Төлемнен кейін бірден старт", "Start right after payment"), tr("Оплата картой или Kaspi", "Картамен не Kaspi-мен төлеу", "Pay by card or Kaspi"), tr("Можно прекратить в любой момент", "Кез келген уақытта тоқтатуға болады", "Cancel anytime")], ctaText: tr("Подходит для большинства", "Көпшілікке қолайлы", "Fits most people"), bgClass: "bg-surface border-border", highlight: false },
-              { emoji: "🔥", badge: tr("Популярно", "Танымал", "Popular"), title: "Kaspi Red", subtitle: tr("Рассрочка на 3 или 6 месяцев", "3 не 6 айға бөліп төлеу", "Installments over 3 or 6 months"), price: "0%", priceUnit: tr("переплаты", "артық төлем", "overpayment"), priceFooter: tr("делим 47 500 ₸ на месяцы", "47 500 ₸-ні айларға бөлеміз", "we split 47,500 ₸ across months"), description: tr("Оформляем через Kaspi Red — рассрочка 0% на 3 или 6 месяцев. Без справок и поручителей. Удобную оплату подберём.", "Kaspi Red арқылы рәсімдейміз — 3 не 6 айға 0% бөліп төлеу. Анықтамасыз, кепілгерсіз. Ыңғайлы төлемді таңдаймыз.", "Arranged via Kaspi Red — 0% installments over 3 or 6 months. No certificates or guarantors. We'll arrange convenient payment."), features: [tr("Решение за 5 минут", "5 минутта шешім", "A decision in 5 minutes"), tr("Без процентов", "Пайызсыз", "No interest"), tr("Удобный график списаний", "Ыңғайлы есептен шығару кестесі", "A convenient payment schedule")], ctaText: tr("Удобный способ", "Ыңғайлы тәсіл", "A convenient option"), bgClass: "bg-surface border-border", highlight: false },
-            ].map((plan, i) => (
-              <motion.div key={i} variants={staggerItem} whileHover={{ y: -8, transition: { duration: 0.2 } }} className={`relative p-6 lg:p-8 rounded-2xl border-2 ${plan.bgClass} transition-all duration-300 hover:shadow-xl flex flex-col`}>
-                {plan.badge && (<div className={`absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg whitespace-nowrap ${plan.highlight ? 'bg-accent text-white' : 'bg-accent-soft text-foreground'}`}>{plan.badge}</div>)}
-                <div className="text-4xl mb-4">{plan.emoji}</div>
-                <h3 className="font-display text-2xl font-bold mb-1">{plan.title}</h3>
-                <p className="text-sm text-foreground/60 mb-5">{plan.subtitle}</p>
-                <div className="mb-4 pb-5 border-b border-border">
-                  <div className="flex items-baseline gap-1.5">
-                    <span className="font-display text-4xl lg:text-5xl font-bold text-foreground tabular-nums">{plan.price}</span>
-                  </div>
-                  <p className="text-sm text-foreground/60 mt-1">{plan.priceUnit}</p>
-                  <p className="text-xs text-accent font-semibold mt-2">{plan.priceFooter}</p>
-                </div>
-                <p className="text-sm text-foreground/70 leading-relaxed mb-5 min-h-[60px]">{plan.description}</p>
-                <ul className="space-y-2.5 mb-6">
-                  {plan.features.map((feat, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5 text-sm text-foreground/80">
-                      <svg className="w-4 h-4 mt-0.5 text-accent flex-shrink-0" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className={`text-xs font-semibold uppercase tracking-wider mt-auto ${plan.highlight ? 'text-accent' : 'text-foreground/40'}`}>{plan.ctaText}</p>
-              </motion.div>
-            ))}
-          </div>
 
           <motion.div variants={fadeInUp} className="bg-surface border border-border rounded-3xl p-8 sm:p-10 lg:p-12 mb-12">
             <div className="text-center mb-8">
@@ -1147,7 +1106,7 @@ async def check(update, ctx):
           <div className="space-y-3">
             {[
               { q: tr("Когда стартует обучение и какое расписание?", "Оқу қашан басталады және кесте қандай?", "When does training start and what's the schedule?"), a: tr("Никакого потока — занятия начинаются сразу после оплаты абонемента, ребёнок идёт в удобном темпе. Живые занятия с ментором 2 раза в неделю по 1 часу — а дни и время подберём под вашего ребёнка (утро, день или вечер), чтобы не мешало школе и секциям. Все 5 направлений доступны. Удобное время подберём в WhatsApp.", "Ешқандай ағын жоқ — сабақтар абонемент төленгеннен кейін бірден басталады, бала ыңғайлы қарқынмен жүреді. Ментормен тірі сабақтар аптасына 2 рет, 1 сағаттан — ал күндер мен уақытты балаңызға қарай таңдаймыз (таңертең, күндіз не кешке), мектеп пен үйірмелерге кедергі болмас үшін. 5 бағыттың бәрі қолжетімді. Ыңғайлы уақытты WhatsApp-та таңдаймыз.", "No cohorts — lessons start right after you pay for the subscription, and your child goes at a comfortable pace. Live lessons with a mentor twice a week for 1 hour — and we'll pick days and times to fit your child (morning, afternoon, or evening) so it doesn't clash with school and activities. All 5 tracks are available. We'll arrange a convenient time on WhatsApp.") },
-              { q: tr("Сколько стоит обучение?", "Оқу қанша тұрады?", "How much does it cost?"), a: tr("Единая цена — 47 500 ₸ в месяц, оплата помесячно, без скрытых доплат. В цену входит всё: 2 живых занятия в неделю по 1 часу с ментором, записанные материалы, обратная связь после каждого урока, отчёты о прогрессе каждые 3 недели и ментор на связи 24/7. Доступна рассрочка Kaspi Red 0% на 3 или 6 месяцев — удобную оплату подберём.", "Бірыңғай баға — айына 47 500 ₸, ай сайын төлеу, жасырын қосымша төлемсіз. Бағаға бәрі кіреді: ментормен аптасына 2 тірі сабақ, 1 сағаттан, жазба материалдар, әр сабақтан кейін кері байланыс, әр 3 апта сайын прогресс есептері және ментор 24/7 байланыста. Kaspi Red 0% бөліп төлеу 3 не 6 айға қолжетімді — ыңғайлы төлемді таңдаймыз.", "One price — 47,500 ₸ per month, billed monthly, with no hidden fees. Everything is included: 2 live 1-hour lessons a week with a mentor, recorded materials, feedback after every lesson, progress reports every 3 weeks, and a mentor in touch 24/7. Kaspi Red 0% installments over 3 or 6 months are available — we'll arrange convenient payment.") },
+              { q: tr("Сколько стоит обучение?", "Оқу қанша тұрады?", "How much does it cost?"), a: tr("Единая цена — 47 500 ₸ в месяц, оплата помесячно, без скрытых доплат. В цену входит всё: 2 живых занятия в неделю по 1 часу с ментором, записанные материалы, обратная связь после каждого урока, отчёты о прогрессе каждые 3 недели и ментор на связи 24/7.", "Бірыңғай баға — айына 47 500 ₸, ай сайын төлеу, жасырын қосымша төлемсіз. Бағаға бәрі кіреді: ментормен аптасына 2 тірі сабақ, 1 сағаттан, жазба материалдар, әр сабақтан кейін кері байланыс, әр 3 апта сайын прогресс есептері және ментор 24/7 байланыста.", "One price — 47,500 ₸ per month, billed monthly, with no hidden fees. Everything is included: 2 live 1-hour lessons a week with a mentor, recorded materials, feedback after every lesson, progress reports every 3 weeks, and a mentor in touch 24/7.") },
               { q: tr("Что за Гарвардский курс CS50?", "Гарвардтың CS50 курсы деген не?", "What is Harvard's CS50 course?"), a: tr("Это легендарный вводный курс информатики Гарвардского университета (CS50), адаптированный на русский язык: 49 занятий, 11 модулей, 7 Problem Sets. Программа ведёт от Scratch и языка C через алгоритмы, структуры данных и работу с памятью к Python, SQL и полноценному веб-приложению на Flask. Даёт настоящий фундамент Computer Science, с которым потом легко даётся любой язык и направление.", "Бұл — Гарвард университетінің информатика бойынша аңызға айналған кіріспе курсы (CS50): 49 сабақ, 11 модуль, 7 Problem Sets. Бағдарлама Scratch пен C тілінен алгоритмдер, деректер құрылымы және жадпен жұмыс арқылы Python, SQL және Flask-тегі толыққанды веб-қосымшаға жетелейді. Computer Science-тің нағыз іргетасын береді, онымен кейін кез келген тіл мен бағыт оңай меңгеріледі.", "It's the University's legendary intro to computer science (CS50): 49 lessons, 11 modules, 7 Problem Sets. The program goes from Scratch and the C language through algorithms, data structures, and memory to Python, SQL, and a full web app on Flask. It builds a real Computer Science foundation that makes any language or track easy afterward.") },
               { q: tr("Что если ребёнок заболел или пропустил урок?", "Бала ауырса не сабақты жіберіп алса ше?", "What if my child gets sick or misses a lesson?"), a: tr("Все занятия проходят вживую в маленьких группах, но каждый урок доступен в записи — ребёнок сможет наверстать пропущенное. Куратор поможет догнать материал в чате, а домашнее задание можно сдать позже. Болезнь со справкой мы всегда идём навстречу.", "Барлық сабақтар шағын топтарда тікелей өтеді, бірақ әр сабақтың жазбасы болады — бала жіберіп алғанын толықтыра алады. Куратор чатта материалды қууға көмектеседі, үй тапсырмасын кейінірек тапсыруға болады. Анықтамамен ауырғанда әрқашан жағдай жасаймыз.", "All classes are live in small groups, but every lesson is recorded — your child can catch up. The mentor helps recover the material in chat, and homework can be submitted later. With a doctor's note for illness, we always accommodate.") },
               { q: tr("С какого возраста можно учиться?", "Қай жастан бастап оқуға болады?", "From what age can kids start?"), a: tr("Веб-разработка — с 12 лет, остальные курсы — с 13. Верхняя граница — 17–18 лет.", "Веб-әзірлеу — 12 жастан, қалған курстар — 13 жастан. Жоғарғы шек — 17–18 жас.", "Web development from age 12, the other courses from 13. The upper limit is 17–18.") },
