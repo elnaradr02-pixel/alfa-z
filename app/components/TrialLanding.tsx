@@ -37,11 +37,6 @@ export type TrialDict = {
   dirAccent: string;
   dirSub: string;
   directions: { icon: IconName; name: string }[];
-  // почему
-  whyEyebrow: string;
-  whyTitle: string;
-  whyAccent: string;
-  whyItems: { icon: IconName; title: string; desc: string }[];
   // цена + форма
   priceEyebrow: string;
   priceValue: string;
@@ -133,7 +128,7 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
       </section>
 
       {/* ── БОЛЬ ── */}
-      <section className="border-b border-border bg-muted/25 py-16 sm:py-20">
+      <section className="border-b border-border bg-muted/25 py-14 sm:py-16">
         <div className="mx-auto max-w-2xl px-5">
           <div className="mb-8 text-center">
             <p className="mb-2 font-mono text-xs font-bold uppercase tracking-widest text-accent">{t.painEyebrow}</p>
@@ -156,7 +151,7 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
       </section>
 
       {/* ── ЧТО ПРОИЗОЙДЁТ ЗА УРОК ── */}
-      <section className="border-b border-border py-16 sm:py-20">
+      <section className="border-b border-border py-14 sm:py-16">
         <div className="mx-auto max-w-5xl px-5">
           <div className="mx-auto mb-10 max-w-2xl text-center">
             <p className="mb-2 font-mono text-xs font-bold uppercase tracking-widest text-accent">{t.whatEyebrow}</p>
@@ -181,7 +176,7 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
       </section>
 
       {/* ── НАПРАВЛЕНИЯ ── */}
-      <section className="border-b border-border bg-muted/20 py-16 sm:py-20">
+      <section className="border-b border-border bg-muted/20 py-14 sm:py-16">
         <div className="mx-auto max-w-5xl px-5 text-center">
           <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight leading-tight text-balance">
             {t.dirTitle} <span className="text-accent">{t.dirAccent}</span>
@@ -197,31 +192,8 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
         </div>
       </section>
 
-      {/* ── ПОЧЕМУ ── */}
-      <section className="border-b border-border py-16 sm:py-20">
-        <div className="mx-auto max-w-5xl px-5">
-          <div className="mx-auto mb-10 max-w-2xl text-center">
-            <p className="mb-2 font-mono text-xs font-bold uppercase tracking-widest text-accent">{t.whyEyebrow}</p>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight leading-tight text-balance">
-              {t.whyTitle} <span className="text-accent">{t.whyAccent}</span>
-            </h2>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-3">
-            {t.whyItems.map((it) => (
-              <div key={it.title} className="rounded-2xl border border-border bg-surface p-6 text-center">
-                <span className="mx-auto mb-3 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                  <Icon name={it.icon} className="h-6 w-6" />
-                </span>
-                <h3 className="font-display text-base font-bold leading-tight">{it.title}</h3>
-                <p className="mt-1.5 text-sm text-foreground/65 leading-relaxed">{it.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── ЦЕНА (первое упоминание) + ФОРМА ── */}
-      <section id="trial-form" className="scroll-mt-4 bg-gradient-to-b from-background via-muted/10 to-background py-16 sm:py-20">
+      <section id="trial-form" className="scroll-mt-4 bg-gradient-to-b from-background via-muted/10 to-background py-14 sm:py-16">
         <div className="mx-auto max-w-lg px-5">
           <div className="rounded-3xl border-2 border-accent/25 bg-surface p-6 sm:p-9 shadow-2xl shadow-accent/10">
             {sent ? (
@@ -276,7 +248,7 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
       </section>
 
       {/* ── FAQ ── */}
-      <section className="border-t border-border py-16 sm:py-20">
+      <section className="border-t border-border py-14 sm:py-16">
         <div className="mx-auto max-w-2xl px-5">
           <h2 className="mb-8 text-center font-display text-2xl sm:text-3xl font-bold tracking-tight">{t.faqTitle}</h2>
           <div className="space-y-3">
