@@ -4,28 +4,30 @@ import { useState } from "react";
 import Icon, { type IconName } from "./Icon";
 
 /**
- * Отдельный продающий лендинг под таргет (Instagram) на профориентационный
- * пробный урок. Одна вёрстка, язык задаётся словарём (см. trial-ru / trial-kz).
- * Скрыт из навигации сайта; заявка уходит в WhatsApp на номер школы.
+ * Продающий лендинг под таргет (Instagram) на профориентационный пробный урок.
+ * Структура: боль → интерес → польза → и только потом цена (у формы).
+ * Одна вёрстка, язык задаётся словарём (см. trial-ru / trial-kz). Скрыт из
+ * навигации и индексации; заявка уходит в WhatsApp на номер школы.
  */
 
 const WA_NUMBER = "77007240353";
 
 export type TrialDict = {
   lang: "ru" | "kk";
-  metaTitle: string;
-  // hero
   eyebrow: string;
   h1a: string;
   h1accent: string;
   h1b: string;
   sub: string;
-  priceLabel: string;
-  priceValue: string;
-  priceNote: string;
   ctaPrimary: string;
+  heroNote: string;
   trust: string[];
-  // что такое пробный урок
+  // боль
+  painEyebrow: string;
+  painTitle: string;
+  painItems: string[];
+  painTurn: string;
+  // что произойдёт
   whatEyebrow: string;
   whatTitle: string;
   whatAccent: string;
@@ -35,13 +37,15 @@ export type TrialDict = {
   dirAccent: string;
   dirSub: string;
   directions: { icon: IconName; name: string }[];
-  // почему alfa z
+  // почему
   whyEyebrow: string;
   whyTitle: string;
   whyAccent: string;
   whyItems: { icon: IconName; title: string; desc: string }[];
-  // форма
-  formEyebrow: string;
+  // цена + форма
+  priceEyebrow: string;
+  priceValue: string;
+  priceFraming: string;
   formTitle: string;
   formAccent: string;
   formSub: string;
@@ -55,7 +59,7 @@ export type TrialDict = {
   formNote: string;
   successTitle: string;
   successText: string;
-  // whatsapp message
+  // whatsapp
   waIntro: string;
   waName: string;
   waAge: string;
@@ -80,18 +84,16 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
     const lines = [t.waIntro, "", `${t.waName}: ${name}`];
     if (age.trim()) lines.push(`${t.waAge}: ${age}`);
     lines.push(`${t.waPhone}: ${phone}`);
-    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`;
-    window.open(url, "_blank");
+    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank");
     setSent(true);
   };
 
-  const scrollToForm = () => {
+  const scrollToForm = () =>
     document.getElementById("trial-form")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   return (
     <div className="min-h-screen bg-background text-foreground" lang={t.lang}>
-      {/* ── HERO ── */}
+      {/* ── HERO: боль-крючок, без цены ── */}
       <section className="relative overflow-hidden bg-midnight text-ink-fg">
         <div className="pointer-events-none absolute -top-32 -right-24 h-80 w-80 rounded-full bg-accent/25 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-40 -left-24 h-80 w-80 rounded-full bg-accent-soft/20 blur-3xl" />
@@ -110,16 +112,6 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
 
           <p className="mx-auto mt-5 max-w-xl text-lg text-ink-fg/75 leading-relaxed">{t.sub}</p>
 
-          {/* Оффер-бейдж */}
-          <div className="mx-auto mt-8 inline-flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.06] px-6 py-4 backdrop-blur-sm">
-            <div className="text-left">
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-ink-fg/50">{t.priceLabel}</p>
-              <p className="font-display text-3xl font-extrabold leading-none text-accent">{t.priceValue}</p>
-            </div>
-            <span className="h-10 w-px bg-white/15" />
-            <p className="max-w-[9rem] text-left text-xs leading-snug text-ink-fg/65">{t.priceNote}</p>
-          </div>
-
           <div className="mt-8">
             <button
               onClick={scrollToForm}
@@ -127,9 +119,10 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
             >
               {t.ctaPrimary} <span aria-hidden>→</span>
             </button>
+            <p className="mt-3 text-sm text-ink-fg/55">{t.heroNote}</p>
           </div>
 
-          <ul className="mx-auto mt-9 flex max-w-2xl flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-ink-fg/70">
+          <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-ink-fg/70">
             {t.trust.map((chip) => (
               <li key={chip} className="inline-flex items-center gap-1.5">
                 <Icon name="check" className="h-4 w-4 text-accent" /> {chip}
@@ -139,7 +132,30 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
         </div>
       </section>
 
-      {/* ── ЧТО ТАКОЕ ПРОБНЫЙ УРОК ── */}
+      {/* ── БОЛЬ ── */}
+      <section className="border-b border-border bg-muted/25 py-16 sm:py-20">
+        <div className="mx-auto max-w-2xl px-5">
+          <div className="mb-8 text-center">
+            <p className="mb-2 font-mono text-xs font-bold uppercase tracking-widest text-accent">{t.painEyebrow}</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight leading-tight text-balance">{t.painTitle}</h2>
+          </div>
+          <ul className="space-y-3">
+            {t.painItems.map((p) => (
+              <li key={p} className="flex items-start gap-3 rounded-2xl border border-border bg-surface px-5 py-4">
+                <span className="mt-0.5 flex h-6 w-6 flex-none items-center justify-center rounded-full bg-accent/12 text-accent">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
+                </span>
+                <span className="text-[15px] leading-snug text-foreground/80">{p}</span>
+              </li>
+            ))}
+          </ul>
+          <p className="mx-auto mt-9 max-w-xl text-center font-display text-xl sm:text-2xl font-bold leading-snug text-balance">
+            {t.painTurn}
+          </p>
+        </div>
+      </section>
+
+      {/* ── ЧТО ПРОИЗОЙДЁТ ЗА УРОК ── */}
       <section className="border-b border-border py-16 sm:py-20">
         <div className="mx-auto max-w-5xl px-5">
           <div className="mx-auto mb-10 max-w-2xl text-center">
@@ -173,10 +189,7 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
           <p className="mx-auto mt-3 max-w-xl text-foreground/65">{t.dirSub}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             {t.directions.map((d) => (
-              <span
-                key={d.name}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2.5 text-sm font-semibold"
-              >
+              <span key={d.name} className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2.5 text-sm font-semibold">
                 <Icon name={d.icon} className="h-4 w-4 text-accent" /> {d.name}
               </span>
             ))}
@@ -207,7 +220,7 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
         </div>
       </section>
 
-      {/* ── ФОРМА ── */}
+      {/* ── ЦЕНА (первое упоминание) + ФОРМА ── */}
       <section id="trial-form" className="scroll-mt-4 bg-gradient-to-b from-background via-muted/10 to-background py-16 sm:py-20">
         <div className="mx-auto max-w-lg px-5">
           <div className="rounded-3xl border-2 border-accent/25 bg-surface p-6 sm:p-9 shadow-2xl shadow-accent/10">
@@ -216,18 +229,19 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
                 <div className="mb-4 text-6xl">✅</div>
                 <h3 className="font-display text-2xl font-bold">{t.successTitle}</h3>
                 <p className="mt-2 text-foreground/65">{t.successText}</p>
-                <a
-                  href={`https://wa.me/${WA_NUMBER}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-semibold text-white transition-all hover:bg-accent-hover"
-                >
+                <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-semibold text-white transition-all hover:bg-accent-hover">
                   <Icon name="message" className="h-5 w-5" /> WhatsApp
                 </a>
               </div>
             ) : (
               <form onSubmit={submit}>
-                <p className="mb-2 font-mono text-xs font-bold uppercase tracking-widest text-accent">{t.formEyebrow}</p>
+                {/* цена — только здесь */}
+                <div className="mb-6 rounded-2xl bg-accent/8 px-5 py-4 text-center">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-accent">{t.priceEyebrow}</p>
+                  <p className="mt-1 font-display text-4xl font-extrabold leading-none text-foreground">{t.priceValue}</p>
+                  <p className="mt-2 text-sm text-foreground/65 leading-snug">{t.priceFraming}</p>
+                </div>
+
                 <h2 className="font-display text-2xl sm:text-3xl font-bold leading-tight text-balance">
                   {t.formTitle} <span className="text-accent">{t.formAccent}</span>
                 </h2>
@@ -236,34 +250,22 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
                 <div className="mt-6 space-y-4">
                   <div>
                     <label className="mb-1.5 block text-sm font-semibold">{t.fName} <span className="text-accent">*</span></label>
-                    <input
-                      type="text" value={name} onChange={(e) => setName(e.target.value)} required
-                      placeholder={t.fNamePh}
-                      className="w-full rounded-xl border border-border bg-background px-4 py-3 transition-all focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-                    />
+                    <input type="text" value={name} onChange={(e) => setName(e.target.value)} required placeholder={t.fNamePh}
+                      className="w-full rounded-xl border border-border bg-background px-4 py-3 transition-all focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20" />
                   </div>
                   <div>
                     <label className="mb-1.5 block text-sm font-semibold">{t.fAge}</label>
-                    <input
-                      type="number" value={age} onChange={(e) => setAge(e.target.value)} min="10" max="18"
-                      placeholder={t.fAgePh}
-                      className="w-full rounded-xl border border-border bg-background px-4 py-3 transition-all focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-                    />
+                    <input type="number" value={age} onChange={(e) => setAge(e.target.value)} min="10" max="18" placeholder={t.fAgePh}
+                      className="w-full rounded-xl border border-border bg-background px-4 py-3 transition-all focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20" />
                   </div>
                   <div>
                     <label className="mb-1.5 block text-sm font-semibold">{t.fPhone} <span className="text-accent">*</span></label>
-                    <input
-                      type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required
-                      placeholder={t.fPhonePh}
-                      className="w-full rounded-xl border border-border bg-background px-4 py-3 transition-all focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
-                    />
+                    <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} required placeholder={t.fPhonePh}
+                      className="w-full rounded-xl border border-border bg-background px-4 py-3 transition-all focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20" />
                   </div>
                 </div>
 
-                <button
-                  type="submit"
-                  className="glow-hover mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-4 text-lg font-bold text-white shadow-lg shadow-accent/30 transition-all hover:scale-[1.01] hover:bg-accent-hover"
-                >
+                <button type="submit" className="glow-hover mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-6 py-4 text-lg font-bold text-white shadow-lg shadow-accent/30 transition-all hover:scale-[1.01] hover:bg-accent-hover">
                   <Icon name="message" className="h-5 w-5" /> {t.formCta}
                 </button>
                 <p className="mt-4 text-center text-xs leading-relaxed text-foreground/45">{t.formNote}</p>
@@ -310,10 +312,7 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
       {/* ── STICKY MOBILE CTA ── */}
       {!sent && (
         <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 p-3 backdrop-blur-md sm:hidden">
-          <button
-            onClick={scrollToForm}
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 font-bold text-white shadow-lg shadow-accent/30"
-          >
+          <button onClick={scrollToForm} className="flex w-full items-center justify-center gap-2 rounded-full bg-accent px-6 py-3.5 font-bold text-white shadow-lg shadow-accent/30">
             {t.stickyCta}
           </button>
         </div>
