@@ -1,7 +1,9 @@
 <!doctype html>
 <html lang="kk"><head><meta charset="utf-8"><title>Орнамент кампании 2 — проверка</title>
-<!-- Проверочная доска орнамента: все элементы на светлой и тёмной сцене в темах kok / altyn / kyzyl / jasyl (themes-c2.css),
-     затем пример макета 4:5. Открывать напрямую (file://). Рендер: одноразовый playwright-скрипт (см. FACTS/README кампании 2). -->
+<!-- Проверочная доска орнамента кампании 2: все элементы на светлой и тёмной сцене в темах kok / altyn / kyzyl / jasyl
+     (themes-c2.css), затем пример макета 4:5. Открывать напрямую (file://): playwright-core из node_modules,
+     executablePath /opt/pw-browsers/chromium, args --no-sandbox --allow-file-access-from-files (нужен для mask-image из file://).
+     Перегенерация SVG: python3 tools/gen-ornament.py. -->
 <link rel="stylesheet" href="base.css"><link rel="stylesheet" href="themes-c2.css"><link rel="stylesheet" href="ornament.css">
 <style>
   html, body { background: #0a0d14; }
