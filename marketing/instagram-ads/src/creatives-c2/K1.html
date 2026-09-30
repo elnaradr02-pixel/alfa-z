@@ -1,0 +1,98 @@
+<!doctype html><html lang="kk"><head><meta charset="utf-8"><title>K1 · Мама, уайымдамаңыз — IT-де біз балаңызбен біргеміз</title>
+<link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../themes-c2.css"><link rel="stylesheet" href="../fonts-c2.css">
+<link rel="stylesheet" href="../ornament.css"><link rel="stylesheet" href="../lettering.css"><link rel="stylesheet" href="../c2.css">
+<style>
+  /* K1 — главный креатив кампании 2: тёмный дом, горит окно-арка (қорған с мүйіз), внутри — письмо маме:
+     перечёркнутые тревоги → «Мама, уайымдамаңыз» → ответ. Под аркой — механизм (ұстаз-практик), оффер пробного и кнопка. */
+
+  /* ── размеры по формату ──  --top: где начинается рамка арки (мүйіз) от верха кадра; --row: высота строки логотипа */
+  body.feed  { --ow: 624px; --top: 6px;   --row: 137px; --hero: 96px;  --worry: 50px; --h1: 46px; }
+  body.story { --ow: 660px; --top: 150px; --row: 343px; --hero: 100px; --worry: 54px; --h1: 50px; }
+  .lang-ru.feed  { --hero: 104px; --h1: 40px; }
+  .lang-ru.story { --hero: 106px; --h1: 44px; }
+
+  .c2-arch { --ow: inherit; margin-top: calc(var(--top) + var(--c2-arch-above) - var(--row)); }
+  .c2-arch-body { justify-content: flex-start; padding: calc(var(--ow) * .1) calc(var(--ow) * .06) calc(var(--ow) * .065); }
+  .c2-worries { gap: 0; }
+  .c2-hero { --lt-size: var(--hero); margin-top: calc(var(--ow) * .03); }
+  .c2-hero .lt-hand { --lt-rot: -3deg; line-height: .9; }
+  .lang-ru .c2-hero .lt-hand { line-height: .95; }
+  .c2-arch-body .c2-head { font-size: var(--h1); margin-top: calc(var(--ow) * .06); margin-bottom: 20px; }
+  .c2-arch-body .c2-divider { margin-top: auto; }
+  .c2-arch-body .proof { font: 700 34px/1.22 var(--f-text); color: var(--ink); text-wrap: balance; margin-top: 14px; }
+  .c2-arch-body .proof b { color: var(--c2-pen); font-weight: 800; }
+
+  .content > .grow { min-height: 0; }
+  .below { flex: none; display: flex; flex-direction: column; gap: 22px; margin-top: calc(var(--ow) * 44 / 384 + 20px); }
+  body.story .below { gap: 30px; margin-top: calc(var(--ow) * 44 / 384 + 34px); }
+  .c2-ticks { align-self: center; }
+  .c2-why { align-self: stretch; }
+
+  /* звёзды над «домом» */
+  .stars { position: absolute; inset: 0; pointer-events: none; }
+  .stars .c2-spark { --c2-gold: var(--hi); }
+  .edge { position: absolute; left: 0; right: 0; display: flex; justify-content: center; pointer-events: none; }
+  .edge .orn-band { --h: 40px; --orn: var(--hi); --o: .42; }
+  .edge.top { top: 72px; } .edge.bot { bottom: 150px; }
+</style></head>
+<body class="theme-kok"><div class="frame scene-night">
+<div class="c2-bg"></div>
+<div class="c2-pattern orn-pattern"></div>
+<div class="stars">
+  <i class="c2-spark s1" style="--w:52px;left:72px;top:35%;--o:.9"></i>
+  <i class="c2-spark s3" style="--w:26px;left:40px;top:45%;--o:.55"></i>
+  <i class="c2-spark s2" style="--w:44px;right:70px;top:30.5%;--o:.8;--rot:12deg"></i>
+  <i class="c2-spark s1" style="--w:24px;right:38px;top:40%;--o:.5"></i>
+</div>
+<!-- Stories: орнаментальные ленты в небезопасных зонах (только декор, без текста) -->
+<div class="story-only edge top"><i class="orn-band"></i></div>
+<div class="story-only edge bot"><i class="orn-band"></i></div>
+<div class="content">
+  <div class="c2-top">
+    <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa Z<small data-i="langs"></small></div></div>
+  </div>
+
+  <div class="c2-arch">
+    <i class="c2-glow"></i><i class="orn-arch-in"></i><i class="orn-arch"></i>
+    <div class="c2-arch-body">
+      <div class="c2-worries">
+        <span class="c2-worry lt-strike s1" data-i="w1"></span>
+        <span class="c2-worry lt-strike s2" data-i="w2"></span>
+      </div>
+      <div class="c2-hero"><span class="lt-hand" data-i="hero"></span></div>
+      <h1 class="c2-head" data-i="h1"></h1>
+      <i class="c2-divider"></i>
+      <p class="proof" data-i="proof"></p>
+    </div>
+  </div>
+
+  <div class="grow"></div>
+  <div class="below">
+    <ul class="c2-ticks story-only"><li data-i="b2"></li></ul>
+    <div class="c2-why"><b class="k" data-i="why_k"></b><span data-i="why"></span></div>
+    <div class="c2-cta"><span data-i="cta"></span><span class="arr">→</span></div>
+  </div>
+</div></div>
+<script type="application/json" id="i18n">
+{"kk":{
+  "langs":"Қазақша · Орысша",
+  "w1":"Қиын болмас па?","w2":"Оны кім үйретеді?",
+  "hero":"Мама,<br><span class=\"lt-under\">уайымдамаңыз</span>",
+  "h1":"<span class=\"nw\">IT-де</span> біз балаңызбен&nbsp;біргеміз",
+  "proof":"Ұстаз <b>қазір <span class=\"nw\">IT-компанияда</span></b> жұмыс&nbsp;істейді",
+  "b2":"Топта 8-ге дейін оқушы — әрқайсысын&nbsp;көреміз",
+  "why_k":"Неге<br>қазір?",
+  "why":"Сынақ сабақ — 60&nbsp;минут, онлайн<br><b>3000&nbsp;₸</b><i class=\"dm\"></i>міндеттемесіз",
+  "cta":"Сынақ сабаққа жазылу"},
+ "ru":{
+  "langs":"Казахский · Русский",
+  "w1":"Будет ли сложно?","w2":"Кто его научит?",
+  "hero":"Мама,<br><span class=\"lt-under\">не волнуйтесь</span>",
+  "h1":"В IT мы рядом с&nbsp;вашим ребёнком",
+  "proof":"Преподаватель <b>сейчас работает</b> в&nbsp;<span class=\"nw\">IT-компании</span>",
+  "b2":"В группе до 8 человек — видим&nbsp;каждого",
+  "why_k":"Почему<br>сейчас?",
+  "why":"Пробный урок — 60&nbsp;минут, онлайн<br><b>3000&nbsp;₸</b><i class=\"dm\"></i>без&nbsp;обязательств",
+  "cta":"Записаться на пробный урок"}}
+</script>
+<script src="../i18n.js"></script><script src="../fmt.js"></script><script src="../lettering.js"></script></body></html>

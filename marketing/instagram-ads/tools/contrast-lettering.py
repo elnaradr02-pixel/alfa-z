@@ -30,7 +30,7 @@ def row(name, fn, need):
     print(f"{name:40s} " + "  ".join(f"{v:6.1f}:1" for v in vals) + flag)
 gold = lambda T, t: T["accent"] if t == "altyn" else T["hi"]
 ongold = lambda T, t: T["on-accent"] if t == "altyn" else T["on-hi"]
-deep = lambda T, t: T["hi"] if t == "altyn" else T["accent-d"]
+deep = lambda T, t: T["accent-d"]   # у altyn это бронза (hi — светлая бирюза для тёмной сцены)
 print("── светлая сцена (фон paper)")
 row("hero (--lt-deep) на paper", lambda T, t: cr(deep(T, t), T["paper"]), 3.0)
 row("note/circle (--lt-b = deep) на paper", lambda T, t: cr(deep(T, t), T["paper"]), 3.0)

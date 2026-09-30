@@ -31,7 +31,7 @@
    Сцена по умолчанию — светлая (bg --paper). Тёмная: класс .on-dark (как в base.css), .lt-dark или .frame.dark на контейнере.
    Токены из themes-c2.css сопоставлены так (в теме altyn роли акцента и «золота» перевёрнуты, поэтому карта своя):
      --lt-gold  «золото» темы (kok/kyzyl/jasyl: --hi, altyn: --accent)        --lt-on-gold  текст на золоте
-     --lt-deep  глубокий акцент, читается на светлом (accent-d; altyn: --hi)  --lt-soft  светлый парный акцент (--accent-2)
+     --lt-deep  глубокий акцент, читается на светлом (accent-d — во всех темах, у altyn это бронза)  --lt-soft  светлый парный акцент (--accent-2)
    Сценовые токены (переопределяйте на элементе): --lt-hero (главная фраза), --lt-a (росчерки: подчёркивание, метки), --lt-b (обводки, стрелки, пометки),
      --lt-mark (маркер), --lt-on-mark (текст на маркере), --lt-strike (штрих «тревоги»), --lt-ink (обычный текст).
    Размер: --lt-size (px, у .lt-hand по умолчанию 132px), поворот: --lt-rot.
@@ -47,7 +47,7 @@
 [class*="theme-"] {
   --lt-gold: var(--hi); --lt-on-gold: var(--on-hi); --lt-deep: var(--accent-d); --lt-soft: var(--accent-2);
 }
-.theme-altyn { --lt-gold: var(--accent); --lt-on-gold: var(--on-accent); --lt-deep: var(--hi); --lt-soft: var(--accent-2); }
+.theme-altyn { --lt-gold: var(--accent); --lt-on-gold: var(--on-accent); --lt-deep: var(--accent-d); --lt-soft: var(--accent-2); }  /* altyn: золото = accent; deep = бронза accent-d (hi здесь — светлая бирюза, на бумаге не читается) */
 
 /* светлая сцена (по умолчанию) */
 [class*="theme-"], .lt-light {

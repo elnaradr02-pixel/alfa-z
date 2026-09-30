@@ -6,7 +6,8 @@ usage: synth.py cues.json out.wav
 cues.json = {
   "duration": 24.0,
   "cues":  [{"t": 1.2, "type": "whoosh", "gain": 1.0}, ...],
-  "music": {"bpm": 104, "mood": "bright" | "dark", "intro": 1.6, "gain": 0.55, "drums": true}
+  "music": {"bpm": 104, "mood": "bright" | "dark" | "hopeful" | "warm", "intro": 1.6, "gain": 0.55, "drums": true}
+  (mood "warm" — отдельная ветка make_music_warm, параметр "lift" — момент мажорного разрешения, см. ниже)
 }
 Типы эффектов: whoosh, swipe, pop, tick, ding, success, notif, impact, riser, glitch, scratch
 """
@@ -237,6 +238,8 @@ def reverb(x, secs=1.5, wet=0.3):
 
 
 def make_music(duration, m):
+    if m.get("mood") == "warm":          # кампания 2 — отдельная ветка, остальные настроения не затронуты
+        return make_music_warm(duration, m)
     bpm = float(m.get("bpm", 104))
     mood = m.get("mood", "bright")
     intro = float(m.get("intro", 1.6))
@@ -303,6 +306,102 @@ def make_music(duration, m):
     n = len(mus)
     fade_in = np.minimum(1, np.arange(n) / (0.25 * SR))
     fade_out = np.minimum(1, (n - np.arange(n)) / (1.2 * SR))
+    return mus * (fade_in * fade_out)[:, None]
+
+
+# ───────────── mood "warm" (кампания 2): домбра-подобный щипок, тёплый пэд, без бочки ─────────────
+# music = {"bpm": 84, "mood": "warm", "lift": 17.7, "gain": 0.5}
+#   до lift — пентатоника ре-минор (Dm–B♭–F–C), тихо и тепло; в такте перед lift — мягкий подъём пэда и восходящий щипок;
+#   с lift — мажорное разрешение (F–B♭–F) и тихая «щётка» на 2 и 4. Сетка тактов выровнена так, что такт начинается ровно в lift.
+# Собственная таблица аккордов и собственный генератор случайных чисел — ветки bright/dark/hopeful звучат как раньше.
+WARM_CH = {"Dm": (38, [62, 65, 69]), "Bb": (34, [62, 65, 70]), "F": (41, [60, 65, 69]), "C": (36, [60, 64, 67])}
+WARM_PRE = ["Dm", "Bb", "F", "C"]
+WARM_POST = ["F", "Bb", "F"]
+WARM_MEL = {   # 6 щипков на такт (восьмые 1, 2, 3, 5, 6, 7)
+    "Dm": [74, 69, 72, 74, 77, 72], "Bb": [74, 70, 72, 74, 77, 74],
+    "F": [72, 69, 72, 77, 74, 72], "C": [72, 67, 72, 76, 74, 72],
+}
+WARM_MEL_POST = {"F": [77, 72, 69, 72, 77, 81], "Bb": [74, 77, 74, 70, 74, 77]}
+
+
+def dombra(f, d, wrng, bright=1.0):
+    """щипок струны: гармоники с быстрым затуханием верхних + шорох ногтя"""
+    t = tarr(d)
+    x = np.zeros(len(t))
+    for n in range(1, 11):
+        fn = f * n * (1 + 0.0006 * n * n)
+        if fn > SR / 2 - 800:
+            break
+        a = (1.0 / n ** 0.85) * (1.0 if n % 2 else 0.72) * (bright ** (n / 5))
+        x += a * np.sin(2 * np.pi * fn * t + 0.3 * n) * np.exp(-t * (2.4 + 1.8 * n))
+    x += bp(wrng.standard_normal(len(t)), 1800, 6500) * np.exp(-t * 170) * 0.3
+    return x * np.minimum(1, t / 0.002) * 0.3
+
+
+def soft_bass(f, d):
+    t = tarr(d)
+    x = np.sin(2 * np.pi * f * t) + 0.15 * np.sin(4 * np.pi * f * t)
+    return x * np.minimum(1, t / 0.03) * np.exp(-t * 0.9) * np.clip((d - t) / 0.25, 0, 1)
+
+
+def brush(wrng, d=0.2):
+    t = tarr(d)
+    return bp(wrng.standard_normal(len(t)), 2400, 9000) * np.minimum(1, t / 0.012) * np.exp(-t * 20) * 0.5
+
+
+def make_music_warm(duration, m):
+    wrng = np.random.default_rng(23)
+    beat = 60.0 / float(m.get("bpm", 84))
+    bar = beat * 4
+    lift = float(m.get("lift", duration * 0.68))
+    n_pre = int(np.ceil(lift / bar))
+    t0 = lift - n_pre * bar                         # начало первого (возможно неполного) такта, ≤ 0
+    N = int((duration + 3) * SR)
+    pl = np.zeros((N, 2)); pad = np.zeros((N, 2)); bass = np.zeros(N); perc = np.zeros((N, 2))
+    eighths = [0, 1, 2, 4, 5, 6]
+    b = 0
+    while True:
+        tb = t0 + b * bar
+        if tb >= duration:
+            break
+        post = b >= n_pre
+        ch = WARM_POST[min(b - n_pre, len(WARM_POST) - 1)] if post else WARM_PRE[(b - n_pre) % 4]
+        root, notes = WARM_CH[ch]
+        mel = (WARM_MEL_POST if post else WARM_MEL)[ch]
+        # пэд (в такте перед lift — подъём)
+        for nn in notes:
+            x = pad_note(midi(nn - 12), bar + 0.6)
+            if b == n_pre - 1:
+                x = x * np.linspace(0.8, 1.9, len(x))
+            add(pad, pan(x, 0), tb, 0.13 if post else 0.085)
+            if post:
+                add(pad, pan(pad_note(midi(nn), bar + 0.6), 0.2), tb, 0.05)
+        add(bass, soft_bass(midi(root), bar * 0.98), tb, 0.42 if post else 0.34)
+        # домбра: мелодия + бурдон второй струной на сильных долях
+        for k, e in enumerate(eighths):
+            te = tb + e * beat / 2
+            if te < 0 or te >= duration - 0.4:
+                continue
+            acc = 1.0 if e in (0, 4) else 0.6
+            add(pl, pan(dombra(midi(mel[k]), 1.3, wrng), 0.2 if k % 2 == 0 else -0.25), te, acc)
+            if e in (0, 4):
+                add(pl, pan(dombra(midi(root + 24), 1.1, wrng, bright=0.7), -0.05), te + 0.012, 0.42)
+        if b == n_pre - 1:                           # восходящий щипок к разрешению
+            for j, nn in enumerate([72, 74, 77, 79]):
+                add(pl, pan(dombra(midi(nn), 0.9, wrng), 0.1), tb + 3 * beat + j * beat / 4, 0.5 + 0.1 * j)
+        if post:                                     # тихая «щётка» на 2 и 4 + шорох восьмыми
+            for bt in (1, 3):
+                add(perc, pan(brush(wrng), 0.1), tb + bt * beat, 0.55)
+            for e in range(8):
+                add(perc, pan(brush(wrng, 0.07), -0.3), tb + e * beat / 2, 0.14)
+        b += 1
+    add(pl, pan(dombra(midi(62), 1.4, wrng), 0.1), 0.0, 0.8)   # щипок на первом кадре
+    add(pl, pan(dombra(midi(69), 1.4, wrng), -0.1), 0.015, 0.55)
+    mus = reverb(pl, 1.6, 0.32) + reverb(pad, 2.0, 0.4) + pan(bass, 0) * 0.9 + reverb(perc, 1.0, 0.2)
+    mus = mus[: int(duration * SR)]
+    n = len(mus)
+    fade_in = np.minimum(1, np.arange(n) / (0.01 * SR))
+    fade_out = np.minimum(1, (n - np.arange(n)) / (1.6 * SR))
     return mus * (fade_in * fade_out)[:, None]
 
 

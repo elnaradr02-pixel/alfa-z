@@ -25,7 +25,7 @@ const langs = opt("lang", null) ? [opt("lang", null)] : cfg.langs;
 const dir = path.join(root, "src", cfg.dir);
 const out = path.join(root, "out", cfg.out);
 mkdirSync(out, { recursive: true });
-const files = readdirSync(dir).filter((f) => f.endsWith(".html") && !f.startsWith("_")).filter((f) => !only.length || only.some((o) => f.startsWith(o + "-")));
+const files = readdirSync(dir).filter((f) => f.endsWith(".html") && !f.startsWith("_")).filter((f) => !only.length || only.some((o) => f.startsWith(o + "-") || f === o + ".html"));
 
 const FORMATS = [
   { key: "feed", ratio: "4x5", w: 1080, h: 1350 },

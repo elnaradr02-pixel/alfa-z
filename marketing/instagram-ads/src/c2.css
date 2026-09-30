@@ -1,0 +1,288 @@
+/* Alfa Z · КАМПАНИЯ 2 — общий слой вёрстки креативов K1…K10 («Мама, уайымдамаңыз — IT-де біз балаңызбен біргеміз»).
+   Владелец: style-lead кампании 2. Орнамент, леттеринг, шрифты и темы — чужие наборы, здесь только ИСПОЛЬЗУЮТСЯ.
+
+   ── ПОДКЛЮЧЕНИЕ (порядок важен) ─────────────────────────────────────────────────────────────────────────────────
+     <link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../themes-c2.css"><link rel="stylesheet" href="../fonts-c2.css">
+     <link rel="stylesheet" href="../ornament.css"><link rel="stylesheet" href="../lettering.css"><link rel="stylesheet" href="../c2.css">
+     в конце body: <script i18n JSON> → ../i18n.js → ../fmt.js → ../lettering.js
+     <body class="theme-kok">  (kok | altyn | kyzyl | jasyl)   ·   ?lang=ru — русская версия, по умолчанию kk   ·   ?f=story — 9:16
+
+   ── КАРКАС ─────────────────────────────────────────────────────────────────────────────────────────────────────
+     <div class="frame scene-night">            .scene-night — тёмная сцена (night + свет «окна»), .scene-light — светлая (paper)
+       <div class="c2-bg"></div>                фон сцены на полный вылет (градиенты) — в Stories заливает и небезопасные зоны
+       <div class="c2-pattern orn-pattern"></div>  лёгкий узор-оберег по всей сцене (цвет/прозрачность уже подобраны под сцену)
+       <div class="content"> … </div>           поток; отступы из base.css: лента 64px, Stories 270 сверху / 330 снизу → контент в y∈[270,1590]
+     Текст и кнопки — ТОЛЬКО потоковые дети .content (render-statics проверяет их наложение и безопасные зоны).
+     Декор (арка, орнамент, искры) может выходить в безопасные зоны и за края блока — он position:absolute.
+     Все тексты — только через i18n JSON (data-i="ключ"); закладывайте +20 % длины: text-wrap:balance уже стоит, между
+     числом и единицей и в коротких связках ставьте &nbsp; («60&nbsp;минут», «3000&nbsp;₸», «без&nbsp;обязательств»).
+
+   ── ТИПОГРАФИКА (казахский — основной язык) ───────────────────────────────────────────────────────────────────
+     В Unbounded и Manrope НЕТ казахских букв (ә ғ қ ң ө ұ ү һ) — поэтому шрифты заданы токенами по языку:
+       --f-head  kk: Geologica · ru: Unbounded      --f-text  kk: Onest · ru: Manrope      --f-hand  Caveat (рукопись, 84/84 kk)
+     .c2-head   факт-заголовок 800, text-wrap:balance. Размеры: .xl 64 · .lg 56 · (база) 48 · .md 44 · .sm 40 px
+     .c2-text   основной текст 34px/1.28 (минимум для аудитории 35–58); .lg 38px. <b> внутри — 800 и цвет --c2-strong
+     .c2-hero   обёртка главной рукописной фразы: внутри <span class="lt-hand">…</span> (≤ 6 слов, кегль ≥ 96px — --lt-size на .c2-hero)
+     .c2-note   пометка на полях от руки (Caveat 700, ≥ 56px, поворот) — только 1–3 слова
+     .c2-hl     выделение слова цветом ручки/золота в зависимости от сцены
+
+   ── КОМПОНЕНТЫ ─────────────────────────────────────────────────────────────────────────────────────────────────
+     .c2-top          строка логотипа: <div class="c2-top"><div class="logo"><div class="mark">αZ</div>
+                        <div class="name"><b>α</b>lfa Z<small data-i="langs"></small></div></div> [бейдж справа] </div>
+                        langs = «Қазақша · Орысша» / «На казахском · русском»
+     .c2-lang         языковой бейдж: <span class="c2-lang"><b>ҚАЗ</b><b>РУС</b></span> (активный язык подсвечивается сам по lang-kk/lang-ru)
+     .c2-ticks        крупные буллеты с галочкой «от руки»: <ul class="c2-ticks"><li data-i="b1"></li>…</ul>; .center — по центру
+     .c2-why          плашка «Неге қазір? / Почему сейчас?»: <div class="c2-why"><b class="k" data-i="why_k"></b><span data-i="why"></span></div>
+                        ключ пишется от руки золотом (в 2 строки: «Неге<br>қазір?»), тело — текст 34px, лучше 2 строки через <br>;
+                        рамка-«тесьма» с ромбами по краям (без тёмной пилюли кампании 1). Кегль ключа — --why-k (56px)
+     .dm              ромбик-разделитель внутри строк словаря: «3000&nbsp;₸<i class=\"dm\"></i>міндеттемесіз» (вместо «·»);
+                        не ставьте его там, где строка может перенестись — ромб в начале строки выглядит мусором (лучше <br>)
+     .nw              неразрывный фрагмент в словаре: <span class=\"nw\">IT-компанияда</span> — иначе строка рвётся по дефису «IT-»
+     .c2-divider      три золотых ромбика «◆ ◆ ◆» — тихий разделитель внутри письма/карточки (в K1 — между обещанием и фактом)
+     .c2-cta          кнопка: <div class="c2-cta"><span data-i="cta"></span><span class="arr">→</span></div>
+                        светлая сцена — --accent/--on-accent; тёмная — золото (--hi/--on-hi; в altyn — --accent/--on-accent)
+     .c2-qa           «тревога → ответ»: <div class="c2-qa"><span class="c2-worry lt-strike" data-i="w1"></span>
+                        <span class="c2-answer" data-i="a1"></span></div>. Тревога — Caveat мелко-серым, перечёркнута ручкой (.s2/.s3 — другие штрихи);
+                        несколько тревог подряд — <div class="c2-worries">…</div>
+     .c2-arch         арочная карточка-оберег: блок в потоке = ПРОЁМ арки (--ow ширина проёма; высота = --ow·416/384).
+                        Внутри по порядку: <i class="c2-glow"></i><i class="orn-arch-in"></i><i class="orn-arch"></i><div class="c2-arch-body">…</div>
+                        Рамка с мүйіз выходит за блок: вверх на --ow·0,38, в стороны и вниз на --ow·0,115 — закладывайте это в отступы соседей
+                        (--c2-arch-above / --c2-arch-below уже посчитаны, используйте их в margin). Верх проёма — полукруг: первые ~--ow·0,5
+                        по высоте узкие, туда — только короткие строки (тревоги). .c2-arch-body — светлая «бумага» (класс поверхности .c2-on-paper внутри).
+     .c2-card         светлая карточка на тёмной сцене (radius 36, тонкая золотая кайма), для чек-листов/билетов; внутри тоже .c2-on-paper
+     .c2-sep          орнаментальная лента-разделитель (обёртка над .orn-band с правильной высотой и цветом сцены)
+     .c2-spark        декоративная золотая искра (lettering/spark*.svg), position:absolute — ставить только в декор
+     .feed-only / .story-only — показать блок только в одном формате
+
+   ── ПОВЕРХНОСТИ И ЦВЕТ «РУЧКИ» ─────────────────────────────────────────────────────────────────────────────────
+     .c2-on-paper / .c2-on-night — перенастраивают токены леттеринга (--lt-hero, --lt-strike …) на поверхность, где стоит текст.
+     .scene-light уже = .c2-on-paper, .scene-night = .c2-on-night; арка и .c2-card на ночи сами ставят .c2-on-paper-токены.
+     Ручка: --c2-pen = var(--pen, var(--accent-d)) на бумаге; --c2-pen-night = var(--pen-night, var(--hi)) на ночи (если главный
+     директор добавит --pen/--pen-night в themes-c2.css, они подхватятся без правок). Золото (--hi) на бумаге — только росчерк под текстом.
+
+   ── ЦИФРЫ ИЗ K1 (проверено рендером; ориентир для арки) ─────────────────────────────────────────────────────────────
+     лента:  --ow 624px, рамка с мүйіз от y≈6; герой Caveat 96px (kk «уайымдамаңыз» ≈ 6,0 em = 578px — шире проём не пустит), ru 108px;
+             внутри проёма помещаются: 2 тревоги 50px + герой в 2 строки + заголовок 46px в 2 строки + ◆◆◆ + факт 34px в 2 строки (запас ~20px);
+             под аркой — только .c2-why (≈132px) и .c2-cta (116px). Третья тревога и доп. буллет в ленту НЕ влезают.
+     сторис: --ow 660px, рамка от y≈150 (мүйіз заходят в верхнюю «слепую» зону — это декор), + 1 буллет .c2-ticks над плашкой.
+     Внутри арки render-statics вертикальное переполнение НЕ ловит — проверяйте глазами (текст не должен касаться золотой каймы).
+
+   ── КАК СОБРАТЬ K2…K10 ────────────────────────────────────────────────────────────────────────────────────────
+     1) Скопировать creatives-c2/K1.html → Kn.html, сменить theme-* и scene-*; словарь — ключи из плана (.cache/c2-native-plan.json).
+     2) Поток .content сверху вниз: .c2-top → [главный блок: .c2-arch | .c2-card | своя сцена] → .c2-ticks → .c2-why → .c2-cta.
+        Между блоками — .grow (гибкий воздух). Рукописная фраза — одна на креатив, ≤ 6 слов, ≥ 96px; факты — .c2-head/.c2-text.
+     3) Размеры по формату задавайте переменными в <style> креатива: body.feed {…} / body.story {…} (--ow арки, --lt-size героя).
+     4) node render-statics.mjs --set c2 Kn → предупреждений должно быть 0; посмотреть 4 PNG (kk/ru × 4:5/9:16).
+     Запрещено визуально: окна кода, наклейки-стикеры, чат-пузыри, полосы загрузки (язык кампании 1), фото/лица, флаг/герб/шаңырақ. */
+
+/* ══════════════ токены ══════════════ */
+:root {
+  --f-head: "Unbounded", "Geologica", sans-serif;
+  --f-text: "Manrope", "Onest", sans-serif;
+  --f-hand: "Caveat", "Bad Script", cursive;
+}
+.lang-kk { --f-head: "Geologica", "Unbounded", sans-serif; --f-text: "Onest", "Manrope", sans-serif; }
+[class*="theme-"] {
+  --c2-pen: var(--pen, var(--accent-d));
+  --c2-pen-night: var(--pen-night, var(--hi));
+  --c2-btn-night: var(--hi); --c2-on-btn-night: var(--on-hi);
+}
+.theme-altyn { --c2-btn-night: var(--accent); --c2-on-btn-night: var(--on-accent); }
+
+/* поверхности: цвет текста, «ручки» и токены леттеринга */
+.c2-on-paper, .scene-light {
+  color: var(--ink);
+  --c2-fg: var(--ink); --c2-dim: rgba(var(--ink-rgb), .56); --c2-strong: var(--c2-pen); --c2-line: rgba(var(--ink-rgb), .16);
+  --c2-gold: var(--hi);
+  --lt-ink: var(--ink); --lt-hero: var(--c2-pen); --lt-a: var(--hi); --lt-b: var(--c2-pen);
+  --lt-strike: var(--c2-pen); --lt-ink-dim: rgba(var(--ink-rgb), .5);
+}
+.c2-on-night, .scene-night {
+  color: var(--paper);
+  --c2-fg: var(--paper); --c2-dim: rgba(var(--paper-rgb), .62); --c2-strong: var(--c2-pen-night); --c2-line: rgba(var(--hi-rgb), .42);
+  --c2-gold: var(--c2-pen-night);
+  --lt-ink: var(--paper); --lt-hero: var(--c2-pen-night); --lt-a: var(--c2-pen-night); --lt-b: var(--c2-pen-night);
+  --lt-strike: var(--c2-pen-night); --lt-ink-dim: rgba(var(--paper-rgb), .5);
+}
+
+/* ══════════════ сцены ══════════════ */
+.frame { font-family: var(--f-text); }
+.scene-light { background: var(--paper); }
+.scene-night { background: var(--night); }
+.c2-bg { position: absolute; inset: 0; pointer-events: none; }
+.scene-light .c2-bg {
+  background:
+    radial-gradient(1100px 760px at 50% 38%, rgba(var(--accent-2-rgb), .22), transparent 70%),
+    linear-gradient(180deg, var(--paper), var(--tint));
+}
+.scene-night .c2-bg {
+  background:
+    radial-gradient(900px 820px at 50% 44%, rgba(var(--night-2-rgb), 1), transparent 72%),
+    radial-gradient(1400px 900px at 50% 110%, rgba(var(--accent-rgb), .22), transparent 70%),
+    var(--night);
+}
+.c2-pattern.orn-pattern { position: absolute; inset: 0; --s: 200px; --orn: var(--accent-2); --o: .06; }
+.scene-light .c2-pattern.orn-pattern { --orn: var(--accent); --o: .07; }
+
+.feed .story-only, .story .feed-only { display: none !important; }
+
+/* ══════════════ логотип-строка ══════════════ */
+.c2-top { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex: none; min-height: 64px; }
+.c2-top .logo { gap: 16px; }
+.c2-top .logo .name { font-size: 40px; color: var(--c2-fg); }
+.c2-top .logo small {
+  font: 700 24px/1.1 var(--f-text); letter-spacing: .01em; opacity: 1; margin-top: 7px; color: var(--c2-dim);
+}
+
+/* языковой бейдж ҚАЗ / РУС */
+.c2-lang {
+  display: inline-flex; flex: none; align-items: stretch; border-radius: 999px; padding: 5px;
+  border: 2px solid var(--c2-line); font: 800 24px/1 var(--f-head); letter-spacing: .06em;
+}
+.c2-lang b { padding: 11px 16px; border-radius: 999px; color: var(--c2-dim); font-weight: 800; }
+.lang-kk .c2-lang b:first-child, .lang-ru .c2-lang b:last-child { background: var(--c2-btn-night); color: var(--c2-on-btn-night); }
+.lang-kk .scene-light .c2-lang b:first-child, .lang-ru .scene-light .c2-lang b:last-child,
+.lang-kk .c2-on-paper .c2-lang b:first-child, .lang-ru .c2-on-paper .c2-lang b:last-child { background: var(--accent); color: var(--on-accent); }
+
+/* ══════════════ типографика ══════════════ */
+.c2-head {
+  font: 800 48px/1.1 var(--f-head); letter-spacing: -.02em; text-wrap: balance; hyphens: none; color: var(--c2-fg);
+}
+.lang-ru .c2-head { letter-spacing: -.012em; }
+.c2-head.xl { font-size: 64px; line-height: 1.04; } .c2-head.lg { font-size: 56px; line-height: 1.06; }
+.c2-head.md { font-size: 44px; } .c2-head.sm { font-size: 40px; }
+.c2-text { font: 600 34px/1.28 var(--f-text); text-wrap: pretty; color: var(--c2-fg); }
+.c2-text.lg { font-size: 38px; }
+.c2-text b, .c2-ticks b, .c2-why b:not(.k) { font-weight: 800; color: var(--c2-strong); }
+.c2-hl { color: var(--c2-strong); }
+.nw { white-space: nowrap; }            /* неразрывный фрагмент в словаре: <span class="nw">IT-компанияда</span> (дефис не рвёт строку) */
+.c2-hero { flex: none; text-align: center; --lt-size: 120px; }
+.c2-hero .lt-hand { --lt-size: inherit; font-size: max(96px, var(--lt-size)); }
+.c2-note {
+  display: inline-block; font: 700 var(--note, 60px)/.95 var(--f-hand); color: var(--c2-gold);
+  -webkit-text-stroke: .012em currentColor; transform: rotate(var(--rot, -4deg)); white-space: nowrap;
+}
+
+/* ромбик-разделитель в строках словаря */
+.dm {
+  display: inline-block; width: .3em; height: .3em; margin: 0 .34em .14em; vertical-align: middle;
+  background: var(--c2-gold); transform: rotate(45deg); border-radius: 1px;
+}
+
+/* ══════════════ буллеты с галочкой от руки ══════════════ */
+.c2-ticks { list-style: none; display: flex; flex-direction: column; gap: 14px; flex: none; }
+.c2-ticks li {
+  position: relative; padding-left: 64px; font: 700 34px/1.24 var(--f-text); color: var(--c2-fg); text-wrap: pretty;
+}
+.c2-ticks li::before {
+  content: ""; position: absolute; left: 0; top: -.06em; width: 50px; height: 45px; background: var(--c2-gold);
+  -webkit-mask: url('lettering/tick1.svg') center / contain no-repeat; mask: url('lettering/tick1.svg') center / contain no-repeat;
+}
+.c2-ticks li:nth-child(2n)::before { -webkit-mask-image: url('lettering/tick2.svg'); mask-image: url('lettering/tick2.svg'); }
+.c2-ticks.center { align-items: center; text-align: center; }
+.c2-ticks.center li { text-align: left; }
+
+/* ══════════════ «Неге қазір? / Почему сейчас?» ══════════════ */
+.c2-why {
+  position: relative; display: flex; align-items: center; justify-content: center; gap: 30px; flex: none;
+  padding: 16px 44px; border-radius: 30px;
+  border: 2px solid var(--c2-line);
+  font: 700 34px/1.22 var(--f-text); color: var(--c2-fg); text-wrap: balance;
+}
+.c2-why::before, .c2-why::after {       /* ромбы-«застёжки» на краях тесьмы */
+  content: ""; position: absolute; top: 50%; width: 18px; height: 18px; margin-top: -9px;
+  background: var(--c2-gold); transform: rotate(45deg); border-radius: 2px;
+}
+.c2-why::before { left: -10px; } .c2-why::after { right: -10px; }
+.c2-why .k {
+  flex: none; font: 700 var(--why-k, 56px)/.86 var(--f-hand); text-align: center; color: var(--c2-gold); -webkit-text-stroke: .012em currentColor;
+  transform: rotate(-5deg); white-space: nowrap; letter-spacing: 0;
+}
+.c2-why > span { min-width: 0; text-align: left; }
+.c2-why > span .dm { margin-left: .42em; margin-right: .42em; }
+
+/* ══════════════ кнопка ══════════════ */
+.c2-cta {
+  display: flex; align-items: center; justify-content: center; gap: 20px; flex: none;
+  min-height: 116px; padding: 16px 48px; border-radius: 999px; text-align: center; text-wrap: balance;
+  background: var(--accent); color: var(--on-accent);
+  font: 800 42px/1.1 var(--f-text); letter-spacing: -.01em;
+  box-shadow: 0 24px 50px -22px rgba(var(--accent-rgb), .8), inset 0 -6px 0 rgba(0,0,0,.14);
+}
+.c2-cta .arr { flex: none; font: 800 46px/1 "Manrope", sans-serif; transform: translateY(-1px); }
+.scene-night .c2-cta, .c2-on-night .c2-cta {
+  background: var(--c2-btn-night); color: var(--c2-on-btn-night);
+  box-shadow: 0 26px 60px -24px rgba(var(--hi-rgb), .7), inset 0 -6px 0 rgba(0,0,0,.16);
+}
+
+/* ══════════════ «тревога → ответ» ══════════════ */
+.c2-worries { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: none; }
+.c2-worry {
+  font: 700 var(--worry, 54px)/1.02 var(--f-hand); letter-spacing: 0; -webkit-text-stroke: .01em currentColor;
+  color: var(--lt-ink-dim);
+}
+.c2-worry.lt-strike { color: var(--lt-ink-dim); }
+.c2-worry.lt-strike::after { opacity: .9; }
+.c2-qa { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; flex: none; }
+.c2-qa.center { align-items: center; text-align: center; }
+.c2-answer { font: 800 44px/1.1 var(--f-head); letter-spacing: -.02em; color: var(--c2-strong); text-wrap: balance; }
+
+/* ══════════════ арочная карточка-оберег ══════════════
+   геометрия ornament/frame-arch.svg (512×640): проём x 64…448, y 164…580; рамка x 20…492, y 18…624 */
+.c2-arch {
+  --ow: 600px;
+  --c2-arch-above: calc(var(--ow) * 146 / 384);   /* рамка + мүйіз над проёмом */
+  --c2-arch-below: calc(var(--ow) * 44 / 384);    /* рамка под проёмом */
+  position: relative; flex: none; align-self: center;
+  width: var(--ow); height: calc(var(--ow) * 416 / 384);
+}
+.c2-arch > .orn-arch, .c2-arch > .orn-arch-in, .c2-arch > .c2-glow {
+  position: absolute; --w: calc(var(--ow) * 512 / 384);
+  left: calc(var(--ow) * -64 / 384); top: calc(var(--ow) * -164 / 384);
+}
+.c2-arch > .orn-arch { --orn: var(--c2-arch-line, var(--hi)); }
+.c2-arch > .orn-arch-in { --fill: var(--c2-arch-fill, var(--paper)); }
+.scene-light .c2-arch > .orn-arch { --orn: var(--c2-arch-line, var(--accent)); }
+.scene-light .c2-arch > .orn-arch-in { --fill: var(--c2-arch-fill, var(--paper)); }
+.c2-arch > .c2-glow {                     /* «свет в окне»: тёплое сияние вокруг арки */
+  width: var(--w); height: calc(var(--w) * 1.25);
+  background: radial-gradient(closest-side, rgba(var(--hi-rgb), .30), rgba(var(--hi-rgb), .08) 62%, transparent);
+  transform: scale(1.35); pointer-events: none;
+}
+.scene-light .c2-arch > .c2-glow { background: radial-gradient(closest-side, rgba(var(--accent-2-rgb), .45), transparent); }
+.c2-arch-body {
+  position: relative; z-index: 1; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  padding: calc(var(--ow) * .1) calc(var(--ow) * .045) calc(var(--ow) * .06);
+  color: var(--ink);
+  --c2-fg: var(--ink); --c2-dim: rgba(var(--ink-rgb), .56); --c2-strong: var(--c2-pen); --c2-line: rgba(var(--ink-rgb), .16);
+  --c2-gold: var(--hi);
+  --lt-ink: var(--ink); --lt-hero: var(--c2-pen); --lt-a: var(--hi); --lt-b: var(--c2-pen);
+  --lt-strike: var(--c2-pen); --lt-ink-dim: rgba(var(--ink-rgb), .5);
+}
+
+/* ══════════════ карточка и разделитель ══════════════ */
+/* три ромбика «◆ ◆ ◆» — тихий разделитель внутри письма/карточки: <i class="c2-divider"></i> */
+.c2-divider { position: relative; display: block; flex: none; align-self: center; width: 92px; height: 20px; }
+.c2-divider::before {
+  content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px;
+  background: var(--c2-divider, var(--c2-gold)); transform: rotate(45deg); border-radius: 1px;
+  box-shadow: 22.6px -22.6px 0 -2px var(--c2-divider, var(--c2-gold)), -22.6px 22.6px 0 -2px var(--c2-divider, var(--c2-gold));
+}
+.c2-card {
+  position: relative; flex: none; border-radius: 36px; padding: 40px 48px; background: var(--paper); color: var(--ink);
+  box-shadow: 0 0 0 2px rgba(var(--hi-rgb), .9), 0 0 0 10px rgba(var(--hi-rgb), .12), 0 40px 80px -40px rgba(0,0,0,.5);
+  --c2-fg: var(--ink); --c2-dim: rgba(var(--ink-rgb), .56); --c2-strong: var(--c2-pen); --c2-line: rgba(var(--ink-rgb), .16);
+  --c2-gold: var(--hi);
+  --lt-ink: var(--ink); --lt-hero: var(--c2-pen); --lt-a: var(--hi); --lt-b: var(--c2-pen);
+  --lt-strike: var(--c2-pen); --lt-ink-dim: rgba(var(--ink-rgb), .5);
+}
+.c2-sep { flex: none; display: flex; justify-content: center; }
+.c2-sep .orn-band { --h: 40px; --orn: var(--c2-gold); --o: .75; }
+.c2-spark {
+  position: absolute; display: block; width: var(--w, 48px); aspect-ratio: 1; background: var(--c2-gold, var(--hi));
+  -webkit-mask: url('lettering/spark1.svg') center / contain no-repeat; mask: url('lettering/spark1.svg') center / contain no-repeat;
+  rotate: var(--rot, 0deg); opacity: var(--o, 1); pointer-events: none;
+}
+.c2-spark.s2 { -webkit-mask-image: url('lettering/spark2.svg'); mask-image: url('lettering/spark2.svg'); }
+.c2-spark.s3 { -webkit-mask-image: url('lettering/spark3.svg'); mask-image: url('lettering/spark3.svg'); }
