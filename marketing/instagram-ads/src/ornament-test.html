@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="kk"><head><meta charset="utf-8"><title>Орнамент кампании 2 — проверка</title>
+<link rel="stylesheet" href="fonts.css"><link rel="stylesheet" href="themes-c2.css"><link rel="stylesheet" href="ornament.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #0a0d14; }
+  body { font-family: "Manrope", sans-serif; padding: 28px; -webkit-font-smoothing: antialiased; }
+  h2 { font: 700 22px/1 "JetBrains Mono", monospace; color: #cfd6e6; margin: 0 0 14px; }
+  .theme-block { margin-bottom: 44px; }
+  .pair { display: flex; gap: 28px; }
+  .scene { position: relative; width: 1000px; height: 760px; overflow: hidden; border-radius: 6px; }
+  .scene.light { background: var(--paper); color: var(--ink); }
+  .scene.dark  { background: var(--night); color: var(--paper); }
+  .scene .orn-pattern { position: absolute; inset: 0; }
+  .scene.light .orn-pattern { --orn: var(--accent-d); --o: .16; }
+  .scene.dark  .orn-pattern { --orn: var(--hi); --o: .14; }
+  .scene .top { position: absolute; left: 0; top: 0; right: 0; }
+  .scene .bot { position: absolute; left: 0; bottom: 0; right: 0; }
+  .scene.light .orn-band { --orn: var(--accent); }
+  .scene.light .orn-corner { --orn: var(--hi); }
+  .scene.light .orn-horns { --orn: var(--accent-d); }
+  .scene.light .orn-arch { --orn: var(--accent-d); }
+  .scene.light .orn-medallion { --orn: var(--accent); }
+  .scene.dark .orn-arch-in { --fill: linear-gradient(160deg, var(--accent-2), var(--accent)); }
+  .scene.light .orn-arch-in { --fill: linear-gradient(160deg, var(--tint), var(--accent-2)); }
+  .arch { position: absolute; left: 76px; top: 100px; width: 280px; --w: 280px; }
+  .arch .orn-arch, .arch .orn-arch-in { position: absolute; left: 0; top: 0; }
+  .medal { position: absolute; left: 380px; top: 110px; }
+  .horns { position: absolute; left: 715px; top: 110px; }
+  .txt { position: absolute; left: 76px; width: 560px; top: 520px; }
+  .txt h3 { font: 800 44px/1.08 "Unbounded", sans-serif; letter-spacing: -0.02em; }
+  .txt p { font: 600 24px/1.35 "Manrope"; margin-top: 12px; opacity: .8; }
+  .small { position: absolute; left: 690px; top: 330px; width: 250px; display: flex; flex-direction: column; gap: 18px; }
+  .small .orn-band { --h: 40px; }
+  .small .orn-band.s2 { --h: 24px; }
+</style></head>
+<body>
+<script>
+  const themes = [["kok","көк"],["altyn","алтын"],["kyzyl","қызыл"],["jasyl","жасыл"]];
+  const scene = (mode) => `
+    <div class="scene ${mode}">
+      <div class="orn-pattern"></div>
+      <div class="orn-band top" style="--h:56px"></div>
+      <div class="orn-band bot" style="--h:56px"></div>
+      <div class="orn-corner tl" style="--w:150px;--in:66px"></div>
+      <div class="orn-corner tr" style="--w:150px;--in:66px"></div>
+      <div class="orn-corner br" style="--w:150px;--in:66px"></div>
+      <div class="orn-corner bl" style="--w:150px;--in:66px"></div>
+      <div class="arch"><div class="orn-arch-in"></div><div class="orn-arch"></div></div>
+      <div class="orn-medallion medal" style="--w:300px"></div>
+      <div class="orn-horns horns" style="--w:200px"></div>
+      <div class="small"><div class="orn-band"></div><div class="orn-band s2"></div><div class="orn-band" style="--h:64px"></div></div>
+      <div class="txt"><h3>Сынақ сабаққа жазылыңыз</h3><p>Қазақша және орысша · 12–17 жас</p></div>
+    </div>`;
+  document.body.innerHTML = themes.map(([t, n]) =>
+    `<section class="theme-block theme-${t}" id="${t}"><h2>${t} · ${n}</h2><div class="pair">${scene("light")}${scene("dark")}</div></section>`).join("");
+</script>
+</body></html>

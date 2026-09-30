@@ -1,36 +1,78 @@
 <!doctype html><html lang="ru"><head><meta charset="utf-8"><title>C1 · Любит играть — пусть создаст свою</title>
 <link rel="stylesheet" href="../base.css">
 <style>
-  .bg { background: radial-gradient(800px 600px at 100% 0%, rgba(var(--hi-rgb),.5), transparent 60%), radial-gradient(900px 700px at 0% 100%, rgba(var(--accent-rgb),.28), transparent 62%), var(--paper); }
+  /* Тема sunny: янтарь (игровое «солнце») + лаванда (HUD). Робот перекрашен в лаванду, глаза и экран остались тёплыми. */
+  .bg { background:
+    radial-gradient(800px 600px at 100% 0%, rgba(var(--hi-rgb),.5), transparent 60%),
+    radial-gradient(900px 700px at 0% 100%, rgba(var(--accent-rgb),.34), transparent 62%),
+    var(--paper); }
   .stage { position: relative; margin-top: 30px; height: 610px; }
   body.story .stage { height: 760px; margin-top: 50px; }
-  .hero { position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 560px; height: 560px; border-radius: 56px; overflow: hidden; box-shadow: 0 50px 90px -40px rgba(var(--accent-d-rgb),.9), 0 0 0 8px var(--ink); background: #f08a6e; }
+
+  /* «игровой экран»: солнечный градиент, лучи, плитки земли */
+  .hero { position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 560px; height: 560px; border-radius: 56px; overflow: hidden;
+    box-shadow: 0 50px 90px -40px rgba(var(--accent-d-rgb),.9), 0 0 0 8px var(--ink);
+    background: radial-gradient(circle at 50% 56%, var(--accent-2) 0, color-mix(in srgb, var(--accent) 70%, var(--accent-2)) 26%, var(--accent) 58%, color-mix(in srgb, var(--accent) 78%, var(--accent-d)) 100%); }
   body.story .hero { width: 640px; height: 640px; }
-  .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hero::before { content: ""; position: absolute; inset: 0;
+    background: repeating-conic-gradient(from -7deg at 50% 58%, rgba(var(--paper-rgb),.34) 0deg 9deg, transparent 9deg 18deg);
+    -webkit-mask-image: radial-gradient(circle at 50% 58%, #000 0, rgba(0,0,0,.55) 48%, transparent 78%); mask-image: radial-gradient(circle at 50% 58%, #000 0, rgba(0,0,0,.55) 48%, transparent 78%); }
+  .hero::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 10%;
+    border-top: 6px solid var(--ink);
+    background:
+      linear-gradient(rgba(var(--accent-rgb),.55), rgba(var(--accent-rgb),.55)) 0 0 / 100% 7px no-repeat,
+      repeating-linear-gradient(90deg, transparent 0 calc(11.2% - 4px), rgba(var(--night-rgb),.55) calc(11.2% - 4px) 11.2%),
+      var(--night-2); }
+  .hero .robot { position: absolute; left: 50%; bottom: 8.6%; height: 80%; width: auto; transform: translateX(-56%); display: block;
+    filter: drop-shadow(0 16px 14px rgba(var(--night-rgb),.32)); }
+  .hero .sp { position: absolute; width: 34px; height: 34px; background: var(--paper);
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); opacity: .95; }
+  .hero .sp.a { left: 9%; top: 26%; } .hero .sp.b { right: 11%; top: 17%; width: 44px; height: 44px; } .hero .sp.c { right: 8%; top: 52%; width: 24px; height: 24px; } .hero .sp.d { left: 13%; top: 9%; width: 22px; height: 22px; }
+
+  /* искры на фоне — заполняют края, в Stories лежат в безопасных зонах сверху и снизу */
+  .bg .st { position: absolute; display: block; width: 40px; height: 40px; background: var(--accent);
+    clip-path: polygon(50% 0, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0 50%, 38% 38%); }
+  .bg .st.h { background: var(--hi); }
+  body.feed .st.s, body.story .st.f { display: none; }
+
   .hud { position: absolute; z-index: 5; }
-  .lvl { left: 0; top: 14px; background: var(--ink); color: var(--hi); border-radius: 22px; padding: 16px 26px; font: 800 30px "JetBrains Mono", monospace; letter-spacing: .06em; transform: rotate(-5deg); box-shadow: 0 16px 30px -12px rgba(0,0,0,.5); }
-  .lvl small { display: block; font-size: 20px; color: var(--paper); opacity: .75; letter-spacing: .1em; }
-  .xp { right: 0; top: 60px; background: var(--hi); color: var(--ink); border-radius: 999px; padding: 14px 30px; font: 800 38px "Manrope"; border: 5px solid var(--ink); transform: rotate(6deg); box-shadow: 0 16px 30px -12px rgba(0,0,0,.4); }
-  .hearts { left: 12px; bottom: 60px; font-size: 62px; transform: rotate(-6deg); filter: drop-shadow(0 8px 12px rgba(0,0,0,.3)); letter-spacing: 4px; }
+  .lvl { left: 0; top: 14px; background: var(--night); color: var(--hi); border-radius: 22px; padding: 16px 26px; font: 800 30px "JetBrains Mono", monospace; letter-spacing: .06em; transform: rotate(-5deg); box-shadow: 0 16px 30px -12px rgba(var(--night-rgb),.6), inset 0 0 0 3px rgba(var(--hi-rgb),.35); }
+  .lvl small { display: block; font-size: 20px; color: var(--paper); opacity: .8; letter-spacing: .1em; }
+  .xp { right: 0; top: 60px; background: var(--hi); color: var(--on-hi); border-radius: 999px; padding: 14px 30px; font: 800 38px "Manrope"; border: 5px solid var(--ink); transform: rotate(6deg); box-shadow: 0 16px 30px -12px rgba(var(--night-rgb),.5); }
+  .hearts { left: 6px; bottom: 58px; display: flex; gap: 2px; transform: rotate(-6deg); filter: drop-shadow(0 8px 10px rgba(var(--night-rgb),.4)); }
+  .hearts svg { width: 76px; height: 69px; display: block; overflow: visible; }
+  .hearts path { fill: var(--hi); stroke: var(--ink); stroke-width: 5; stroke-linejoin: round; }
+  .hearts .gl { fill: rgba(var(--paper-rgb),.75); stroke: none; }
   .bar { left: 50%; bottom: -6px; transform: translateX(-50%); width: 800px; }
   .bar .t { display: flex; justify-content: space-between; font: 800 28px "Manrope"; margin-bottom: 10px; }
-  .bar .rail { height: 40px; border-radius: 20px; background: rgba(var(--ink-rgb),.12); overflow: hidden; border: 4px solid var(--ink); background: #fff; }
+  .bar .rail { height: 40px; border-radius: 20px; overflow: hidden; border: 4px solid var(--ink); background: var(--paper); }
   .bar .rail b { display: block; width: 64%; height: 100%; background: repeating-linear-gradient(45deg, var(--accent) 0 18px, color-mix(in srgb, var(--accent) 72%, var(--accent-2)) 18px 36px); }
-  .coin { position: absolute; z-index: 6; width: 76px; height: 76px; border-radius: 50%; background: var(--hi); border: 6px solid var(--ink); display: grid; place-items: center; font: 800 36px "Manrope"; }
+  .coin { position: absolute; z-index: 6; width: 76px; height: 76px; border-radius: 50%; border: 6px solid var(--ink); display: grid; place-items: center; font: 800 36px "Manrope"; color: var(--on-accent);
+    background: radial-gradient(circle at 34% 30%, var(--accent-2), var(--accent) 62%); box-shadow: 0 12px 20px -10px rgba(var(--night-rgb),.55); }
+  .coin.hi { background: radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--hi) 55%, var(--paper)), var(--hi) 64%); color: var(--on-hi); }
   .h1 { margin-top: 22px; }
   .sub { margin-top: 22px; }
+  .why .k { background: var(--night); color: var(--hi); }
   .stk { position: absolute; right: -10px; bottom: 18px; z-index: 8; }
 </style></head>
-<body class="theme-sunny"><div class="frame"><div class="bg bg-dots"></div>
+<body class="theme-sunny"><div class="frame"><div class="bg bg-dots">
+  <i class="st f" style="left:700px;top:46px;width:46px;height:46px"></i><i class="st f h" style="left:826px;top:118px;width:28px;height:28px"></i><i class="st f h" style="left:946px;top:48px;width:24px;height:24px"></i>
+  <i class="st s" style="left:820px;top:104px;width:58px;height:58px"></i><i class="st s h" style="left:936px;top:206px;width:34px;height:34px"></i><i class="st s h" style="left:600px;top:62px;width:30px;height:30px"></i><i class="st s" style="left:92px;top:140px;width:40px;height:40px"></i><i class="st s h" style="left:300px;top:196px;width:24px;height:24px"></i>
+  <i class="st s h" style="left:120px;top:1690px;width:54px;height:54px"></i><i class="st s" style="left:300px;top:1796px;width:30px;height:30px"></i><i class="st s" style="left:880px;top:1716px;width:48px;height:48px"></i><i class="st s h" style="left:770px;top:1822px;width:28px;height:28px"></i><i class="st s" style="left:520px;top:1700px;width:24px;height:24px"></i>
+</div>
 <div class="content">
   <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa Z<small>школа программирования · 12–17 лет</small></div></div>
 
   <div class="stage">
-    <div class="hero"><img src="../assets/mascot.png" alt=""></div>
+    <div class="hero"><i class="sp a"></i><i class="sp b"></i><i class="sp c"></i><i class="sp d"></i><img class="robot" src="../assets/c1-mascot-sunny.png" alt=""></div>
     <div class="hud lvl">LEVEL 1<small>пробный урок</small></div>
     <div class="hud xp">+100 XP</div>
-    <div class="hud hearts">❤️❤️❤️</div>
-    <div class="coin" style="left:40px;top:250px">₸</div><div class="coin" style="right:26px;top:300px;width:60px;height:60px;font-size:28px">★</div>
+    <div class="hud hearts">
+      <svg viewBox="0 0 64 58"><path d="M32 55C11 40 3 29 3 18 3 9 9.500 3 17.500 3 24 3 29 6.500 32 12 35 6.500 40 3 46.500 3 54.500 3 61 9 61 18 61 29 53 40 32 55Z"/><ellipse class="gl" cx="17" cy="16" rx="5" ry="3.500" transform="rotate(-35 17 16)"/></svg>
+      <svg viewBox="0 0 64 58"><path d="M32 55C11 40 3 29 3 18 3 9 9.500 3 17.500 3 24 3 29 6.500 32 12 35 6.500 40 3 46.500 3 54.500 3 61 9 61 18 61 29 53 40 32 55Z"/><ellipse class="gl" cx="17" cy="16" rx="5" ry="3.500" transform="rotate(-35 17 16)"/></svg>
+      <svg viewBox="0 0 64 58"><path d="M32 55C11 40 3 29 3 18 3 9 9.500 3 17.500 3 24 3 29 6.500 32 12 35 6.500 40 3 46.500 3 54.500 3 61 9 61 18 61 29 53 40 32 55Z"/><ellipse class="gl" cx="17" cy="16" rx="5" ry="3.500" transform="rotate(-35 17 16)"/></svg>
+    </div>
+    <div class="coin hi" style="left:40px;top:250px">₸</div><div class="coin" style="right:26px;top:300px;width:60px;height:60px;font-size:28px">★</div>
     <div class="sticker stk"><span class="a">пробный урок</span><span class="p">3000 ₸</span><span class="b">60 мин · онлайн</span></div>
   </div>
 

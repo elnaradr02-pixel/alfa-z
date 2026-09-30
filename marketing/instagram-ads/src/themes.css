@@ -142,7 +142,7 @@
 /* небесная лазурь — воздух, ясность, лёгкость */
 .theme-sky {
   --accent: #1BB9EC;
-  --accent-d: #067FAE;
+  --accent-d: #0575A1;
   --accent-2: #98DCFB;
   --on-accent: #06202E;
   --hi: #FF9A45;
@@ -156,7 +156,7 @@
   --logo-accent: #FF6B47;
   --logo-fg: #FFFBF5;
   --accent-rgb: 27,185,236;
-  --accent-d-rgb: 6,127,174;
+  --accent-d-rgb: 5,117,161;
   --accent-2-rgb: 152,220,251;
   --hi-rgb: 255,154,69;
   --paper-rgb: 243,250,255;
@@ -245,4 +245,31 @@
   --ink-rgb: 42,15,69;
   --night-rgb: 42,6,48;
   --night-2-rgb: 60,13,66;
+}
+
+/* золото на глубокой сливе — для видео 2 (прежний вид) */
+.theme-aurum {
+  --accent: #F5B942;
+  --accent-d: #8A5A00;
+  --accent-2: #FFD98A;
+  --on-accent: #24123A;
+  --hi: #FF8A6B;
+  --on-hi: #150826;
+  --paper: #FBF7FF;
+  --tint: #F0E8FA;
+  --ink: #24123A;
+  --night: #24123A;
+  --night-2: #331A52;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 245,185,66;
+  --accent-d-rgb: 138,90,0;
+  --accent-2-rgb: 255,217,138;
+  --hi-rgb: 255,138,107;
+  --paper-rgb: 251,247,255;
+  --tint-rgb: 240,232,250;
+  --ink-rgb: 36,18,58;
+  --night-rgb: 36,18,58;
+  --night-2-rgb: 51,26,82;
 }

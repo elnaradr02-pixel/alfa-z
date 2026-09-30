@@ -86,7 +86,7 @@
   },
   "sky": {
     "accent": "#1BB9EC",
-    "accent-d": "#067FAE",
+    "accent-d": "#0575A1",
     "accent-2": "#98DCFB",
     "on-accent": "#06202E",
     "hi": "#FF9A45",
@@ -151,5 +151,22 @@
     "logo-accent": "#FF6B47",
     "logo-fg": "#FFFBF5",
     "note": "слива, орхидея и шампанское — солидность"
+  },
+  "aurum": {
+    "accent": "#F5B942",
+    "accent-d": "#8A5A00",
+    "accent-2": "#FFD98A",
+    "on-accent": "#24123A",
+    "hi": "#FF8A6B",
+    "on-hi": "#150826",
+    "paper": "#FBF7FF",
+    "tint": "#F0E8FA",
+    "ink": "#24123A",
+    "night": "#24123A",
+    "night-2": "#331A52",
+    "logo-bg": "#FF6B47",
+    "logo-accent": "#FF6B47",
+    "logo-fg": "#FFFBF5",
+    "note": "золото на глубокой сливе — для видео 2 (прежний вид)"
   }
 }

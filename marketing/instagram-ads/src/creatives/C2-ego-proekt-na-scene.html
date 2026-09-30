@@ -2,14 +2,15 @@
 <link rel="stylesheet" href="../base.css">
 <style>
   .frame { background: var(--night); color: var(--paper); }
-  .bg { background: radial-gradient(900px 700px at 0% 0%, rgba(var(--accent-rgb),.35), transparent 62%), var(--night); }
+  .bg { background: radial-gradient(900px 700px at 0% 0%, rgba(var(--accent-rgb),.35), transparent 62%), radial-gradient(820px 640px at 100% 100%, rgba(var(--accent-d-rgb),.34), transparent 66%), var(--night); }
   .h1 { color: var(--paper); }
-  .photo { position: relative; margin-top: 30px; border-radius: 44px; overflow: hidden; height: 560px; box-shadow: 0 50px 90px -40px rgba(0,0,0,.9), 0 0 0 5px rgba(var(--paper-rgb),.16); }
+  .photo { position: relative; margin-top: 30px; border-radius: 44px; overflow: hidden; height: 560px; box-shadow: 0 50px 90px -40px rgba(0,0,0,.9), 0 0 0 5px rgba(var(--accent-2-rgb),.26); }
   body.story .photo { height: 720px; margin-top: 44px; }
   .photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; display: block; }
   .photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(var(--ink-rgb),.15), transparent 30%, transparent 62%, rgba(var(--ink-rgb),.75)); }
   .photo .cap { position: absolute; left: 26px; bottom: 24px; z-index: 3; }
   .photo .tag { position: absolute; left: 26px; top: 24px; z-index: 3; }
+  .photo .cap .pill { box-shadow: 0 0 0 3px rgba(var(--paper-rgb),.92), 0 14px 30px -10px rgba(var(--night-rgb),.8); }
   .stk { position: absolute; right: 22px; bottom: 22px; z-index: 6; width: auto !important; height: auto !important; border-radius: 30px !important; padding: 18px 28px !important; transform: rotate(-4deg); }
   .sub { margin-top: 36px; color: var(--paper); opacity: .88; }
   .sticker .p { font-size: 62px !important; margin: 4px 0 4px !important; }
