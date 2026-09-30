@@ -12,7 +12,7 @@
 import math, os, sys
 import numpy as np
 from shapely import affinity, set_precision, hausdorff_distance
-from shapely.geometry import Polygon, MultiPolygon, LineString, Point, box
+from shapely.geometry import Polygon, LineString, Point, box
 from shapely.geometry.polygon import orient
 from shapely.ops import unary_union
 
@@ -256,7 +256,6 @@ def geom_shape(g): return Shape(g=g)
 def buf(coords, w, cap="round", join=1):
     """Ломаная толщиной w (cap: round|flat; join: 1 круглый, 2 острый, 3 срезанный)."""
     return Shape(g=LineString(coords).buffer(w / 2, cap_style=1 if cap == "round" else 2, join_style=join, quad_segs=16))
-def disc(cx, cy, r): return Shape(g=Point(cx, cy).buffer(r, quad_segs=32))
 
 # ───────────────────────── «волюта» — мүйіз ─────────────────────────
 def clothoid(L, turn_deg, rend, ka=0.0, ds=4.0, dth=0.14):
@@ -490,8 +489,9 @@ def build_medallion():
     outer = ring(c, c, 250, 244)
     pearls = Shape([circle(*polar(c, 233, i * 360 / 48 + 3.75), 4.0) for i in range(48)])
     thin = ring(c, c, 219, 216.6)
-    tooth = Shape([rpoly([(c - 15, c - 214), (c + 15, c - 214), (c, c - 186)], 2.2)])
-    teeth = radial(tooth, c, c, 32, 5.625)
+    # 36 зубцов-тұмарша, вершинами к центру (не «лучи»: намеренно не 32 и не наружу — чтобы не походить на солнце флага)
+    tooth = Shape([rpoly([(c - 12, c - 214), (c + 12, c - 214), (c, c - 187)], 2.0)])
+    teeth = radial(tooth, c, c, 36, 5.0)
     ly = lyre(0.47)
     lyres = Shape()
     for i in range(8): lyres.add(ly.tf(T(c, c - 98)).tf(Rot(i * 45, c, c)))
@@ -500,8 +500,7 @@ def build_medallion():
     studs = Shape()
     for i in range(8):
         x, y = polar(c, 168, 22.5 + 45 * i)
-        studs.add(diamond(x, y, 26, 26, 1.8).cut(diamond(x, y, 11, 11, 0.8)).add(circle(x, y, 2.6)).tf(Rot(22.5 + 45 * i, x, y)) if False else
-                  diamond(x, y, 26, 26, 1.8).cut(diamond(x, y, 11, 11, 0.8)).add(circle(x, y, 2.6)))
+        studs.add(diamond(x, y, 26, 26, 1.8).cut(diamond(x, y, 11, 11, 0.8)).add(circle(x, y, 2.6)))
     write("medallion.svg", S, S, [Shape().add(outer, pearls, thin, teeth, lyres, star, jewel, studs)])
 
 # ── арка (рамка под фото / карточку) ──
