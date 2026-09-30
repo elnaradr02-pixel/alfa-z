@@ -1,0 +1,113 @@
+/* СГЕНЕРИРОВАНО tools/build-themes.py из src/themes.json — не правьте вручную.
+   Токены переключаются классом на <body class="theme-XXX">. Для каждого цвета есть -rgb вариант: rgba(var(--accent-rgb), .5).
+   --accent основной акцент (кнопка, маркер) · --accent-d тёмный оттенок · --accent-2 парный светлый (свечение, градиенты)
+   --on-accent текст на акценте · --hi/--on-hi «наклейка» и текст на ней · --paper/--tint светлая поверхность/подложка
+   --ink текст на светлом · --night/--night-2 тёмная сцена и панели · --logo-* плитка и буквы логотипа (фирменный коралл). */
+
+/* көк — небесная бирюза и золото на слоновой кости, тёмный лазурит */
+.theme-kok {
+  --accent: #0A87A5;
+  --accent-d: #076E87;
+  --accent-2: #7FDCEB;
+  --on-accent: #FFFFFF;
+  --hi: #F2B632;
+  --on-hi: #1B1200;
+  --paper: #FAF6EA;
+  --tint: #EFE7D2;
+  --ink: #10263A;
+  --night: #0B2A4A;
+  --night-2: #12395F;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 10,135,165;
+  --accent-d-rgb: 7,110,135;
+  --accent-2-rgb: 127,220,235;
+  --hi-rgb: 242,182,50;
+  --paper-rgb: 250,246,234;
+  --tint-rgb: 239,231,210;
+  --ink-rgb: 16,38,58;
+  --night-rgb: 11,42,74;
+  --night-2-rgb: 18,57,95;
+}
+
+/* алтын — золото на глубоком лазурите */
+.theme-altyn {
+  --accent: #F2B632;
+  --accent-d: #C98F12;
+  --accent-2: #FFE08A;
+  --on-accent: #10263A;
+  --hi: #0A87A5;
+  --on-hi: #FFFFFF;
+  --paper: #FBF7EC;
+  --tint: #F3EAD0;
+  --ink: #10263A;
+  --night: #0B2A4A;
+  --night-2: #12395F;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 242,182,50;
+  --accent-d-rgb: 201,143,18;
+  --accent-2-rgb: 255,224,138;
+  --hi-rgb: 10,135,165;
+  --paper-rgb: 251,247,236;
+  --tint-rgb: 243,234,208;
+  --ink-rgb: 16,38,58;
+  --night-rgb: 11,42,74;
+  --night-2-rgb: 18,57,95;
+}
+
+/* қызыл — гранатово-красный и золото, тёплая праздничная */
+.theme-kyzyl {
+  --accent: #B3262E;
+  --accent-d: #8E1A22;
+  --accent-2: #F29A8E;
+  --on-accent: #FFFFFF;
+  --hi: #F2B632;
+  --on-hi: #2A1015;
+  --paper: #FBF4EC;
+  --tint: #F4E4D6;
+  --ink: #2A1015;
+  --night: #2B0F14;
+  --night-2: #3E1720;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 179,38,46;
+  --accent-d-rgb: 142,26,34;
+  --accent-2-rgb: 242,154,142;
+  --hi-rgb: 242,182,50;
+  --paper-rgb: 251,244,236;
+  --tint-rgb: 244,228,214;
+  --ink-rgb: 42,16,21;
+  --night-rgb: 43,15,20;
+  --night-2-rgb: 62,23,32;
+}
+
+/* жасыл — изумруд и золото, спокойная уверенная */
+.theme-jasyl {
+  --accent: #1E7B5A;
+  --accent-d: #165F45;
+  --accent-2: #8ED8B8;
+  --on-accent: #FFFFFF;
+  --hi: #F2B632;
+  --on-hi: #0C2F26;
+  --paper: #F6FAF3;
+  --tint: #E4EFDF;
+  --ink: #0C2F26;
+  --night: #0C2F26;
+  --night-2: #154236;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 30,123,90;
+  --accent-d-rgb: 22,95,69;
+  --accent-2-rgb: 142,216,184;
+  --hi-rgb: 242,182,50;
+  --paper-rgb: 246,250,243;
+  --tint-rgb: 228,239,223;
+  --ink-rgb: 12,47,38;
+  --night-rgb: 12,47,38;
+  --night-2-rgb: 21,66,54;
+}
