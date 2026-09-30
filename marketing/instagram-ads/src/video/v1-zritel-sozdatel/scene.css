@@ -120,7 +120,8 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 .bub { position: relative; padding: 34px 44px 38px; border-radius: 60px; font: 800 84px/1.04 "Manrope", sans-serif; letter-spacing: -0.04em; }
 .bub.l { background: #fff; border-bottom-left-radius: 18px; box-shadow: 0 34px 60px -32px rgba(15,15,26,.4), 0 0 0 3px rgba(15,15,26,.06); max-width: 780px; }
 .bub.r { background: var(--coral); color: var(--ink); border-bottom-right-radius: 18px; box-shadow: 0 34px 60px -28px rgba(255,107,71,.8); max-width: 780px; }
-.typing { position: absolute; right: 190px; top: 1000px; display: flex; gap: 16px; padding: 34px 40px; border-radius: 60px; border-bottom-right-radius: 18px; background: #fff;
+.bw { position: relative; }
+.typing { position: absolute; right: 0; bottom: 0; z-index: 2; display: flex; gap: 16px; padding: 34px 40px; border-radius: 60px; border-bottom-right-radius: 18px; background: #fff;
   box-shadow: 0 30px 50px -30px rgba(15,15,26,.4), 0 0 0 3px rgba(15,15,26,.06); }
 .typing i { width: 26px; height: 26px; border-radius: 50%; background: #b9b5ad; display: block; }
 .cap4 { position: absolute; left: 64px; top: 1200px; width: 952px; font: 800 88px/1.02 "Manrope", sans-serif; letter-spacing: -0.045em; }
