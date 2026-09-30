@@ -30,9 +30,9 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 .fc .av { width: 62px; height: 62px; border-radius: 50%; background: #aaa7a1; flex: none; }
 .fc .fh b { display: block; height: 17px; border-radius: 9px; background: #bdbab4; margin: 9px 0; }
 .fc .fi { position: relative; margin-top: 20px; height: 300px; border-radius: 24px; background: linear-gradient(135deg, #c4c1bb, #a7a49e); }
-.fc .fi.g1 { background: linear-gradient(135deg, #b9b6b0, #9a9791); }
-.fc .fi.g2 { background: linear-gradient(135deg, #cbc8c2, #b0ada7); }
-.fc .fi.g3 { background: linear-gradient(135deg, #b3b0aa, #98958f); }
+.fc .fi.v1 { background: linear-gradient(135deg, #b9b6b0, #9a9791); }
+.fc .fi.v2 { background: linear-gradient(135deg, #cbc8c2, #b0ada7); }
+.fc .fi.v3 { background: linear-gradient(135deg, #b3b0aa, #98958f); }
 .fc .fi s { position: absolute; left: 50%; top: 50%; margin: -42px 0 0 -30px; border-left: 74px solid rgba(255,255,255,.78); border-top: 42px solid transparent; border-bottom: 42px solid transparent; }
 .fc .fa { display: flex; gap: 18px; margin-top: 22px; }
 .fc .fa i { width: 46px; height: 46px; border-radius: 50%; background: #b4b1ab; display: block; }

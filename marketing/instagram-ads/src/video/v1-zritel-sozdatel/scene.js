@@ -53,7 +53,7 @@
     let h = "";
     for (let i = 0; i < 9; i++) {
       h += '<div class="fc"><div class="fh"><i class="av"></i><div><b style="width:' + (170 + (i * 47) % 110) + 'px"></b><b style="width:' + (96 + (i * 31) % 60) + 'px"></b></div></div>' +
-        '<div class="fi g' + (i % 4) + '"><s></s></div><div class="fa"><i></i><i></i><i></i></div></div>';
+        '<div class="fi v' + (i % 4) + '"><s></s></div><div class="fa"><i></i><i></i><i></i></div></div>';
     }
     $("#fl").innerHTML = h;
   })();
