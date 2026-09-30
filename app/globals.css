@@ -80,27 +80,259 @@ body {
   html.has-custom-cursor textarea {
     cursor: text !important;
   }
+  /* У выпадающих списков нашего кольца нет — оставляем системную «руку» */
+  html.has-custom-cursor select,
+  html.has-custom-cursor select * {
+    cursor: pointer !important;
+  }
 }
 
 /* ═══════════════════════════════════════════════
-   🎞 FILM GRAIN — тонкая зернистая текстура поверх всего
-   Даёт «дорогое», не плоское ощущение. Не перехватывает клики,
-   лежит под интерактивным UI (header/чат/модалки).
+   ✍️ ТИПОГРАФИКА И ДОСТУПНОСТЬ
+   (зерно поверх экрана убрано: полноэкранный blend-слой
+   тормозит телефоны и делает картинку «грязной»)
    ═══════════════════════════════════════════════ */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 45;
-  pointer-events: none;
-  opacity: 0.05;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 140px 140px;
+h1, h2, h3 { text-wrap: balance; }
+p, li { text-wrap: pretty; }
+
+/* Видимый фокус для клавиатуры — на всех интерактивных элементах */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
 }
 
+/* Убираем 300мс-задержку тапа и случайный зум на кнопках */
+a, button, summary, [role="button"] { touch-action: manipulation; }
+
+/* ═══════════════════════════════════════════════
+   🧱 ДИЗАЙН-ПРИМИТИВЫ 2026
+   ═══════════════════════════════════════════════ */
+
+/* Точечная сетка «чертёж» — светлые секции */
+.dot-grid {
+  background-image: radial-gradient(rgba(15, 15, 26, 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+/* …и для тёмных секций */
+.dot-grid-dark {
+  background-image: radial-gradient(rgba(255, 251, 245, 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Крупные контурные цифры (годы, номера) */
+.outline-num {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 107, 71, 0.55);
+}
+
+/* Лента партнёров: движение задаёт JS (VelocityMarquee), тут — только раскладка */
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
 @media (prefers-reduced-motion: reduce) {
-  body::after { display: none; }
+  .marquee-track { flex-wrap: wrap; width: auto; justify-content: center; transform: none !important; }
+  .marquee-track > ul[aria-hidden="true"] { display: none; }
+}
+
+/* Стрелка в кнопке «подъезжает» на hover */
+.btn-arrow .arrow { display: inline-block; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+.btn-arrow:hover .arrow { transform: translateX(4px); }
+
+/* ═══════════════════════════════════════════════
+   🌌 ЭФФЕКТЫ: аврора, подсветка под курсором, блик, кольцо
+   Правило производительности: анимация — только transform/opacity
+   и только на десктопе (hover:hover + ≥768px). На телефонах — статика.
+   ═══════════════════════════════════════════════ */
+
+/* Аврора: размытые коралловые/персиковые пятна */
+.aurora { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.aurora > span {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(48px);
+}
+@media (min-width: 768px) { .aurora > span { filter: blur(90px); } }
+.aurora .a1 { width: 34rem; height: 34rem; left: -10rem; top: -8rem;
+  background: radial-gradient(circle at 35% 35%, #FF6B47, transparent 68%); opacity: 0.5; }
+.aurora .a2 { width: 30rem; height: 30rem; right: -8rem; top: 18%;
+  background: radial-gradient(circle, #FFB088, transparent 68%); opacity: 0.32; }
+.aurora .a3 { width: 26rem; height: 26rem; left: 38%; bottom: -12rem;
+  background: radial-gradient(circle, #E85535, transparent 68%); opacity: 0.38; }
+/* Светлая версия — мягче, для кремовых секций */
+.aurora-soft .a1 { opacity: 0.2; }
+.aurora-soft .a2 { opacity: 0.22; }
+.aurora-soft .a3 { opacity: 0.16; }
+
+@keyframes auroraA { to { transform: translate3d(9rem, 6rem, 0) scale(1.18); } }
+@keyframes auroraB { to { transform: translate3d(-8rem, 7rem, 0) scale(0.9); } }
+@keyframes auroraC { to { transform: translate3d(6rem, -6rem, 0) scale(1.25); } }
+@media (hover: hover) and (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+  .aurora .a1 { animation: auroraA 20s ease-in-out infinite alternate; will-change: transform; }
+  .aurora .a2 { animation: auroraB 26s ease-in-out infinite alternate; will-change: transform; }
+  .aurora .a3 { animation: auroraC 23s ease-in-out infinite alternate; will-change: transform; }
+}
+
+/* Подсветка карточки под курсором (переменные --mx/--my ставит JS, только мышь) */
+.spotlight { position: relative; }
+.spotlight::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 107, 71, 0.18), transparent 62%);
+}
+.spotlight:hover::before { opacity: 1; }
+@media (hover: none) { .spotlight::before { display: none; } }
+
+/* Блик, пробегающий по кнопке на hover */
+.shine { position: relative; overflow: hidden; isolation: isolate; }
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 32%, rgba(255, 255, 255, 0.4) 50%, transparent 68%);
+  transform: translateX(-130%);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.shine:hover::after { transform: translateX(130%); }
+
+/* Переливающийся градиент в акцентных словах (коралл ↔ персик) */
+@keyframes shimmerX { to { background-position: -200% 0; } }
+.accent-shimmer {
+  background: linear-gradient(100deg, #FF6B47 0%, #FFB088 25%, #FF6B47 50%, #FFB088 75%, #FF6B47 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmerX 7s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) { .accent-shimmer { animation: none; } }
+
+/* Вращающаяся коралловая обводка (тариф). @property — плавный поворот угла */
+@property --ang { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@keyframes ringSpin { to { --ang: 360deg; } }
+.ring-spin { position: relative; }
+.ring-spin::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(from var(--ang), transparent 0 50%, #FF6B47 72%, #FFB088 86%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: ringSpin 6s linear infinite;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) { .ring-spin::before { animation: none; } }
+
+/* «Листы»: каждая секция чуть наезжает на предыдущую скруглённым верхом — глубина без теней */
+.sheet {
+  position: relative;
+  margin-top: -1.75rem;
+  border-radius: 1.75rem 1.75rem 0 0;
+}
+@media (min-width: 768px) {
+  .sheet { margin-top: -2.5rem; border-radius: 2.5rem 2.5rem 0 0; }
+}
+
+/* ═══════════════════════════════════════════════
+   🎬 ЗАСТАВКА + ГЕРОЙ: вступление при первом заходе
+   ═══════════════════════════════════════════════ */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
+  background: #0F0F1A;
+  cursor: pointer;
+  animation: introIris 0.95s cubic-bezier(0.7, 0, 0.2, 1) 1.35s forwards;
+}
+html[data-intro="seen"] .intro { display: none; }
+@keyframes introIris {
+  from { clip-path: circle(150% at 50% 50%); }
+  to   { clip-path: circle(0% at 50% 50%); visibility: hidden; }
+}
+.intro::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255, 107, 71, 0.34), transparent 52%);
+  animation: introGlow 2s ease-out both;
+}
+@keyframes introGlow { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1.15); } }
+.intro-inner { position: relative; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+.intro-logo {
+  width: 88px; height: 88px; border-radius: 24px;
+  box-shadow: 0 20px 80px -10px rgba(255, 107, 71, 0.65);
+  animation: introLogo 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes introLogo { from { opacity: 0; transform: scale(0.55) rotate(-12deg); } to { opacity: 1; transform: none; } }
+.intro-word {
+  font-family: var(--font-bricolage), system-ui, sans-serif;
+  font-weight: 700; font-size: 34px; letter-spacing: -0.03em; color: #FFFBF5;
+  animation: introUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+@keyframes introUp { from { opacity: 0; transform: translateY(14px); filter: blur(8px); } to { opacity: 1; transform: none; filter: blur(0); } }
+.intro-line {
+  font-family: var(--font-space-mono), ui-monospace, monospace;
+  font-size: 13px; color: #FFB088;
+  overflow: hidden; white-space: nowrap; width: 0;
+  border-right: 2px solid #FFB088;
+  animation: introType 0.75s steps(24) 0.5s forwards;
+}
+@keyframes introType { to { width: 24ch; } }
+.intro-bar { width: 180px; height: 2px; border-radius: 2px; overflow: hidden; background: rgba(255, 251, 245, 0.12); }
+.intro-bar > span {
+  display: block; height: 100%; transform-origin: left;
+  background: linear-gradient(90deg, #FF6B47, #FFB088);
+  animation: introBar 1.25s cubic-bezier(0.6, 0, 0.2, 1) 0.1s both;
+}
+@keyframes introBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .intro { display: none; } }
+
+/* Строки заголовка героя: выезд из-под маски + проявление из размытия (CSS — работает с первого кадра) */
+.hero-line { animation: heroLine 0.95s cubic-bezier(0.16, 1, 0.3, 1) backwards; }
+@keyframes heroLine { from { transform: translateY(110%); filter: blur(10px); } }
+@media (prefers-reduced-motion: reduce) { .hero-line { animation: none; } }
+
+/* Плавающая карточка с «живым кодом» в герое */
+.hero-card {
+  animation:
+    cardIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--intro-delay, 0s) + 0.6s) backwards,
+    floatY 7s ease-in-out calc(var(--intro-delay, 0s) + 1.6s) infinite;
+}
+@keyframes cardIn { from { opacity: 0; transform: translateY(30px) scale(0.96); filter: blur(8px); } }
+@keyframes floatY { 50% { transform: translateY(-10px); } }
+.type-line {
+  display: inline-block; overflow: hidden; white-space: nowrap; vertical-align: bottom; width: 0;
+  animation: typeW 1s steps(22) calc(var(--intro-delay, 0s) + 1.4s) forwards;
+}
+@keyframes typeW { to { width: 22ch; } }
+.line-in {
+  opacity: 0;
+  animation: lineIn 0.5s ease-out calc(var(--intro-delay, 0s) + var(--d, 2.6s)) forwards;
+}
+@keyframes lineIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero-card { animation: none; }
+  .type-line { animation: none; width: 22ch; }
+  .line-in { animation: none; opacity: 1; }
+}
+
+/* Ползунок мест / заполнение — тонкий, с моно-подписью */
+.tick-rule {
+  background-image: repeating-linear-gradient(90deg, currentColor 0 1px, transparent 1px 8px);
+  opacity: 0.25;
 }
 
 /* ═══════════════════════════════════════════════
@@ -114,13 +346,14 @@ body::after {
 
 .animate-fade-in-up {
   animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+  animation-delay: var(--intro-delay, 0s);
 }
 
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
-.delay-500 { animation-delay: 500ms; }
+.delay-100 { animation-delay: calc(var(--intro-delay, 0s) + 100ms); }
+.delay-200 { animation-delay: calc(var(--intro-delay, 0s) + 200ms); }
+.delay-300 { animation-delay: calc(var(--intro-delay, 0s) + 300ms); }
+.delay-400 { animation-delay: calc(var(--intro-delay, 0s) + 400ms); }
+.delay-500 { animation-delay: calc(var(--intro-delay, 0s) + 500ms); }
 
 @keyframes softPulse {
   0%, 100% { opacity: 1; transform: scale(1); }

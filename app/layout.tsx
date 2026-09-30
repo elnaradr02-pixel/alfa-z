@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, Manrope, Space_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import CustomCursor from "./components/CustomCursor";
+import IntroCurtain, { INTRO_SCRIPT } from "./components/IntroCurtain";
 import { LanguageProvider } from "./i18n/lang";
 import JsonLd from "./components/JsonLd";
 import { organizationLd, websiteLd } from "./lib/structured-data";
@@ -92,8 +93,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="kk">
+    <html lang="kk" suppressHydrationWarning>
+      <head>
+        {/* До отрисовки: показывать ли заставку (см. IntroCurtain) */}
+        <script dangerouslySetInnerHTML={{ __html: INTRO_SCRIPT }} />
+      </head>
       <body className={`${bricolage.variable} ${manrope.variable} ${spaceMono.variable} antialiased`}>
+        <IntroCurtain />
         <JsonLd data={[organizationLd, websiteLd]} />
         <LanguageProvider>
           <CustomCursor />

@@ -1,17 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
 import { useDeviceCapabilities } from "./useDeviceCapabilities";
 import { useLang } from "../i18n/lang";
 
 /**
  * Hero-заголовок: сверху — моноширинный «терминальный prompt», который
- * печатается посимвольно (typewriter) при загрузке, снизу — сам заголовок,
- * раскрывающийся построчно из-под маски.
+ * печатается посимвольно (typewriter) после заставки, снизу — сам заголовок:
+ * строки выезжают из-под маски с проявлением из размытия (CSS `.hero-line`).
  *
- * Prompt декоративный (aria-hidden). При prefers-reduced-motion — и prompt, и
- * заголовок показываются сразу, без движения. Контент строк не меняем.
+ * Строки анимирует CSS, а не framer-motion: так заголовок играет с первого кадра,
+ * не ждёт гидрации и не ломается SSR. Задержка = --intro-delay (пока идёт заставка).
+ * Prompt декоративный (aria-hidden). При prefers-reduced-motion всё показывается сразу.
  */
 
 const PROMPT = "alfa-z:~$ ./start-coding";
@@ -23,22 +23,29 @@ export default function HeroHeadline() {
 
   const lines: { text: string; accent?: boolean }[] = [
     { text: tr("Школа программирования", "Бағдарламалау мектебі", "Coding school") },
-    { text: tr("для подростков 12 – 17 лет", "12–17 жастағы жасөспірімдерге", "for teens aged 12–17"), accent: true },
+    { text: tr("для подростков 12 – 17 лет", "12–17 жастағы жасөспірімдерге", "for teens aged 12–17"), accent: true },
   ];
 
-  // Печатающийся prompt. До монтирования — пусто (без вспышки/сдвига),
+  // Печатающийся prompt: стартует после заставки. До монтирования — пусто,
   // при reduced-motion — сразу целиком.
   const [typed, setTyped] = useState(0);
   useEffect(() => {
     if (!animate) return;
     setTyped(0);
-    let n = 0;
-    const id = setInterval(() => {
-      n += 1;
-      setTyped(n);
-      if (n >= PROMPT.length) clearInterval(id);
-    }, 60);
-    return () => clearInterval(id);
+    const delay = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--intro-delay")) || 0) * 1000;
+    let id: ReturnType<typeof setInterval> | undefined;
+    const t = setTimeout(() => {
+      let n = 0;
+      id = setInterval(() => {
+        n += 1;
+        setTyped(n);
+        if (n >= PROMPT.length && id) clearInterval(id);
+      }, 60);
+    }, delay);
+    return () => {
+      clearTimeout(t);
+      if (id) clearInterval(id);
+    };
   }, [animate]);
 
   const promptText = !mounted ? "" : reducedMotion ? PROMPT : PROMPT.slice(0, typed);
@@ -54,23 +61,17 @@ export default function HeroHeadline() {
       </div>
 
       <h1
-        className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-[1.05] tracking-tight mb-6"
+        className="font-display text-[length:clamp(2rem,6.4vw,4.75rem)] font-bold text-white leading-[1.02] tracking-[-0.035em] mb-6"
         aria-label={lines.map((l) => l.text).join(" ")}
       >
         {lines.map((line, i) => (
           <span key={i} aria-hidden className="block overflow-hidden pb-1">
-            <motion.span
-              className={`block ${line.accent ? "text-accent" : ""}`}
-              initial={animate ? { y: "110%" } : false}
-              animate={animate ? { y: 0 } : undefined}
-              transition={{
-                duration: 0.85,
-                ease: [0.16, 1, 0.3, 1],
-                delay: 0.15 + i * 0.18,
-              }}
+            <span
+              className={`hero-line block ${line.accent ? "accent-shimmer" : ""}`}
+              style={{ animationDelay: `calc(var(--intro-delay, 0s) + ${0.15 + i * 0.18}s)` }}
             >
               {line.text}
-            </motion.span>
+            </span>
           </span>
         ))}
       </h1>
