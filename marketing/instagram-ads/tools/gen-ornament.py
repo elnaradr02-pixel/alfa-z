@@ -555,18 +555,19 @@ def build_arch_in():
 
 @builder("pattern-tile")
 def build_pattern():
+    """Бесшовная плитка 160×160: шахматка «мүйіз-крест» / «ромб», между ними точки и тұмарша-треугольники.
+    Ни один элемент не пересекает край плитки — шва не бывает при любом масштабе. Линии тонкие (фон, а не акцент)."""
     S = 160
-    d = d2cross(1.0, jewel=False); w, _ = sized(d)
-    k = 46 / w
-    # тонкий штрих: перестроим с уменьшенными толщинами
     h = Horn(250, 430, 17, 22, 10, -0.003)
     q = quad(place(h.shape(), 0, 0, -62), 0, 0)
-    q = q.tf(Sc(k))
-    def cross(cx, cy): return q.tf(T(cx, cy))
-    def dia(cx, cy): return nested_diamond(cx, cy, 32, t=2.6, inner=False, dot=True)
+    w, _ = sized(q)
+    q = q.tf(Sc(46 / w))
+    cross = lambda cx, cy: q.tf(T(cx, cy))
+    dia = lambda cx, cy: nested_diamond(cx, cy, 32, t=2.6, inner=False, dot=True)
     parts = [cross(40, 40), cross(120, 120), dia(120, 40), dia(40, 120)]
-    dots = [circle(80, 40, 2.4), circle(80, 120, 2.4), circle(40, 80, 2.4), circle(120, 80, 2.4)]
-    write("pattern-tile.svg", S, S, [Shape().add(*parts, *dots)])
+    parts += [circle(80, 40, 2.4), circle(80, 120, 2.4)]
+    parts += [tri(40, 80, 15, 13, True, 1.4), tri(120, 80, 15, 13, False, 1.4)]
+    write("pattern-tile.svg", S, S, [Shape().add(*parts)])
 
 if __name__ == "__main__":
     only = None
