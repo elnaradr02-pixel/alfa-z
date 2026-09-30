@@ -1,13 +1,13 @@
 <!doctype html><html lang="ru"><head><meta charset="utf-8"><title>E1 · Не листает — создаёт</title>
 <link rel="stylesheet" href="../base.css">
 <style>
-  .bg { background: radial-gradient(900px 600px at 100% 0%, rgba(255,176,136,.55), transparent 60%), var(--cream); }
-  .bg .blob.a { width: 760px; height: 760px; left: -300px; bottom: -260px; background: radial-gradient(circle, rgba(255,107,71,.30), transparent 65%); }
+  .bg { background: radial-gradient(900px 600px at 100% 0%, rgba(var(--accent-2-rgb),.55), transparent 60%), var(--paper); }
+  .bg .blob.a { width: 760px; height: 760px; left: -300px; bottom: -260px; background: radial-gradient(circle, rgba(var(--accent-rgb),.30), transparent 65%); }
   .split { display: grid; grid-template-columns: 1fr 1.08fr; gap: 22px; height: 560px; position: relative; }
   body.story .split { height: 660px; }
   .panel { position: relative; border-radius: 46px; overflow: hidden; }
   .cold { background: linear-gradient(180deg, #cfcdc8, #b9b6b0); filter: saturate(.2); }
-  .warm { background: linear-gradient(160deg, #ff6b47 0%, #ff8f6b 55%, #ffb088 100%); box-shadow: 0 40px 80px -40px rgba(255,107,71,.8); }
+  .warm { background: linear-gradient(160deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 72%, var(--accent-2)) 55%, var(--accent-2) 100%); box-shadow: 0 40px 80px -40px rgba(var(--accent-rgb),.8); }
   .panel .lab { position: absolute; left: 22px; top: 22px; z-index: 5; }
   /* лента */
   .feedphone { position: absolute; left: 50%; top: 110px; transform: translateX(-50%) rotate(-3deg); width: 250px; height: 560px; }
@@ -35,12 +35,12 @@
   .quiz .qb { border-radius: 12px; padding: 12px 10px; margin-bottom: 9px; color: #fff; font: 800 17px "Manrope"; }
   .quiz .q0 { background: #7a5cff; } .quiz .q1 { background: #a98dff; } .quiz .q2 { background: #46d39a; } .quiz .q3 { background: #4aa8ff; } .quiz .q4 { background: #f5b93a; }
   .spark { position: absolute; z-index: 6; font-size: 46px; color: #fff; filter: drop-shadow(0 4px 10px rgba(0,0,0,.2)); }
-  .arrowbadge { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 104px; height: 104px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font: 800 56px/1 "Manrope"; z-index: 10; box-shadow: 0 16px 30px -10px rgba(0,0,0,.5); border: 6px solid var(--cream); }
+  .arrowbadge { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 104px; height: 104px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font: 800 56px/1 "Manrope"; z-index: 10; box-shadow: 0 16px 30px -10px rgba(0,0,0,.5); border: 6px solid var(--paper); }
   .stk { position: absolute; right: -14px; top: -126px; z-index: 12; }
   .head { margin-top: 44px; }
   body.story .head { margin-top: 70px; }
 </style></head>
-<body><div class="frame"><div class="bg bg-dots"><div class="blob a"></div></div>
+<body class="theme-teal"><div class="frame"><div class="bg bg-dots"><div class="blob a"></div></div>
 <div class="content">
   <div class="row between">
     <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa <b>Z</b><small>школа программирования · 12–17 лет</small></div></div>
@@ -57,7 +57,7 @@
       </div></div>
     </div>
     <div class="panel warm">
-      <span class="lab pill cream"><span class="dot" style="background:var(--coral)"></span>Через 1 урок</span>
+      <span class="lab pill cream"><span class="dot" style="background:var(--accent)"></span>Через 1 урок</span>
       <div class="win codewin"><div class="bar"><i></i><i></i><i></i><em>my_app.py</em></div>
 <div class="code"><span class="k">def</span> <span class="f">start</span>():
   <span class="n">quiz</span> = <span class="f">build</span>(

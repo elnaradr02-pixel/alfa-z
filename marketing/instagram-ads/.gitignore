@@ -4,3 +4,4 @@ frames/
 __pycache__/
 *.pyc
 sheet.png
+.cache/

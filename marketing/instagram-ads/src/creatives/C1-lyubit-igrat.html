@@ -1,27 +1,27 @@
 <!doctype html><html lang="ru"><head><meta charset="utf-8"><title>C1 · Любит играть — пусть создаст свою</title>
 <link rel="stylesheet" href="../base.css">
 <style>
-  .bg { background: radial-gradient(800px 600px at 100% 0%, rgba(255,210,63,.5), transparent 60%), radial-gradient(900px 700px at 0% 100%, rgba(255,107,71,.28), transparent 62%), var(--cream); }
+  .bg { background: radial-gradient(800px 600px at 100% 0%, rgba(var(--hi-rgb),.5), transparent 60%), radial-gradient(900px 700px at 0% 100%, rgba(var(--accent-rgb),.28), transparent 62%), var(--paper); }
   .stage { position: relative; margin-top: 30px; height: 610px; }
   body.story .stage { height: 760px; margin-top: 50px; }
-  .hero { position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 560px; height: 560px; border-radius: 56px; overflow: hidden; box-shadow: 0 50px 90px -40px rgba(232,85,53,.9), 0 0 0 8px var(--ink); background: #f08a6e; }
+  .hero { position: absolute; left: 50%; top: 0; transform: translateX(-50%); width: 560px; height: 560px; border-radius: 56px; overflow: hidden; box-shadow: 0 50px 90px -40px rgba(var(--accent-d-rgb),.9), 0 0 0 8px var(--ink); background: #f08a6e; }
   body.story .hero { width: 640px; height: 640px; }
   .hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .hud { position: absolute; z-index: 5; }
-  .lvl { left: 0; top: 14px; background: var(--ink); color: var(--sun); border-radius: 22px; padding: 16px 26px; font: 800 30px "JetBrains Mono", monospace; letter-spacing: .06em; transform: rotate(-5deg); box-shadow: 0 16px 30px -12px rgba(0,0,0,.5); }
-  .lvl small { display: block; font-size: 20px; color: var(--cream); opacity: .75; letter-spacing: .1em; }
-  .xp { right: 0; top: 60px; background: var(--sun); color: var(--ink); border-radius: 999px; padding: 14px 30px; font: 800 38px "Manrope"; border: 5px solid var(--ink); transform: rotate(6deg); box-shadow: 0 16px 30px -12px rgba(0,0,0,.4); }
+  .lvl { left: 0; top: 14px; background: var(--ink); color: var(--hi); border-radius: 22px; padding: 16px 26px; font: 800 30px "JetBrains Mono", monospace; letter-spacing: .06em; transform: rotate(-5deg); box-shadow: 0 16px 30px -12px rgba(0,0,0,.5); }
+  .lvl small { display: block; font-size: 20px; color: var(--paper); opacity: .75; letter-spacing: .1em; }
+  .xp { right: 0; top: 60px; background: var(--hi); color: var(--ink); border-radius: 999px; padding: 14px 30px; font: 800 38px "Manrope"; border: 5px solid var(--ink); transform: rotate(6deg); box-shadow: 0 16px 30px -12px rgba(0,0,0,.4); }
   .hearts { left: 12px; bottom: 60px; font-size: 62px; transform: rotate(-6deg); filter: drop-shadow(0 8px 12px rgba(0,0,0,.3)); letter-spacing: 4px; }
   .bar { left: 50%; bottom: -6px; transform: translateX(-50%); width: 800px; }
   .bar .t { display: flex; justify-content: space-between; font: 800 28px "Manrope"; margin-bottom: 10px; }
-  .bar .rail { height: 40px; border-radius: 20px; background: rgba(15,15,26,.12); overflow: hidden; border: 4px solid var(--ink); background: #fff; }
-  .bar .rail b { display: block; width: 64%; height: 100%; background: repeating-linear-gradient(45deg, var(--coral) 0 18px, #ff8f6b 18px 36px); }
-  .coin { position: absolute; z-index: 6; width: 76px; height: 76px; border-radius: 50%; background: var(--sun); border: 6px solid var(--ink); display: grid; place-items: center; font: 800 36px "Manrope"; }
+  .bar .rail { height: 40px; border-radius: 20px; background: rgba(var(--ink-rgb),.12); overflow: hidden; border: 4px solid var(--ink); background: #fff; }
+  .bar .rail b { display: block; width: 64%; height: 100%; background: repeating-linear-gradient(45deg, var(--accent) 0 18px, color-mix(in srgb, var(--accent) 72%, var(--accent-2)) 18px 36px); }
+  .coin { position: absolute; z-index: 6; width: 76px; height: 76px; border-radius: 50%; background: var(--hi); border: 6px solid var(--ink); display: grid; place-items: center; font: 800 36px "Manrope"; }
   .h1 { margin-top: 22px; }
   .sub { margin-top: 22px; }
   .stk { position: absolute; right: -10px; bottom: 18px; z-index: 8; }
 </style></head>
-<body><div class="frame"><div class="bg bg-dots"></div>
+<body class="theme-sunny"><div class="frame"><div class="bg bg-dots"></div>
 <div class="content">
   <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa Z<small>школа программирования · 12–17 лет</small></div></div>
 

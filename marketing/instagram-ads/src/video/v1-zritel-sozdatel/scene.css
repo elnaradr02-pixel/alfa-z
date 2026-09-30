@@ -80,12 +80,12 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 .w3 .bar { padding: 22px 30px; gap: 12px; }
 .w3 .bar i { width: 22px; height: 22px; }
 .w3 .bar em { font-size: 34px; margin-left: 14px; }
-.w3 .code { font-size: 40px; line-height: 1.52; padding: 30px 36px 34px; }
+.w3 .code { font-size: 40px; line-height: 1.52; padding: 26px 36px 28px; }
 .w3 .ln { display: block; min-height: 1.52em; }
 .w3 .ch { position: relative; opacity: 0; }
 .w3 .cr { position: absolute; right: -3px; top: .12em; width: 5px; height: 1.16em; background: var(--sun); border-radius: 2px; opacity: 0; }
 .w3 .k-n { color: #8ab4ff; } .w3 .k-f { color: #ffd23f; } .w3 .k-s { color: #7be0b3; } .w3 .k-p { color: #f4efe6; }
-.ph3 { position: absolute; left: 290px; top: 690px; width: 500px; height: 740px; z-index: 3; box-shadow: 0 0 0 4px #2b2f4d, 0 0 120px rgba(255,107,71,.4), 0 50px 90px -30px #000; }
+.ph3 { position: absolute; left: 290px; top: 704px; width: 500px; height: 730px; z-index: 3; box-shadow: 0 0 0 4px #2b2f4d, 0 0 120px rgba(255,107,71,.4), 0 50px 90px -30px #000; }
 .ph3 .scr { background: #fffbf5; }
 .ph3 .qz { position: absolute; inset: 0; padding: 78px 26px 0; }
 .ph3 .qbar { height: 14px; border-radius: 7px; background: #e9e4dc; margin: 0 6px 22px; overflow: hidden; }
@@ -145,17 +145,17 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 #s6 .g1 { left: -500px; top: 1000px; width: 1500px; height: 1500px; background: radial-gradient(closest-side, rgba(255,107,71,.42), rgba(255,107,71,0)); }
 #s6 .g2 { right: -560px; top: -420px; width: 1400px; height: 1400px; background: radial-gradient(closest-side, rgba(122,92,255,.32), rgba(122,92,255,0)); }
 #s6c { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
-.stk6 { position: absolute; left: 270px; top: 318px; width: 540px; height: 540px; border-radius: 50%; background: var(--sun); color: var(--ink);
+.stk6 { position: absolute; left: 270px; top: 290px; width: 540px; height: 540px; border-radius: 50%; background: var(--sun); color: var(--ink);
   display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; z-index: 4;
   box-shadow: 0 40px 80px -20px rgba(0,0,0,.6), 0 0 0 14px rgba(255,210,63,.22), inset 0 0 0 12px rgba(15,15,26,.92); }
 .stk6 .sp { font: 800 148px/1 "Manrope", sans-serif; letter-spacing: -0.055em; white-space: nowrap; }
 .stk6 .sl { font: 800 54px/1.1 "Manrope", sans-serif; letter-spacing: -0.03em; margin-top: 10px; }
-.shock { position: absolute; left: 270px; top: 318px; width: 540px; height: 540px; border-radius: 50%; border: 14px solid var(--sun); z-index: 3; opacity: 0; }
-.mid6 { position: absolute; left: 64px; top: 905px; width: 952px; height: 400px; }
+.shock { position: absolute; left: 270px; top: 290px; width: 540px; height: 540px; border-radius: 50%; border: 14px solid var(--sun); z-index: 3; opacity: 0; }
+.mid6 { position: absolute; left: 64px; top: 862px; width: 952px; height: 400px; }
 .mid6 > div { position: absolute; left: 0; width: 952px; }
-.cap6 { top: 0; text-align: center; font: 800 68px/1.06 "Manrope", sans-serif; letter-spacing: -0.04em; }
-.call6 { top: 168px; padding: 32px 40px 36px; border-radius: 52px; background: var(--cream); color: var(--ink); text-align: center;
-  font: 800 56px/1.12 "Manrope", sans-serif; letter-spacing: -0.035em; box-shadow: 0 30px 60px -28px rgba(0,0,0,.8); }
+.cap6 { top: 0; text-align: center; font: 800 76px/1.06 "Manrope", sans-serif; letter-spacing: -0.04em; }
+.call6 { top: 190px; padding: 32px 40px 36px; border-radius: 52px; background: var(--cream); color: var(--ink); text-align: center;
+  font: 800 60px/1.12 "Manrope", sans-serif; letter-spacing: -0.035em; box-shadow: 0 30px 60px -28px rgba(0,0,0,.8); }
 .call6 .wa { color: #e85535; }
 .brand6 { top: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
 .logo.big { gap: 26px; }
@@ -163,8 +163,8 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 .logo.big .name { font-size: 100px; color: var(--cream); }
 .brand6 .tag { margin-top: 22px; font: 700 44px/1.2 "Manrope", sans-serif; opacity: .8; letter-spacing: -0.01em; }
 .brand6 .hd { margin-top: 26px; font: 800 92px/1 "Manrope", sans-serif; letter-spacing: -0.045em; color: var(--sun); }
-.hint6 { position: absolute; left: 0; right: 0; top: 1330px; display: flex; flex-direction: column; align-items: center; }
+.hint6 { position: absolute; left: 0; right: 0; top: 1280px; display: flex; flex-direction: column; align-items: center; }
 .hint6 .ht { font: 800 68px/1 "Manrope", sans-serif; letter-spacing: -0.04em; padding: 24px 44px 28px; border-radius: 999px; background: var(--coral); color: var(--ink);
   box-shadow: 0 24px 50px -16px rgba(255,107,71,.8), inset 0 -8px 0 rgba(15,15,26,.14); white-space: nowrap; }
-.hint6 .arr { margin-top: 14px; width: 130px; height: 150px; }
+.hint6 .arr { margin-top: 12px; width: 122px; height: 140px; }
 .hint6 .arr svg { width: 100%; height: 100%; display: block; overflow: visible; }

@@ -91,7 +91,7 @@
   // T1 (2.4): косой «удар» справа
   show("#s2", T[1] - 0.01);
   tl.fromTo("#s2", { clipPath: "polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%)" },
-    { clipPath: "polygon(-65% 0%, 100% 0%, 100% 100%, -35% 100%)", duration: 0.55, ease: "expo.out" }, T[1]);
+    { clipPath: "polygon(-65% 0%, 100% 0%, 100% 100%, -35% 100%)", duration: 0.62, ease: "power4.out" }, T[1]);
   tl.to("#s1", { x: -240, duration: 0.6, ease: "power3.out" }, T[1]);
   hide("#s1", T[1] + 0.62);
   cue(T[1] - 0.28, "whoosh", 1.0);
@@ -106,7 +106,7 @@
   // T3 (10.5): занавес снизу
   show("#s4", T[3] - 0.01);
   tl.fromTo("#s4", { clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" },
-    { clipPath: "polygon(0% -60%, 100% -30%, 100% 100%, 0% 100%)", duration: 0.6, ease: "expo.out" }, T[3]);
+    { clipPath: "polygon(0% -60%, 100% -30%, 100% 100%, 0% 100%)", duration: 0.66, ease: "power4.out" }, T[3]);
   tl.to("#s3", { y: -160, duration: 0.6, ease: "power3.out" }, T[3]);
   hide("#s3", T[3] + 0.64);
   cue(T[3] - 0.28, "whoosh", 1.0);
@@ -114,7 +114,7 @@
   // T4 (14.8): косой «удар» слева
   show("#s5", T[4] - 0.01);
   tl.fromTo("#s5", { clipPath: "polygon(0% 0%, 0% 0%, 0% 100%, 0% 100%)" },
-    { clipPath: "polygon(0% 0%, 165% 0%, 135% 100%, 0% 100%)", duration: 0.55, ease: "expo.out" }, T[4]);
+    { clipPath: "polygon(0% 0%, 165% 0%, 135% 100%, 0% 100%)", duration: 0.62, ease: "power4.out" }, T[4]);
   tl.to("#s4", { x: 200, duration: 0.6, ease: "power3.out" }, T[4]);
   hide("#s4", T[4] + 0.62);
   cue(T[4] - 0.28, "whoosh", 1.0);
@@ -170,7 +170,7 @@
   // «не листать,» — зачёркиваем и приглушаем
   tl.fromTo("#strike", { scaleX: 0 }, { scaleX: 1, duration: 0.32, ease: "power3.inOut" }, s2 + 1.05);
   tl.to("#w2", { color: "rgba(15,15,26,.5)", duration: 0.3, ease: "power2.out" }, s2 + 1.1);
-  cue(s2 + 1.08, "scratch", 0.5);
+  cue(s2 + 1.08, "scratch", 0.35);
   // жёлтый маркер под «создавать»
   tl.fromTo("#mk2", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.5, ease: "power2.out" }, s2 + 1.35);
   tl.fromTo("#w3", { scale: 1 }, { scale: 1.035, duration: 0.18, yoyo: true, repeat: 1, ease: "sine.inOut", transformOrigin: "0% 50%", immediateRender: false }, s2 + 1.3);
@@ -220,20 +220,20 @@
       }
       tt += 0.019 + r3() * 0.014;
     }
-    tt += 0.16;
+    tt += (li < 2) ? 0.14 : 0.08;
   });
-  const typeEnd = tt;              // ≈ 7.9
-  const PB = Math.max(typeEnd, 7.95);
+  const typeEnd = tt;              // ≈ 7.95
+  const PB = typeEnd;
 
   // фаза B: код уезжает вверх, снизу выезжает телефон с готовым приложением
-  tl.fromTo("#grpA", { y: 380 }, { y: 0, duration: 0.75, ease: "expo.inOut", immediateRender: false }, PB);
-  tl.to("#win3", { scale: 0.88, duration: 0.75, ease: "expo.inOut" }, PB);
+  tl.fromTo("#grpA", { y: 380 }, { y: 0, duration: 0.7, ease: "power3.inOut", immediateRender: false }, PB);
+  tl.to("#win3", { scale: 0.86, duration: 0.7, ease: "power3.inOut" }, PB);
   tl.set(prevCr, { opacity: 0 }, PB);
-  tl.fromTo("#ph3", { y: 890 }, { y: 0, duration: 0.85, ease: "back.out(1.15)", immediateRender: false }, PB + 0.05);
+  tl.fromTo("#ph3", { y: 890 }, { y: 0, duration: 0.8, ease: "back.out(1.1)", immediateRender: false }, PB + 0.2);
   cue(PB - 0.05, "whoosh", 0.65);
   tl.to("#qdim", { opacity: 0, duration: 0.35, ease: "power2.out" }, PB + 0.45);
   tl.fromTo("#qh", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, PB + 0.55);
-  tl.fromTo("#qbar i", { width: "0%" }, { width: "32%", duration: 0.5, ease: "power2.out" }, PB + 0.55);
+  tl.fromTo(".qbar i", { width: "0%" }, { width: "32%", duration: 0.5, ease: "power2.out" }, PB + 0.55);
   const BT = PB + 0.68;            // кнопки поп-ап синхронно с арпеджио success (0.085 с)
   tl.fromTo("#qz .qb", { scale: 0.55, opacity: 0, y: 34 }, { scale: 1, opacity: 1, y: 0, duration: 0.45, ease: "back.out(2.2)", stagger: 0.085 }, BT);
   cue(BT, "success", 1.0);
@@ -304,9 +304,9 @@
   });
   // подпись
   ["#c4a", "#c4b", "#c4c"].forEach(function (sel, i) {
-    tl.fromTo(sel, { yPercent: 135, rotation: 4, transformOrigin: "0% 100%" }, { yPercent: 0, rotation: 0, duration: 0.6, ease: "expo.out" }, s4 + 2.55 + i * 0.13);
+    tl.fromTo(sel, { yPercent: 135, rotation: 4, transformOrigin: "0% 100%" }, { yPercent: 0, rotation: 0, duration: 0.6, ease: "expo.out" }, s4 + 2.4 + i * 0.13);
   });
-  cue(s4 + 2.55, "swipe", 0.5);
+  cue(s4 + 2.4, "swipe", 0.5);
 
   /* ═══════════════ СЦЕНА 5 · ПОЧЕМУ ЭТО ПРОСТО (14.8–19.5) ═══════════════ */
   const s5 = T[4];
@@ -334,34 +334,35 @@
   tl.fromTo("#shock", { scale: 1, opacity: 0.9 }, { scale: 2.1, opacity: 0, duration: 0.6, ease: "power2.out" }, s6 + 0.45);
   tl.fromTo("#s6c", { x: 0, y: 0 }, { x: 10, y: -8, duration: 0.04, yoyo: true, repeat: 7, ease: "none", immediateRender: false }, s6 + 0.45);
   // подпись «Дешевле…»
-  tl.fromTo("#cap6", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, s6 + 1.0);
-  cue(s6 + 1.0, "swipe", 0.5);
+  tl.fromTo("#cap6", { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, ease: "power3.out" }, s6 + 0.95);
+  cue(s6 + 0.95, "swipe", 0.5);
   // призыв
-  tl.fromTo("#call6", { y: 70, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.5)" }, s6 + 1.85);
-  cue(s6 + 1.85, "pop", 0.8);
+  tl.fromTo("#call6", { y: 70, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: "back.out(1.5)" }, s6 + 1.55);
+  cue(s6 + 1.55, "pop", 0.8);
   // подсказка «Нажмите «Записаться» ↓» + пульсирующая стрелка
-  tl.fromTo("#hint6", { opacity: 0 }, { opacity: 1, duration: 0.01, immediateRender: false }, s6 + 2.5);
-  tl.fromTo("#ht6", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2)" }, s6 + 2.5);
-  cue(s6 + 2.5, "pop", 0.9);
-  tl.fromTo("#arr6", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, s6 + 2.7);
-  tl.fromTo("#arr6", { y: 0, scale: 1 }, { y: 22, scale: 1.12, duration: 0.45, ease: "sine.inOut", yoyo: true, repeat: 5, immediateRender: false }, s6 + 3.1);
+  tl.fromTo("#hint6", { opacity: 0 }, { opacity: 1, duration: 0.01, immediateRender: false }, s6 + 2.15);
+  tl.fromTo("#ht6", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(2)" }, s6 + 2.15);
+  cue(s6 + 2.15, "pop", 0.9);
+  tl.fromTo("#arr6", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, s6 + 2.35);
+  tl.fromTo("#arr6", { y: 0, scale: 1 }, { y: 20, scale: 1.1, duration: 0.45, ease: "sine.inOut", yoyo: true, repeat: 5, immediateRender: false }, s6 + 2.75);
   // финал: логотип и @alfaz.school (последние ~1.5 с)
   const BR = T[5] + 3.95;   // 23.45
   tl.to("#cap6", { y: -40, opacity: 0, duration: 0.3, ease: "power2.in" }, BR - 0.05);
   tl.to("#call6", { y: -40, opacity: 0, duration: 0.3, ease: "power2.in" }, BR - 0.05);
-  tl.to("#brand6", { opacity: 1, duration: 0.01 }, BR + 0.2);
-  tl.fromTo("#brand6 .logo", { scale: 0.6, opacity: 0, y: 30 }, { scale: 1, opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.8)" }, BR + 0.2);
-  tl.fromTo("#brand6 .tag", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, BR + 0.4);
-  tl.fromTo("#brand6 .hd", { y: 30, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, BR + 0.5);
+  tl.to("#brand6", { opacity: 1, duration: 0.01 }, BR + 0.05);
+  tl.fromTo("#brand6 .logo", { scale: 0.6, opacity: 0, y: 30 }, { scale: 1, opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.8)" }, BR + 0.05);
+  tl.fromTo("#brand6 .tag", { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, BR + 0.25);
+  tl.fromTo("#brand6 .hd", { y: 30, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, BR + 0.35);
   tl.to("#stk6", { scale: 0.9, rotation: -6, duration: 0.5, ease: "power3.inOut" }, BR);
-  cue(BR + 0.2, "pop", 0.8);
-  cue(BR + 0.45, "ding", 0.9);
+  cue(BR + 0.05, "pop", 0.8);
+  cue(BR + 0.3, "ding", 0.9);
 
   /* ═══════════════ ЭКСПОРТ ═══════════════ */
   cues.sort(function (a, b) { return a.t - b.t; });
   // пустышка, растягивающая таймлайн ровно до конца ролика
-  tl.set({}, {}, DUR);
+  tl.to("#frame", { opacity: 1, duration: 0.001 }, DUR - 0.001);
 
+  window.__debug = { PB: PB, typeEnd: typeEnd, BT: BT };
   window.__duration = DUR;
   window.__cues = cues;
   window.__music = { bpm: 108, mood: "bright", intro: 1.4, gain: 0.5 };

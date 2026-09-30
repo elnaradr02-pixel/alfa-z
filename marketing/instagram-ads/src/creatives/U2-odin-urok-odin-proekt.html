@@ -1,14 +1,14 @@
 <!doctype html><html lang="ru"><head><meta charset="utf-8"><title>U2 · 60 минут — свой первый проект</title>
 <link rel="stylesheet" href="../base.css">
 <style>
-  .frame { background: var(--coral); }
-  .bg { background: radial-gradient(820px 620px at 100% 0%, rgba(255,176,136,.8), transparent 62%), radial-gradient(760px 700px at 0% 100%, rgba(232,85,53,.9), transparent 62%), var(--coral); }
+  .frame { background: var(--accent); }
+  .bg { background: radial-gradient(820px 620px at 100% 0%, rgba(var(--accent-2-rgb),.8), transparent 62%), radial-gradient(760px 700px at 0% 100%, rgba(var(--accent-d-rgb),.9), transparent 62%), var(--accent); }
   .bg::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.17) 2.4px, transparent 2.8px); background-size: 34px 34px; -webkit-mask-image: linear-gradient(180deg,#000,transparent 40%,transparent 66%,#000); mask-image: linear-gradient(180deg,#000,transparent 40%,transparent 66%,#000); }
-  .logo .mark { background: var(--ink); } .logo .name { color: var(--ink); } .logo .name b { color: var(--cream); } .logo small { color: var(--ink); opacity: .7; }
+  .logo .mark { background: var(--ink); } .logo .name { color: var(--ink); } .logo .name b { color: var(--paper); } .logo small { color: var(--ink); opacity: .7; }
   .h1 { color: var(--ink); }
   .fan { position: relative; height: 560px; margin-top: 10px; }
   body.story .fan { height: 680px; }
-  .card { position: absolute; border-radius: 40px; background: #fff; box-shadow: 0 40px 70px -30px rgba(80,20,5,.65); overflow: hidden; }
+  .card { position: absolute; border-radius: 40px; background: #fff; box-shadow: 0 40px 70px -30px rgba(var(--ink-rgb),.65); overflow: hidden; }
   .c1 { left: -10px; top: 70px; width: 470px; height: 380px; transform: rotate(-6deg); }
   .c2 { left: 330px; top: 20px; width: 290px; height: 540px; transform: rotate(3deg); z-index: 2; background: var(--ink); padding: 14px; border-radius: 52px; }
   .c3 { right: -6px; top: 90px; width: 330px; height: 470px; transform: rotate(8deg); background: var(--ink); padding: 14px; border-radius: 52px; }
@@ -16,9 +16,9 @@
   .scr { border-radius: 40px; background: #fff; height: 100%; overflow: hidden; }
   /* сайт */
   .site .top { height: 44px; background: #f0ebe4; display: flex; align-items: center; gap: 8px; padding: 0 16px; } .site .top i { width: 12px; height: 12px; border-radius: 50%; background: #d4cec5; }
-  .site .hero { margin: 16px; height: 130px; border-radius: 20px; background: linear-gradient(135deg, var(--coral), var(--peach)); padding: 18px; color: #fff; font: 800 30px/1.05 "Manrope"; }
+  .site .hero { margin: 16px; height: 130px; border-radius: 20px; background: linear-gradient(135deg, var(--accent), var(--accent-2)); padding: 18px; color: #fff; font: 800 30px/1.05 "Manrope"; }
   .site .g { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 0 16px; } .site .g i { height: 74px; border-radius: 14px; background: #f0ebe4; display: block; }
-  .site .g i:nth-child(2) { background: #ffe0d2; }
+  .site .g i:nth-child(2) { background: color-mix(in srgb, var(--accent) 20%, #fff); }
   /* бот */
   .bot { background: #eaf3ff; padding: 52px 14px 0; height: 100%; display: flex; flex-direction: column; gap: 10px; }
   .bot .b { border-radius: 22px; padding: 14px 16px; font: 700 20px/1.2 "Manrope"; max-width: 86%; }
@@ -30,10 +30,10 @@
   .lab .pill { box-shadow: 0 14px 30px -12px rgba(0,0,0,.5); }
   .sub { color: var(--ink); opacity: .85; margin-top: 4px; }
 </style></head>
-<body><div class="frame"><div class="bg"></div>
+<body class="theme-coral"><div class="frame"><div class="bg"></div>
 <div class="content">
   <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa Z<small>школа программирования · 12–17 лет</small></div></div>
-  <h1 class="h1 xl" style="margin-top:26px;font-size:96px">60 минут — и&nbsp;у&nbsp;него <span style="background:var(--cream);padding:0 .1em;border-radius:16px;display:inline-block;line-height:1.05;margin-left:-.04em">свой проект</span></h1>
+  <h1 class="h1 xl" style="margin-top:26px;font-size:96px">60 минут — и&nbsp;у&nbsp;него <span style="background:var(--paper);padding:0 .1em;border-radius:16px;display:inline-block;line-height:1.05;margin-left:-.04em">свой проект</span></h1>
 
   <div class="fan">
     <div class="card c1 site"><div class="top"><i></i><i></i><i></i></div><div class="hero">Мой первый<br>сайт</div><div class="g"><i></i><i></i><i></i></div></div>
