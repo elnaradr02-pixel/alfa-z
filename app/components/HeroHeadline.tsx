@@ -61,7 +61,7 @@ export default function HeroHeadline() {
       </div>
 
       <h1
-        className="font-display text-[length:clamp(2rem,6.4vw,4.75rem)] font-bold text-white leading-[1.02] tracking-[-0.035em] mb-6"
+        className="font-display text-[length:clamp(2rem,7.2vw,3.6rem)] font-bold text-white leading-[1.02] tracking-[-0.035em] mb-6 lg:text-[length:clamp(2.6rem,4.5vw,4.25rem)]"
         aria-label={lines.map((l) => l.text).join(" ")}
       >
         {lines.map((line, i) => (

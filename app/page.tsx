@@ -501,7 +501,7 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <section ref={heroRef} onPointerMove={spot} className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-24 sm:pt-24 sm:pb-20 xl:pb-52">
+      <section ref={heroRef} onPointerMove={spot} className="relative flex flex-col overflow-hidden lg:min-h-[calc(100svh-6.8rem)]">
         <motion.video autoPlay loop muted playsInline poster="/hero-poster.jpg" style={canRender3D ? { y: videoY, scale: videoScale } : undefined} className="absolute inset-0 w-full h-full object-cover z-0">
           <source src="/hero-video.mp4" type="video/mp4" />
         </motion.video>
@@ -511,24 +511,26 @@ export default function Home() {
         {/* Аврора и «фонарик» под курсором — коралловое свечение поверх видео */}
         <Aurora className="z-10 hidden opacity-60 mix-blend-screen md:block" />
         <div aria-hidden className="pointer-events-none absolute inset-0 z-10 hidden mix-blend-screen md:block" style={{ background: "radial-gradient(560px circle at var(--mx, 72%) var(--my, 38%), rgba(255,107,71,0.22), transparent 62%)" }} />
-        <motion.div style={canRender3D && wideHero ? { y: heroContentY, opacity: heroContentOpacity, filter: heroBlur } : undefined} className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8">
-          <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-accent/15 border border-accent/40 mb-7 animate-fade-in-up">
+        <motion.div style={canRender3D && wideHero ? { y: heroContentY, opacity: heroContentOpacity, filter: heroBlur } : undefined} className="relative z-20 mx-auto flex w-full max-w-7xl flex-1 items-center px-6 pb-12 pt-8 sm:px-8 sm:pt-12 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(340px,400px)] lg:gap-12 lg:py-14 xl:gap-16">
+          <div className="flex min-w-0 flex-col">
+            <div className="order-1 mb-6 inline-flex items-center gap-2.5 self-start rounded-full border border-accent/40 bg-accent/15 px-4 py-2 animate-fade-in-up sm:mb-7">
               <span className="relative flex w-2 h-2">
                 <span className="absolute inset-0 rounded-full bg-accent animate-soft-pulse" />
                 <span className="relative w-2 h-2 rounded-full bg-accent" />
               </span>
               <span className="text-sm font-semibold text-white tracking-wide">{tr("Приём в группы открыт", "Топтарға қабылдау ашық", "Enrollment is open")}</span>
             </div>
-            <HeroHeadline />
-            <p className="text-lg sm:text-xl text-white/85 leading-relaxed mb-9 max-w-xl animate-fade-in-up delay-200">
+            <div className="order-2"><HeroHeadline /></div>
+            {/* Телефон/планшет: «первая программа» сразу под заголовком — в первом экране */}
+            <HeroCodeCard onCta={() => openApply()} className="order-3 mb-8 w-full max-w-md animate-fade-in-up delay-200 lg:hidden" />
+            <p className="order-5 mb-8 max-w-xl text-lg leading-relaxed text-white/85 animate-fade-in-up delay-200 sm:text-xl lg:order-4 lg:mb-9">
               {tr(
                 "Учим IT с нуля до уровня junior. Живые уроки с практикующими разработчиками. 5 направлений: Гарвардский курс CS50, мобильная разработка, геймдев, фронтенд, бэкенд.",
                 "IT-ді нөлден junior деңгейіне дейін үйретеміз. Тәжірибелі әзірлеушілермен тікелей сабақтар. 5 бағыт: Гарвардтың CS50 курсы, мобильді әзірлеу, геймдев, фронтенд, бэкенд.",
                 "We teach IT from zero to junior level. Live lessons with working developers. 5 tracks: Harvard's CS50, mobile development, game dev, frontend, and backend.",
               )}
             </p>
-            <div className="flex flex-wrap gap-3 sm:gap-4 mb-9 animate-fade-in-up delay-300">
+            <div className="order-4 mb-8 flex flex-wrap gap-3 animate-fade-in-up delay-300 sm:gap-4 lg:order-5 lg:mb-9">
               <Magnetic strength={0.2}>
                 <button onClick={() => openApply()} className="btn-arrow shine glow-hover inline-flex items-center gap-2 px-7 py-4 bg-accent hover:bg-accent-hover text-white rounded-full font-semibold transition-colors duration-300 shadow-2xl shadow-accent/40">
                   {tr("Записаться на пробный урок", "Сынақ сабаққа жазылу", "Book a trial lesson")} <span className="arrow" aria-hidden>→</span>
@@ -536,7 +538,7 @@ export default function Home() {
               </Magnetic>
               <a href="#courses" className="inline-flex items-center gap-2 px-7 py-4 border border-white/30 text-white rounded-full font-semibold hover:bg-white/10 transition-colors duration-300">{tr("Программа курсов", "Курстар бағдарламасы", "Course catalog")}</a>
             </div>
-            <ul className="flex flex-wrap gap-2 animate-fade-in-up delay-400 xl:max-w-[40rem]">
+            <ul className="order-6 flex flex-wrap gap-2 animate-fade-in-up delay-400">
               <li>
                 <a href="#partners" aria-label={tr("Смотреть фото с наших хакатонов", "Хакатондарымыздан түсірілген суреттерді көру", "See photos from our hackathons")} className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3.5 py-1.5 font-mono text-xs text-white transition-colors hover:bg-accent/20">
                   <Icon name="award" className="h-3.5 w-3.5 flex-none text-accent" />
@@ -554,14 +556,14 @@ export default function Home() {
                 </li>
               ))}
             </ul>
-            <HeroCodeCard variant="inline" onCta={() => openApply()} />
           </div>
+
+          {/* Десктоп: карточка — правая колонка первого экрана, парит */}
+          <HeroCodeCard onCta={() => openApply()} floating className="hidden lg:block" />
         </motion.div>
 
-        <HeroCodeCard variant="float" onCta={() => openApply()} />
-
         {/* Полоса «крючков» — без цены: цена появляется ниже, после ценности */}
-        <div className="absolute inset-x-0 bottom-10 z-20 hidden border-t border-white/15 bg-[#0F0F1A]/60 backdrop-blur-md xl:block animate-fade-in-up delay-500">
+        <div className="relative z-20 hidden border-t border-white/15 bg-[#0F0F1A]/60 backdrop-blur-md animate-fade-in-up delay-500 lg:block">
           <dl className="mx-auto grid max-w-7xl grid-cols-4 divide-x divide-white/10 px-8">
             {[
               { big: tr("1-й урок", "1-сабақ", "Lesson 1"), small: tr("и уже пишет свой код", "және өз кодын жазады", "and already writing real code") },
