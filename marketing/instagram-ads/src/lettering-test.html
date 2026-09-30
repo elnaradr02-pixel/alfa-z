@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="kk"><head><meta charset="utf-8"><title>Особые надписи кампании 2 — проверочная доска</title>
+<!-- Проверочная доска «ерекше жазулар»: шрифты (казахские буквы), классы lettering.css, все SVG-росчерки, 4 темы × светлая/тёмная сцена.
+     Открывать напрямую (file://). Рендер: node tools/lettering-board.mjs  → .cache/lettering-board.png  (см. в конце файла, как вызывать).
+     Параметры адреса: ?themes=kok,altyn,kyzyl,jasyl  ?sections=fonts,posters,shapes,phrases  ?ltdebug=1 (предупреждения о читаемости в консоль). -->
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="themes-c2.css"><link rel="stylesheet" href="fonts-c2.css">
+<link rel="stylesheet" href="ornament.css"><link rel="stylesheet" href="lettering.css">
+<style>
+  html, body { background: #0a0d14; }
+  body { font-family: "Manrope", sans-serif; padding: 28px; width: 2300px; }
+  h2.sec { font: 700 30px/1 "JetBrains Mono", monospace; color: #e8ecf6; margin: 46px 0 18px; }
+  h3.cap { font: 600 20px/1 "JetBrains Mono", monospace; color: #9aa4bd; margin: 0 0 10px; }
+  .rowp { display: flex; gap: 28px; margin-bottom: 30px; }
+
+  /* ── плакат 4:5 ── */
+  .poster { position: relative; width: 1080px; min-height: 1350px; overflow: hidden; flex: none; border-radius: 6px; }
+  .poster.light { background: var(--paper); color: var(--ink); }
+  .poster.dark  { background: var(--night); color: var(--paper); }
+  .poster .pat { position: absolute; inset: 0; }
+  .poster.light .pat { --orn: var(--accent-d); --o: .08; }
+  .poster.dark  .pat { --orn: var(--accent-2); --o: .07; }
+  .poster .band { position: absolute; left: 0; right: 0; --h: 56px; }
+  .poster .band.t { top: 0; } .poster .band.b { bottom: 0; }
+  .poster.light .band { --orn: var(--lt-gold); } .poster.dark .band { --orn: var(--lt-gold); }
+  .poster .in { position: relative; padding: 96px 70px 110px; display: flex; flex-direction: column; min-height: 1350px; }
+  .tag { align-self: flex-start; font: 800 24px/1 "Manrope"; letter-spacing: .08em; text-transform: uppercase; padding: 12px 22px; border-radius: 999px; }
+  .poster.light .tag { background: var(--accent); color: var(--on-accent); } .poster.dark .tag { background: var(--lt-gold); color: var(--lt-on-gold); }
+  .lbl { font: 600 15px/1 "JetBrains Mono", monospace; opacity: .5; margin: 0 0 8px; }
+  .p-hero { margin-top: 26px; --lt-size: 150px; }
+  .p-sub { margin-top: 84px; --lt-size: 74px; }
+  .p-q { display: flex; align-items: center; gap: 34px; margin-top: 56px; }
+  .p-q .q { font: 800 50px/1.1 "Unbounded", sans-serif; letter-spacing: -.02em; }
+  .p-ans { margin-top: 6px; }
+  .p-mid { display: flex; align-items: flex-end; justify-content: space-between; margin-top: 40px; gap: 20px; }
+  .p-price { font: 800 54px/1.2 "Manrope"; letter-spacing: -.02em; margin-top: 56px; }
+  .p-drop { margin-top: 54px; font: 600 34px/1.34 "Manrope"; }
+  .p-drop .lt-drop { --w: 190px; }
+  .p-icons { display: flex; gap: 26px; padding-top: 40px; align-items: center; margin-top: auto; }
+
+  /* ── шрифты ── */
+  .fontrow { background: var(--paper); color: var(--ink); padding: 24px 32px 20px; margin-bottom: 14px; border-radius: 6px; }
+  .fontrow.dark { background: var(--night); color: var(--paper); }
+  .fontrow .nm { font: 600 17px/1.3 "JetBrains Mono", monospace; opacity: .55; margin-bottom: 4px; }
+  .fa { font-size: 74px; line-height: 1.15; }
+  .fa2 { font-size: 100px; line-height: 1.1; }
+  .fb { font-size: 44px; line-height: 1.2; margin-top: 4px; }
+
+  /* ── каталог знаков ── */
+  .shapes { display: flex; flex-wrap: wrap; gap: 18px; }
+  .sc { width: 1130px; padding: 26px 28px; border-radius: 6px; }
+  .sc.light { background: var(--paper); color: var(--ink); } .sc.dark { background: var(--night); color: var(--paper); }
+  .sc .g { display: flex; flex-wrap: wrap; gap: 26px 34px; align-items: flex-end; }
+  .sc .n { font: 600 14px/1 "JetBrains Mono", monospace; opacity: .5; margin-top: 6px; }
+  .cell { display: flex; flex-direction: column; align-items: flex-start; }
+  .wd { font: 800 66px/1.2 "Unbounded", sans-serif; letter-spacing: -.02em; padding-bottom: 30px; }
+  .txt64 { font-size: 64px; font-weight: 800; font-family: "Unbounded"; letter-spacing: -.02em; line-height: 1.3; }
+
+  .ph { display: flex; flex-wrap: wrap; gap: 14px; }
+  .phc { width: 1130px; padding: 22px 30px 26px; border-radius: 6px; }
+  .phc.light { background: var(--paper); color: var(--ink); } .phc.dark { background: var(--night); color: var(--paper); }
+  .phc .l { padding: 16px 0 12px; }
+</style></head>
+<body class="theme-kok">
+<div id="root"></div>
+
+<script>
+  const Q = new URLSearchParams(location.search);
+  const themes = (Q.get("themes") || "kok,altyn,kyzyl,jasyl").split(",");
+  const sections = (Q.get("sections") || "fonts,posters,shapes,phrases").split(",");
+  const NAMES = { kok: "көк", altyn: "алтын", kyzyl: "қызыл", jasyl: "жасыл" };
+  const KK_UP = "А Ә Б В Г Ғ Д Е Ё Ж З И Й К Қ Л М Н Ң О Ө П Р С Т У Ұ Ү Ф Х Һ Ц Ч Ш Щ Ъ Ы І Ь Э Ю Я";
+  const KK_LOW = KK_UP.toLowerCase();
+  const KZ = "Ә Ғ Қ Ң Ө Ұ Ү Һ І · ә ғ қ ң ө ұ ү һ і";
+  let h = "";
+
+  /* ═══ 1. шрифты ═══ */
+  if (sections.includes("fonts")) {
+    h += `<h2 class="sec">1 · Шрифты (все 42 казахские буквы × 2 регистра; ₸ — из того же шрифта)</h2>`;
+    const f = (cls, name, style) => `
+      <div class="fontrow theme-kok" data-lt-skip><div class="nm">${name}</div>
+        <div class="${cls} fa" style="${style}">${KK_UP}</div>
+        <div class="${cls} fa" style="${style}">${KK_LOW}</div>
+        <div class="${cls} fa2" style="${style}">${KZ} · 3000 ₸</div>
+        <div class="${cls} fb" style="${style}">Мама, уайымдамаңыз — IT-де біз балаңызбен біргеміз! Қиын болмас па? Оны кім үйретеді? Онлайн қауіпсіз бе?</div></div>`;
+    h += f("lt-hand", "Caveat 700 · .lt-hand / .lt-note — «почерк мамы»", "--lt-min:24px;--lt-size:74px;transform:none;display:block");
+    h += f("lt-hand2", "Bad Script 400 + text-stroke · .lt-hand2 — аккуратное перо", "--lt-min:24px;--lt-size:74px;transform:none;display:block");
+    h += f("lt-display", "Alegreya Italic 800 · .lt-display — каллиграфический курсив", "--lt-size:74px");
+    const g = (name, style, txt) => `<div class="fontrow theme-kok" data-lt-skip><div class="nm">${name}</div><div style="${style}">${txt}</div></div>`;
+    const T = "Ұстазың — қазіргі IT-маман · Ә ә Ғ ғ Қ қ Ң ң Ө ө Ұ ұ Ү ү Һ һ І і · 3000 ₸";
+    h += g("Geologica 800 · .kk-head — казахско-полный заголовочный (рекомендуется вместо Unbounded)", "font:800 58px/1.25 Geologica;letter-spacing:-.02em", T);
+    h += g("Onest 500 · .kk-text — казахско-полный текст (рекомендуется вместо Manrope)", "font:500 46px/1.3 Onest", T);
+    h += g("Unbounded 800 — ЗАПЛАТКА fonts-c2.css: казахские знаки подставлены из Geologica (без неё — системный шрифт с засечками)", "font:800 46px/1.3 Unbounded;letter-spacing:-.02em", T);
+    h += g("Manrope 600 — ЗАПЛАТКА fonts-c2.css: казахские знаки подставлены из Onest", "font:600 46px/1.3 Manrope", T);
+  }
+
+  /* ═══ 2. плакаты: классы на 4 темах × светлая/тёмная ═══ */
+  const poster = (th, mode) => `
+    <div class="poster ${mode} ${mode === "dark" ? "on-dark" : ""} theme-${th}">
+      <div class="orn-pattern pat"></div>
+      <div class="orn-band band t"></div><div class="orn-band band b"></div>
+      <div class="in">
+        <div class="tag">${NAMES[th]} · ${mode === "dark" ? "тёмная" : "светлая"} сцена</div>
+        <div class="p-hero"><span class="lt-hand">Мама, <span class="lt-under">уайымдамаңыз</span></span></div>
+        <div class="p-sub"><span class="lt-display">IT-де біз балаңызбен <span class="lt-mark">біргеміз</span></span></div>
+
+        <div class="p-q">
+          <div class="q"><span class="lt-strike">Қиын болмас па?</span></div>
+          <i class="lt-arrow a2" style="--w:170px"></i>
+        </div>
+        <div class="p-ans"><span class="lt-note">Жоқ — ұстаз IT-де істейді!</span></div>
+
+        <div class="p-mid">
+          <div><span class="lt-hand2" style="--lt-size:104px">Балаңыз <span class="lt-circle">жалғыз емес</span></span></div>
+        </div>
+
+        <div class="p-price">Сынақ сабақ — <span class="lt-circle">3000 ₸</span></div>
+
+        <div class="p-drop"><span class="lt-drop float"><b>Қ</b></span>ұрметті ата-ана, сынақ сабақ 60 минут, онлайн, міндеттемесіз. Ұстаз — қазір IT-компанияда жұмыс істейтін маман. Топта 8 баладан көп емес.</div>
+
+        <div style="margin-top:44px"><span class="lt-orn" style="font:900 112px/1.1 Unbounded,sans-serif;letter-spacing:-.02em;--lt-orn-s:.9em">Қорған</span></div>
+
+        <div class="p-icons">
+          <i class="lt-ico i-heart1" style="--w:100px"></i><i class="lt-ico i-heart2" style="--w:90px"></i>
+          <i class="lt-ico i-spark1" style="--w:90px"></i><i class="lt-ico i-spark3" style="--w:110px"></i>
+          <i class="lt-ico i-tick1" style="--w:100px;--lt-c:var(--lt-gold)"></i><i class="lt-ico i-star1" style="--w:100px"></i>
+          <i class="lt-ico i-swash1" style="--w:190px"></i>
+        </div>
+      </div>
+    </div>`;
+  if (sections.includes("posters")) {
+    h += `<h2 class="sec">2 · Классы на 4 темах · светлая / тёмная сцена</h2>`;
+    for (const th of themes) h += `<div class="rowp">${poster(th, "light")}${poster(th, "dark")}</div>`;
+  }
+
+  /* ═══ 3. каталог знаков ═══ */
+  const cat = (th, mode) => {
+    const w = (cls, txt, extra = "") => `<div class="cell"><span class="wd ${extra}"><span class="${cls}">${txt}</span></span><div class="n">${cls}</div></div>`;
+    const ic = (cls, style = "") => `<div class="cell"><i class="${cls}" style="${style}"></i><div class="n">${cls}</div></div>`;
+    return `<div class="sc ${mode} ${mode === "dark" ? "on-dark" : ""} theme-${th}"><h3 class="cap">${NAMES[th]} · ${mode}</h3><div class="g">
+      ${w("lt-under", "Сіз")}${w("lt-under u2", "Сіз")}${w("lt-under u3", "Сіз")}${w("lt-under u4", "Сіз")}${w("lt-under u5", "Сіз")}${w("lt-under swash", "Сіз")}
+      ${w("lt-mark", "жанында")}${w("lt-mark m2", "жанында")}${w("lt-mark m3", "жанында")}
+      ${w("lt-circle", "3000 ₸")}${w("lt-circle r2", "3000 ₸")}${w("lt-circle r3", "3000 ₸")}${w("lt-circle r4", "60")}
+      ${w("lt-strike", "Қиын")}${w("lt-strike s2", "Қиын")}${w("lt-strike s3", "Қиын")}
+      ${ic("lt-arrow a1", "--w:170px")}${ic("lt-arrow a2", "--w:210px")}${ic("lt-arrow a3", "--w:100px")}${ic("lt-arrow a4", "--w:190px")}
+      ${ic("lt-ico i-heart1", "--w:120px")}${ic("lt-ico i-heart2", "--w:110px")}${ic("lt-ico i-heart3", "--w:120px")}
+      ${ic("lt-ico i-spark1", "--w:90px")}${ic("lt-ico i-spark2", "--w:100px")}${ic("lt-ico i-spark3", "--w:110px")}${ic("lt-ico i-star1", "--w:100px")}
+      ${ic("lt-ico i-tick1", "--w:100px")}${ic("lt-ico i-tick2", "--w:100px")}
+      ${ic("lt-ico i-brl", "--w:44px")}${ic("lt-ico i-brr", "--w:44px")}${ic("lt-ico i-brace", "--w:300px")}
+      ${ic("lt-ico i-swash1", "--w:300px")}${ic("lt-ico i-swash2", "--w:300px")}
+    </div></div>`;
+  };
+  if (sections.includes("shapes")) {
+    h += `<h2 class="sec">3 · Каталог росчерков и знаков (lettering/*.svg → mask)</h2><div class="shapes">`;
+    for (const th of themes) h += cat(th, "light") + cat(th, "dark");
+    h += `</div>`;
+  }
+
+  /* ═══ 4. реальные фразы кампании ═══ */
+  const PHR = [
+    ["Мама, уайымдамаңыз", "lt-hand"], ["IT-де біз балаңызбен біргеміз", "lt-hand2"], ["Қиын болмас па?", "lt-hand"], ["Оны кім үйретеді?", "lt-hand2"],
+    ["Онлайн қауіпсіз бе?", "lt-hand"], ["Қиындап кетсе, кім көмектеседі?", "lt-hand2"], ["Пробный урок — 3000 ₸", "lt-hand"], ["Ә Ғ Қ Ң Ө Ұ Ү Һ І", "lt-hand2 spec"],
+    ["Балаңыз жалғыз емес", "lt-display"], ["Біз жанындамыз", "lt-display"]
+  ];
+  if (sections.includes("phrases")) {
+    h += `<h2 class="sec">4 · Реальные фразы кампании (kk основной)</h2><div class="ph">`;
+    for (const mode of ["light", "dark"])
+      h += `<div class="phc ${mode} ${mode === "dark" ? "on-dark" : ""} theme-${mode === "dark" ? "jasyl" : "kyzyl"}">${PHR.map(([t, c]) => `<div class="l"${c.includes("spec") ? " data-lt-skip" : ""}><span class="${c}" style="${c === "lt-display" ? "--lt-size:96px" : ""}">${t}</span></div>`).join("")}</div>`;
+    h += `</div>`;
+  }
+  document.getElementById("root").innerHTML = h;
+</script>
+<script src="lettering.js"></script>
+</body></html>
+<!-- Рендер доски (одноразовый скрипт лежит рядом: tools/lettering-board.mjs):
+       node tools/lettering-board.mjs [--themes kok,altyn] [--sections posters] [--out .cache/lettering-board.png] [--scale 0.5] -->

@@ -1,0 +1,79 @@
+/* Alfa Z · кампания 2 — шрифты «особых надписей» (ерекше жазулар). Подключать ПОСЛЕ base.css:
+     <link rel="stylesheet" href="../fonts-c2.css"><link rel="stylesheet" href="../lettering.css">
+   fonts.css НЕ меняется: Manrope и Unbounded (текст и заголовки кампании 2) берутся оттуда.
+   Здесь — три шрифта для надписей и одна «заплатка» для знака ₸.
+   Все — SIL Open Font License 1.1 (тексты лицензий: src/fonts/OFL-*.txt). Источник — npm-пакеты @fontsource (Google Fonts).
+
+   ┌ Caveat            400–700, вариативный · «почерк мамы», маркер     → .lt-hand   (главная фраза, всегда 700)
+   ├ Bad Script        400 · аккуратное перо/каллиграфия               → .lt-hand2  (утолщается text-stroke: сам по себе тонкий)
+   ├ Alegreya Italic   400–900, вариативный · каллиграфический курсив  → .lt-display (выразительный заголовочный)
+   └ ₸ (U+20B8)        Unbounded latin-ext, подмножество из 1 глифа: в Manrope и Unbounded из fonts.css знака тенге НЕТ,
+                       без заплатки он рисуется системным шрифтом (DejaVu) и на другом компьютере выглядит иначе.
+
+   ПОКРЫТИЕ КАЗАХСКОЙ КИРИЛЛИЦЫ (все 42 буквы × 2 регистра, включая ә ғ қ ң ө ұ ү һ і Ә Ғ Қ Ң Ө Ұ Ү Һ І) проверено по cmap
+   файлов: python3 tools/check-kk-coverage.py — Caveat, Bad Script, Alegreya Italic: 84/84.
+   Казахские буквы лежат в двух подмножествах: cyrillic (і І ұ Ұ) и cyrillic-ext (ә ғ қ ң ө ү һ) — оба подключены, unicode-range как у Google Fonts.
+   Отвергнуты — по cmap не хватает казахских букв: Marck Script, Neucha, Comforter, Amatic SC, Underdog, Ruslan Display, Poiret One, Jura,
+   Tenor Sans, Kelly Slab, Days One, El Messiri, Russo One, Oranienbaum, Prosto One, Pattaya, Bellota Text, Great Vibes, Playfair Display,
+   Seymour One, Rubik Mono One, Yanone Kaffeesatz (нет Ғ ү Ү Һ Ө); кириллицы нет вовсе: Caveat Brush, Lobster Two, Kaushan Script, Mynerve,
+   Merienda, Gloock, Sansita Swashed. Склейка глифов из разных шрифтов не применялась.
+   Покрытие полное, но не взяты (проверены на образцах): Pacifico, Lobster, Pangolin, Kurale, Shantell Sans, Playpen Sans, Balsamiq Sans,
+   Yeseva One, Noto Serif Display Italic — Caveat 700 читается тёплым «почерком», Bad Script даёт перо, Alegreya Italic — курсив с каллиграфическим ходом. */
+*/
+
+/* ── Caveat 400–700 ── */
+@font-face{font-family:'Caveat';font-style:normal;font-weight:400 700;font-display:block;src:url('fonts/caveat-cyrillic-400_700-normal.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:400 700;font-display:block;src:url('fonts/caveat-cyrillic-ext-400_700-normal.woff2') format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:400 700;font-display:block;src:url('fonts/caveat-latin-400_700-normal.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Caveat';font-style:normal;font-weight:400 700;font-display:block;src:url('fonts/caveat-latin-ext-400_700-normal.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+
+/* ── Bad Script 400 ── */
+@font-face{font-family:'Bad Script';font-style:normal;font-weight:400;font-display:block;src:url('fonts/bad-script-cyrillic-400-normal.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Bad Script';font-style:normal;font-weight:400;font-display:block;src:url('fonts/bad-script-cyrillic-ext-400-normal.woff2') format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}
+@font-face{font-family:'Bad Script';font-style:normal;font-weight:400;font-display:block;src:url('fonts/bad-script-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Bad Script';font-style:normal;font-weight:400;font-display:block;src:url('fonts/bad-script-latin-ext-400-normal.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+
+/* ── Alegreya Italic 400–900 (только курсив; family — «Alegreya», всегда font-style: italic) ── */
+@font-face{font-family:'Alegreya';font-style:italic;font-weight:400 900;font-display:block;src:url('fonts/alegreya-cyrillic-400_900-italic.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Alegreya';font-style:italic;font-weight:400 900;font-display:block;src:url('fonts/alegreya-cyrillic-ext-400_900-italic.woff2') format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}
+@font-face{font-family:'Alegreya';font-style:italic;font-weight:400 900;font-display:block;src:url('fonts/alegreya-latin-400_900-italic.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Alegreya';font-style:italic;font-weight:400 900;font-display:block;src:url('fonts/alegreya-latin-ext-400_900-italic.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+
+/* ── знак тенге ₸ для Manrope / Unbounded / Inter (в их файлах из fonts.css глифа нет). Один глиф, ~1 КБ, вариативная ось веса сохранена.
+   ВАЖНО: дескрипторы (font-style / font-weight) ОБЯЗАНЫ совпадать с объявлениями в fonts.css: браузер выбирает ОДНУ группу @font-face
+   по весу, и если заплатка объявлена с другим диапазоном веса (например 200 900 вместо 400 900), кириллица основной группы перестаёт подхватываться. ── */
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:400 900;font-display:block;src:url('fonts/unbounded-tenge-200_900.woff2') format('woff2');unicode-range:U+20B8;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400 800;font-display:block;src:url('fonts/unbounded-tenge-200_900.woff2') format('woff2');unicode-range:U+20B8;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:block;src:url('fonts/unbounded-tenge-200_900.woff2') format('woff2');unicode-range:U+20B8;}
+
+/* ══════════ КАЗАХСКИЕ БУКВЫ В MANROPE И UNBOUNDED ══════════
+   НАХОДКА: файлы Manrope и Unbounded из fonts.css (как и сами шрифты на Google Fonts) НЕ содержат казахских букв —
+     Manrope нет: Ғ ғ Қ қ Ң ң Ұ ұ Ә ә (10 из 84 знаков);  Unbounded нет: Ғ ғ Қ қ Ң ң Ү ү Ұ ұ Һ һ Ә ә Ө ө (16 из 84).
+   Такие буквы браузер рисует случайным системным шрифтом (у нас DejaVu Serif) — «Ұстазың, қазіргі» получается со вставными засечками.
+   Проверка: python3 tools/check-kk-coverage.py src/fonts.css   (а с заплатками: … src/fonts.css src/fonts-c2.css)
+   ЧТО СДЕЛАНО (два уровня):
+   1) Полноценная замена — семейства с полным покрытием (84/84), рекомендуются для казахского текста кампании 2:
+        Geologica 100–900  — заголовки (геометричный, ближайший к Unbounded из полных);  класс .kk-head в lettering.css
+        Onest     100–900  — основной текст (гротеск, близкий к Manrope);                класс .kk-text
+   2) Страховочная заплатка под ТЕМИ ЖЕ именами Manrope / Unbounded — только для отсутствующих казахских знаков; глифы берутся из Geologica/Onest
+      (ниже, unicode-range узкий, дескрипторы font-weight/style как в fonts.css — иначе браузер выберет одну группу и сломает кириллицу).
+      Это СКЛЕЙКА глифов двух шрифтов в одном слове — допустима только как аварийная мера, чтобы креативы со старой вёрсткой не получали засечки.
+      Для финальной вёрстки на казахском используйте п.1. Отключить заплатку — удалить блок между «ЗАПЛАТКА» и «/ЗАПЛАТКА». */
+
+/* ── Geologica 100–900 (вариативный) ── */
+@font-face{font-family:'Geologica';font-style:normal;font-weight:100 900;font-display:block;src:url('fonts/geologica-cyrillic-100_900-normal.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Geologica';font-style:normal;font-weight:100 900;font-display:block;src:url('fonts/geologica-cyrillic-ext-100_900-normal.woff2') format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}
+@font-face{font-family:'Geologica';font-style:normal;font-weight:100 900;font-display:block;src:url('fonts/geologica-latin-100_900-normal.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Geologica';font-style:normal;font-weight:100 900;font-display:block;src:url('fonts/geologica-latin-ext-100_900-normal.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+/* ── Onest 100–900 (вариативный) ── */
+@font-face{font-family:'Onest';font-style:normal;font-weight:100 900;font-display:block;src:url('fonts/onest-cyrillic-100_900-normal.woff2') format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}
+@font-face{font-family:'Onest';font-style:normal;font-weight:100 900;font-display:block;src:url('fonts/onest-cyrillic-ext-100_900-normal.woff2') format('woff2');unicode-range:U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}
+@font-face{font-family:'Onest';font-style:normal;font-weight:100 900;font-display:block;src:url('fonts/onest-latin-100_900-normal.woff2') format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Onest';font-style:normal;font-weight:100 900;font-display:block;src:url('fonts/onest-latin-ext-100_900-normal.woff2') format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+
+/* ── ЗАПЛАТКА: недостающие казахские знаки для Unbounded (из Geologica) и Manrope (из Onest) ── */
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:400 900;font-display:block;src:url('fonts/geologica-cyrillic-ext-100_900-normal.woff2') format('woff2');unicode-range:U+0492-0493, U+049A-049B, U+04A2-04A3, U+04AE-04AF, U+04BA-04BB, U+04D8-04D9, U+04E8-04E9;}
+@font-face{font-family:'Unbounded';font-style:normal;font-weight:400 900;font-display:block;src:url('fonts/geologica-cyrillic-100_900-normal.woff2') format('woff2');unicode-range:U+04B0-04B1;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400 800;font-display:block;src:url('fonts/onest-cyrillic-ext-100_900-normal.woff2') format('woff2');unicode-range:U+0492-0493, U+049A-049B, U+04A2-04A3, U+04D8-04D9;}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400 800;font-display:block;src:url('fonts/onest-cyrillic-100_900-normal.woff2') format('woff2');unicode-range:U+04B0-04B1;}
+/* ── /ЗАПЛАТКА ── */

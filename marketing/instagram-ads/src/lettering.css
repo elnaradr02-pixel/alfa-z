@@ -1,0 +1,268 @@
+/* Alfa Z · кампания 2 — «ерекше жазулар»: особые надписи (леттеринг «от руки для мамы»).
+   Подключение (порядок важен):
+     <link rel="stylesheet" href="../base.css"><link rel="stylesheet" href="../themes-c2.css"><link rel="stylesheet" href="../fonts-c2.css">
+     <link rel="stylesheet" href="../lettering.css">            (пути url() ниже — относительно ЭТОГО файла: lettering/*.svg, ornament/*.svg)
+     … в конце body:  <script src="../lettering.js"></script>   (нужен только для .lt-orn и для видео-анимаций)
+
+   ПРАВИЛО ЧИТАЕМОСТИ (аудитория до 58 лет): рукописные классы — ТОЛЬКО для коротких фраз (≤ 6 слов), кегль не меньше 96 px
+   (стоит защита max(--lt-min, --lt-size)), тонких начертаний нет: Caveat всегда 700 + лёгкая обводка, Bad Script утолщён text-stroke.
+   Факты, цены, кнопка, мелкий текст — обычным шрифтом; леттеринг — эмоциональная фраза (hero_phrase) и пометки.
+   ⚠ Manrope и Unbounded казахских букв (ә ғ қ ң ө ұ ү һ) НЕ содержат — без заплатки в fonts-c2.css эти буквы рисуются системным шрифтом с засечками.
+     Для казахского текста используйте .kk-head (Geologica 800, заголовки) и .kk-text (Onest 500, текст) — полное покрытие 84/84 знаков;
+     Manrope/Unbounded в креативах со старой вёрсткой прикрыты страховочной заплаткой (см. fonts-c2.css).
+
+   ─── ТЕКСТОВЫЕ КЛАССЫ ───────────────────────────────────────────────────────────────────────────────────────────
+   .lt-hand      главная фраза: Caveat 700 («почерк мамы», маркер), наклон −3°, цвет --lt-hero (светлая сцена — глубокий акцент, тёмная — золото)
+   .lt-hand2     аккуратное перо: Bad Script + обводка, наклон −2°
+   .lt-display   выразительный заголовочный: Alegreya Italic 800 (каллиграфический курсив; контраст к Unbounded)
+   .lt-note      рукописная пометка на полях (Caveat 700, поворот −4°, цвет --lt-b); модификатор .r — поворот в другую сторону
+   .lt-orn       слово с орнаментальной заливкой (нужен data-t="то же слово" — проставит lettering.js; ставьте на толстые шрифты: .lt-display, Unbounded 800+)
+   .lt-drop      буквица в арочной рамке: <span class="lt-drop"><b>Қ</b></span>   (--w: ширина арки, по умолчанию 200px; .float — обтекание)
+   ─── ПОДСВЕТКИ (класс на слове/фразе; слово остаётся одной строкой; элемент становится inline-block) ────────────
+   .lt-mark      маркерный мазок под словом (мазки .m2 .m3);         цвет --lt-mark (мазок накрывает слово целиком, текст --lt-on-mark тёмный на золотом; ниже/выше: --lt-mh, --lt-mb)
+   .lt-under     росчерк-подчёркивание, варианты .u1 (по умолч.) .u2 .u3 .u4 .u5;  .swash — завиток-росчерк (мотив қошқар мүйіз)
+   .lt-circle    обводка овалом (варианты .r1 .r2 .r3; .r4 — круг)
+   .lt-strike    перечёркнутая «тревога»: штрих --lt-strike, текст приглушён (варианты .s1 .s2 .s3)
+   ─── ЗНАКИ (самостоятельные элементы <i>, ширина --w, поворот --rot, зеркало .flip, цвет --lt-c) ────────────────
+   .lt-arrow     стрелка: .a1 дуга вниз-вправо · .a2 прямая вправо · .a3 вниз (к кнопке) · .a4 с петлёй
+   .lt-ico       любой знак из lettering/*: .i-heart1 .i-heart2 .i-heart3 .i-spark1 .i-spark2 .i-spark3 .i-star1 .i-tick1 .i-tick2
+                 .i-brl .i-brr (скобки) .i-brace (фигурная под фразой) .i-swash1 .i-swash2 (+ все .i-ul1…, .i-ring1…, .i-mark1…, .i-strike1…, .i-arrow1…)
+   ─── СЦЕНА И ЦВЕТ ───────────────────────────────────────────────────────────────────────────────────────────────
+   Сцена по умолчанию — светлая (bg --paper). Тёмная: класс .on-dark (как в base.css), .lt-dark или .frame.dark на контейнере.
+   Токены из themes-c2.css сопоставлены так (в теме altyn роли акцента и «золота» перевёрнуты, поэтому карта своя):
+     --lt-gold  «золото» темы (kok/kyzyl/jasyl: --hi, altyn: --accent)        --lt-on-gold  текст на золоте
+     --lt-deep  глубокий акцент, читается на светлом (accent-d; altyn: --hi)  --lt-soft  светлый парный акцент (--accent-2)
+   Сценовые токены (переопределяйте на элементе): --lt-hero (главная фраза), --lt-a (росчерки: подчёркивание, метки), --lt-b (обводки, стрелки, пометки),
+     --lt-mark (маркер), --lt-on-mark (текст на маркере), --lt-strike (штрих «тревоги»), --lt-ink (обычный текст).
+   Размер: --lt-size (px, у .lt-hand по умолчанию 132px), поворот: --lt-rot.
+   Анимация видео: lettering.js меняет --lt-p (0…115: прогресс «прорисовки»), см. функции L.write / L.strike / L.draw / L.pop. */
+
+/* ══════════════ токены ══════════════ */
+:root {
+  --lt-f-hand: "Caveat", "Bad Script", cursive;
+  --lt-f-hand2: "Bad Script", "Caveat", cursive;
+  --lt-f-display: "Alegreya", "Unbounded", Georgia, serif;
+}
+/* карта ролей — на элементе, где стоит класс темы (body / .frame / плитка доски) */
+[class*="theme-"] {
+  --lt-gold: var(--hi); --lt-on-gold: var(--on-hi); --lt-deep: var(--accent-d); --lt-soft: var(--accent-2);
+}
+.theme-altyn { --lt-gold: var(--accent); --lt-on-gold: var(--on-accent); --lt-deep: var(--hi); --lt-soft: var(--accent-2); }
+
+/* светлая сцена (по умолчанию) */
+[class*="theme-"], .lt-light {
+  --lt-ink: var(--ink);
+  --lt-hero: var(--lt-deep);
+  --lt-a: var(--lt-gold);
+  --lt-b: var(--lt-deep);
+  --lt-mark: color-mix(in srgb, var(--lt-gold) 88%, transparent);
+  --lt-on-mark: var(--ink);
+  --lt-strike: var(--logo-accent, #FF6B47);
+  --lt-ink-dim: color-mix(in srgb, var(--ink) 68%, transparent);
+  --lt-orn-base: var(--lt-deep); --lt-orn-motif: var(--lt-gold);
+  --lt-drop-bg: var(--lt-deep); --lt-drop-line: var(--lt-gold); --lt-drop-ink: var(--paper);
+}
+/* тёмная сцена */
+.on-dark, .lt-dark, .frame.dark {
+  --lt-ink: var(--paper);
+  --lt-hero: var(--lt-gold);
+  --lt-a: var(--lt-soft);
+  --lt-b: var(--lt-gold);
+  --lt-mark: var(--lt-gold);
+  --lt-on-mark: var(--lt-on-gold);
+  --lt-strike: var(--logo-accent, #FF6B47);
+  --lt-ink-dim: color-mix(in srgb, var(--paper) 62%, transparent);
+  --lt-orn-base: var(--lt-gold); --lt-orn-motif: var(--night);
+  --lt-drop-bg: var(--night-2); --lt-drop-line: var(--lt-gold); --lt-drop-ink: var(--lt-gold);
+}
+/* казахско-полные шрифты для заголовков/текста (Unbounded и Manrope казахских букв не содержат — см. fonts-c2.css) */
+.kk-head { font-family: "Geologica", "Unbounded", sans-serif; font-weight: 800; letter-spacing: -.02em; line-height: 1.08; }
+.kk-text { font-family: "Onest", "Manrope", sans-serif; font-weight: 500; }
+/* утилиты цвета для текста */
+.lt-c-hero { color: var(--lt-hero); } .lt-c-ink { color: var(--lt-ink); } .lt-c-gold { color: var(--lt-gold); }
+.lt-c-deep { color: var(--lt-deep); } .lt-c-soft { color: var(--lt-soft); } .lt-c-b { color: var(--lt-b); }
+
+/* ══════════════ шрифтовые классы ══════════════ */
+.lt-hand, .lt-hand2, .lt-note {
+  display: inline-block; position: relative; text-wrap: balance; hyphens: none; transform-origin: 50% 60%;
+}
+.lt-hand {
+  font-family: var(--lt-f-hand); font-weight: 700; line-height: .92; letter-spacing: 0;
+  font-size: max(var(--lt-min, 96px), var(--lt-size, 132px)); transform: rotate(var(--lt-rot, -3deg));
+  -webkit-text-stroke: .014em currentColor; color: var(--lt-hero);
+}
+.lt-hand2 {
+  font-family: var(--lt-f-hand2); font-weight: 400; line-height: 1.02; letter-spacing: .005em;
+  font-size: max(var(--lt-min, 96px), var(--lt-size, 120px)); transform: rotate(var(--lt-rot, -2deg));
+  -webkit-text-stroke: .03em currentColor; color: var(--lt-hero);
+}
+.lt-note {
+  font-family: var(--lt-f-hand); font-weight: 700; line-height: .95;
+  font-size: max(var(--lt-min, 96px), var(--lt-size, 104px)); transform: rotate(var(--lt-rot, -4deg));
+  -webkit-text-stroke: .012em currentColor; color: var(--lt-b);
+}
+.lt-note.r { --lt-rot: 3.5deg; }
+.lt-display {
+  font-family: var(--lt-f-display); font-style: italic; font-weight: var(--lt-w, 800);
+  font-size: var(--lt-size, 112px); line-height: 1.02; letter-spacing: -.012em; text-wrap: balance; hyphens: none;
+}
+/* защитный кегль для вложенных фрагментов (когда .lt-hand стоит внутри абзаца меньшего размера) */
+.lt-hand *, .lt-hand2 * { -webkit-text-stroke: inherit; }
+
+/* ══════════════ «нарисованные кистью» подсветки ══════════════
+   Общая схема: псевдоэлемент с маской = SVG-росчерк ∩ «проявление» (линейный вайп или конический для обводок).
+   --lt-p (0…115) — прогресс проявления; 115 = виден целиком (по умолчанию). Меняется только из lettering.js. */
+.lt-mark, .lt-under, .lt-circle, .lt-strike { position: relative; display: inline-block; white-space: nowrap; }
+.lt-mark {
+  isolation: isolate;   /* цвет текста плавно переходит от --lt-ink к --lt-on-mark по мере того, как мазок ложится (--lt-p); в статике — сразу --lt-on-mark */
+  color: color-mix(in srgb, var(--lt-on-mark) clamp(0%, calc((var(--lt-p, 115) - 15) * 1%), 100%), var(--lt-ink));
+}
+
+.lt-mark::before, .lt-under::after, .lt-circle::after, .lt-strike::after {
+  content: ""; position: absolute; pointer-events: none;
+  background: var(--lt-c, var(--lt-a));
+  --lt-wipe: linear-gradient(var(--lt-wa, 90deg), #000 calc(var(--lt-p, 115) * 1% - 15%), transparent calc(var(--lt-p, 115) * 1%));
+  -webkit-mask-image: var(--lt-shape), var(--lt-wipe); mask-image: var(--lt-shape), var(--lt-wipe);
+  -webkit-mask-size: 100% 100%, 100% 100%; mask-size: 100% 100%, 100% 100%;
+  -webkit-mask-repeat: no-repeat, no-repeat; mask-repeat: no-repeat, no-repeat;
+  -webkit-mask-composite: source-in; mask-composite: intersect;
+}
+
+/* маркер */
+.lt-mark { --lt-shape: url('lettering/mark1.svg'); }
+.lt-mark.m2 { --lt-shape: url('lettering/mark2.svg'); }
+.lt-mark.m3 { --lt-shape: url('lettering/mark3.svg'); }
+.lt-mark::before {
+  z-index: -1; --lt-c: var(--lt-mark);
+  left: -.34em; right: -.34em; height: var(--lt-mh, 1.5em); bottom: var(--lt-mb, -.26em);
+}
+
+/* подчёркивание-росчерк: высота ≈ 0,6 em (пропорция 600:80 при ширине слова ~ 4–5 em → штрих не «сплющивается») */
+.lt-under { --lt-shape: url('lettering/ul1.svg'); }
+.lt-under.u2 { --lt-shape: url('lettering/ul2.svg'); } .lt-under.u3 { --lt-shape: url('lettering/ul3.svg'); }
+.lt-under.u4 { --lt-shape: url('lettering/ul4.svg'); } .lt-under.u5 { --lt-shape: url('lettering/ul5.svg'); }
+.lt-under.swash { --lt-shape: url('lettering/swash2.svg'); }
+.lt-under::after {
+  left: -.06em; right: -.06em; height: var(--lt-uh, .62em); bottom: var(--lt-ub, -.5em);
+}
+.lt-under.u2::after { --lt-uh: .66em; } .lt-under.u3::after { --lt-uh: .7em; } .lt-under.u4::after { --lt-uh: .7em; }
+.lt-under.u5::after { --lt-uh: .58em; }
+.lt-under.swash::after { --lt-uh: .95em; --lt-ub: -.6em; }
+
+/* обводка овалом: вайп по кругу (conic) */
+.lt-circle { --lt-shape: url('lettering/ring1.svg'); }
+.lt-circle.r2 { --lt-shape: url('lettering/ring2.svg'); } .lt-circle.r3 { --lt-shape: url('lettering/ring3.svg'); }
+.lt-circle.r4 { --lt-shape: url('lettering/ring4.svg'); }
+.lt-circle::after {
+  --lt-c: var(--lt-b);
+  --lt-wipe: conic-gradient(from var(--lt-a0, 200deg) at 50% 50%, #000 calc(var(--lt-p, 115) * 3.6deg - 54deg), transparent calc(var(--lt-p, 115) * 3.6deg));
+  inset: -.34em -.62em -.3em -.62em;
+}
+.lt-circle.r4::after { inset: -.42em -.42em -.38em -.42em; }
+
+/* зачёркнутая «тревога»: слово приглушено, поверх — рукописный штрих */
+.lt-strike { --lt-shape: url('lettering/strike1.svg'); color: color-mix(in srgb, var(--lt-ink-dim) calc(var(--lt-sdim, 100) * 1%), var(--lt-ink)); }
+.lt-strike.s2 { --lt-shape: url('lettering/strike2.svg'); } .lt-strike.s3 { --lt-shape: url('lettering/strike3.svg'); }
+.lt-strike::after {
+  --lt-c: var(--lt-strike);
+  left: -.08em; right: -.08em; top: 50%; height: .9em; margin-top: -.45em;
+}
+.lt-strike.s3::after { height: 1.1em; margin-top: -.55em; }
+
+/* ══════════════ знаки ══════════════ */
+.lt-arrow, .lt-ico {
+  display: block; flex: none; pointer-events: none;
+  width: var(--w, 200px); aspect-ratio: var(--ar, 1);
+  background: var(--lt-c, var(--lt-b));
+  --lt-wipe: linear-gradient(var(--lt-wa, 90deg), #000 calc(var(--lt-p, 115) * 1% - 15%), transparent calc(var(--lt-p, 115) * 1%));
+  -webkit-mask-image: var(--lt-shape), var(--lt-wipe); mask-image: var(--lt-shape), var(--lt-wipe);
+  -webkit-mask-size: 100% 100%, 100% 100%; mask-size: 100% 100%, 100% 100%;
+  -webkit-mask-repeat: no-repeat, no-repeat; mask-repeat: no-repeat, no-repeat;
+  -webkit-mask-composite: source-in; mask-composite: intersect;
+  transform: scaleX(var(--fx, 1)) rotate(var(--rot, 0deg));
+}
+.lt-arrow.flip, .lt-ico.flip { --fx: -1; }
+.lt-arrow, .lt-arrow.a1, .i-arrow1 { --lt-shape: url('lettering/arrow1.svg'); --ar: 300/220; --lt-wa: 118deg; }
+.lt-arrow.a2, .i-arrow2 { --lt-shape: url('lettering/arrow2.svg'); --ar: 400/140; --lt-wa: 90deg; }
+.lt-arrow.a3, .i-arrow3 { --lt-shape: url('lettering/arrow3.svg'); --ar: 200/300; --lt-wa: 172deg; }
+.lt-arrow.a4, .i-arrow4 { --lt-shape: url('lettering/arrow4.svg'); --ar: 360/260; --lt-wa: 74deg; }
+
+.i-heart1 { --lt-shape: url('lettering/heart1.svg'); --ar: 300/280; --lt-wa: 180deg; }
+.i-heart2 { --lt-shape: url('lettering/heart2.svg'); --ar: 300/280; --lt-wa: 180deg; }
+.i-heart3 { --lt-shape: url('lettering/heart3.svg'); --ar: 300/280; --lt-wa: 180deg; }
+.i-spark1 { --lt-shape: url('lettering/spark1.svg'); --ar: 1; --lt-wa: 180deg; }
+.i-spark2 { --lt-shape: url('lettering/spark2.svg'); --ar: 1; --lt-wa: 180deg; }
+.i-spark3 { --lt-shape: url('lettering/spark3.svg'); --ar: 1; --lt-wa: 180deg; }
+.i-star1  { --lt-shape: url('lettering/star1.svg');  --ar: 1; --lt-wa: 180deg; }
+.i-tick1  { --lt-shape: url('lettering/tick1.svg');  --ar: 200/180; --lt-wa: 65deg; }
+.i-tick2  { --lt-shape: url('lettering/tick2.svg');  --ar: 200/180; --lt-wa: 65deg; }
+.i-brl    { --lt-shape: url('lettering/bracket-l.svg'); --ar: 120/420; --lt-wa: 180deg; }
+.i-brr    { --lt-shape: url('lettering/bracket-r.svg'); --ar: 120/420; --lt-wa: 180deg; }
+.i-brace  { --lt-shape: url('lettering/brace-h.svg'); --ar: 600/130; --lt-wa: 90deg; }
+.i-swash1 { --lt-shape: url('lettering/swash1.svg'); --ar: 600/120; --lt-wa: 90deg; }
+.i-swash2 { --lt-shape: url('lettering/swash2.svg'); --ar: 600/120; --lt-wa: 90deg; }
+.i-ul1 { --lt-shape: url('lettering/ul1.svg'); --ar: 600/80; } .i-ul2 { --lt-shape: url('lettering/ul2.svg'); --ar: 600/80; }
+.i-ul3 { --lt-shape: url('lettering/ul3.svg'); --ar: 600/80; } .i-ul4 { --lt-shape: url('lettering/ul4.svg'); --ar: 600/80; }
+.i-ul5 { --lt-shape: url('lettering/ul5.svg'); --ar: 600/80; }
+.i-mark1 { --lt-shape: url('lettering/mark1.svg'); --ar: 600/110; } .i-mark2 { --lt-shape: url('lettering/mark2.svg'); --ar: 600/110; }
+.i-mark3 { --lt-shape: url('lettering/mark3.svg'); --ar: 600/110; }
+.i-strike1 { --lt-shape: url('lettering/strike1.svg'); --ar: 600/120; } .i-strike2 { --lt-shape: url('lettering/strike2.svg'); --ar: 600/120; }
+.i-strike3 { --lt-shape: url('lettering/strike3.svg'); --ar: 600/120; }
+.i-ring1 { --lt-shape: url('lettering/ring1.svg'); --ar: 600/240; } .i-ring2 { --lt-shape: url('lettering/ring2.svg'); --ar: 600/240; }
+.i-ring3 { --lt-shape: url('lettering/ring3.svg'); --ar: 600/240; } .i-ring4 { --lt-shape: url('lettering/ring4.svg'); --ar: 1; }
+.i-ring1, .i-ring2, .i-ring3, .i-ring4 {
+  --lt-wipe: conic-gradient(from var(--lt-a0, 200deg) at 50% 50%, #000 calc(var(--lt-p, 115) * 3.6deg - 54deg), transparent calc(var(--lt-p, 115) * 3.6deg));
+}
+/* сердечки и искры по умолчанию тёплые/золотые */
+.i-heart1, .i-heart2, .i-heart3 { --lt-c: var(--lt-strike); }
+.i-spark1, .i-spark2, .i-spark3, .i-star1 { --lt-c: var(--lt-gold); }
+
+/* ══════════════ орнаментальная заливка слова ══════════════
+   База — сплошной цвет (читаемость), поверх — копия слова, залитая background-clip:text и «просвеченная» плиткой ornament/pattern-tile.svg:
+   узор виден только внутри букв. Копия берёт текст из data-t (lettering.js проставляет автоматически из textContent). */
+.lt-orn { position: relative; display: inline-block; color: var(--lt-orn-base); }
+.lt-orn::after {
+  content: attr(data-t); position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none;
+  color: transparent; white-space: inherit; text-align: inherit; -webkit-text-stroke: 0;
+  background: linear-gradient(120deg, var(--lt-orn-motif), var(--lt-orn-motif));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-mask-image: url('ornament/pattern-tile.svg'); mask-image: url('ornament/pattern-tile.svg');
+  -webkit-mask-size: var(--lt-orn-s, .8em) var(--lt-orn-s, .8em); mask-size: var(--lt-orn-s, .8em) var(--lt-orn-s, .8em);
+  -webkit-mask-repeat: repeat; mask-repeat: repeat;
+  -webkit-mask-position: var(--lt-orn-x, .06em) var(--lt-orn-y, .1em); mask-position: var(--lt-orn-x, .06em) var(--lt-orn-y, .1em);
+}
+
+/* ══════════════ буквица в арочной рамке ══════════════ */
+.lt-drop {
+  --w: 200px; position: relative; display: inline-grid; place-items: center; flex: none;
+  width: var(--w); aspect-ratio: 512 / 640; vertical-align: top;
+}
+.lt-drop.float { float: left; margin: 0 .22em .06em 0; }
+.lt-drop::before, .lt-drop::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-size: contain; mask-size: contain;
+}
+.lt-drop::before { background: var(--lt-drop-bg); -webkit-mask-image: url('ornament/frame-arch-in.svg'); mask-image: url('ornament/frame-arch-in.svg'); }
+.lt-drop::after  { background: var(--lt-drop-line); -webkit-mask-image: url('ornament/frame-arch.svg'); mask-image: url('ornament/frame-arch.svg'); }
+.lt-drop > b {
+  position: relative; z-index: 1; font-family: var(--lt-f-display); font-style: italic; font-weight: 900;
+  font-size: calc(var(--w) * .56); line-height: 1; color: var(--lt-drop-ink); margin-top: calc(var(--w) * .09);
+}
+
+/* ══════════════ анимация видео (lettering.js) ══════════════ */
+/* слово-«чернильница»: L.write оборачивает слова в .lt-w и открывает их по очереди мягким вайпом слева направо */
+.lt-w {
+  display: inline-block; padding: .34em .2em .5em; margin: -.34em -.2em -.5em;
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(var(--lt-p, 115) * 1% - 15%), transparent calc(var(--lt-p, 115) * 1%));
+  mask-image: linear-gradient(90deg, #000 calc(var(--lt-p, 115) * 1% - 15%), transparent calc(var(--lt-p, 115) * 1%));
+  -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
+/* перо-маркер, бегущее за вайпом (по желанию: L.write(..., {pen:true})) */
+.lt-pen { position: absolute; left: 0; top: 0; width: 0; height: 0; z-index: 6; pointer-events: none; opacity: 0; }
+.lt-pen::before {
+  content: ""; position: absolute; left: -.03em; top: -.98em; width: .17em; height: .98em; border-radius: .06em .06em .02em .02em;
+  transform-origin: 50% 100%; transform: rotate(32deg);
+  background: linear-gradient(90deg, var(--lt-hero) 0 62%, color-mix(in srgb, var(--lt-hero) 70%, #000) 62%);
+  clip-path: polygon(0 0, 100% 0, 100% 84%, 50% 100%, 0 84%);
+}
