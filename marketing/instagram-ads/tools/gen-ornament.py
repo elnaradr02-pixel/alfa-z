@@ -546,7 +546,7 @@ def build_arch():
         if not near(x, y, 27): pearls.add(circle(x, y, 3.0))
     st = Shape()
     for x, y in studs: st.add(diamond(x, y, 34, 34, 2.2).cut(diamond(x, y, 14, 14, 1.0)).add(circle(x, y, 3.4)))
-    crown = lyre(0.74).tf(T(256, ARCH_TOP + 6)).cut(arch_contour(9))
+    crown = lyre(0.8).tf(T(256, ARCH_TOP + 6)).cut(arch_contour(9))
     write("frame-arch.svg", ARCH_W, ARCH_H, [Shape().add(outer, thin, pearls, dia, st, crown)])
 
 @builder("frame-arch-in")
