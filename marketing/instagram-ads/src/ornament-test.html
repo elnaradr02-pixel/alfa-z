@@ -59,42 +59,37 @@
 <body>
 <script>
   const themes = [["kok", "көк"], ["altyn", "алтын"], ["kyzyl", "қызыл"], ["jasyl", "жасыл"]];
+  const box = (rot) => `<div style="width:118px;height:118px;position:relative;outline:1px dashed rgba(128,128,128,.4)"><div class="orn-corner" style="--w:118px;--rot:${rot}deg"></div></div>`;
   const scene = (mode) => `
     <div class="scene ${mode}">
       <div class="orn-pattern bgp"></div>
       <div class="orn-band" style="position:absolute;left:0;top:0;right:0;--h:64px"></div>
-      <div class="lbl" style="left:24px;top:76px">.orn-band --h:64 · .orn-pattern --o:.14</div>
+      <div class="lbl" style="left:24px;top:80px">.orn-band --h:64 · фон .orn-pattern --o:.14</div>
 
-      <div class="lbl" style="left:24px;top:110px">.orn-corner ×4 (--rot 0/90/180/270)</div>
-      <div class="cell" style="left:24px;top:132px;display:flex;gap:10px">
-        <div style="width:118px;height:118px;position:relative;outline:1px dashed rgba(128,128,128,.4)"><div class="orn-corner" style="--w:118px"></div></div>
-        <div style="width:118px;height:118px;position:relative;outline:1px dashed rgba(128,128,128,.4)"><div class="orn-corner" style="--w:118px;--rot:90deg"></div></div>
-        <div style="width:118px;height:118px;position:relative;outline:1px dashed rgba(128,128,128,.4)"><div class="orn-corner" style="--w:118px;--rot:180deg"></div></div>
-        <div style="width:118px;height:118px;position:relative;outline:1px dashed rgba(128,128,128,.4)"><div class="orn-corner" style="--w:118px;--rot:270deg"></div></div>
-      </div>
+      <div class="lbl" style="left:24px;top:112px">.orn-corner (--rot 0/90/180/270)</div>
+      <div class="cell" style="left:24px;top:132px;width:246px;display:flex;flex-wrap:wrap;gap:10px">${box(0)}${box(90)}${box(270)}${box(180)}</div>
 
-      <div class="lbl" style="left:24px;top:270px">.orn-horns --w:200</div>
-      <div class="cell" style="left:24px;top:292px"><div class="orn-horns" style="--w:200px"></div></div>
-      <div class="lbl" style="left:24px;top:506px">.orn-horns --w:96 · .orn-band --h:40/24</div>
-      <div class="cell" style="left:24px;top:530px;display:flex;flex-direction:column;gap:14px;width:330px">
-        <div style="display:flex;gap:16px;align-items:center"><div class="orn-horns" style="--w:96px"></div><div class="orn-horns" style="--w:64px"></div><div class="orn-horns" style="--w:44px"></div></div>
-        <div class="orn-band" style="--h:40px"></div><div class="orn-band" style="--h:24px"></div>
-      </div>
+      <div class="lbl" style="left:24px;top:402px">.orn-horns --w:190</div>
+      <div class="cell" style="left:24px;top:424px"><div class="orn-horns" style="--w:190px"></div></div>
+      <div class="lbl" style="left:24px;top:632px">.orn-horns --w:96 / 64 / 44</div>
+      <div class="cell" style="left:24px;top:654px;display:flex;gap:16px;align-items:center"><div class="orn-horns" style="--w:96px"></div><div class="orn-horns" style="--w:64px"></div><div class="orn-horns" style="--w:44px"></div></div>
 
-      <div class="lbl" style="left:252px;top:110px">.orn-medallion --w:330</div>
-      <div class="cell" style="left:252px;top:132px"><div class="orn-medallion" style="--w:330px"></div></div>
-      <div class="lbl" style="left:252px;top:480px">.orn-pattern --s:160</div>
-      <div class="cell" style="left:252px;top:502px;width:330px;height:220px;overflow:hidden;outline:1px dashed rgba(128,128,128,.3)"><div class="orn-pattern" style="--o:.55"></div></div>
+      <div class="lbl" style="left:296px;top:112px">.orn-medallion --w:330</div>
+      <div class="cell" style="left:296px;top:132px"><div class="orn-medallion" style="--w:330px"></div></div>
+      <div class="lbl" style="left:296px;top:480px">.orn-pattern --s:160 --o:.55</div>
+      <div class="cell" style="left:296px;top:502px;width:330px;height:130px;overflow:hidden;outline:1px dashed rgba(128,128,128,.3)"><div class="orn-pattern" style="--o:.55"></div></div>
+      <div class="lbl" style="left:296px;top:646px">.orn-band --h:40 / 24</div>
+      <div class="cell" style="left:296px;top:668px;width:330px;display:flex;flex-direction:column;gap:12px"><div class="orn-band" style="--h:40px"></div><div class="orn-band" style="--h:24px"></div></div>
 
-      <div class="lbl" style="left:622px;top:110px">.orn-arch + .orn-arch-in --w:300</div>
-      <div class="cell" style="left:622px;top:132px;width:300px;height:375px;--w:300px">
+      <div class="lbl" style="left:652px;top:112px">.orn-arch + .orn-arch-in --w:300</div>
+      <div class="cell" style="left:652px;top:132px;width:300px;height:375px;--w:300px">
         <div class="orn-arch-in" style="position:absolute;left:0;top:0"></div><div class="orn-arch" style="position:absolute;left:0;top:0"></div>
       </div>
-      <div class="lbl" style="left:622px;top:526px">.orn-arch --w:140 · --orn / --o</div>
-      <div class="cell" style="left:622px;top:548px;display:flex;gap:18px;align-items:flex-start">
-        <div class="orn-arch" style="--w:140px"></div>
-        <div class="orn-arch" style="--w:140px;--orn:var(--hi)"></div>
-        <div class="orn-arch" style="--w:140px;--o:.35"></div>
+      <div class="lbl" style="left:652px;top:526px">.orn-arch --w:96 · --orn · --o:.35</div>
+      <div class="cell" style="left:652px;top:548px;display:flex;gap:12px;align-items:flex-start">
+        <div class="orn-arch" style="--w:96px"></div>
+        <div class="orn-arch" style="--w:96px;--orn:var(--hi)"></div>
+        <div class="orn-arch" style="--w:96px;--o:.35"></div>
       </div>
 
       <div class="orn-band" style="position:absolute;left:0;bottom:0;right:0;--h:48px"></div>
