@@ -385,7 +385,7 @@ export default function Home() {
         <nav className="max-w-7xl mx-auto px-6 sm:px-8 py-4 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5">
             <img src="/logos/logo-icon.svg" alt="Alfa Z logo" width="40" height="40" className="w-10 h-10 rounded-xl shadow-lg shadow-accent/30" />
-            <span className="font-display font-bold text-xl tracking-tight">
+            <span className="font-display font-bold text-xl tracking-tight whitespace-nowrap">
               <span className="text-accent">α</span>lfa <span className="text-accent">Z</span>
             </span>
           </a>
@@ -435,7 +435,7 @@ export default function Home() {
               <div className="sticky top-0 bg-background/95 backdrop-blur-md border-b border-border z-10 flex items-center justify-between px-6 py-4">
                 <div className="flex items-center gap-2.5">
                   <img src="/logos/logo-icon.svg" alt="Alfa Z logo" width="40" height="40" className="w-10 h-10 rounded-xl" />
-                  <span className="font-display font-bold text-xl tracking-tight">
+                  <span className="font-display font-bold text-xl tracking-tight whitespace-nowrap">
                     <span className="text-accent">α</span>lfa <span className="text-accent">Z</span>
                   </span>
                 </div>
@@ -497,11 +497,11 @@ export default function Home() {
                     </span>
                     <span className="text-sm font-medium">+7 (700) 724-03-53</span>
                   </a>
-                  <a href="mailto:hello@alfa-z.kz" className="flex items-center gap-3 py-3 px-4 rounded-2xl hover:bg-muted transition-colors">
+                  <a href="mailto:info@alfa-z.kz" className="flex items-center gap-3 py-3 px-4 rounded-2xl hover:bg-muted transition-colors">
                     <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
                       <Icon name="message" className="h-5 w-5" />
                     </span>
-                    <span className="text-sm font-medium">hello@alfa-z.kz</span>
+                    <span className="text-sm font-medium">info@alfa-z.kz</span>
                   </a>
                 </div>
               </nav>
@@ -637,6 +637,42 @@ export default function Home() {
                   <p className="text-sm text-[#FFFBF5]/60 leading-relaxed">{card.desc}</p>
                 </motion.div>
               </TiltCard>
+            ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* 🤝 НАМ ДОВЕРЯЮТ — партнёры и хакатоны */}
+      <motion.section id="partners" className="relative py-20 sm:py-28 border-t border-border bg-muted/20" initial="hidden" whileInView="visible" viewport={scrollViewport} variants={staggerContainer}>
+        <div className="max-w-7xl mx-auto px-6 sm:px-8">
+          <motion.div variants={fadeInUp} className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
+            <p className="font-mono text-xs font-bold text-accent uppercase tracking-widest mb-3">{tr("Нам доверяют", "Бізге сенеді", "Trusted by")}</p>
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+              {tr("Мы не просто учим — ", "Біз жай үйретпейміз — ", "We don't just teach — ")}<span className="text-accent">{tr("проводим республиканские хакатоны", "республикалық хакатондар өткіземіз", "we run national hackathons")}</span>
+            </h2>
+            <p className="text-lg text-foreground/70 mt-4">{tr("Команда Alfa Z уже дважды организовала республиканские хакатоны вместе с ведущими вузами, школами и IT-компаниями Казахстана.", "Alfa Z командасы Қазақстанның жетекші жоғары оқу орындары, мектептері мен IT-компанияларымен бірге республикалық хакатондарды екі рет өткізді.", "The Alfa Z team has already organized two national hackathons together with leading universities, schools, and IT companies of Kazakhstan.")}</p>
+          </motion.div>
+
+          <motion.div variants={fadeInUp} className="grid grid-cols-2 gap-3 mb-12 sm:mb-14 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-4">
+            {["Astana Hub", "Astana IT University", "Astana Daryny", "TrustExam", "JUZ40", "CAP Education", tr("Лицей им. Абиша Кекильбаева", "Әбіш Кекілбаев атындағы лицей", "Abish Kekilbayev Lyceum")].map((p) => (
+              <span key={p} className="inline-flex items-center justify-center text-center leading-tight rounded-xl border border-border bg-surface px-3 sm:px-4 py-2.5 text-sm sm:text-base font-display font-bold text-foreground/80 last:col-span-2">{p}</span>
+            ))}
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-5 lg:gap-6 max-w-4xl mx-auto">
+            {[
+              { badge: tr("Республиканский хакатон · 2024", "Республикалық хакатон · 2024", "National hackathon · 2024"), title: "BICAP 2024", desc: tr("Организовали республиканский хакатон для школьников вместе с Astana Daryny и Лицеем им. Абиша Кекильбаева.", "Astana Daryny және Әбіш Кекілбаев атындағы лицеймен бірге оқушыларға арналған республикалық хакатон өткіздік.", "We ran a national school hackathon together with Astana Daryny and the Abish Kekilbayev Lyceum."), partnersLabel: tr("Партнёры", "Серіктестер", "Partners"), partners: ["Astana Daryny", tr("Лицей им. Абиша Кекильбаева", "Әбіш Кекілбаев атындағы лицей", "Abish Kekilbayev Lyceum")] },
+              { badge: tr("Республиканский хакатон · 2025", "Республикалық хакатон · 2025", "National hackathon · 2025"), title: "Astana IT University", desc: tr("Провели республиканский хакатон на базе Astana IT University при поддержке сильных партнёров и спонсоров.", "Astana IT University базасында күшті серіктестер мен демеушілердің қолдауымен республикалық хакатон өткіздік.", "We held a national hackathon at Astana IT University, backed by strong partners and sponsors."), partnersLabel: tr("Партнёры и спонсоры", "Серіктестер мен демеушілер", "Partners & sponsors"), partners: ["Astana IT University", "Astana Hub", "Astana Daryny", "TrustExam", "JUZ40", "CAP Education"] },
+            ].map((h, i) => (
+              <motion.div key={i} variants={staggerItem} className="rounded-2xl border border-border bg-surface p-6 lg:p-7">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-accent"><Icon name="award" className="h-3.5 w-3.5" /> {h.badge}</span>
+                <h3 className="font-display text-xl sm:text-2xl font-bold mt-3 mb-2">{h.title}</h3>
+                <p className="text-sm text-foreground/70 leading-relaxed mb-4">{h.desc}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-wider text-foreground/45 mb-2">{h.partnersLabel}</p>
+                <div className="flex flex-wrap gap-2">
+                  {h.partners.map((p) => (<span key={p} className="rounded-lg bg-muted px-2.5 py-1 text-xs font-semibold text-foreground/70">{p}</span>))}
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -1191,7 +1227,7 @@ async def check(update, ctx):
               <h4 className="font-display font-bold mb-4 text-surface">{tr("Контакты", "Байланыс", "Contacts")}</h4>
               <ul className="space-y-2.5 text-sm">
                 <li className="text-surface/60">📞 <a href="tel:+77007240353" className="hover:text-accent transition-colors">+7 (700) 724-03-53</a></li>
-                <li className="text-surface/60">✉️ <a href="mailto:hello@alfaz.kz" className="hover:text-accent transition-colors">hello@alfaz.kz</a></li>
+                <li className="text-surface/60">✉️ <a href="mailto:info@alfa-z.kz" className="hover:text-accent transition-colors">info@alfa-z.kz</a></li>
                 <li className="text-surface/60 leading-relaxed">📍 {tr("Астана, Казахстан", "Астана, Қазақстан", "Astana, Kazakhstan")}<br /><span className="text-surface/40 text-xs">{tr("Онлайн-обучение по всей стране", "Ел бойынша онлайн оқыту", "Online learning nationwide")}</span></li>
                 <li className="text-surface/60">🕐 {tr("Пн–Сб, 10:00–19:00 (UTC+5)", "Дс–Сб, 10:00–19:00 (UTC+5)", "Mon–Sat, 10:00–19:00 (UTC+5)")}</li>
               </ul>
