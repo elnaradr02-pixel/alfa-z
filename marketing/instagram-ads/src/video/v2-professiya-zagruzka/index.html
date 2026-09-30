@@ -70,13 +70,13 @@
 
   /* ═════════ СЦЕНА 1 ═════════ */
   #s1 .push { position: absolute; inset: 0; }
-  #q1 { position: absolute; right: -90px; top: 330px; font: 800 1180px/1 "Manrope", sans-serif; color: transparent;
+  #q1 { position: absolute; right: -110px; top: 640px; font: 800 1180px/1 "Manrope", sans-serif; color: transparent;
         -webkit-text-stroke: 5px rgba(255,107,71,.26); }
   #hook { position: absolute; left: 64px; top: 410px; font: 800 140px/0.98 "Manrope", sans-serif; letter-spacing: -0.048em; color: var(--cream); }
   #card1 { top: 930px; }
 
   /* ═════════ СЦЕНА 2 ═════════ */
-  #term { position: absolute; left: 64px; top: 372px; width: 952px; border-radius: 36px; background: #12121e;
+  #term { position: absolute; left: 64px; top: 452px; width: 952px; border-radius: 36px; background: #12121e;
     border: 2px solid rgba(255,251,245,.14); overflow: hidden; color: var(--cream);
     box-shadow: 0 50px 100px -30px rgba(0,0,0,.7), 0 0 90px -20px rgba(255,107,71,.2); }
   #term .bd { padding: 40px 44px 46px; }
@@ -84,8 +84,8 @@
   #typed .gt { color: var(--coral); font-weight: 700; }
   #cur { display: inline-block; width: .56em; height: .95em; background: var(--coral); vertical-align: -0.12em; margin-left: 2px; }
   #done { margin-top: 26px; font: 700 62px/1 "JetBrains Mono", monospace; color: var(--mint); display: flex; align-items: center; gap: 18px; }
-  #say { position: absolute; left: 64px; top: 872px; font: 800 116px/1 "Manrope", sans-serif; letter-spacing: -0.045em; white-space: nowrap; }
-  #ask { position: absolute; left: 64px; top: 1040px; font: 800 100px/1.03 "Manrope", sans-serif; letter-spacing: -0.042em; }
+  #say { position: absolute; left: 64px; top: 972px; font: 800 116px/1 "Manrope", sans-serif; letter-spacing: -0.045em; white-space: nowrap; }
+  #ask { position: absolute; left: 64px; top: 1146px; font: 800 100px/1.03 "Manrope", sans-serif; letter-spacing: -0.042em; }
   #s2 .mark-y { background-repeat: no-repeat; background-size: 0% 100%; background-position: 0 0; }
 
   /* ═════════ СЦЕНА 3 ═════════ */
@@ -110,7 +110,10 @@
   .tile { width: 122px; height: 122px; border-radius: 32px; background: var(--ink); display: grid; place-items: center; box-shadow: 0 14px 26px -12px rgba(15,15,26,.6); }
   .tile svg { width: 76px; height: 76px; }
   .tile .cd { font: 700 46px/1 "JetBrains Mono", monospace; color: var(--coral); letter-spacing: -0.06em; }
-  .spk { position: absolute; color: #fff; font-size: 44px; line-height: 1; }
+  .spk { position: absolute; color: #FFD23F; font-size: 44px; line-height: 1; }
+  .cw { position: absolute; left: 30px; top: 106px; width: 388px; height: 152px; border-radius: 24px; background: #14141F; padding: 14px 20px; box-shadow: 0 16px 30px -14px rgba(15,15,26,.6); }
+  .cwb { display: flex; gap: 8px; height: 14px; margin-bottom: 10px; } .cwb i { width: 12px; height: 12px; border-radius: 50%; background: rgba(255,251,245,.35); display: block; }
+  .cl { height: 15px; border-radius: 8px; margin-top: 12px; }
   #plaque { position: absolute; left: 50%; top: 1462px; margin-left: -390px; width: 780px; height: 112px; border-radius: 56px; background: var(--cream); color: var(--ink);
             display: flex; align-items: center; justify-content: center; gap: 20px; font: 800 58px/1 "Manrope", sans-serif; letter-spacing: -0.03em;
             box-shadow: 0 24px 50px -16px rgba(0,0,0,.6); }
@@ -122,17 +125,17 @@
   #h4 .a { font: 800 128px/1 "Manrope", sans-serif; letter-spacing: -0.05em; }
   #h4 .a .z { color: var(--coral); }
   #h4 .b { font: 800 66px/1.06 "Manrope", sans-serif; letter-spacing: -0.035em; }
-  #photo { position: absolute; left: 64px; top: 640px; width: 952px; height: 420px; border-radius: 46px; overflow: hidden; background: #123;
+  #photo { position: absolute; left: 64px; top: 630px; width: 952px; height: 450px; border-radius: 46px; overflow: hidden; background: #123;
            box-shadow: 0 40px 80px -30px rgba(15,15,26,.55); }
-  #photo img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 82%; transform-origin: 50% 70%; }
+  #photo img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 90%; transform-origin: 50% 0%; }
   #photo::after { content: ""; position: absolute; inset: 0; border-radius: 46px; box-shadow: inset 0 0 0 3px rgba(255,251,245,.35); }
   #ppill { position: absolute; left: 30px; bottom: 28px; z-index: 3; height: 66px; padding: 0 30px 0 26px; border-radius: 33px; background: var(--ink); color: var(--cream);
            display: flex; align-items: center; gap: 14px; font: 800 36px/1 "Manrope", sans-serif; letter-spacing: -0.01em; }
   #ppill i { width: 16px; height: 16px; border-radius: 50%; background: var(--coral); display: block; }
-  .fact { position: absolute; left: 64px; height: 100px; border-radius: 50px; background: var(--ink); color: var(--cream);
-          display: flex; align-items: center; gap: 22px; padding: 0 40px 0 24px; white-space: nowrap;
-          font: 700 44px/1 "Manrope", sans-serif; letter-spacing: -0.02em; box-shadow: 0 22px 40px -22px rgba(15,15,26,.7); }
-  .fact .ck { width: 54px; height: 54px; border-radius: 50%; background: var(--coral); display: grid; place-items: center; flex: none; }
+  .fact { position: absolute; left: 64px; height: 96px; border-radius: 48px; background: var(--ink); color: var(--cream);
+          display: flex; align-items: center; gap: 18px; padding: 0 32px 0 22px; white-space: nowrap;
+          font: 700 44px/1 "Manrope", sans-serif; letter-spacing: -0.03em; box-shadow: 0 22px 40px -22px rgba(15,15,26,.7); }
+  .fact .ck { width: 52px; height: 52px; border-radius: 50%; background: var(--coral); display: grid; place-items: center; flex: none; }
   .fact .ck svg { width: 30px; height: 30px; }
   .fact .k { color: var(--sun); }
 
@@ -194,7 +197,7 @@
       <div class="tb"><i style="background:#ff6b47"></i><i style="background:#ffb088"></i><i style="background:rgba(255,251,245,.4)"></i><em>ai-terminal</em></div>
       <div class="bd">
         <div id="typed"><span id="cur"></span></div>
-        <div id="done"><span>✓ готово</span></div>
+        <div id="done"><svg width="60" height="60" viewBox="0 0 24 24"><path d="M3.5 12.5l5.2 5.2L20.5 6" fill="none" stroke="#46D39A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>готово</span></div>
       </div>
     </div>
     <div id="say"><span class="hl">AI</span> уже пишет код.</div>
@@ -224,13 +227,16 @@
     </div>
     <div class="c3" id="c3R">
       <div class="lab">Создавать своё</div>
-      <span class="spk" style="right:34px;top:210px">✦</span><span class="spk" style="right:70px;top:290px;font-size:30px">✦</span>
+      <div class="cw"><div class="cwb"><i></i><i></i><i></i></div>
+        <div class="cl" style="width:58%;background:#FF8F6B"></div><div class="cl" style="width:80%;margin-left:28px;background:#FFD23F"></div>
+        <div class="cl" style="width:46%;margin-left:28px;background:#7BE0B3"></div><div class="cl" style="width:34%;background:#8AB4FF"></div></div>
       <div class="tiles">
         <div class="tile"><span class="cd">&lt;/&gt;</span></div>
         <div class="tile"><svg viewBox="0 0 64 64"><path d="M32 3c9 6 13 17 11 31l-4 8H25l-4-8C19 20 23 9 32 3z" fill="#FFFBF5"/><circle cx="32" cy="23" r="6" fill="#FF6B47"/><path d="M21 32l-9 9 2 9 10-6zM43 32l9 9-2 9-10-6z" fill="#FFB088"/><path d="M27 46h10l-5 15z" fill="#FFD23F"/></svg></div>
         <div class="tile"><svg viewBox="0 0 64 64"><rect x="6" y="9" width="52" height="46" rx="8" fill="none" stroke="#FFFBF5" stroke-width="4"/><path d="M6 21h52" stroke="#FFFBF5" stroke-width="4"/><rect x="13" y="28" width="11" height="20" rx="3" fill="#FF6B47"/><rect x="26.5" y="28" width="11" height="14" rx="3" fill="#FFD23F"/><rect x="40" y="28" width="11" height="9" rx="3" fill="#46D39A"/></svg></div>
       </div>
     </div>
+    <span class="spk" id="sp1" style="left:968px;top:566px;font-size:64px">✦</span><span class="spk" id="sp2" style="left:1000px;top:1010px;font-size:40px">✦</span>
     <div id="plaque"><i></i>Навыки строятся сейчас</div>
   </div>
 
@@ -242,10 +248,10 @@
   <div class="scene" id="s4">
     <div id="h4"><div class="a" id="h4a"><span>Alfa <span class="z">Z</span> —</span></div><div class="b" id="h4b">школа программирования</div><div class="b" id="h4c">для подростков <span class="mark-y">12–17 лет</span></div></div>
     <div id="photo"><img id="photoImg" src="../../assets/aitu-2025-card.jpg" alt=""><div id="ppill"><i></i>Республиканский хакатон · 2025</div></div>
-    <div class="fact" id="f1" style="top:1106px"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#0F0F1A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Резидент <span class="k">Astana Hub</span></span></div>
-    <div class="fact" id="f2" style="top:1224px"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#0F0F1A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Программа на базе Гарвардского <span class="k">CS50</span></span></div>
-    <div class="fact" id="f3" style="top:1342px"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#0F0F1A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Живой ментор, группы <span class="k">до 8</span> человек</span></div>
-    <div class="fact" id="f4" style="top:1460px"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#0F0F1A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Команда с опытом <span class="k">5000+</span> учеников</span></div>
+    <div class="fact" id="f1" style="top:1120px"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#0F0F1A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Резидент <span class="k">Astana Hub</span></span></div>
+    <div class="fact" id="f2" style="top:1232px"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#0F0F1A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Программа на базе Гарвардского <span class="k">CS50</span></span></div>
+    <div class="fact" id="f3" style="top:1344px"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#0F0F1A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Живой ментор, группы <span class="k">до 8</span> человек</span></div>
+    <div class="fact" id="f4" style="top:1456px"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="#0F0F1A" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Команда с опытом <span class="k">5000+</span> учеников</span></div>
   </div>
 
   <!-- ══════════ СЦЕНА 5 · ОФФЕР + CTA ══════════ -->
@@ -438,7 +444,7 @@
   tl.fromTo("#feed", { y: 0 }, { y: -218, duration: 0.9, ease: "none", repeat: 3, immediateRender: false }, 9.2);
   // иконки создателя
   tl.fromTo("#c3R .tile", { scale: 0, rotation: -25 }, { scale: 1, rotation: 0, duration: 0.45, stagger: 0.13, ease: "back.out(2.2)" }, 9.85);
-  tl.fromTo("#c3R .spk", { scale: 0, rotation: -60 }, { scale: 1, rotation: 0, duration: 0.5, stagger: 0.12, ease: "back.out(2.4)" }, 10.05);
+  tl.fromTo("#sp1, #sp2", { scale: 0, rotation: -60 }, { scale: 1, rotation: 0, duration: 0.5, stagger: 0.12, ease: "back.out(2.4)" }, 10.05);
   cue(9.85, "pop", 0.6, 0.3); cue(9.98, "pop", 0.6, 0.4); cue(10.11, "pop", 0.6, 0.5);
   // акцент на правой дороге
   tl.to("#c3L", { opacity: 0.55, scale: 0.96, duration: 0.45, ease: "power2.inOut" }, 10.5);
@@ -465,7 +471,7 @@
   cue(12.8, "pop", 0.6);
   tl.fromTo("#photo", { y: 150, scale: 0.9, opacity: 0, transformOrigin: "50% 100%" }, { y: 0, scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.25)" }, 13.25);
   cue(13.25, "swipe", 0.8);
-  tl.fromTo("#photoImg", { scale: 1.02, xPercent: 0, yPercent: 0 }, { scale: 1.17, xPercent: -3.5, yPercent: -3, duration: 5.4, ease: "none" }, 13.2);
+  tl.fromTo("#photoImg", { scale: 1.02, xPercent: 0, yPercent: 0 }, { scale: 1.13, xPercent: -2.5, yPercent: 0, duration: 5.4, ease: "none" }, 13.2);
   tl.fromTo("#ppill", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "back.out(1.4)" }, 13.75);
   cue(13.8, "pop", 0.6);
   ["f1", "f2", "f3", "f4"].forEach((id, i) => {
