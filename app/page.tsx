@@ -8,7 +8,7 @@ import CodeWindow from "./components/CodeWindow";
 import CodeBackdrop from "./components/CodeBackdrop";
 import Icon, { type IconName } from "./components/Icon";
 import HowWeTeach from "./components/HowWeTeach";
-import LevelBadges from "./components/LevelBadges";
+import PlatformSection from "./components/PlatformSection";
 import LangSwitcher from "./components/LangSwitcher";
 import LiveDemos from "./components/LiveDemos";
 import JsonLd from "./components/JsonLd";
@@ -741,72 +741,8 @@ async def check(update, ctx):
         </div>
       </section>
 
-      {/* 🎮 ГЕЙМИФИКАЦИЯ — прогресс, уровни, ачивки (ассеты из Canva + SVG) */}
-      <motion.section className="sheet relative overflow-hidden bg-background pb-20 pt-24 shadow-[0_-24px_60px_-30px_rgba(15,15,26,0.25)] sm:pb-28 sm:pt-32" initial="hidden" whileInView="visible" viewport={scrollViewport} variants={staggerContainer}>
-        <div className="max-w-7xl mx-auto px-6 sm:px-8">
-          <SectionHead
-            index="09"
-            eyebrow={tr("прогресс_и_достижения", "прогресс_пен_жетістіктер", "progress_and_achievements")}
-            title={<>{tr("Учёба, в которой ", "Оқу — мұнда ", "Learning where ")}<span className="text-accent">{tr("виден каждый шаг", "әр қадам көрінеді", "every step is visible")}</span><span className="text-accent font-mono animate-blink">_</span></>}
-            lead={tr("Уровни мастерства, ачивки за реальные достижения и сертификаты каждые 3 недели — ребёнок видит прогресс, а не «всё в конце».", "Шеберлік деңгейлері, нақты жетістіктер үшін ачивкалар және әр 3 апта сайын сертификат — бала прогресті көреді, «бәрі соңында» емес.", "Skill levels, achievements for real milestones, and certificates every 3 weeks — the child sees progress, not 'everything at the end'.")}
-          />
-
-          {/* 🖥 Terminal-окно прогресса */}
-          <motion.div variants={fadeInUp} className="relative">
-            <div aria-hidden className="pointer-events-none absolute -inset-x-6 -inset-y-4 hidden rounded-[3rem] bg-accent/25 blur-[90px] md:block" />
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0F0F1A] shadow-2xl shadow-[#0F0F1A]/40">
-            {/* Плашка окна */}
-            <div className="flex items-center gap-2 px-4 py-3 bg-white/[0.04] border-b border-white/10">
-              <span className="h-3 w-3 rounded-full bg-[#FF6B47]" />
-              <span className="h-3 w-3 rounded-full bg-[#FFB088]" />
-              <span className="h-3 w-3 rounded-full bg-[#FFB088]" />
-              <span className="ml-3 font-mono text-[11px] sm:text-xs text-white/45 truncate">alfaz@student: ~/progress.log</span>
-            </div>
-
-            {/* Тело окна */}
-            <div className="grid gap-8 p-5 sm:p-8 lg:grid-cols-2 lg:gap-0 lg:p-0">
-              {/* Уровни */}
-              <div className="lg:p-10">
-                <p className="font-mono text-xs sm:text-sm text-accent-soft">$ progress --levels</p>
-                <p className="font-mono text-[11px] sm:text-xs text-white/40 mb-6"># {tr("5 уровней мастерства: от новичка до защиты проекта", "5 шеберлік деңгейі: жаңадан бастаушыдан жоба қорғауға дейін", "5 skill levels: from beginner to project defense")}</p>
-                <LevelBadges />
-              </div>
-
-              <div aria-hidden className="h-px bg-white/10 lg:hidden" />
-
-              {/* Ачивки */}
-              <div className="lg:border-l lg:border-white/10 lg:p-10">
-                <p className="font-mono text-xs sm:text-sm text-accent-soft mb-4">$ achievements --unlocked</p>
-                <ul className="space-y-2.5 font-mono text-xs sm:text-sm leading-relaxed">
-                  {[
-                    { key: "first_project", label: tr("Первый проект", "Алғашқы жоба", "First project") },
-                    { key: "project_defense", label: tr("Защита проекта", "Жоба қорғау", "Project defense") },
-                    { key: "week_streak", label: tr("Стрик недели", "Апталық стрик", "Weekly streak") },
-                  ].map((a) => (
-                    <li key={a.key} className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
-                      <span className="text-[#FFB088]">[✓]</span>
-                      <span className="text-white/85">achievement_unlocked</span>
-                      <span className="text-accent">{a.key}</span>
-                      <span className="text-white/40">// {a.label}</span>
-                    </li>
-                  ))}
-                  <li className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
-                    <span className="text-accent-soft">[»]</span>
-                    <span className="text-white/85">certificate</span>
-                    <span className="text-accent">every_3_weeks</span>
-                    <span className="text-white/40">// {tr("6–14 сертификатов за курс", "курсқа 6–14 сертификат", "6–14 certificates per course")}</span>
-                  </li>
-                </ul>
-                <p className="mt-5 font-mono text-xs sm:text-sm flex items-center gap-1">
-                  <span className="text-accent-soft">$</span>
-                  <span className="inline-block w-2 h-4 bg-accent-soft animate-blink" aria-hidden />
-                </p>
-              </div>
-            </div>
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
+      {/* 🧩 СВОЯ ПЛАТФОРМА — вместо макета «уровни/ачивки»: только реальные функции */}
+      <PlatformSection />
 
       <motion.section id="teachers" className="sheet relative bg-muted pb-20 pt-24 shadow-[0_-24px_60px_-30px_rgba(15,15,26,0.25)] sm:pb-28 sm:pt-32" initial="hidden" whileInView="visible" viewport={scrollViewport} variants={staggerContainer}>
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
