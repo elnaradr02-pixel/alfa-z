@@ -54,9 +54,9 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 #s2 .blob.a { width: 900px; height: 900px; right: -420px; top: -200px; background: radial-gradient(circle, rgba(255,210,63,.42), rgba(255,210,63,0) 65%); }
 #s2 .blob.b { width: 1000px; height: 1000px; left: -480px; bottom: -420px; background: radial-gradient(circle, rgba(255,176,136,.75), rgba(255,176,136,0) 65%); }
 .clock { position: absolute; right: 64px; top: 300px; width: 300px; height: 300px; }
-#s2 .lines { position: absolute; left: 64px; top: 690px; width: 952px; }
-#s2 .ln1 { font-size: 92px; line-height: 1.05; }
-#s2 .ln2, #s2 .ln3 { font-size: 150px; line-height: 1; letter-spacing: -0.05em; }
+#s2 .lines { position: absolute; left: 64px; top: 650px; width: 952px; }
+#s2 .ln1 { font-size: 100px; line-height: 1.05; }
+#s2 .ln2, #s2 .ln3 { font-size: 156px; line-height: 1; letter-spacing: -0.05em; }
 #s2 .ln2 { margin-top: 26px; }
 #s2 .ln3 { margin-top: 10px; }
 #s2 .strike { position: absolute; left: -14px; right: -6px; top: 54%; height: 20px; border-radius: 10px; background: var(--ink); transform-origin: 0 50%; transform: scaleX(0); }
@@ -73,7 +73,7 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 #s3 { background: #10101c; color: var(--cream); }
 #s3 .g1 { left: -560px; top: 1000px; width: 1500px; height: 1500px; background: radial-gradient(closest-side, rgba(255,107,71,.40), rgba(255,107,71,0)); }
 #s3 .g2 { right: -600px; top: -400px; width: 1400px; height: 1400px; background: radial-gradient(closest-side, rgba(122,92,255,.36), rgba(122,92,255,0)); }
-#grpA { position: absolute; left: 64px; top: 300px; width: 952px; }
+#grpA { position: absolute; left: 64px; top: 290px; width: 952px; }
 .pill3 { display: block; width: max-content; margin: 0 auto; padding: 20px 40px; border-radius: 999px; background: var(--coral); color: var(--ink);
   font: 800 46px/1 "Manrope", sans-serif; letter-spacing: -0.02em; box-shadow: 0 20px 44px -16px rgba(255,107,71,.8); }
 .w3 { margin-top: 36px; width: 952px; transform-origin: 50% 0; background: #171727; box-shadow: 0 50px 100px -30px #000, 0 0 0 3px rgba(255,255,255,.07); }
@@ -85,19 +85,19 @@ html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; 
 .w3 .ch { position: relative; opacity: 0; }
 .w3 .cr { position: absolute; right: -3px; top: .12em; width: 5px; height: 1.16em; background: var(--sun); border-radius: 2px; opacity: 0; }
 .w3 .k-n { color: #8ab4ff; } .w3 .k-f { color: #ffd23f; } .w3 .k-s { color: #7be0b3; } .w3 .k-p { color: #f4efe6; }
-.ph3 { position: absolute; left: 290px; top: 640px; width: 500px; height: 810px; z-index: 3; box-shadow: 0 0 0 4px #2b2f4d, 0 0 120px rgba(255,107,71,.4), 0 50px 90px -30px #000; }
+.ph3 { position: absolute; left: 290px; top: 690px; width: 500px; height: 740px; z-index: 3; box-shadow: 0 0 0 4px #2b2f4d, 0 0 120px rgba(255,107,71,.4), 0 50px 90px -30px #000; }
 .ph3 .scr { background: #fffbf5; }
 .ph3 .qz { position: absolute; inset: 0; padding: 78px 26px 0; }
 .ph3 .qbar { height: 14px; border-radius: 7px; background: #e9e4dc; margin: 0 6px 22px; overflow: hidden; }
 .ph3 .qbar i { display: block; width: 32%; height: 100%; background: var(--coral); border-radius: 7px; }
-.ph3 .qh { font: 800 56px/1.04 "Manrope", sans-serif; letter-spacing: -0.035em; text-align: center; margin-bottom: 26px; color: var(--ink); }
-.ph3 .qb { position: relative; height: 98px; border-radius: 30px; margin-bottom: 18px; display: flex; align-items: center; padding: 0 28px; gap: 20px;
+.ph3 .qh { font: 800 56px/1.04 "Manrope", sans-serif; letter-spacing: -0.035em; text-align: center; margin-bottom: 22px; color: var(--ink); }
+.ph3 .qb { position: relative; height: 90px; border-radius: 28px; margin-bottom: 14px; display: flex; align-items: center; padding: 0 28px; gap: 20px;
   font: 800 44px/1 "Manrope", sans-serif; letter-spacing: -0.025em; box-shadow: inset 0 -7px 0 rgba(15,15,26,.16); }
 .ph3 .qb::before { content: ""; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.55); flex: none; }
 .ph3 .q0 { background: #7a5cff; color: #fff; } .ph3 .q1 { background: #46d39a; color: var(--ink); }
 .ph3 .q2 { background: #4aa8ff; color: var(--ink); } .ph3 .q3 { background: #ffd23f; color: var(--ink); }
 .ph3 .qdim { position: absolute; inset: 0; background: #14141f; z-index: 5; }
-.cap3 { position: absolute; left: 0; right: 0; top: 1478px; display: flex; justify-content: center; z-index: 6; }
+.cap3 { position: absolute; left: 0; right: 0; top: 1458px; display: flex; justify-content: center; z-index: 6; }
 .cap3 span { display: block; padding: 22px 44px; border-radius: 999px; background: var(--sun); color: var(--ink);
   font: 800 56px/1 "Manrope", sans-serif; letter-spacing: -0.035em; box-shadow: 0 24px 50px -18px rgba(255,210,63,.55); white-space: nowrap; }
 .conf { position: absolute; left: 540px; top: 1000px; width: 0; height: 0; z-index: 8; }
