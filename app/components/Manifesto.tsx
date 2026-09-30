@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import Aurora from "./Aurora";
 import { useLang } from "../i18n/lang";
 
@@ -10,7 +10,7 @@ function Word({ word, i, n, progress }: { word: string; i: number; n: number; pr
   const start = i / n;
   const end = Math.min(1, start + 2.2 / n);
   const opacity = useTransform(progress, [start, end], [0.14, 1]);
-  const key = /AI|junior|IT/i.test(word);
+  const key = /^(AI|IT|junior)\b/.test(word);
   return (
     <motion.span style={{ opacity }} className={key ? "text-accent" : undefined}>
       {word}{" "}
@@ -25,9 +25,10 @@ function Word({ word, i, n, progress }: { word: string; i: number; n: number; pr
  */
 export default function Manifesto() {
   const { tr } = useLang();
+  const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const progress = useTransform(scrollYProgress, [0.08, 0.82], [0, 1]);
+  const progress = useTransform(scrollYProgress, [0.08, 0.82], reduce ? [1, 1] : [0, 1]);
 
   const text = tr(
     "Мы открыто учим работать с AI, а не делаем вид, что его нет.",
@@ -37,7 +38,7 @@ export default function Manifesto() {
   const words = text.split(" ");
 
   return (
-    <section ref={ref} className="sheet relative h-[190vh] bg-[#0F0F1A] text-[#FFFBF5] md:h-[230vh]">
+    <section ref={ref} className={`sheet relative bg-[#0F0F1A] text-[#FFFBF5] ${reduce ? "h-screen" : "h-[190vh] md:h-[230vh]"}`}>
       <div className="sticky top-0 flex h-screen items-center overflow-hidden">
         <Aurora />
         <div className="dot-grid-dark pointer-events-none absolute inset-0 opacity-60" />

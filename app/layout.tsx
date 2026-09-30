@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import CustomCursor from "./components/CustomCursor";
 import IntroCurtain, { INTRO_SCRIPT } from "./components/IntroCurtain";
+import MotionRoot from "./components/MotionRoot";
 import { LanguageProvider } from "./i18n/lang";
 import JsonLd from "./components/JsonLd";
 import { organizationLd, websiteLd } from "./lib/structured-data";
@@ -103,7 +104,7 @@ export default function RootLayout({
         <JsonLd data={[organizationLd, websiteLd]} />
         <LanguageProvider>
           <CustomCursor />
-          {children}
+          <MotionRoot>{children}</MotionRoot>
 
           {/* 💬 Jivo онлайн-консультант */}
           <Script

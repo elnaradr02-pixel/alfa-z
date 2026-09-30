@@ -110,13 +110,13 @@ function FloatingMessengers() {
     pulse: boolean;
     icon: React.ReactNode;
   }> = [
-    { name: "WhatsApp", tooltip: "Написать в WhatsApp", href: "https://wa.me/77007240353", bg: "bg-[#25D366]", pulse: true,
+    { name: "WhatsApp", tooltip: tr("Написать в WhatsApp", "WhatsApp-қа жазу", "Message on WhatsApp"), href: "https://wa.me/77007240353", bg: "bg-[#25D366]", pulse: true,
       icon: (<svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>) },
-    { name: "Telegram", tooltip: "Написать в Telegram", href: "https://t.me/alfaz_school", bg: "bg-[#229ED9]", pulse: false,
+    { name: "Telegram", tooltip: tr("Написать в Telegram", "Telegram-ға жазу", "Message on Telegram"), href: "https://t.me/alfaz_school", bg: "bg-[#229ED9]", pulse: false,
       icon: (<svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>) },
-    { name: "Instagram", tooltip: "Написать в Instagram", href: "https://instagram.com/alfaz.school", bg: "bg-gradient-to-br from-[#feda75] via-[#d62976] to-[#4f5bd5]", pulse: false,
+    { name: "Instagram", tooltip: tr("Написать в Instagram", "Instagram-ға жазу", "Message on Instagram"), href: "https://instagram.com/alfaz.school", bg: "bg-gradient-to-br from-[#feda75] via-[#d62976] to-[#4f5bd5]", pulse: false,
       icon: (<svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>) },
-    { name: "Чат", tooltip: jivoOpen ? "Закрыть чат" : "Открыть чат с менеджером", href: "#", onClick: toggleJivo, bg: "bg-[#FF6B47]", pulse: false,
+    { name: "Чат", tooltip: jivoOpen ? tr("Закрыть чат", "Чатты жабу", "Close chat") : tr("Открыть чат с менеджером", "Менеджермен чатты ашу", "Open chat with a manager"), href: "#", onClick: toggleJivo, bg: "bg-[#FF6B47]", pulse: false,
       icon: jivoOpen ? closeIcon : chatIcon },
   ];
 
@@ -150,7 +150,7 @@ function FloatingMessengers() {
 
           <motion.button
             onClick={() => setCollapsed(!collapsed)}
-            aria-label={collapsed ? "Связаться с нами" : "Свернуть"}
+            aria-label={collapsed ? tr("Связаться с нами", "Бізбен байланысу", "Contact us") : tr("Свернуть", "Жию", "Collapse")}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             className={`group relative w-12 h-12 sm:w-14 sm:h-14 rounded-full ${collapsed ? "bg-[#FF6B47]" : "bg-foreground"} text-white flex items-center justify-center shadow-xl transition-colors duration-300`}
@@ -211,7 +211,7 @@ function ApplyModal({ open, onClose, defaultCourse = "" }) {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    if (open && defaultCourse) setCourse(defaultCourse);
+    if (open) setCourse(defaultCourse);
   }, [open, defaultCourse]);
 
   useEffect(() => {
@@ -335,6 +335,16 @@ export default function Home() {
   const heroContentOpacity = useTransform(heroProgress, [0, 0.7], [1, 0]);
   const heroBlur = useTransform(heroProgress, [0, 0.7], ["blur(0px)", "blur(12px)"]);
   const { canRender3D } = useDeviceCapabilities();
+  // Затухание/размытие героя при скролле — только ≥1280px: ниже в потоке героя стоит
+  // интерактивная карточка «первая программа», и она не должна гаснуть, пока с ней работают.
+  const [wideHero, setWideHero] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1280px)");
+    const sync = () => setWideHero(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -347,7 +357,7 @@ export default function Home() {
       <a href="/astana-hub-cert.pdf" target="_blank" rel="noopener noreferrer" className="group block bg-foreground text-surface transition-colors hover:bg-foreground/90">
         <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 px-4 py-2 text-center text-[13px] sm:text-sm">
           <Icon name="award" className="h-4 w-4 flex-none text-accent" />
-          <span className="font-medium whitespace-nowrap">{tr("Резидент ", "", "Resident of ")}<span className="font-bold">Astana Hub</span>{tr("", " резиденті", "")}<span className="hidden text-surface/55 sm:inline"> · официально, рег. №3882</span></span>
+          <span className="font-medium whitespace-nowrap">{tr("Резидент ", "", "Resident of ")}<span className="font-bold">Astana Hub</span>{tr("", " резиденті", "")}<span className="hidden text-surface/55 sm:inline">{tr(" · официально, рег. №3882", " · ресми, тіркеу №3882", " · official, reg. No. 3882")}</span></span>
           <span className="font-semibold text-accent whitespace-nowrap">{tr("Свидетельство →", "Куәлік →", "Certificate →")}</span>
         </div>
       </a>
@@ -491,17 +501,17 @@ export default function Home() {
         )}
       </AnimatePresence>
 
-      <section ref={heroRef} onPointerMove={spot} className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-24 sm:pt-24 sm:pb-20 lg:pt-24 lg:pb-52">
-        <motion.video autoPlay loop muted playsInline poster="/hero-poster.jpg" style={{ y: videoY, scale: videoScale }} className="absolute inset-0 w-full h-full object-cover z-0">
+      <section ref={heroRef} onPointerMove={spot} className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-24 sm:pt-24 sm:pb-20 xl:pb-52">
+        <motion.video autoPlay loop muted playsInline poster="/hero-poster.jpg" style={canRender3D ? { y: videoY, scale: videoScale } : undefined} className="absolute inset-0 w-full h-full object-cover z-0">
           <source src="/hero-video.mp4" type="video/mp4" />
         </motion.video>
         {/* Графит поверх видео: слева плотнее (читаемость текста), справа видно человека */}
         <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#0F0F1A]/92 via-[#0F0F1A]/62 to-[#0F0F1A]/20" />
         <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#0F0F1A]/80 via-transparent to-[#0F0F1A]/40" />
         {/* Аврора и «фонарик» под курсором — коралловое свечение поверх видео */}
-        <Aurora className="z-10 opacity-60 mix-blend-screen" />
+        <Aurora className="z-10 hidden opacity-60 mix-blend-screen md:block" />
         <div aria-hidden className="pointer-events-none absolute inset-0 z-10 hidden mix-blend-screen md:block" style={{ background: "radial-gradient(560px circle at var(--mx, 72%) var(--my, 38%), rgba(255,107,71,0.22), transparent 62%)" }} />
-        <motion.div style={{ y: heroContentY, opacity: heroContentOpacity, filter: canRender3D ? heroBlur : undefined }} className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8">
+        <motion.div style={canRender3D && wideHero ? { y: heroContentY, opacity: heroContentOpacity, filter: heroBlur } : undefined} className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-8">
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-accent/15 border border-accent/40 mb-7 animate-fade-in-up">
               <span className="relative flex w-2 h-2">
@@ -526,7 +536,7 @@ export default function Home() {
               </Magnetic>
               <a href="#courses" className="inline-flex items-center gap-2 px-7 py-4 border border-white/30 text-white rounded-full font-semibold hover:bg-white/10 transition-colors duration-300">{tr("Программа курсов", "Курстар бағдарламасы", "Course catalog")}</a>
             </div>
-            <ul className="flex flex-wrap gap-2 animate-fade-in-up delay-400">
+            <ul className="flex flex-wrap gap-2 animate-fade-in-up delay-400 xl:max-w-[40rem]">
               <li>
                 <a href="#partners" aria-label={tr("Смотреть фото с наших хакатонов", "Хакатондарымыздан түсірілген суреттерді көру", "See photos from our hackathons")} className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3.5 py-1.5 font-mono text-xs text-white transition-colors hover:bg-accent/20">
                   <Icon name="award" className="h-3.5 w-3.5 flex-none text-accent" />
@@ -551,7 +561,7 @@ export default function Home() {
         <HeroCodeCard variant="float" onCta={() => openApply()} />
 
         {/* Полоса «крючков» — без цены: цена появляется ниже, после ценности */}
-        <div className="absolute inset-x-0 bottom-10 z-20 hidden border-t border-white/15 bg-[#0F0F1A]/60 backdrop-blur-md md:block animate-fade-in-up delay-500">
+        <div className="absolute inset-x-0 bottom-10 z-20 hidden border-t border-white/15 bg-[#0F0F1A]/60 backdrop-blur-md xl:block animate-fade-in-up delay-500">
           <dl className="mx-auto grid max-w-7xl grid-cols-4 divide-x divide-white/10 px-8">
             {[
               { big: tr("1-й урок", "1-сабақ", "Lesson 1"), small: tr("и уже пишет свой код", "және өз кодын жазады", "and already writing real code") },
@@ -576,7 +586,7 @@ export default function Home() {
 
       <PartnersSection openApply={() => openApply()} />
 
-      <motion.section id="courses" className="sheet relative pb-20 pt-24 sm:pb-28 sm:pt-32 overflow-hidden bg-midnight text-ink-fg" initial="hidden" whileInView="visible" viewport={scrollViewport} variants={staggerContainer}>
+      <motion.section id="courses" className="sheet relative pb-20 pt-24 sm:pb-28 sm:pt-32 overflow-clip bg-midnight text-ink-fg" initial="hidden" whileInView="visible" viewport={scrollViewport} variants={staggerContainer}>
         <CodeBackdrop />
         <div className="relative max-w-7xl mx-auto px-6 sm:px-8">
           <SectionHead
@@ -588,7 +598,7 @@ export default function Home() {
 
           <StackedCards>
             {[
-              { emoji: "🎓", title: tr("Гарвардский курс CS50", "Гарвардтың CS50 курсы", "Harvard CS50"), tagline: "Scratch → C → Python → SQL → Flask", desc: tr("Легендарный вводный курс информатики Гарварда на русском. Настоящий фундамент Computer Science — от устройства памяти компьютера до веб-приложения на Flask.", "Гарвардтың информатика бойынша аңызға айналған кіріспе курсы. Computer Science-тің нағыз іргетасы — компьютер жадының құрылымынан бастап Flask-тегі веб-қосымшаға дейін.", "Harvard's legendary intro to computer science. A real Computer Science foundation — from how memory works to a web app on Flask."), result: tr("Портфолио уровня CS50 + фундамент, с которым легко даётся любой язык", "CS50 деңгейіндегі портфолио + кез келген тіл оңай меңгерілетін іргетас", "A CS50-level portfolio + a foundation that makes any language easy"), lessons: tr("49 уроков · 11 модулей", "49 сабақ · 11 модуль", "49 lessons · 11 modules"), age: tr("14–18 лет", "14–18 жас", "ages 14–18"), certs: tr("7 Problem Sets + сертификаты", "7 Problem Sets + сертификаттар", "7 Problem Sets + certificates"), stack: ["Scratch", "C", "Python", "SQL", "Flask", "JavaScript"], bgClass: "bg-gradient-to-br from-accent/15 via-accent-soft/10 to-transparent", coursePage: "", kind: "cs50" as const, glow: "#FF6B47", file: "hello.c", code: `#include <cs50.h>
+              { emoji: "🎓", key: "Гарвардский курс CS50", title: tr("Гарвардский курс CS50", "Гарвардтың CS50 курсы", "Harvard CS50"), tagline: "Scratch → C → Python → SQL → Flask", desc: tr("Легендарный вводный курс информатики Гарварда на русском. Настоящий фундамент Computer Science — от устройства памяти компьютера до веб-приложения на Flask.", "Гарвардтың информатика бойынша аңызға айналған кіріспе курсы. Computer Science-тің нағыз іргетасы — компьютер жадының құрылымынан бастап Flask-тегі веб-қосымшаға дейін.", "Harvard's legendary intro to computer science. A real Computer Science foundation — from how memory works to a web app on Flask."), result: tr("Портфолио уровня CS50 + фундамент, с которым легко даётся любой язык", "CS50 деңгейіндегі портфолио + кез келген тіл оңай меңгерілетін іргетас", "A CS50-level portfolio + a foundation that makes any language easy"), lessons: tr("49 уроков · 11 модулей", "49 сабақ · 11 модуль", "49 lessons · 11 modules"), age: tr("14–18 лет", "14–18 жас", "ages 14–18"), certs: tr("7 Problem Sets + сертификаты", "7 Problem Sets + сертификаттар", "7 Problem Sets + certificates"), stack: ["Scratch", "C", "Python", "SQL", "Flask", "JavaScript"], bgClass: "bg-gradient-to-br from-accent/15 via-accent-soft/10 to-transparent", coursePage: "", kind: "cs50" as const, glow: "#FF6B47", file: "hello.c", code: `#include <cs50.h>
 #include <stdio.h>
 
 int main(void)
@@ -596,7 +606,7 @@ int main(void)
     string name = get_string("Как тебя зовут? ");
     printf("Привет, %s!\\n", name);
 }` },
-              { emoji: "📱", title: tr("Мобильная разработка", "Мобильді әзірлеу", "Mobile development"), tagline: "FlutterFlow → Flutter → Firebase", desc: tr("Создаём приложения для Android и iOS. От квиза «Какой ты персонаж» до мини-Instagram для класса.", "Android және iOS үшін қосымшалар жасаймыз. «Сен қай кейіпкерсің» квизінен сынып үшін мини-Instagram-ға дейін.", "We build apps for Android and iOS. From a 'Which character are you' quiz to a mini-Instagram for the class."), result: tr("Финал в Google Play + AdMob + профиль на Upwork", "Финал Google Play-де + AdMob + Upwork профилі", "Final on Google Play + AdMob + an Upwork profile"), lessons: tr("48 уроков · 24 недели", "48 сабақ · 24 апта", "48 lessons · 24 weeks"), age: tr("14–17 лет", "14–17 жас", "ages 14–17"), certs: tr("14+ сертификатов", "14+ сертификат", "14+ certificates"), stack: ["Flutter", "Dart", "Firebase", "Flame", "Codemagic"], bgClass: "bg-gradient-to-br from-accent/15 via-accent-soft/10 to-transparent", coursePage: "/courses/mobdev", kind: "mobdev" as const, glow: "#FF6B47", file: "quiz_app.dart", code: `import 'package:flutter/material.dart';
+              { emoji: "📱", key: "Мобильная разработка", title: tr("Мобильная разработка", "Мобильді әзірлеу", "Mobile development"), tagline: "FlutterFlow → Flutter → Firebase", desc: tr("Создаём приложения для Android и iOS. От квиза «Какой ты персонаж» до мини-Instagram для класса.", "Android және iOS үшін қосымшалар жасаймыз. «Сен қай кейіпкерсің» квизінен сынып үшін мини-Instagram-ға дейін.", "We build apps for Android and iOS. From a 'Which character are you' quiz to a mini-Instagram for the class."), result: tr("Финал в Google Play + AdMob + профиль на Upwork", "Финал Google Play-де + AdMob + Upwork профилі", "Final on Google Play + AdMob + an Upwork profile"), lessons: tr("48 уроков · 24 недели", "48 сабақ · 24 апта", "48 lessons · 24 weeks"), age: tr("14–17 лет", "14–17 жас", "ages 14–17"), certs: tr("14+ сертификатов", "14+ сертификат", "14+ certificates"), stack: ["Flutter", "Dart", "Firebase", "Flame", "Codemagic"], bgClass: "bg-gradient-to-br from-accent/15 via-accent-soft/10 to-transparent", coursePage: "/courses/mobdev", kind: "mobdev" as const, glow: "#FF6B47", file: "quiz_app.dart", code: `import 'package:flutter/material.dart';
 
 void main() => runApp(const QuizApp());
 
@@ -606,7 +616,7 @@ class QuizApp extends StatelessWidget {
     return const MaterialApp(home: QuizScreen());
   }
 }` },
-              { emoji: "🎮", title: tr("Геймдев на Unity", "Unity-де геймдев", "Game dev on Unity"), tagline: "Unity 6 + C# + 2D", desc: tr("Делаем игры жанров Mario, Hollow Knight, Celeste. Финальная игра на 3 платформах.", "Mario, Hollow Knight, Celeste жанрындағы ойындар жасаймыз. Финалдық ойын 3 платформада.", "We make games in the style of Mario, Hollow Knight, Celeste. A final game on 3 platforms."), result: tr("Игра на itch.io + Google Play + App Store", "Ойын itch.io + Google Play + App Store-да", "A game on itch.io + Google Play + App Store"), lessons: tr("50 уроков · 25 недель", "50 сабақ · 25 апта", "50 lessons · 25 weeks"), age: tr("13–18 лет", "13–18 жас", "ages 13–18"), certs: tr("5–8 игр в портфолио", "портфолиода 5–8 ойын", "5–8 games in a portfolio"), stack: ["Unity 6", "C#", "Piskel", "Git"], bgClass: "bg-gradient-to-br from-accent-soft/20 via-muted/30 to-transparent", coursePage: "/courses/gamedev", kind: "gamedev" as const, glow: "#FFB088", file: "Player.cs", code: `using UnityEngine;
+              { emoji: "🎮", key: "Геймдев на Unity", title: tr("Геймдев на Unity", "Unity-де геймдев", "Game dev on Unity"), tagline: "Unity 6 + C# + 2D", desc: tr("Делаем игры жанров Mario, Hollow Knight, Celeste. Финальная игра на 3 платформах.", "Mario, Hollow Knight, Celeste жанрындағы ойындар жасаймыз. Финалдық ойын 3 платформада.", "We make games in the style of Mario, Hollow Knight, Celeste. A final game on 3 platforms."), result: tr("Игра на itch.io + Google Play + App Store", "Ойын itch.io + Google Play + App Store-да", "A game on itch.io + Google Play + App Store"), lessons: tr("50 уроков · 25 недель", "50 сабақ · 25 апта", "50 lessons · 25 weeks"), age: tr("13–18 лет", "13–18 жас", "ages 13–18"), certs: tr("5–8 игр в портфолио", "портфолиода 5–8 ойын", "5–8 games in a portfolio"), stack: ["Unity 6", "C#", "Piskel", "Git"], bgClass: "bg-gradient-to-br from-accent-soft/20 via-muted/30 to-transparent", coursePage: "/courses/gamedev", kind: "gamedev" as const, glow: "#FFB088", file: "Player.cs", code: `using UnityEngine;
 
 public class Player : MonoBehaviour {
     public float speed = 8f;
@@ -616,7 +626,7 @@ public class Player : MonoBehaviour {
         transform.Translate(x * speed * Time.deltaTime, 0, 0);
     }
 }` },
-              { emoji: "🌐", title: tr("Веб-разработка", "Веб-әзірлеу", "Web development"), tagline: "HTML → CSS → JavaScript → React", desc: tr("Учимся делать современные сайты как профессионалы. От первого Hello, World до React-приложения.", "Заманауи сайттарды кәсіби деңгейде жасауды үйренеміз. Алғашқы Hello, World-тан React-қосымшаға дейін.", "We learn to build modern sites like pros. From your first Hello, World to a React app."), result: tr("React-приложение в интернете + GitHub-портфолио", "Интернеттегі React-қосымша + GitHub-портфолио", "A React app online + a GitHub portfolio"), lessons: tr("48 уроков · 24 недели", "48 сабақ · 24 апта", "48 lessons · 24 weeks"), age: tr("12–17 лет", "12–17 жас", "ages 12–17"), certs: tr("6 сертификатов", "6 сертификат", "6 certificates"), stack: ["React", "TypeScript", "Tailwind", "Git"], bgClass: "bg-gradient-to-br from-foreground/[0.04] via-muted/40 to-transparent", coursePage: "/courses/web", kind: "web" as const, glow: "#FF6B47", file: "App.jsx", code: `import { useState } from "react";
+              { emoji: "🌐", key: "Веб-разработка", title: tr("Веб-разработка", "Веб-әзірлеу", "Web development"), tagline: "HTML → CSS → JavaScript → React", desc: tr("Учимся делать современные сайты как профессионалы. От первого Hello, World до React-приложения.", "Заманауи сайттарды кәсіби деңгейде жасауды үйренеміз. Алғашқы Hello, World-тан React-қосымшаға дейін.", "We learn to build modern sites like pros. From your first Hello, World to a React app."), result: tr("React-приложение в интернете + GitHub-портфолио", "Интернеттегі React-қосымша + GitHub-портфолио", "A React app online + a GitHub portfolio"), lessons: tr("48 уроков · 24 недели", "48 сабақ · 24 апта", "48 lessons · 24 weeks"), age: tr("12–17 лет", "12–17 жас", "ages 12–17"), certs: tr("6 сертификатов", "6 сертификат", "6 certificates"), stack: ["React", "TypeScript", "Tailwind", "Git"], bgClass: "bg-gradient-to-br from-foreground/[0.04] via-muted/40 to-transparent", coursePage: "/courses/web", kind: "web" as const, glow: "#FF6B47", file: "App.jsx", code: `import { useState } from "react";
 
 export default function App() {
   const [count, setCount] = useState(0);
@@ -626,7 +636,7 @@ export default function App() {
     </button>
   );
 }` },
-              { emoji: "⚙️", title: tr("Бэкенд на Python", "Python-дағы бэкенд", "Backend on Python"), tagline: "Python → SQL → Flask → Docker", desc: tr("«Мозги» сайтов и приложений. Создаём Telegram-бот, который работает 24/7, и боевой REST API.", "Сайттар мен қосымшалардың «миы». 24/7 жұмыс істейтін Telegram-бот пен нақты REST API жасаймыз.", "The 'brains' of sites and apps. We build a Telegram bot that runs 24/7 and a real REST API."), result: tr("Telegram-бот 24/7 + REST API на Docker в интернете", "Telegram-бот 24/7 + интернеттегі Docker-дегі REST API", "A 24/7 Telegram bot + a REST API on Docker online"), lessons: tr("52 урока · 26 недель", "52 сабақ · 26 апта", "52 lessons · 26 weeks"), age: tr("13–18 лет", "13–18 жас", "ages 13–18"), certs: tr("5–7 проектов в портфолио", "портфолиода 5–7 жоба", "5–7 projects in a portfolio"), stack: ["Python", "Flask", "FastAPI", "SQL", "Docker"], bgClass: "bg-gradient-to-br from-muted/30 via-accent-soft/10 to-transparent", coursePage: "/courses/backend", kind: "backend" as const, glow: "#FF6B47", file: "guess_game_bot.py", code: `import random
+              { emoji: "⚙️", key: "Бэкенд на Python", title: tr("Бэкенд на Python", "Python-дағы бэкенд", "Backend on Python"), tagline: "Python → SQL → Flask → Docker", desc: tr("«Мозги» сайтов и приложений. Создаём Telegram-бот, который работает 24/7, и боевой REST API.", "Сайттар мен қосымшалардың «миы». 24/7 жұмыс істейтін Telegram-бот пен нақты REST API жасаймыз.", "The 'brains' of sites and apps. We build a Telegram bot that runs 24/7 and a real REST API."), result: tr("Telegram-бот 24/7 + REST API на Docker в интернете", "Telegram-бот 24/7 + интернеттегі Docker-дегі REST API", "A 24/7 Telegram bot + a REST API on Docker online"), lessons: tr("52 урока · 26 недель", "52 сабақ · 26 апта", "52 lessons · 26 weeks"), age: tr("13–18 лет", "13–18 жас", "ages 13–18"), certs: tr("5–7 проектов в портфолио", "портфолиода 5–7 жоба", "5–7 projects in a portfolio"), stack: ["Python", "Flask", "FastAPI", "SQL", "Docker"], bgClass: "bg-gradient-to-br from-muted/30 via-accent-soft/10 to-transparent", coursePage: "/courses/backend", kind: "backend" as const, glow: "#FF6B47", file: "guess_game_bot.py", code: `import random
 
 secret = random.randint(1, 100)
 
@@ -672,7 +682,7 @@ async def check(update, ctx):
                         {tr("Страница — скоро", "Бет — жақында", "Page — soon")}
                       </span>
                     )}
-                    <button onClick={() => openApply(course.title)} className="btn-arrow shine inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3 font-semibold text-white shadow-md shadow-accent/20 transition-colors hover:bg-accent-hover">
+                    <button onClick={() => openApply(course.key)} className="btn-arrow shine inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3 font-semibold text-white shadow-md shadow-accent/20 transition-colors hover:bg-accent-hover">
                       {tr("Записаться", "Жазылу", "Enroll")} <span className="arrow" aria-hidden>→</span>
                     </button>
                   </div>
@@ -741,7 +751,7 @@ async def check(update, ctx):
 
           {/* 🖥 Terminal-окно прогресса */}
           <motion.div variants={fadeInUp} className="relative">
-            <div aria-hidden className="pointer-events-none absolute -inset-x-6 -inset-y-4 rounded-[3rem] bg-accent/25 blur-[48px] md:blur-[90px]" />
+            <div aria-hidden className="pointer-events-none absolute -inset-x-6 -inset-y-4 hidden rounded-[3rem] bg-accent/25 blur-[90px] md:block" />
             <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#0F0F1A] shadow-2xl shadow-[#0F0F1A]/40">
             {/* Плашка окна */}
             <div className="flex items-center gap-2 px-4 py-3 bg-white/[0.04] border-b border-white/10">

@@ -140,7 +140,7 @@ export default function CustomCursor() {
     const classify = (t: Element | null) => {
       target = null;
       if (!t || !t.closest) return setModeOnce("default");
-      if (t.closest(FIELD)) return setModeOnce("hidden"); // у полей остаётся системная I-каретка
+      if (t.closest(FIELD) || t.closest("jdiv")) return setModeOnce("hidden"); // поля и чат Jivo — системный курсор
       const el = t.closest(SNAP);
       if (el) {
         const r = el.getBoundingClientRect();
@@ -162,7 +162,11 @@ export default function CustomCursor() {
       if (pts.length > 40) pts.shift();
       kick();
     };
-    const rescan = () => { if (target) place(mx, my); };
+    const rescan = () => {
+      if (mx < 0 || my < 0) return;
+      classify(document.elementFromPoint(mx, my));
+      place(mx, my);
+    };
     const down = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
       setPressed(true);
@@ -206,7 +210,7 @@ export default function CustomCursor() {
   const hide = mode === "hidden" || !visible;
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[9999]" aria-hidden>
+    <div className="pointer-events-none fixed inset-0 z-[10001]" aria-hidden>
       <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
 
       {/* Кольцо: default → кольцо, snap → подсветка по форме элемента, big → круг со стрелкой, code → </> */}

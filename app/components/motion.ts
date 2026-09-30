@@ -20,4 +20,6 @@ export const staggerItem: Variants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
 };
 
-export const scrollViewport = { once: true, amount: 0.08 } as const;
+// amount: 0 + нижний отступ: срабатывает, когда секция реально вошла в экран — даже очень высокая
+// (иначе на телефоне в альбомной ориентации доля видимой части не дотягивает до порога).
+export const scrollViewport = { once: true, amount: 0, margin: "0px 0px -15% 0px" } as const;

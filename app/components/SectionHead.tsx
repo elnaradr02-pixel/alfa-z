@@ -45,11 +45,11 @@ export default function SectionHead({
 }) {
   return (
     <motion.div variants={wrap} className={`mb-12 sm:mb-16 grid gap-6 lg:grid-cols-12 lg:items-end ${className}`}>
-      <div className="lg:col-span-7">
+      <div className="min-w-0 lg:col-span-7">
         <div className="mb-5 flex items-center gap-3 font-mono text-xs uppercase tracking-[0.18em]">
           <span className="font-bold text-accent">{index}</span>
           <motion.span variants={growLine} aria-hidden className="h-px w-10 origin-left bg-current opacity-30" />
-          <span className="opacity-60">{eyebrow}</span>
+          <span className="min-w-0 opacity-60 [overflow-wrap:anywhere]">{eyebrow}</span>
         </div>
         <motion.h2
           variants={blurReveal}

@@ -29,7 +29,7 @@ export default function PricingSection({ openApply }: { openApply: () => void })
   return (
     <motion.section
       id="pricing"
-      className="sheet relative overflow-hidden bg-background pb-20 pt-24 shadow-[0_-24px_60px_-30px_rgba(15,15,26,0.25)] sm:pb-28 sm:pt-32"
+      className="sheet relative overflow-clip bg-background pb-20 pt-24 shadow-[0_-24px_60px_-30px_rgba(15,15,26,0.25)] sm:pb-28 sm:pt-32"
       initial="hidden"
       whileInView="visible"
       viewport={scrollViewport}

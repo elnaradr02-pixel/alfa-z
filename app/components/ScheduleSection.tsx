@@ -15,12 +15,13 @@ export default function ScheduleSection({ openApply }: { openApply: (course?: st
     { icon: "calendar" as IconName, big: tr("Гибкий график", "Икемді кесте", "Flexible schedule"), small: tr("подберём удобные дни и время", "ыңғайлы күн мен уақыт таңдаймыз", "we'll pick convenient days and times") },
   ];
 
+  // key — русское название = value в <select> формы записи (чтобы курс подставлялся на любом языке)
   const groups = [
-    { course: tr("Гарвардский курс CS50", "Гарвардтың CS50 курсы", "Harvard CS50"), icon: "graduation" as IconName, age: tr("14–18 лет", "14–18 жас", "ages 14–18"), seatsLeft: 4, totalSeats: 8 },
-    { course: tr("Веб-разработка", "Веб-әзірлеу", "Web development"), icon: "globe" as IconName, age: tr("12–17 лет", "12–17 жас", "ages 12–17"), seatsLeft: 3, totalSeats: 8 },
-    { course: tr("Мобильная разработка", "Мобильді әзірлеу", "Mobile development"), icon: "smartphone" as IconName, age: tr("14–17 лет", "14–17 жас", "ages 14–17"), seatsLeft: 5, totalSeats: 8 },
-    { course: tr("Геймдев на Unity", "Unity-де геймдев", "Game dev on Unity"), icon: "gamepad" as IconName, age: tr("13–18 лет", "13–18 жас", "ages 13–18"), seatsLeft: 2, totalSeats: 8 },
-    { course: tr("Бэкенд на Python", "Python-дағы бэкенд", "Backend on Python"), icon: "settings" as IconName, age: tr("13–18 лет", "13–18 жас", "ages 13–18"), seatsLeft: 6, totalSeats: 8 },
+    { key: "Гарвардский курс CS50", course: tr("Гарвардский курс CS50", "Гарвардтың CS50 курсы", "Harvard CS50"), icon: "graduation" as IconName, age: tr("14–18 лет", "14–18 жас", "ages 14–18") },
+    { key: "Веб-разработка", course: tr("Веб-разработка", "Веб-әзірлеу", "Web development"), icon: "globe" as IconName, age: tr("12–17 лет", "12–17 жас", "ages 12–17") },
+    { key: "Мобильная разработка", course: tr("Мобильная разработка", "Мобильді әзірлеу", "Mobile development"), icon: "smartphone" as IconName, age: tr("14–17 лет", "14–17 жас", "ages 14–17") },
+    { key: "Геймдев на Unity", course: tr("Геймдев на Unity", "Unity-де геймдев", "Game dev on Unity"), icon: "gamepad" as IconName, age: tr("13–18 лет", "13–18 жас", "ages 13–18") },
+    { key: "Бэкенд на Python", course: tr("Бэкенд на Python", "Python-дағы бэкенд", "Backend on Python"), icon: "settings" as IconName, age: tr("13–18 лет", "13–18 жас", "ages 13–18") },
   ];
 
   return (
@@ -39,7 +40,7 @@ export default function ScheduleSection({ openApply }: { openApply: (course?: st
           title={
             <>
               {tr("Подберём ", "", "We'll find ")}
-              <span className="text-accent">{tr("удобное расписание", "ыңғайлы кесте таңдаймыз", "a schedule that suits you")}</span>
+              <span className="text-accent">{tr("удобное расписание", "Ыңғайлы кесте таңдаймыз", "a schedule that suits you")}</span>
             </>
           }
           lead={tr("Никакого потока и ожидания: занятия начинаются сразу после оплаты абонемента. Живые занятия с ментором 2 раза в неделю по 1 часу — а дни и время подберём под вашего ребёнка: утром, днём или вечером, чтобы не мешало школе и секциям.", "Ешқандай ағын мен күту жоқ: сабақтар абонемент төленгеннен кейін бірден басталады. Ментормен тірі сабақтар аптасына 2 рет, 1 сағаттан — ал күндер мен уақытты балаңызға қарай таңдаймыз: таңертең, күндіз не кешке, мектеп пен үйірмелерге кедергі болмас үшін.", "No cohorts, no waiting: lessons start right after you pay for the subscription. Live lessons with a mentor twice a week for 1 hour — and we'll pick days and times to fit your child: morning, afternoon, or evening, so it doesn't clash with school and activities.")}
@@ -61,7 +62,6 @@ export default function ScheduleSection({ openApply }: { openApply: (course?: st
         {/* Группы — строки-«таблица», а не пять одинаковых карточек */}
         <ul className="border-b border-foreground/15">
           {groups.map((g, i) => {
-            const almostFull = g.seatsLeft <= 3;
             return (
               <motion.li
                 key={i}
@@ -72,41 +72,36 @@ export default function ScheduleSection({ openApply }: { openApply: (course?: st
                   <span className="inline-flex h-11 w-11 flex-none items-center justify-center rounded-xl bg-accent/10 text-accent"><Icon name={g.icon} className="h-5 w-5" /></span>
                   <div className="min-w-0">
                     <h3 className="font-display text-xl font-bold leading-tight tracking-tight">{g.course}</h3>
-                    <p className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-foreground/55">
-                      {g.age}
-                      {almostFull && (
-                        <span className="inline-flex items-center gap-1 rounded-full bg-accent/15 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent">
-                          <Icon name="flame" className="h-3 w-3" />{tr("Почти набрано", "Толуға жақын", "Almost full")}
-                        </span>
-                      )}
-                    </p>
+                    <p className="mt-0.5 text-sm text-foreground/55">{g.age}</p>
                   </div>
                 </div>
 
+                {/* Честный формат вместо «осталось мест»: малая группа, 2 раза в неделю, старт сразу */}
                 <div>
-                  <div className="mb-2 flex items-center justify-between font-mono text-xs">
-                    <span className="uppercase tracking-widest text-foreground/50">{tr("Места в группе", "Топтағы орындар", "Seats in the group")}</span>
-                    <span className="font-bold text-accent">{tr("Осталось: ", "Қалды: ", "Left: ")}{g.seatsLeft}{tr(" из ", " / ", " of ")}{g.totalSeats}</span>
+                  <div className="mb-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-xs">
+                    <span className="font-semibold uppercase tracking-widest text-foreground/50">{tr("Малая группа", "Шағын топ", "Small group")}</span>
+                    <span className="font-bold text-accent">{tr("до 8 учеников", "8 оқушыға дейін", "up to 8 students")}</span>
                   </div>
-                  <div className="flex gap-1.5" role="img" aria-label={`${g.seatsLeft} / ${g.totalSeats}`}>
-                    {Array.from({ length: g.totalSeats }, (_, s) => (
+                  <div className="flex gap-1.5" aria-hidden>
+                    {Array.from({ length: 8 }, (_, s) => (
                       <motion.span
                         key={s}
                         initial={{ scaleY: 0.3, opacity: 0 }}
                         whileInView={{ scaleY: 1, opacity: 1 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: 0.15 + s * 0.05 }}
-                        className={`h-2.5 flex-1 origin-bottom rounded-full ${s < g.totalSeats - g.seatsLeft ? "bg-foreground/20" : "bg-accent"}`}
+                        className="h-2.5 flex-1 origin-bottom rounded-full bg-accent/70"
                       />
                     ))}
                   </div>
+                  <p className="mt-2 text-xs text-foreground/55">{tr("2 раза в неделю по 1 часу · старт сразу после оплаты", "аптасына 2 рет, 1 сағаттан · төлемнен кейін бірден старт", "2× a week, 1 hour · start right after payment")}</p>
                 </div>
 
                 <button
-                  onClick={() => openApply(g.course)}
+                  onClick={() => openApply(g.key)}
                   className="btn-arrow inline-flex items-center justify-center gap-2 rounded-full border border-foreground/20 px-6 py-3 text-sm font-semibold transition-colors hover:border-accent hover:bg-accent hover:text-white md:justify-self-end"
                 >
-                  {tr("Записаться в эту группу", "Осы топқа жазылу", "Join this group")} <span className="arrow" aria-hidden>→</span>
+                  {tr("Записаться", "Жазылу", "Enroll")} <span className="arrow" aria-hidden>→</span>
                 </button>
               </motion.li>
             );
@@ -115,7 +110,7 @@ export default function ScheduleSection({ openApply }: { openApply: (course?: st
 
         <motion.div variants={fadeInUp} className="mt-12 text-center">
           <p className="mb-3 text-sm text-foreground/60">{tr("Расскажите про учёбу и секции ребёнка — встроим занятия в удобное окно, на любой график.", "Балаңыздың оқуы мен үйірмелері туралы айтыңыз — сабақтарды кез келген графикке, ыңғайлы уақытқа енгіземіз.", "Tell us about your child's school and activities — we'll fit the lessons into a convenient window, any schedule.")}</p>
-          <button onClick={() => openApply()} className="btn-arrow inline-flex items-center gap-2 font-semibold text-accent transition-colors hover:text-accent-hover">
+          <button onClick={() => openApply()} className="btn-arrow inline-flex min-h-11 items-center gap-2 px-2 font-semibold text-accent transition-colors hover:text-accent-hover">
             {tr("Подобрать удобное время", "Ыңғайлы уақыт таңдау", "Find a convenient time")} <span className="arrow" aria-hidden>→</span>
           </button>
         </motion.div>

@@ -14,7 +14,7 @@ export default function StatsLedger() {
   const stats = [
     { value: 5, suffix: "", label: tr("направлений — от Гарвардского CS50 до геймдева", "бағыт — Гарвард CS50-ден геймдевке дейін", "tracks — from Harvard CS50 to game dev") },
     { value: 49, suffix: "", label: tr("занятий в курсе CS50: C, Python, SQL, веб", "CS50 курсындағы сабақ: C, Python, SQL, веб", "lessons in CS50: C, Python, SQL, web") },
-    { value: 8, suffix: "", label: tr("человек максимум в группе, не поток из 100", "топтағы оқушылар саны, 100 адамдық ағын емес", "students max per group, not a class of 100") },
+    { value: 8, suffix: "", label: tr("человек максимум в группе, не поток из 100", "топтағы оқушылардың ең көп саны, 100 адамдық ағын емес", "students max per group, not a class of 100") },
     { value: 24, suffix: "/7", label: tr("ментор на связи с каждым учеником", "ментор әр оқушымен байланыста", "a mentor in touch with every student") },
   ];
 

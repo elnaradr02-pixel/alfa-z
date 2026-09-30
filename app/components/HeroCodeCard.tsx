@@ -40,13 +40,13 @@ export default function HeroCodeCard({ variant = "float", onCta }: { variant?: "
 
   const shell =
     variant === "float"
-      ? "hero-card absolute bottom-44 right-8 z-20 hidden w-[340px] lg:block xl:right-16"
-      : "relative mt-8 w-full max-w-md animate-fade-in-up delay-500 lg:hidden";
+      ? "hero-card absolute bottom-44 right-8 z-20 hidden w-[340px] xl:right-16 xl:block"
+      : "relative mt-8 w-full max-w-md animate-fade-in-up delay-500 xl:hidden";
 
   return (
     <div className={shell}>
       <div
-        className={`rounded-2xl border bg-[#0F0F1A]/55 p-4 shadow-2xl backdrop-blur-xl transition-[border-color,box-shadow] duration-500 ${
+        className={`rounded-2xl border bg-[#0F0F1A]/85 p-4 shadow-2xl transition-[border-color,box-shadow] duration-500 md:bg-[#0F0F1A]/55 md:backdrop-blur-xl ${
           state === "done" ? "border-accent/60 shadow-accent/30" : "border-white/20 shadow-black/40"
         }`}
       >
@@ -54,7 +54,7 @@ export default function HeroCodeCard({ variant = "float", onCta }: { variant?: "
           <span className="h-2.5 w-2.5 rounded-full bg-[#FF6B47]" />
           <span className="h-2.5 w-2.5 rounded-full bg-[#FFB088]" />
           <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
-          <span className="ml-2 font-mono text-[11px] text-white/45">first_program.py</span>
+          <span className="ml-2 font-mono text-[11px] text-white/60">first_program.py</span>
           <span className="ml-auto rounded-full bg-accent/20 px-2 py-0.5 text-[10px] font-semibold text-accent-soft">
             {tr("Попробуй", "Байқап көр", "Try it")}
           </span>
@@ -71,7 +71,7 @@ export default function HeroCodeCard({ variant = "float", onCta }: { variant?: "
               onKeyDown={(e) => e.key === "Enter" && run()}
               placeholder={tr("твоё имя", "атың", "your name")}
               aria-label={tr("Впиши своё имя", "Атыңды жаз", "Type your name")}
-              className="w-[8.5rem] min-w-0 border-b border-dashed border-accent/60 bg-transparent px-0.5 text-accent caret-accent-soft placeholder:text-accent/45 focus:border-accent focus:outline-none focus-visible:outline-none"
+              className="w-[9.5rem] min-w-0 border-b text-base md:w-[8.5rem] md:text-[13px] border-dashed border-accent/60 bg-transparent px-0.5 text-accent caret-accent-soft placeholder:text-accent/45 focus:border-accent focus:outline-none focus-visible:outline-none"
             />
             <span className="text-accent">&quot;</span>
           </label>
@@ -82,7 +82,7 @@ export default function HeroCodeCard({ variant = "float", onCta }: { variant?: "
         </div>
 
         <div className="mt-3 min-h-[3.25rem] rounded-lg bg-black/35 px-3 py-2 font-mono text-[13px] leading-6" aria-live="polite">
-          {state === "idle" && <span className="text-white/35">{tr("# впиши имя и нажми ▶", "# атыңды жаз да ▶ бас", "# type your name and press ▶")}</span>}
+          {state === "idle" && <span className="text-white/70">{tr("# впиши имя и нажми ▶", "# атыңды жаз да ▶ бас", "# type your name and press ▶")}</span>}
           {state === "running" && !out && (
             <span className="inline-flex items-center gap-2 text-white/45">
               <span className="h-3 w-3 animate-spin rounded-full border-2 border-accent/30 border-t-accent" /> python first_program.py
@@ -104,13 +104,13 @@ export default function HeroCodeCard({ variant = "float", onCta }: { variant?: "
           <button
             onClick={run}
             disabled={state === "running"}
-            className="shine inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:opacity-60"
+            className="shine inline-flex min-h-11 items-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:opacity-60"
           >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M6 4l14 8-14 8z" /></svg>
             {state === "done" ? tr("Ещё раз", "Тағы", "Again") : tr("Запустить", "Іске қосу", "Run")}
           </button>
           {state === "done" && onCta && (
-            <button onClick={onCta} className="btn-arrow text-sm font-semibold text-accent-soft transition-colors hover:text-white">
+            <button onClick={onCta} className="btn-arrow inline-flex min-h-11 items-center gap-1 px-2 text-sm font-semibold text-accent-soft transition-colors hover:text-white">
               {tr("Хочу дальше", "Әрі қарай", "I want more")} <span className="arrow" aria-hidden>→</span>
             </button>
           )}
