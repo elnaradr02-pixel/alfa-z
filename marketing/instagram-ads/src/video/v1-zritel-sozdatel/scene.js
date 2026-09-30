@@ -293,14 +293,14 @@
   tl.fromTo("#msgR .bub", { scale: 0.4, opacity: 0, y: 30 }, { scale: 1, opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.7)" }, s4 + 1.95);
   cue(s4 + 1.95, "pop", 0.9, 0.3);
   // сердечки над ответом
-  [[840, 690, 64, 0.0], [930, 740, 48, 0.12], [760, 720, 44, 0.22]].forEach(function (h, i) {
+  [[915, 930, 66, 0.0], [975, 870, 46, 0.12], [880, 850, 42, 0.22]].forEach(function (h, i) {
     const el = document.createElement("div");
     el.className = "heart";
     el.style.left = h[0] + "px"; el.style.top = h[1] + "px"; el.style.width = h[2] + "px"; el.style.height = h[2] + "px";
     el.innerHTML = '<svg><use href="#i-heart"/></svg>';
     $("#s4").appendChild(el);
     tl.fromTo(el, { scale: 0, y: 30, opacity: 0 }, { scale: 1, y: 0, opacity: 1, duration: 0.4, ease: "back.out(2.5)" }, s4 + 2.15 + h[3]);
-    tl.to(el, { y: -110, opacity: 0, duration: 1.1, ease: "power1.out" }, s4 + 2.6 + h[3]);
+    tl.to(el, { y: -90, opacity: 0, duration: 1.0, ease: "power1.out" }, s4 + 2.6 + h[3]);
   });
   // подпись
   ["#c4a", "#c4b", "#c4c"].forEach(function (sel, i) {
