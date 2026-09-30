@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Icon, { type IconName } from "./Icon";
+import aituCard from "@/public/assets/hackathons/aitu-2025-card.jpg";
 
 /**
  * Продающий лендинг под таргет (Instagram) на профориентационный пробный урок.
@@ -37,6 +39,10 @@ export type TrialDict = {
   dirAccent: string;
   dirSub: string;
   directions: { icon: IconName; name: string }[];
+  // Доказательство: фото с хакатона перед ценой
+  proofEyebrow: string;
+  proofText: string;
+  proofAlt: string;
   // цена + форма
   priceEyebrow: string;
   priceValue: string;
@@ -189,6 +195,21 @@ export default function TrialLanding({ t }: { t: TrialDict }) {
               </span>
             ))}
           </div>
+
+          {/* Реальное событие — последнее, что видят перед ценой */}
+          <figure className="mx-auto mt-10 max-w-lg overflow-hidden rounded-3xl border border-border bg-surface text-left">
+            <Image
+              src={aituCard}
+              alt={t.proofAlt}
+              placeholder="blur"
+              sizes="(min-width: 640px) 512px, calc(100vw - 40px)"
+              className="aspect-[4/3] h-auto w-full object-cover"
+            />
+            <figcaption className="px-5 py-4">
+              <p className="font-mono text-[11px] font-bold uppercase tracking-widest text-accent">{t.proofEyebrow}</p>
+              <p className="mt-1 text-[15px] leading-snug text-foreground/80">{t.proofText}</p>
+            </figcaption>
+          </figure>
         </div>
       </section>
 

@@ -46,6 +46,9 @@ const kk: TrialDict = {
     { icon: "server", name: "Бэкенд" },
     { icon: "smartphone", name: "Мобильді әзірлеу" },
   ],
+  proofEyebrow: "Біз тек оқытып қана қоймаймыз",
+  proofText: "2025 жылы Alfa Z командасы Astana IT University базасында мектеп оқушыларына арналған республикалық хакатон өткізді.",
+  proofAlt: "Astana IT University сахнасындағы мектеп оқушыларына арналған республикалық хакатонның қатысушылары, 2025 жыл",
 
   priceEyebrow: "Сынақ сабақтың құны",
   priceValue: "3000 ₸",

@@ -527,9 +527,15 @@ export default function Home() {
               <a href="#courses" className="inline-flex items-center gap-2 px-7 py-4 border border-white/30 text-white rounded-full font-semibold hover:bg-white/10 transition-colors duration-300">{tr("Программа курсов", "Курстар бағдарламасы", "Course catalog")}</a>
             </div>
             <ul className="flex flex-wrap gap-2 animate-fade-in-up delay-400">
+              <li>
+                <a href="#partners" aria-label={tr("Смотреть фото с наших хакатонов", "Хакатондарымыздан түсірілген суреттерді көру", "See photos from our hackathons")} className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3.5 py-1.5 font-mono text-xs text-white transition-colors hover:bg-accent/20">
+                  <Icon name="award" className="h-3.5 w-3.5 flex-none text-accent" />
+                  {tr("Республиканские хакатоны 2024–2025", "Республикалық хакатондар 2024–2025", "National hackathons 2024–2025")}
+                  <span aria-hidden>↓</span>
+                </a>
+              </li>
               {[
                 tr("Программа Гарварда CS50", "Гарвардтың CS50 бағдарламасы", "Harvard CS50 curriculum"),
-                tr("Преподаватели-практики", "Тәжірибелі ұстаздар", "Practicing instructors"),
                 tr("Малые группы с ментором", "Ментормен шағын топтар", "Small groups with a mentor"),
                 tr("Резидент Astana Hub", "Astana Hub резиденті", "Astana Hub resident"),
               ].map((t) => (
@@ -568,7 +574,7 @@ export default function Home() {
 
       <WhyBento />
 
-      <PartnersSection />
+      <PartnersSection openApply={() => openApply()} />
 
       <motion.section id="courses" className="sheet relative pb-20 pt-24 sm:pb-28 sm:pt-32 overflow-hidden bg-midnight text-ink-fg" initial="hidden" whileInView="visible" viewport={scrollViewport} variants={staggerContainer}>
         <CodeBackdrop />
@@ -852,7 +858,7 @@ async def check(update, ctx):
 
       <FaqSection />
 
-      <motion.footer initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={scrollViewport} transition={{ duration: 0.8 }} className="sheet relative bg-foreground text-surface">
+      <footer className="sheet relative bg-foreground text-surface">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 py-16 sm:py-20">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 mb-12">
             <div className="lg:col-span-1">
@@ -917,7 +923,7 @@ async def check(update, ctx):
             </div>
           </div>
         </div>
-      </motion.footer>
+      </footer>
     </div>
   );
 }
