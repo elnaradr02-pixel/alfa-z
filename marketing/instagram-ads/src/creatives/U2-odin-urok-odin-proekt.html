@@ -1,0 +1,64 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>U2 · 60 минут — свой первый проект</title>
+<link rel="stylesheet" href="../base.css">
+<style>
+  /* Тема cobalt: фон — насыщенный кобальт, глубина — night-2, свет — accent-2, тёплый акцент — hi (янтарь) */
+  .frame { background: var(--accent); color: var(--on-accent); }
+  .bg { background:
+    radial-gradient(120% 46% at 0% 0%, rgba(var(--night-2-rgb),.62), transparent 70%),
+    radial-gradient(62% 30% at 96% 44%, rgba(var(--accent-2-rgb),.6), transparent 68%),
+    radial-gradient(110% 40% at 0% 100%, rgba(var(--night-2-rgb),.85), transparent 70%),
+    linear-gradient(172deg, var(--accent) 0%, var(--accent-d) 100%); }
+  .bg::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(var(--paper-rgb),.16) 2.4px, transparent 2.8px); background-size: 34px 34px; -webkit-mask-image: linear-gradient(180deg,#000,transparent 40%,transparent 66%,#000); mask-image: linear-gradient(180deg,#000,transparent 40%,transparent 66%,#000); }
+  .logo .name { color: var(--paper); } .logo small { color: var(--on-accent); opacity: 1; }
+  .h1 { color: var(--on-accent); }
+  .h1 .pl { background: var(--hi); color: var(--on-hi); padding: 0 .1em; border-radius: 16px; display: inline-block; line-height: 1.05; margin-left: -.04em; }
+  .fan { position: relative; height: 560px; margin-top: 10px; }
+  body.story .fan { height: 680px; }
+  .card { position: absolute; border-radius: 40px; background: var(--paper); box-shadow: 0 40px 70px -30px rgba(var(--night-rgb),.8); overflow: hidden; }
+  .c1 { left: -10px; top: 70px; width: 470px; height: 380px; transform: rotate(-6deg); }
+  .c2 { left: 330px; top: 20px; width: 290px; height: 540px; transform: rotate(3deg); z-index: 2; background: var(--night); padding: 14px; border-radius: 52px; }
+  .c3 { right: -6px; top: 90px; width: 330px; height: 470px; transform: rotate(8deg); background: var(--night); padding: 14px; border-radius: 52px; }
+  body.story .c1 { top: 110px; } body.story .c2 { top: 40px; height: 620px; } body.story .c3 { top: 130px; height: 530px; }
+  .scr { border-radius: 40px; background: var(--paper); height: 100%; overflow: hidden; }
+  /* сайт */
+  .site .top { height: 44px; background: var(--tint); display: flex; align-items: center; gap: 8px; padding: 0 16px; } .site .top i { width: 12px; height: 12px; border-radius: 50%; background: var(--accent-2); }
+  .site .hero { margin: 16px; height: 130px; border-radius: 20px; background: linear-gradient(135deg, var(--accent-d), var(--accent)); padding: 18px; color: var(--on-accent); font: 800 30px/1.05 "Manrope"; }
+  .site .g { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 0 16px; } .site .g i { height: 74px; border-radius: 14px; background: var(--tint); display: block; }
+  .site .g i:nth-child(2) { background: color-mix(in srgb, var(--hi) 55%, #fff); }
+  .site .g i:nth-child(3) { background: var(--accent-2); }
+  /* бот */
+  .bot { background: var(--tint); padding: 52px 14px 0; height: 100%; display: flex; flex-direction: column; gap: 10px; }
+  .bot .b { border-radius: 22px; padding: 14px 16px; font: 700 20px/1.2 "Manrope"; max-width: 86%; }
+  .bot .a { background: var(--paper); color: var(--ink); align-self: flex-start; border-bottom-left-radius: 6px; } .bot .u { background: var(--accent-d); color: var(--on-accent); align-self: flex-end; border-bottom-right-radius: 6px; }
+  .bot .hd { position: absolute; left: 0; right: 0; top: 0; }
+  /* приложение */
+  .app { padding: 54px 14px 0; } .app .t { font: 800 25px/1.1 "Manrope"; color: var(--ink); text-align: center; margin-bottom: 12px; } .app i { display: block; height: 52px; border-radius: 15px; margin-bottom: 10px; }
+  .lab { position: absolute; z-index: 5; transform: translateY(24px); }
+  .lab .pill { box-shadow: 0 14px 30px -12px rgba(var(--night-rgb),.7); }
+  .lab .pill.ink { background: var(--night); color: var(--paper); }
+  .sub { color: var(--on-accent); opacity: 1; margin-top: 4px; }
+  .why { color: var(--on-accent); }
+  .why .k { background: var(--night); color: var(--hi); box-shadow: inset 0 0 0 2px rgba(var(--paper-rgb),.16); }
+  .cta.dark { background: var(--hi); color: var(--on-hi); box-shadow: 0 22px 50px -18px rgba(var(--night-rgb),.75), inset 0 -6px 0 rgba(var(--night-rgb),.14); }
+</style></head></head>
+<body class="theme-cobalt"><div class="frame"><div class="bg"></div>
+<div class="content">
+  <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa Z<small>школа программирования · 12–17 лет</small></div></div>
+  <h1 class="h1 xl" style="margin-top:26px;font-size:96px">60 минут — и&nbsp;у&nbsp;него <span class="pl">свой проект</span></h1>
+
+  <div class="fan">
+    <div class="card c1 site"><div class="top"><i></i><i></i><i></i></div><div class="hero">Мой первый<br>сайт</div><div class="g"><i></i><i></i><i></i></div></div>
+    <div class="card c2"><div class="scr"><div class="bot" style="position:relative">
+      <div class="b a">Привет! Я бот 🤖<br>Как тебя зовут?</div><div class="b u">Айдар</div><div class="b a">Рад знакомству, Айдар!</div><div class="b u">Расскажи шутку</div><div class="b a">Почему программисты любят тёмную тему? 😄</div></div></div></div>
+    <div class="card c3"><div class="scr app"><div class="t">Какой ты герой?</div><i style="background:var(--night-2)"></i><i style="background:var(--accent)"></i><i style="background:var(--accent-2)"></i><i style="background:var(--hi)"></i><i style="background:color-mix(in srgb, var(--hi) 45%, #fff)"></i></div></div>
+    <div class="lab" style="left:20px;bottom:6px"><span class="pill ink">сайт</span></div>
+    <div class="lab" style="left:400px;bottom:-4px"><span class="pill ink">бот</span></div>
+    <div class="lab" style="right:40px;bottom:6px"><span class="pill ink">приложение</span></div>
+  </div>
+
+  <p class="sub" style="font-size:34px;margin-top:46px;margin-bottom:22px">Живой ментор, свой мини-проект и <b>3000 ₸</b> — дешевле, чем сходить в кино вдвоём.</p>
+  <div class="grow"></div>
+  <div class="why"><span class="k">Почему сейчас</span><span class="t">Подберём время — без ожидания потока</span></div>
+  <div class="cta dark">Записаться на пробный урок <span class="arr">→</span></div>
+</div></div>
+<script src="../fmt.js"></script></body></html>

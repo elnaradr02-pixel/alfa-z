@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="kk"><head><meta charset="utf-8"><title>_lettering-test · проверка анимации надписей</title>
+<meta name="viewport" content="width=1080, initial-scale=1">
+<!-- Тест lettering.js: write-on (с пером), прорисовка подчёркивания, зачёркивание «тревоги», пружинное появление, прорисовка стрелки.
+     Контракт render-video.mjs: window.__duration, window.seek(t) — один приостановленный GSAP-таймлайн, детерминированный seek.
+     Проверка кадров:  node render-video.mjs _lettering-test --dir video-c2 --still 0.5   (и 1, 2, 3.4, 4.6) → .cache/_lettering-test/still-*.png -->
+<link rel="stylesheet" href="../../base.css"><link rel="stylesheet" href="../../themes-c2.css"><link rel="stylesheet" href="../../fonts-c2.css">
+<link rel="stylesheet" href="../../ornament.css"><link rel="stylesheet" href="../../lettering.css">
+<style>
+  .frame { background: var(--night); color: var(--paper); }
+  .pat { position: absolute; inset: 0; --orn: var(--accent-2); --o: .07; }
+  .band { position: absolute; left: 0; right: 0; --h: 64px; --orn: var(--lt-gold); }
+  .band.t { top: 200px; } .band.b { bottom: 250px; }
+  .abs { position: absolute; left: 70px; right: 70px; }
+  #hero { top: 400px; --lt-size: 150px; }
+  #sub  { top: 900px; font: 800 56px/1.15 "Unbounded", sans-serif; letter-spacing: -.02em; }
+  #q    { top: 1040px; }
+  #note { top: 1200px; --lt-size: 120px; }
+  #arrow { position: absolute; left: 610px; top: 1080px; --w: 190px; --lt-c: var(--lt-gold); }
+  #heart { position: absolute; right: 90px; top: 1230px; --w: 150px; }
+  #spark { position: absolute; right: 130px; top: 340px; --w: 110px; }
+</style></head>
+<body class="story theme-kok">
+<div class="frame on-dark" id="frame">
+  <div class="orn-pattern pat"></div>
+  <div class="orn-band band t"></div><div class="orn-band band b"></div>
+
+  <div class="abs" id="hero"><span class="lt-hand" id="h1">Мама, <span class="lt-under" id="u1">уайымдамаңыз</span></span></div>
+  <div class="abs" id="sub"><span id="s1">IT-де біз балаңызбен <span class="lt-mark" id="m1">біргеміз</span></span></div>
+  <div class="abs" id="q"><span id="qt" style="font:800 52px/1.2 Unbounded;letter-spacing:-.02em"><span id="qs">Қиын болмас па?</span></span></div>
+  <i class="lt-arrow a2" id="arrow"></i>
+  <div class="abs" id="note"><span class="lt-note" id="n1">Жоқ — ұстаз IT-де істейді!</span></div>
+  <i class="lt-ico i-heart2" id="heart"></i>
+  <i class="lt-ico i-spark3" id="spark"></i>
+</div>
+
+<script src="../../../node_modules/gsap/dist/gsap.min.js"></script>
+<script src="../../lettering.js"></script>
+<script>
+(function () {
+  "use strict";
+  var DUR = 6.0;
+  var tl = gsap.timeline({ paused: true });
+  // 0.3–2.0  «Мама, уайымдамаңыз» пишется пером; 2.0–2.6 подчёркивание прорисовывается
+  L.write(tl, "#h1", 0.3, 1.7, { pen: true });
+  L.draw(tl, "#u1", 2.0, 0.6, { ease: "power2.out" });
+  // 2.7–3.4  вторая строка пишется, маркер ложится под «біргеміз»
+  L.write(tl, "#s1", 2.7, 0.9);
+  L.draw(tl, "#m1", 3.5, 0.45);
+  // 3.9–4.9  «тревога» написана и зачёркнута
+  L.write(tl, "#qt", 3.9, 0.6);
+  L.strike(tl, "#qs", 4.6, 0.5, { dim: true });
+  L.draw(tl, "#arrow", 5.05, 0.5);
+  // ответ-пометка и сердечко «выпрыгивают»
+  L.pop(tl, "#heart", 5.3, {});
+  L.pop(tl, "#spark", 5.45, {});
+  L.write(tl, "#n1", 5.1, 0.85);
+  tl.set({}, {}, DUR);
+  window.__duration = DUR;
+  window.seek = function (t) { tl.time(Math.max(0, Math.min(DUR, t)), false); };
+  window.seek(0);
+})();
+</script>
+</body></html>

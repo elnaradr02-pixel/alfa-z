@@ -1,0 +1,275 @@
+/* СГЕНЕРИРОВАНО tools/build-themes.py из src/themes.json — не правьте вручную.
+   Токены переключаются классом на <body class="theme-XXX">. Для каждого цвета есть -rgb вариант: rgba(var(--accent-rgb), .5).
+   --accent основной акцент (кнопка, маркер) · --accent-d тёмный оттенок · --accent-2 парный светлый (свечение, градиенты)
+   --on-accent текст на акценте · --hi/--on-hi «наклейка» и текст на ней · --paper/--tint светлая поверхность/подложка
+   --ink текст на светлом · --night/--night-2 тёмная сцена и панели · --logo-* плитка и буквы логотипа (фирменный коралл). */
+
+/* коралл — фирменный якорь бренда, тёплый и дружелюбный */
+:root, .theme-coral {
+  --accent: #F45E39;
+  --accent-d: #D33E23;
+  --accent-2: #FFB088;
+  --on-accent: #FFFFFF;
+  --hi: #FFD23F;
+  --on-hi: #0F0F1A;
+  --paper: #FFFBF5;
+  --tint: #FBF0E6;
+  --ink: #0F0F1A;
+  --night: #0F0F1A;
+  --night-2: #14141F;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 244,94,57;
+  --accent-d-rgb: 211,62,35;
+  --accent-2-rgb: 255,176,136;
+  --hi-rgb: 255,210,63;
+  --paper-rgb: 255,251,245;
+  --tint-rgb: 251,240,230;
+  --ink-rgb: 15,15,26;
+  --night-rgb: 15,15,26;
+  --night-2-rgb: 20,20,31;
+}
+
+/* малина и морская пена — эмоция и тепло */
+.theme-berry {
+  --accent: #E2408A;
+  --accent-d: #CD3177;
+  --accent-2: #FEBBD2;
+  --on-accent: #FFFFFF;
+  --hi: #A4E8CB;
+  --on-hi: #0F2A1F;
+  --paper: #FFF6FA;
+  --tint: #FFE8F1;
+  --ink: #250C19;
+  --night: #240518;
+  --night-2: #350F25;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 226,64,138;
+  --accent-d-rgb: 205,49,119;
+  --accent-2-rgb: 254,187,210;
+  --hi-rgb: 164,232,203;
+  --paper-rgb: 255,246,250;
+  --tint-rgb: 255,232,241;
+  --ink-rgb: 37,12,25;
+  --night-rgb: 36,5,24;
+  --night-2-rgb: 53,15,37;
+}
+
+/* солнечный янтарь и лаванда — игра и энергия, тёплая бронзовая ночь */
+.theme-sunny {
+  --accent: #FFC724;
+  --accent-d: #A36E03;
+  --accent-2: #FFE58A;
+  --on-accent: #1A1530;
+  --hi: #BCA9FF;
+  --on-hi: #100C22;
+  --paper: #FFFCEC;
+  --tint: #FFF1BC;
+  --ink: #1A1530;
+  --night: #271A0B;
+  --night-2: #382611;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 255,199,36;
+  --accent-d-rgb: 163,110,3;
+  --accent-2-rgb: 255,229,138;
+  --hi-rgb: 188,169,255;
+  --paper-rgb: 255,252,236;
+  --tint-rgb: 255,241,188;
+  --ink-rgb: 26,21,48;
+  --night-rgb: 39,26,11;
+  --night-2-rgb: 56,38,17;
+}
+
+/* лайм и розовая наклейка — свежесть и рост */
+.theme-lime {
+  --accent: #ABE841;
+  --accent-d: #58871A;
+  --accent-2: #DCF8AD;
+  --on-accent: #14210A;
+  --hi: #FF98CA;
+  --on-hi: #2A0A1E;
+  --paper: #F9FEEA;
+  --tint: #E8F8C2;
+  --ink: #122008;
+  --night: #0F1F0B;
+  --night-2: #172E12;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 171,232,65;
+  --accent-d-rgb: 88,135,26;
+  --accent-2-rgb: 220,248,173;
+  --hi-rgb: 255,152,202;
+  --paper-rgb: 249,254,234;
+  --tint-rgb: 232,248,194;
+  --ink-rgb: 18,32,8;
+  --night-rgb: 15,31,11;
+  --night-2-rgb: 23,46,18;
+}
+
+/* изумруд и мята — рост и польза */
+.theme-teal {
+  --accent: #16B884;
+  --accent-d: #068C5B;
+  --accent-2: #88E7C9;
+  --on-accent: #06231B;
+  --hi: #FFAA94;
+  --on-hi: #1F0F0A;
+  --paper: #F2FBF7;
+  --tint: #DFF5EC;
+  --ink: #062320;
+  --night: #032827;
+  --night-2: #0B3635;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 22,184,132;
+  --accent-d-rgb: 6,140,91;
+  --accent-2-rgb: 136,231,201;
+  --hi-rgb: 255,170,148;
+  --paper-rgb: 242,251,247;
+  --tint-rgb: 223,245,236;
+  --ink-rgb: 6,35,32;
+  --night-rgb: 3,40,39;
+  --night-2-rgb: 11,54,53;
+}
+
+/* небесная лазурь — воздух, ясность, лёгкость */
+.theme-sky {
+  --accent: #1BB9EC;
+  --accent-d: #0575A1;
+  --accent-2: #98DCFB;
+  --on-accent: #06202E;
+  --hi: #FF9A45;
+  --on-hi: #150B05;
+  --paper: #F3FAFF;
+  --tint: #DCF0FF;
+  --ink: #08202F;
+  --night: #052A3B;
+  --night-2: #0B3A50;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 27,185,236;
+  --accent-d-rgb: 5,117,161;
+  --accent-2-rgb: 152,220,251;
+  --hi-rgb: 255,154,69;
+  --paper-rgb: 243,250,255;
+  --tint-rgb: 220,240,255;
+  --ink-rgb: 8,32,47;
+  --night-rgb: 5,42,59;
+  --night-2-rgb: 11,58,80;
+}
+
+/* кобальт — доверие и надёжность */
+.theme-cobalt {
+  --accent: #347CF5;
+  --accent-d: #256BE2;
+  --accent-2: #B4CCFF;
+  --on-accent: #FFFFFF;
+  --hi: #FFB627;
+  --on-hi: #0C1430;
+  --paper: #F4F8FF;
+  --tint: #E4ECFF;
+  --ink: #0C1430;
+  --night: #051334;
+  --night-2: #0B2050;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 52,124,245;
+  --accent-d-rgb: 37,107,226;
+  --accent-2-rgb: 180,204,255;
+  --hi-rgb: 255,182,39;
+  --paper-rgb: 244,248,255;
+  --tint-rgb: 228,236,255;
+  --ink-rgb: 12,20,48;
+  --night-rgb: 5,19,52;
+  --night-2-rgb: 11,32,80;
+}
+
+/* индиго — AI, технологии, будущее */
+.theme-indigo {
+  --accent: #8A65FC;
+  --accent-d: #7853EA;
+  --accent-2: #CDC2FF;
+  --on-accent: #FFFFFF;
+  --hi: #CBEF6E;
+  --on-hi: #14112E;
+  --paper: #F8F5FF;
+  --tint: #EDE7FF;
+  --ink: #15112F;
+  --night: #160740;
+  --night-2: #25105A;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 138,101,252;
+  --accent-d-rgb: 120,83,234;
+  --accent-2-rgb: 205,194,255;
+  --hi-rgb: 203,239,110;
+  --paper-rgb: 248,245,255;
+  --tint-rgb: 237,231,255;
+  --ink-rgb: 21,17,47;
+  --night-rgb: 22,7,64;
+  --night-2-rgb: 37,16,90;
+}
+
+/* слива, орхидея и шампанское — солидность */
+.theme-plum {
+  --accent: #BE58D2;
+  --accent-d: #AB43BE;
+  --accent-2: #EABBF1;
+  --on-accent: #FFFFFF;
+  --hi: #FFE3A0;
+  --on-hi: #2A0F45;
+  --paper: #FCF6FF;
+  --tint: #F4E4FB;
+  --ink: #2A0F45;
+  --night: #2A0630;
+  --night-2: #3C0D42;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 190,88,210;
+  --accent-d-rgb: 171,67,190;
+  --accent-2-rgb: 234,187,241;
+  --hi-rgb: 255,227,160;
+  --paper-rgb: 252,246,255;
+  --tint-rgb: 244,228,251;
+  --ink-rgb: 42,15,69;
+  --night-rgb: 42,6,48;
+  --night-2-rgb: 60,13,66;
+}
+
+/* золото на глубокой сливе — для видео 2 (прежний вид) */
+.theme-aurum {
+  --accent: #F5B942;
+  --accent-d: #8A5A00;
+  --accent-2: #FFD98A;
+  --on-accent: #24123A;
+  --hi: #FF8A6B;
+  --on-hi: #150826;
+  --paper: #FBF7FF;
+  --tint: #F0E8FA;
+  --ink: #24123A;
+  --night: #24123A;
+  --night-2: #331A52;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 245,185,66;
+  --accent-d-rgb: 138,90,0;
+  --accent-2-rgb: 255,217,138;
+  --hi-rgb: 255,138,107;
+  --paper-rgb: 251,247,255;
+  --tint-rgb: 240,232,250;
+  --ink-rgb: 36,18,58;
+  --night-rgb: 36,18,58;
+  --night-2-rgb: 51,26,82;
+}

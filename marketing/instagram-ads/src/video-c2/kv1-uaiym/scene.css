@@ -1,0 +1,96 @@
+/* KV1 · «Уайымдар өшеді» — вёрстка. Только токены темы (themes-c2.css): --accent, --accent-d, --hi, --on-hi, --paper, --tint, --ink, --night, --night-2 (+ -rgb).
+   «Ручка»: var(--pen, var(--accent-d)) на светлом, var(--pen-night, var(--hi)) на тёмном.
+   Геометрия арки: ornament/frame-arch*.svg 512×640, проём x 64…448, y 150…580 (прямые стенки с y 356).
+   При --aw 1000px, --ax 40px, --ay 150px проём на экране: x 165…915, y 443…1283 (стенки с y 845). */
+
+.frame {
+  --pen-c: var(--pen, var(--accent-d));
+  --pen-n: var(--pen-night, var(--hi));
+  --aw: 1000px; --ax: 40px; --ay: 150px;
+  background: var(--paper); font-family: "Onest", "Manrope", sans-serif;
+}
+.frame > * { position: absolute; }
+
+/* ── бумага ── */
+.paper { inset: 0; background:
+  radial-gradient(900px 700px at 85% 8%, rgba(var(--hi-rgb), .10), transparent 65%),
+  radial-gradient(900px 800px at 10% 95%, rgba(var(--accent-rgb), .07), transparent 65%), var(--paper); }
+.paper > * { position: absolute; }
+.paper .pat { inset: 0; --orn: var(--accent); --o: .05; --s: 200px; }
+.paper .band-t { left: 0; right: 0; top: 150px; --h: 44px; --orn: var(--hi); }
+.paper .band-b { left: 0; right: 0; top: 1700px; --h: 44px; --orn: var(--hi); }
+.paper .orn-corner { --w: 150px; --in: 26px; --orn: rgba(var(--accent-rgb), .45); }
+.paper .orn-corner.tl, .paper .orn-corner.tr { top: 210px; }
+.paper .orn-corner.bl, .paper .orn-corner.br { bottom: 236px; }
+
+/* ── ночь (финал) ── */
+.night { inset: 0; background: var(--night); opacity: 0; }
+.night > * { position: absolute; }
+.night .glow { inset: 0; background:
+  radial-gradient(760px 900px at 50% 44%, rgba(var(--hi-rgb), .22), transparent 70%),
+  radial-gradient(1200px 900px at 50% 100%, rgba(var(--night-2-rgb), .9), transparent 70%); }
+.night .npat { inset: 0; --orn: var(--hi); --o: .06; --s: 200px; }
+.night .nband-t { left: 0; right: 0; top: 70px; --h: 44px; --orn: var(--hi); --o: .75; }
+.night .nband-b { left: 0; right: 0; top: 1760px; --h: 44px; --orn: var(--hi); --o: .75; }
+
+/* ── арка-оберег: проём (кремовый) и контур с прорисовкой (--ap 0…1: от низа к верху по обе стороны) ── */
+.arch-in { left: var(--ax); top: var(--ay); --w: var(--aw); --fill: var(--paper); opacity: 0; }
+.arch-line {
+  left: var(--ax); top: var(--ay); width: var(--aw); aspect-ratio: 512 / 640; opacity: 0;
+  background: var(--hi); --ap: 1;
+  --wipe: conic-gradient(from 180deg at 50% 60%, #000 calc(var(--ap) * 180deg), transparent calc(var(--ap) * 180deg + .6deg) calc(360deg - var(--ap) * 180deg - .6deg), #000 calc(360deg - var(--ap) * 180deg));
+  -webkit-mask-image: url('../../ornament/frame-arch.svg'), var(--wipe); mask-image: url('../../ornament/frame-arch.svg'), var(--wipe);
+  -webkit-mask-size: 100% 100%, 100% 100%; mask-size: 100% 100%, 100% 100%;
+  -webkit-mask-repeat: no-repeat, no-repeat; mask-repeat: no-repeat, no-repeat;
+  -webkit-mask-composite: source-in; mask-composite: intersect;
+}
+
+/* ── страница с тревогами (камера двигает .page целиком) ── */
+.view { inset: 0; -webkit-mask-image: linear-gradient(180deg, transparent 205px, #000 330px, #000 1590px, transparent 1690px);
+  mask-image: linear-gradient(180deg, transparent 205px, #000 330px, #000 1590px, transparent 1690px); }
+.page { position: absolute; left: 150px; width: 866px; top: 0; transform-origin: 50% 0; }
+.label { margin-left: -82px; display: flex; align-items: center; gap: 18px; font: 700 44px/1.15 "Onest", sans-serif; color: var(--pen-c); letter-spacing: -.005em; }
+.label .orn-horns { --w: 62px; --orn: var(--hi); }
+.slot { margin-top: 70px; }
+.label + .slot { margin-top: 34px; }
+
+.worry { --lt-size: 124px; --lt-rot: -2deg; --lt-hero: var(--ink); --lt-strike: var(--pen-c);
+  --lt-ink-dim: color-mix(in srgb, var(--ink) 40%, var(--paper)); display: block; transform-origin: 0 60%; }
+.worry .wq { display: inline; }
+.ans-row { position: relative; margin-top: 30px; }
+.ans-row .tick { position: absolute; left: -90px; top: 14px; }
+.ans { --lt-size: 104px; --lt-rot: -3deg; --lt-hero: var(--pen-c); flex: 0 1 auto; transform-origin: 0 60%; }
+.ans .lt-circle { --lt-c: var(--hi); margin: 0 .62em 0 .5em; }
+.ans .lt-mark { margin: 0 .3em; }
+.ans .nb { white-space: nowrap; }   /* тире не уходит в начало строки */
+.ans .lt-under { --lt-c: var(--hi); }
+.tick { --w: 76px; --lt-c: var(--hi); }
+.fact { margin-top: 30px; font: 500 40px/1.32 "Onest", sans-serif; color: rgba(var(--ink-rgb), .9); text-wrap: balance; max-width: 866px; }
+
+/* ── финал в проёме арки: x 165…915 (750), y 443…1283 ── */
+.fin { left: 165px; width: 750px; top: 628px; height: 650px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; }
+.hero { display: flex; flex-direction: column; align-items: center; }
+.hero .lt-hand { --lt-size: 124px; --lt-hero: var(--pen-c); }
+.hero-l1 { position: relative; display: flex; align-items: center; justify-content: center; gap: 10px; }
+.hero-l1 .lt-hand { --lt-rot: -5deg; }
+.hero-l2 { margin-top: 18px; }
+.hero-l2 .lt-under { --lt-c: var(--hi); }
+.heart { --w: 92px; margin-left: 8px; transform: rotate(10deg); }
+.head { margin-top: 84px; font: 800 58px/1.1 "Geologica", sans-serif; letter-spacing: -.02em; color: var(--ink); text-wrap: balance; max-width: 690px; }
+.price { margin-top: 30px; display: flex; flex-direction: column; gap: 4px; font: 600 38px/1.28 "Onest", sans-serif; color: var(--pen-c); }
+.spark { position: absolute; right: -34px; top: -52px; --w: 84px; }
+
+/* ── кнопка и контакт (под аркой, на ночи) ── */
+.ctabox { left: 64px; right: 64px; top: 1392px; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+.btn {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 18px; min-height: 108px; padding: 14px 54px; max-width: 952px;
+  border-radius: 999px; background: var(--hi); color: var(--on-hi); text-align: center;
+  font: 800 44px/1.1 "Geologica", sans-serif; letter-spacing: -.01em;
+  box-shadow: 0 0 0 5px rgba(var(--hi-rgb), .22), 0 24px 60px -18px rgba(var(--hi-rgb), .7), inset 0 -6px 0 rgba(0,0,0,.14);
+}
+.btn .arr { font: 800 48px/1 "Onest", sans-serif; }
+.contact { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px 24px; color: var(--paper); }
+.contact .logo { gap: 12px; }
+.contact .logo .mark { width: 52px; height: 52px; border-radius: 15px; font-size: 32px; line-height: 52px; }
+.contact .logo .name { font-size: 36px; color: var(--paper); }
+.contact .ct { font: 600 34px/1.2 "Onest", sans-serif; color: rgba(var(--paper-rgb), .9); }

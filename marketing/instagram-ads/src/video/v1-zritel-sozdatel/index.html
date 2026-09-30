@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>V1 · Зритель → Создатель</title>
+<meta name="viewport" content="width=1080, initial-scale=1">
+<link rel="stylesheet" href="../../base.css">
+<link rel="stylesheet" href="../../themes.css">
+<link rel="stylesheet" href="scene.css">
+</head>
+<body class="story theme-berry">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 100 100"><path d="M50 0 C54 30 70 46 100 50 C70 54 54 70 50 100 C46 70 30 54 0 50 C30 46 46 30 50 0Z"/></symbol>
+  </defs>
+</svg>
+
+<div class="frame" id="frame">
+
+  <!-- ═══════ СЦЕНА 1 · ХУК ═══════ -->
+  <section class="scene on-dark" id="s1">
+    <div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
+    <div class="grid"></div>
+    <div class="phone ph1" id="ph1"><div class="scr"><div class="fl" id="fl"></div><div class="scrfade"></div></div></div>
+    <div class="nb n1" id="n1"><i class="nic"></i><div class="nl"><b style="width:230px"></b><b style="width:150px"></b></div>
+      <div class="bd"><svg><use href="#i-heart"/></svg><span>12</span></div></div>
+    <div class="nb n2" id="n2"><i class="nic"></i><div class="nl"><b style="width:230px"></b><b style="width:130px"></b></div>
+      <div class="bd"><svg><use href="#i-chat"/></svg><span>3</span></div></div>
+    <div class="nb n3" id="n3"><i class="nic"></i><div class="nl"><b style="width:200px"></b><b style="width:120px"></b></div>
+      <div class="bd"><svg><use href="#i-bell"/></svg><span>9</span></div></div>
+    <h1 class="hook txt" id="hook">Он снова<br><span class="q">в телефоне?</span></h1>
+  </section>
+
+  <!-- ═══════ СЦЕНА 2 · ПОВОРОТ ═══════ -->
+  <section class="scene" id="s2">
+    <div class="bg bg-dots"></div>
+    <div class="blob a"></div><div class="blob b"></div>
+    <svg class="clock" id="clock" viewBox="0 0 300 300">
+      <circle class="face" cx="150" cy="150" r="128"/>
+      <circle class="track" cx="150" cy="150" r="128"/>
+      <circle class="arc" id="clockArc" cx="150" cy="150" r="128" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" transform="rotate(-90 150 150)"/>
+      <g id="clockHand"><rect class="hand" x="142" y="52" width="16" height="106" rx="8"/></g>
+      <circle class="hub" cx="150" cy="150" r="16"/>
+    </svg>
+    <div class="lines txt" id="lines2">
+      <div class="mask ln1"><span class="w">А если этот час —</span></div>
+      <div class="mask ln2"><span class="w" id="w2"><span class="tx">не листать,</span><i class="strike" id="strike"></i></span></div>
+      <div class="mask ln3"><span class="w" id="w3">а <span class="mk" id="mk2"><i class="mkbg"></i>создавать</span>?</span></div>
+    </div>
+    <div class="bricks" id="bricks"><i class="br b0"></i><i class="br b1"></i><i class="br b2"></i><i class="br b3"></i></div>
+  </section>
+
+  <!-- ═══════ СЦЕНА 3 · СОЗДАЁТ ═══════ -->
+  <section class="scene on-dark" id="s3">
+    <div class="glow g1"></div><div class="glow g2"></div><div class="grid"></div>
+    <div id="grpA">
+      <span class="pill3" id="pill3">Первый урок · 60 минут</span>
+      <div class="win w3" id="win3"><div class="bar"><i></i><i></i><i></i><em>my_first_app.py</em></div><div class="code" id="code3"></div></div>
+    </div>
+    <div class="phone ph3" id="ph3"><div class="scr">
+      <div class="qz" id="qz">
+        <div class="qbar"><i></i></div>
+        <div class="qh" id="qh">Какой ты герой?</div>
+        <div class="qb q0">Невидимка</div>
+        <div class="qb q1">Телепортатор</div>
+        <div class="qb q2">Скоростной</div>
+        <div class="qb q3">Технарь</div>
+      </div>
+      <div class="qdim" id="qdim"></div>
+    </div></div>
+    <div class="conf" id="conf"></div>
+    <div class="cap3" id="cap3"><span>Свой первый рабочий проект</span></div>
+  </section>
+
+  <!-- ═══════ СЦЕНА 4 · ЭМОЦИЯ ═══════ -->
+  <section class="scene" id="s4">
+    <div class="bg bg-dots"></div>
+    <div class="blob a"></div><div class="blob b"></div>
+    <div class="note" id="note4"><i class="nd"></i><span>Представьте: через час<br>после первого урока</span></div>
+    <div class="msg l" id="msgL"><i class="avt a"></i><div class="bub l">Мам, смотри, что я&nbsp;сделал!</div></div>
+    <div class="msg r" id="msgR"><i class="avt b"></i><div class="bw"><div class="typing" id="typing"><i></i><i></i><i></i></div><div class="bub r">Сам?! Это же настоящее приложение&nbsp;😍</div></div></div>
+    <div class="cap4 txt" id="cap4"><div class="mask"><span class="w" id="c4a">Такие моменты</span></div><div class="mask"><span class="w" id="c4b">начинаются с</span></div><div class="mask"><span class="w" id="c4c"><span class="mark-y">одного урока.</span></span></div></div>
+  </section>
+
+  <!-- ═══════ СЦЕНА 5 · ПОЧЕМУ ЭТО ПРОСТО ═══════ -->
+  <section class="scene" id="s5">
+    <div class="bg bg-dots"></div>
+    <div class="blob a"></div><div class="blob b"></div>
+    <div class="list" id="list5">
+      <div class="chk" id="k1"><div class="ckc"><svg viewBox="0 0 64 64"><path class="ckp" d="M12 34 L26 47 L52 17" fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
+        <p class="ckt"><span class="mark-sun">60 минут</span> онлайн,<br>с&nbsp;живым ментором</p></div>
+      <div class="chk" id="k2"><div class="ckc"><svg viewBox="0 0 64 64"><path class="ckp" d="M12 34 L26 47 L52 17" fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
+        <p class="ckt">Начинаем с&nbsp;нуля —<br><span class="mark-sun">опыт не нужен</span></p></div>
+      <div class="chk" id="k3"><div class="ckc"><svg viewBox="0 0 64 64"><path class="ckp" d="M12 34 L26 47 L52 17" fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
+        <p class="ckt">Не понравится —<br><span class="mark-sun">никаких<br>обязательств</span></p></div>
+    </div>
+  </section>
+
+  <!-- ═══════ СЦЕНА 6 · ОФФЕР + CTA ═══════ -->
+  <section class="scene on-dark" id="s6">
+    <div class="glow g1"></div><div class="glow g2"></div><div class="grid"></div>
+    <div id="s6c">
+      <div class="shock" id="shock"></div>
+      <div class="stk6" id="stk6"><span class="sp">3000&nbsp;₸</span><span class="sl">пробный урок</span></div>
+      <div class="mid6" id="mid6">
+        <div class="cap6" id="cap6">Дешевле, чем сходить<br>вдвоём в кино</div>
+        <div class="call6" id="call6">Запишитесь сегодня —<br>время подберём в <span class="wa">WhatsApp</span></div>
+        <div class="brand6" id="brand6">
+          <div class="logo big"><div class="mark">αZ</div><div class="name"><b>α</b>lfa <b>Z</b></div></div>
+          <div class="tag">школа программирования · 12–17 лет</div>
+          <div class="hd">@alfaz.school</div>
+        </div>
+      </div>
+      <div class="hint6" id="hint6">
+        <div class="ht" id="ht6">Нажмите «Записаться»</div>
+        <div class="arr" id="arr6"><svg viewBox="0 0 130 150"><path d="M65 14 V104 M20 72 L65 120 L110 72" fill="none" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="../../../node_modules/gsap/dist/gsap.min.js"></script>
+<script src="scene.js"></script>
+</body>
+</html>

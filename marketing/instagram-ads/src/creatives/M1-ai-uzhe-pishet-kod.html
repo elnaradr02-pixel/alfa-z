@@ -1,0 +1,37 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>M1 · AI уже пишет код</title>
+<link rel="stylesheet" href="../base.css">
+<style>
+  .frame { background: var(--night); color: var(--paper); }
+  .bg { background: radial-gradient(1000px 820px at 100% 0%, rgba(var(--accent-rgb),.90), transparent 66%), radial-gradient(900px 760px at 0% 100%, rgba(var(--accent-rgb),.75), transparent 66%), radial-gradient(1100px 620px at 50% 58%, rgba(var(--accent-d-rgb),.42), transparent 72%), linear-gradient(180deg, var(--night-2), var(--night)); overflow: hidden; }
+  .bg .ai { position: absolute; right: -60px; top: 120px; font: 800 640px/0.8 "Manrope"; letter-spacing: -0.06em; color: transparent; -webkit-text-stroke: 3px rgba(var(--accent-2-rgb),.16); }
+  body.story .bg .ai { top: 300px; font-size: 760px; }
+  .h1 { color: var(--paper); }
+  .chatw { margin-top: 40px; border-radius: 40px; background: rgba(var(--paper-rgb),.07); border: 3px solid rgba(var(--accent-2-rgb),.20); padding: 30px; box-shadow: 0 40px 90px -40px rgba(var(--night-rgb),.95); backdrop-filter: blur(6px); }
+  .msg { border-radius: 30px; padding: 24px 30px; font: 700 40px/1.2 "Manrope"; letter-spacing: -0.015em; }
+  .msg.u { background: var(--paper); color: var(--ink); border-bottom-right-radius: 8px; margin-left: 120px; }
+  .msg.a { margin-top: 18px; background: rgba(var(--accent-rgb),.36); border: 2px solid rgba(var(--accent-2-rgb),.6); border-bottom-left-radius: 8px; margin-right: 70px; }
+  .msg .who { font: 700 22px "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 10px; display: flex; gap: 12px; align-items: center; }
+  .msg .who::before { content: ""; width: 14px; height: 14px; border-radius: 50%; background: var(--hi); box-shadow: 0 0 14px rgba(var(--hi-rgb),.85); }
+  .msg code { display: block; margin-top: 12px; padding: 14px 18px; border-radius: 16px; background: rgba(var(--night-rgb),.72); font: 500 25px/1.45 "JetBrains Mono", monospace; color: var(--accent-2); white-space: pre; }
+  .msg code i { color: var(--hi); font-style: normal; }
+  .done { margin-top: 12px; font: 800 34px "Manrope"; color: var(--hi); }
+  .q { margin-top: 36px; }
+  .sub { color: var(--paper); opacity: .85; margin-top: 26px; }
+  body.story .chatw { margin-top: 70px; } body.story .q { margin-top: 60px; }
+</style></head>
+<body class="on-dark theme-teal"><div class="frame"><div class="bg"><div class="ai">AI</div></div>
+<div class="content">
+  <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa Z<small>школа программирования · 12–17 лет</small></div></div>
+  <div class="chatw">
+    <div class="msg u">Сделай приложение для школы</div>
+    <div class="msg a"><div class="who">AI · отвечает</div>Готово. Вот код:
+<code>def <i>school_app</i>():
+    ... 240 строк ...</code><div class="done">✓ готово</div></div>
+  </div>
+  <h1 class="h1 lg q" style="font-size:88px">AI уже пишет код. А&nbsp;кто будет им <span class="mark-y">управлять?</span></h1>
+  <p class="sub" style="font-size:34px">Мы открыто учим подростков работать с&nbsp;AI, а&nbsp;не делаем вид, что его нет.</p>
+  <div class="grow"></div>
+  <div class="why"><span class="k">Почему сейчас</span><span class="t">AI не ждёт — осваивать его лучше сейчас</span></div>
+  <div class="cta">Начать с пробного урока — 3000 ₸ <span class="arr">→</span></div>
+</div></div>
+<script src="../fmt.js"></script></body></html>

@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<title>V2 · Профессия: загрузка</title>
+<meta name="viewport" content="width=1080">
+<link rel="stylesheet" href="../../base.css">
+<link rel="stylesheet" href="../../themes.css">
+<style>
+  /* Цвета — только токены темы (themes.css): класс темы стоит на <body>. Здесь только производные оттенки. */
+  /* ═════════ общее ═════════ */
+  html, body { background: #000; }
+  body.story .frame { background: var(--night); color: var(--paper);
+    --g1: color-mix(in srgb, var(--paper) 80%, var(--night));   /* нейтрально-серые для «чужого» пути */
+    --g2: color-mix(in srgb, var(--paper) 62%, var(--night));
+    --g3: color-mix(in srgb, var(--paper) 46%, var(--night));
+    --g4: color-mix(in srgb, var(--paper) 30%, var(--night));
+    --road: color-mix(in srgb, var(--night) 78%, var(--paper));
+    --accent-l: color-mix(in srgb, var(--accent) 60%, var(--accent-2));
+    --mint-l: color-mix(in srgb, var(--mint) 70%, #fff); }
+  .layer { position: absolute; inset: 0; }
+  .scene { position: absolute; inset: 0; opacity: 0; visibility: hidden; }
+  #s1 { opacity: 1; visibility: visible; }
+  .mono, .pcard, #term { font-family: "JetBrains Mono", "Space Mono", ui-monospace, monospace; }
+  .hl { color: var(--accent); }
+  .ln { display: block; white-space: nowrap; }
+
+  /* ═════════ фоны ═════════ */
+  #bgDark { background:
+      radial-gradient(1000px 900px at 92% 6%, rgba(var(--accent-rgb), .22), transparent 62%),
+      radial-gradient(900px 800px at 2% 98%, rgba(var(--hi-rgb), .16), transparent 62%),
+      var(--night); }
+  #bgGrid { background-image:
+      linear-gradient(rgba(var(--paper-rgb), .05) 2px, transparent 2px),
+      linear-gradient(90deg, rgba(var(--paper-rgb), .05) 2px, transparent 2px);
+      background-size: 90px 90px;
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, #000 25%, transparent 90%);
+              mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, #000 25%, transparent 90%); }
+  #bgWarm { clip-path: circle(0px at 540px 960px);
+      background:
+      radial-gradient(1000px 800px at 100% 0%, rgba(var(--accent-2-rgb), .7), transparent 60%),
+      radial-gradient(900px 800px at 0% 100%, rgba(var(--accent-rgb), .30), transparent 62%),
+      var(--paper); }
+  #bgWarm::after { background-image: radial-gradient(rgba(var(--ink-rgb), .11) 2.2px, transparent 2.6px); }
+  #bgGlow { opacity: 0; background:
+      radial-gradient(900px 620px at 50% 100%, rgba(var(--accent-rgb), .45), transparent 70%); }
+
+  /* ═════════ карточка «profession.exe» ═════════ */
+  .pcard { position: absolute; left: 64px; width: 952px; border-radius: 40px; background: var(--night-2);
+    border: 2px solid rgba(var(--paper-rgb), .16); color: var(--paper); overflow: hidden;
+    box-shadow: 0 50px 100px -30px rgba(0,0,0,.6), 0 0 90px -20px rgba(var(--accent-rgb), .25); }
+  .tb { height: 96px; display: flex; align-items: center; gap: 14px; padding: 0 32px; background: rgba(255,255,255,.06); }
+  .tb i { width: 22px; height: 22px; border-radius: 50%; display: block; }
+  .tb i:nth-child(1) { background: var(--accent); } .tb i:nth-child(2) { background: var(--accent-2); } .tb i:nth-child(3) { background: rgba(var(--paper-rgb), .4); }
+  .tb em { margin-left: 16px; font: 500 44px/1 "JetBrains Mono", monospace; font-style: normal; opacity: .85; }
+  .bd { padding: 46px 44px 52px; }
+  .prow { display: flex; align-items: center; justify-content: space-between; height: 60px; font: 500 50px/1 "JetBrains Mono", monospace; }
+  .ld { display: flex; align-items: center; gap: 22px; position: relative; }
+  .spin { width: 40px; height: 40px; border-radius: 50%; border: 6px solid rgba(var(--paper-rgb), .2); border-top-color: var(--accent); display: block; }
+  .lt { position: relative; display: block; }
+  .lt span { display: block; white-space: nowrap; }
+  .lt .lb { position: absolute; left: 0; top: 0; opacity: 0; color: var(--mint); }
+  .pct { font-weight: 700; color: var(--accent); letter-spacing: -0.02em; }
+  .track { height: 68px; border-radius: 34px; background: rgba(var(--paper-rgb), .10); margin: 32px 0 40px; overflow: hidden; position: relative; }
+  .fill, .fill2 { position: absolute; left: 0; top: 0; bottom: 0; width: 12%; border-radius: 34px; }
+  .fill { background: repeating-linear-gradient(115deg, var(--accent) 0 30px, var(--accent-l) 30px 60px); box-shadow: 0 0 40px rgba(var(--accent-rgb), .55); }
+  .fill2 { background: repeating-linear-gradient(115deg, var(--mint) 0 30px, var(--mint-l) 30px 60px); opacity: 0; }
+  .st { display: flex; align-items: center; gap: 22px; height: 76px; position: relative; }
+  .warn { width: 68px; height: 68px; border-radius: 18px; background: var(--hi); color: var(--on-hi); position: relative; flex: none; }
+  .warn b { position: absolute; inset: 0; display: grid; place-items: center; font: 800 46px/1 "Manrope", sans-serif; }
+  .warn .w2 { opacity: 0; }
+  .stt { position: relative; display: block; flex: 1; height: 60px; }
+  .stt span { position: absolute; left: 0; top: 0; line-height: 60px; font: 700 54px/60px "JetBrains Mono", monospace; white-space: nowrap; }
+  .stt .sb { opacity: 0; color: var(--mint); }
+  .btnrow { margin-top: 40px; position: relative; height: 128px; }
+  .btn { position: relative; height: 128px; border-radius: 64px; background: var(--accent); color: var(--on-accent);
+    display: flex; align-items: center; justify-content: center; gap: 24px; overflow: hidden;
+    font: 800 62px/1 "Manrope", sans-serif; letter-spacing: -0.02em;
+    box-shadow: 0 20px 50px -14px rgba(var(--accent-rgb), .65), inset 0 -7px 0 rgba(0,0,0,.14); }
+  .btn svg { width: 66px; height: 44px; }
+  .rip { position: absolute; width: 140px; height: 140px; border-radius: 50%; background: rgba(var(--paper-rgb), .8); left: 50%; top: 50%; margin: -70px 0 0 -70px; opacity: 0; }
+
+  /* ═════════ СЦЕНА 1 ═════════ */
+  #s1 .push { position: absolute; inset: 0; }
+  #q1 { position: absolute; right: -110px; top: 640px; font: 800 1180px/1 "Manrope", sans-serif; color: transparent;
+        -webkit-text-stroke: 5px rgba(var(--accent-rgb), .24); }
+  #hook { position: absolute; left: 64px; top: 410px; font: 800 140px/0.98 "Manrope", sans-serif; letter-spacing: -0.048em; color: var(--paper); }
+  #card1 { top: 930px; }
+
+  /* ═════════ СЦЕНА 2 ═════════ */
+  #term { position: absolute; left: 64px; top: 452px; width: 952px; border-radius: 36px; background: var(--night-2);
+    border: 2px solid rgba(var(--paper-rgb), .16); overflow: hidden; color: var(--paper);
+    box-shadow: 0 50px 100px -30px rgba(0,0,0,.6), 0 0 90px -20px rgba(var(--accent-rgb), .22); }
+  #term .bd { padding: 40px 44px 46px; }
+  #typed { font: 500 58px/1.32 "JetBrains Mono", monospace; white-space: pre-wrap; padding-left: 2ch; text-indent: -2ch; min-height: 154px; }
+  #typed .gt { color: var(--accent); font-weight: 700; }
+  #cur { display: inline-block; width: .56em; height: .95em; background: var(--accent); vertical-align: -0.12em; margin-left: 2px; }
+  #done { margin-top: 26px; font: 700 62px/1 "JetBrains Mono", monospace; color: var(--mint); display: flex; align-items: center; gap: 18px; }
+  #done svg path { stroke: var(--mint); }
+  #say { position: absolute; left: 64px; top: 972px; font: 800 116px/1 "Manrope", sans-serif; letter-spacing: -0.045em; white-space: nowrap; }
+  #ask { position: absolute; left: 64px; top: 1146px; font: 800 100px/1.03 "Manrope", sans-serif; letter-spacing: -0.042em; }
+  /* маркер на тёмном: «подчёркивание» под словом — светлый текст остаётся читаемым */
+  #s2 .mark-y { background: linear-gradient(transparent 79%, var(--accent) 79%, var(--accent) 95%, transparent 95%);
+    background-repeat: no-repeat; background-position: 0 0; background-size: 0% 100%; }
+
+  /* ═════════ СЦЕНА 3 ═════════ */
+  #h3 { position: absolute; left: 64px; top: 292px; font: 800 92px/1.0 "Manrope", sans-serif; letter-spacing: -0.042em; }
+  #h3 .g { color: var(--g2); }
+  #fork { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+  #rStem { stroke: var(--road); } #rL { stroke: var(--g3); } #rR { stroke: var(--accent); }
+  #roadStem .dash { stroke: var(--paper); stroke-opacity: .8; } #roadL .dash { stroke: var(--g1); } #roadR .dash { stroke: var(--on-accent); }
+  .c3 { position: absolute; top: 640px; width: 448px; height: 430px; border-radius: 44px; overflow: hidden; }
+  #c3L { left: 64px; background: linear-gradient(180deg, var(--g1), var(--g2)); color: var(--night); }
+  #c3R { left: 568px; background: linear-gradient(160deg, var(--accent) 0%, var(--accent-l) 60%, var(--accent-2) 100%); color: var(--on-accent);
+         box-shadow: 0 40px 90px -30px rgba(var(--accent-rgb), .8); }
+  .c3 .lab { position: absolute; left: 30px; top: 30px; right: 20px; font: 800 52px/1.02 "Manrope", sans-serif; letter-spacing: -0.035em; }
+  .miniph { position: absolute; left: 50%; top: 168px; width: 178px; height: 300px; margin-left: -89px; transform: rotate(-5deg);
+            border-radius: 40px; background: var(--g4); padding: 10px; }
+  .miniph .scr { width: 100%; height: 100%; border-radius: 30px; background: var(--g1); overflow: hidden; position: relative; }
+  #feed > div { padding: 16px 14px 0; height: 218px; }
+  #feed .u { display: flex; align-items: center; gap: 10px; }
+  #feed .av { width: 30px; height: 30px; border-radius: 50%; background: var(--g3); }
+  #feed .l { height: 10px; width: 70px; border-radius: 5px; background: var(--g3); }
+  #feed .im { margin-top: 12px; height: 124px; border-radius: 14px; background: linear-gradient(135deg, var(--g2), var(--g3)); position: relative; }
+  #feed .im::after { content: ""; position: absolute; left: 50%; top: 50%; margin: -18px 0 0 -12px; border-left: 34px solid rgba(var(--paper-rgb), .8); border-top: 20px solid transparent; border-bottom: 20px solid transparent; border-radius: 4px; }
+  .tiles { position: absolute; left: 24px; bottom: 30px; display: flex; gap: 14px; }
+  .tile { width: 122px; height: 122px; border-radius: 32px; background: var(--night); display: grid; place-items: center; box-shadow: 0 14px 26px -12px rgba(var(--night-rgb), .7); }
+  .tile svg { width: 76px; height: 76px; }
+  .tile .cd { font: 700 46px/1 "JetBrains Mono", monospace; color: var(--accent); letter-spacing: -0.06em; }
+  .ic-paper { fill: var(--paper); } .ic-hi { fill: var(--hi); } .ic-acc { fill: var(--accent); } .ic-acc2 { fill: var(--accent-2); } .ic-mint { fill: var(--mint); }
+  .ic-line { fill: none; stroke: var(--paper); stroke-width: 4; }
+  .spk { position: absolute; color: var(--accent); font-size: 44px; line-height: 1; }
+  .cw { position: absolute; left: 30px; top: 106px; width: 388px; height: 152px; border-radius: 24px; background: var(--night); padding: 14px 20px; box-shadow: 0 16px 30px -14px rgba(var(--night-rgb), .7); }
+  .cwb { display: flex; gap: 8px; height: 14px; margin-bottom: 10px; } .cwb i { width: 12px; height: 12px; border-radius: 50%; background: rgba(var(--paper-rgb), .35); display: block; }
+  .cl { height: 15px; border-radius: 8px; margin-top: 12px; }
+  .cl.c1 { background: var(--accent); } .cl.c2 { background: var(--hi); } .cl.c3 { background: var(--mint); } .cl.c4 { background: var(--sky); }
+  #plaque { position: absolute; left: 50%; top: 1462px; margin-left: -390px; width: 780px; height: 112px; border-radius: 56px; background: var(--paper); color: var(--ink);
+            display: flex; align-items: center; justify-content: center; gap: 20px; font: 800 58px/1 "Manrope", sans-serif; letter-spacing: -0.03em;
+            box-shadow: 0 24px 50px -16px rgba(0,0,0,.55); }
+  #plaque i { width: 22px; height: 22px; border-radius: 50%; background: var(--hi); display: block; }
+
+  /* ═════════ СЦЕНА 4 (тёплая) ═════════ */
+  #s4, #s5 { color: var(--ink); }
+  #s4 .mark-y, #s5 .mark-y { background: linear-gradient(transparent 62%, var(--accent) 62%, var(--accent) 90%, transparent 90%);
+    background-repeat: no-repeat; background-position: 0 0; background-size: 0% 100%; }
+  #h4 { position: absolute; left: 64px; top: 286px; width: 952px; }
+  #h4 .a { font: 800 128px/1 "Manrope", sans-serif; letter-spacing: -0.05em; }
+  #h4 .a .z { color: var(--logo-accent); }
+  #h4 .b { font: 800 66px/1.06 "Manrope", sans-serif; letter-spacing: -0.035em; }
+  #photo { position: absolute; left: 64px; top: 640px; width: 952px; height: 418px; border-radius: 46px; overflow: hidden; background: var(--night-2);
+           box-shadow: 0 40px 80px -30px rgba(var(--ink-rgb), .55); }
+  #photo img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 100%; transform-origin: 50% 0%; }
+  #photo::after { content: ""; position: absolute; inset: 0; border-radius: 46px; box-shadow: inset 0 0 0 3px rgba(var(--paper-rgb), .4); }
+  #ppill { position: absolute; left: 92px; top: 1004px; z-index: 3; height: 76px; padding: 0 30px 0 26px; border-radius: 38px; background: var(--ink); color: var(--paper);
+           display: flex; align-items: center; gap: 14px; font: 800 44px/1 "Manrope", sans-serif; letter-spacing: -0.02em; }
+  #ppill i { width: 16px; height: 16px; border-radius: 50%; background: var(--accent); display: block; }
+  .fact { position: absolute; left: 64px; height: 96px; border-radius: 48px; background: var(--ink); color: var(--paper);
+          display: flex; align-items: center; gap: 18px; padding: 0 32px 0 22px; white-space: nowrap;
+          font: 700 44px/1 "Manrope", sans-serif; letter-spacing: -0.03em; box-shadow: 0 22px 40px -22px rgba(var(--ink-rgb), .7); }
+  .fact .ck { width: 52px; height: 52px; border-radius: 50%; background: var(--accent); display: grid; place-items: center; flex: none; }
+  .fact .ck svg { width: 30px; height: 30px; }
+  .fact .ck svg path { stroke: var(--on-accent); }
+  .fact .k { color: var(--accent); }
+
+  /* ═════════ СЦЕНА 5 ═════════ */
+  #card5w { position: absolute; left: 0; top: 590px; width: 1080px; height: 640px; }
+  #card5w .pcard { top: 0; }
+  #finger { position: absolute; width: 128px; height: 150px; z-index: 20; left: 0; top: 0; filter: drop-shadow(0 12px 14px rgba(var(--ink-rgb), .35)); }
+  #finger path { fill: var(--paper); stroke: var(--ink); }
+  #confetti { position: absolute; left: 540px; top: 300px; width: 0; height: 0; z-index: 18; }
+  #confetti i { position: absolute; left: -18px; top: -18px; width: 36px; height: 36px; border-radius: 9px; display: block; }
+  #pill5 { position: absolute; left: 50%; top: 292px; margin-left: -400px; width: 800px; height: 104px; border-radius: 52px; background: var(--ink); color: var(--paper);
+           display: flex; align-items: center; justify-content: center; gap: 20px; font: 800 52px/1 "Manrope", sans-serif; letter-spacing: -0.025em;
+           box-shadow: 0 24px 46px -20px rgba(var(--ink-rgb), .6); }
+  #pill5 .ok { color: var(--mint); }
+  #endlogo { position: absolute; left: 0; top: 280px; width: 1080px; text-align: center; }
+  #endlogo .logo { gap: 22px; }
+  #endlogo .logo .mark { width: 108px; height: 108px; border-radius: 30px; font-size: 66px; line-height: 108px; }
+  #endlogo .logo .name { font-size: 76px; color: var(--ink); }
+  #endlogo .handle { margin-top: 16px; font: 800 54px/1 "Manrope", sans-serif; letter-spacing: -0.02em; color: var(--ink); }
+  #stk { position: absolute; left: 50%; top: 520px; margin-left: -430px; width: 860px; padding: 34px 20px 36px; border-radius: 64px; background: var(--hi); color: var(--on-hi);
+         text-align: center; box-shadow: 0 34px 60px -22px rgba(var(--ink-rgb), .5), inset 0 0 0 9px rgba(var(--ink-rgb), .94); transform: rotate(-3deg); }
+  #stk .a { font: 800 84px/1 "Manrope", sans-serif; letter-spacing: -0.035em; }
+  #stk .p { font: 800 196px/1 "Manrope", sans-serif; letter-spacing: -0.055em; margin-top: 10px; white-space: nowrap; }
+  #ring { position: absolute; left: 50%; top: 690px; width: 700px; height: 700px; margin: -350px 0 0 -350px; border-radius: 50%; border: 10px solid var(--accent); opacity: 0; }
+  #off2 { position: absolute; left: 64px; width: 952px; top: 992px; text-align: center; font: 700 50px/1.15 "Manrope", sans-serif; letter-spacing: -0.02em; }
+  #off2 b { font-weight: 800; }
+  #cta1 { position: absolute; left: 0; width: 1080px; top: 1116px; text-align: center; font: 800 90px/1 "Manrope", sans-serif; letter-spacing: -0.045em; white-space: nowrap; }
+  #hint { position: absolute; left: 0; width: 1080px; top: 1296px; text-align: center; font: 800 52px/1 "Manrope", sans-serif; letter-spacing: -0.02em; }
+  #arrow { position: absolute; left: 50%; top: 1400px; width: 168px; height: 168px; margin-left: -84px; border-radius: 50%; background: var(--accent); display: grid; place-items: center;
+           box-shadow: 0 22px 44px -14px rgba(var(--accent-rgb), .8), inset 0 -8px 0 rgba(0,0,0,.12); }
+  #arrow svg { width: 88px; height: 88px; }
+  #arrow svg path { stroke: var(--on-accent); }
+  #arrowRing { position: absolute; left: 50%; top: 1400px; width: 168px; height: 168px; margin-left: -84px; border-radius: 50%; border: 8px solid var(--accent); opacity: 0; }
+
+  /* ═════════ переходы / глитч ═════════ */
+  #curA { position: absolute; left: 0; top: -100px; width: 2200px; height: 2120px; background: var(--accent); transform: translateX(-2800px) skewX(-14deg); z-index: 50;
+          box-shadow: 60px 0 0 var(--hi), 120px 0 0 var(--night); }
+  .door { position: absolute; top: 0; width: 540px; height: 1920px; z-index: 50; }
+  #doorL { left: 0; background: var(--g1); transform: translateX(-560px); box-shadow: inset -14px 0 0 rgba(var(--ink-rgb), .18); }
+  #doorR { left: 540px; background: var(--accent); transform: translateX(560px); box-shadow: inset 14px 0 0 var(--hi); }
+  #gl { position: absolute; inset: 0; z-index: 60; pointer-events: none; }
+  #gl i { position: absolute; left: 0; width: 1080px; height: 20px; opacity: 0; display: block; }
+</style></head>
+<body class="story on-dark theme-aurum">
+<div class="frame" id="frame">
+
+  <div class="layer" id="bgDark"></div>
+  <div class="layer" id="bgGrid"></div>
+
+  <!-- ══════════ СЦЕНА 1 · ХУК ══════════ -->
+  <div class="scene" id="s1"><div class="push" id="push1">
+    <div id="q1">?</div>
+    <h1 id="hook"><span class="ln" id="hk1">Кем станет</span><span class="ln" id="hk2">ваш <span class="hl">ребёнок?</span></span></h1>
+    <div class="pcard" id="card1"></div>
+  </div></div>
+
+  <!-- ══════════ СЦЕНА 2 · AI ПИШЕТ КОД ══════════ -->
+  <div class="scene" id="s2">
+    <div id="term">
+      <div class="tb"><i></i><i></i><i></i><em>ai-terminal</em></div>
+      <div class="bd">
+        <div id="typed"><span id="cur"></span></div>
+        <div id="done"><svg width="60" height="60" viewBox="0 0 24 24"><path d="M3.5 12.5l5.2 5.2L20.5 6" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span>готово</span></div>
+      </div>
+    </div>
+    <div id="say"><span class="hl">AI</span> уже пишет код.</div>
+    <div id="ask"><span class="ln aq1">Вопрос —</span><span class="ln aq2">кто будет им</span><span class="ln aq3"><span class="mark-y">управлять</span>?</span></div>
+  </div>
+
+  <!-- ══════════ СЦЕНА 3 · РАЗВИЛКА ══════════ -->
+  <div class="scene" id="s3">
+    <svg id="fork" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <mask id="mStem" maskUnits="userSpaceOnUse" x="0" y="0" width="1080" height="1920"><path id="mStemP" d="M540 1960 L540 1330" stroke="#fff" stroke-width="40" fill="none"/></mask>
+        <mask id="mL" maskUnits="userSpaceOnUse" x="0" y="0" width="1080" height="1920"><path id="mLP" d="M540 1330 C540 1180 288 1200 288 1060" stroke="#fff" stroke-width="40" fill="none"/></mask>
+        <mask id="mR" maskUnits="userSpaceOnUse" x="0" y="0" width="1080" height="1920"><path id="mRP" d="M540 1330 C540 1180 792 1200 792 1060" stroke="#fff" stroke-width="40" fill="none"/></mask>
+      </defs>
+      <g id="roadStem"><path id="rStem" d="M540 1960 L540 1330" stroke-width="150" fill="none"/><path class="dash" d="M540 1960 L540 1330" stroke-width="8" stroke-dasharray="30 30" fill="none" mask="url(#mStem)"/></g>
+      <g id="roadL"><path id="rL" d="M540 1330 C540 1180 288 1200 288 1060" stroke-width="150" fill="none"/><path class="dash" d="M540 1330 C540 1180 288 1200 288 1060" stroke-width="8" stroke-dasharray="30 30" fill="none" mask="url(#mL)"/></g>
+      <g id="roadR"><path id="rR" d="M540 1330 C540 1180 792 1200 792 1060" stroke-width="150" fill="none"/><path class="dash" d="M540 1330 C540 1180 792 1200 792 1060" stroke-width="8" stroke-dasharray="30 30" fill="none" mask="url(#mR)"/></g>
+    </svg>
+    <h2 id="h3"><span class="ln">Кем он будет —</span><span class="ln"><span class="g">пользователем</span></span><span class="ln">или <span class="hl">создателем?</span></span></h2>
+    <div class="c3" id="c3L">
+      <div class="lab">Пользоваться чужим</div>
+      <div class="miniph"><div class="scr"><div id="feed">
+        <div><div class="u"><span class="av"></span><span class="l"></span></div><div class="im"></div></div>
+        <div><div class="u"><span class="av"></span><span class="l"></span></div><div class="im"></div></div>
+        <div><div class="u"><span class="av"></span><span class="l"></span></div><div class="im"></div></div>
+      </div></div></div>
+    </div>
+    <div class="c3" id="c3R">
+      <div class="lab">Создавать своё</div>
+      <div class="cw"><div class="cwb"><i></i><i></i><i></i></div>
+        <div class="cl c1" style="width:58%"></div><div class="cl c2" style="width:80%;margin-left:28px"></div>
+        <div class="cl c3" style="width:46%;margin-left:28px"></div><div class="cl c4" style="width:34%"></div></div>
+      <div class="tiles">
+        <div class="tile"><span class="cd">&lt;/&gt;</span></div>
+        <div class="tile"><svg viewBox="0 0 64 64"><path class="ic-paper" d="M32 3c9 6 13 17 11 31l-4 8H25l-4-8C19 20 23 9 32 3z"/><circle class="ic-hi" cx="32" cy="23" r="6"/><path class="ic-acc2" d="M21 32l-9 9 2 9 10-6zM43 32l9 9-2 9-10-6z"/><path class="ic-acc" d="M27 46h10l-5 15z"/></svg></div>
+        <div class="tile"><svg viewBox="0 0 64 64"><rect class="ic-line" x="6" y="9" width="52" height="46" rx="8"/><path class="ic-line" d="M6 21h52"/><rect class="ic-hi" x="13" y="28" width="11" height="20" rx="3"/><rect class="ic-acc" x="26.5" y="28" width="11" height="14" rx="3"/><rect class="ic-mint" x="40" y="28" width="11" height="9" rx="3"/></svg></div>
+      </div>
+    </div>
+    <span class="spk" id="sp1" style="left:954px;top:566px;font-size:64px">✦</span><span class="spk" id="sp2" style="left:966px;top:1010px;font-size:40px">✦</span>
+    <div id="plaque"><i></i>Навыки строятся сейчас</div>
+  </div>
+
+  <!-- ══════════ ТЁПЛЫЙ ФОН (радиальный вход в сцене 4) ══════════ -->
+  <div class="layer bg-dots" id="bgWarm"></div>
+  <div class="layer" id="bgGlow"></div>
+
+  <!-- ══════════ СЦЕНА 4 · ДОВЕРИЕ ══════════ -->
+  <div class="scene" id="s4">
+    <div id="h4"><div class="a" id="h4a"><span>Alfa <span class="z">Z</span> —</span></div><div class="b" id="h4b">школа программирования</div><div class="b" id="h4c">для подростков <span class="mark-y">12–17 лет</span></div></div>
+    <div id="photo"><img id="photoImg" src="../../assets/aitu-2025-card.jpg" alt=""></div>
+    <div id="ppill"><i></i>Республиканский хакатон · 2025</div>
+    <div class="fact" id="f1" style="top:1114px"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Резидент <span class="k">Astana Hub</span></span></div>
+    <div class="fact" id="f2" style="top:1226px"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Программа на базе Гарвардского <span class="k">CS50</span></span></div>
+    <div class="fact" id="f3" style="top:1338px"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Живой ментор, группы <span class="k">до 8</span> человек</span></div>
+    <div class="fact" id="f4" style="top:1450px"><span class="ck"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span>Команда с опытом <span class="k">5000+</span> учеников</span></div>
+  </div>
+
+  <!-- ══════════ СЦЕНА 5 · ОФФЕР + CTA ══════════ -->
+  <div class="scene" id="s5">
+    <div id="pill5"><span>Первый шаг сделан</span><span class="ok">✓</span></div>
+    <div id="endlogo">
+      <div class="logo" id="logo5"><div class="mark">αZ</div><div class="name"><b>α</b>lfa <b>Z</b></div></div>
+      <div class="handle" id="handle5">@alfaz.school</div>
+    </div>
+    <div id="ring"></div>
+    <div id="stk"><div class="a">Пробный урок</div><div class="p">3000 ₸</div></div>
+    <div id="off2">60 минут онлайн · <b>без обязательств</b></div>
+    <div id="cta1">Запишитесь <span class="mark-y">сегодня</span></div>
+    <div id="hint">Нажмите «Записаться» ↓</div>
+    <div id="arrowRing"></div>
+    <div id="arrow"><svg viewBox="0 0 48 48"><path d="M24 6v32M10 26l14 14 14-14" fill="none" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div id="card5w">
+      <div class="pcard" id="card5"></div>
+      <div id="confetti"></div>
+      <svg id="finger" viewBox="0 0 100 118"><path d="M36 6c-6 0-10 4-10 10v50l-8-7c-4-3-10-3-13 1-3 3-3 8 0 11l25 30c4 5 10 8 16 8h24c10 0 18-7 19-17l3-28c1-7-4-12-11-12-2 0-4 .4-6 1.4-2-4-6-6-10-6-2 0-4 .5-5.6 1.5-2-3-5-4.5-8-4.5V16c0-6-5-10-11-10z" stroke-width="5" stroke-linejoin="round"/></svg>
+    </div>
+  </div>
+
+  <!-- ══════════ ПЕРЕХОДЫ ══════════ -->
+  <div id="curA"></div>
+  <div class="door" id="doorL"></div><div class="door" id="doorR"></div>
+  <div id="gl"><i></i><i></i><i></i><i></i><i></i></div>
+</div>
+
+<script src="../../../node_modules/gsap/dist/gsap.min.js"></script>
+<script>
+(() => {
+  "use strict";
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const DUR = 25.0;
+  const tl = gsap.timeline({ paused: true, defaults: { ease: "power3.out" } });
+
+  // детерминированный ГПСЧ (mulberry32) — никакого Math.random
+  const rnd = (() => { let a = 0x2545F491; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; })();
+  const rr = (a, b) => a + (b - a) * rnd();
+
+  // ── звуковые метки ──
+  const cues = [];
+  const cue = (t, type, gain = 1, pan = 0) => cues.push({ t: +t.toFixed(3), type, gain, pan });
+
+  // ── «процедурные» твины: состояние = чистая функция времени (детерминированно при любом seek) ──
+  function proc(t0, dur, fn) {
+    const o = { p: 0 };
+    tl.to(o, { p: 1, duration: dur, ease: "none", onUpdate() { fn(o.p, o.p * dur); } }, t0);
+  }
+  // последовательность ключей для числового поля
+  function seq(obj, prop, t0, steps, upd) {
+    let t = t0;
+    steps.forEach(([d, v, e]) => { tl.to(obj, { [prop]: v, duration: d, ease: e || "none", onUpdate: upd }, t); t += d; });
+    return t;
+  }
+  const show = (sel, t) => tl.set(sel, { autoAlpha: 1 }, t);
+  const hide = (sel, t) => tl.set(sel, { autoAlpha: 0 }, t);
+
+  // ═════════ карточка загрузки (одна разметка для сцен 1 и 5) ═════════
+  function cardHTML(withBtn) {
+    return `<div class="tb"><i></i><i></i><i></i><em>profession.exe</em></div>
+    <div class="bd">
+      <div class="prow"><div class="ld"><span class="spin"></span><span class="lt"><span class="la">загрузка…</span><span class="lb">загружено</span></span></div><b class="pct">12&nbsp;%</b></div>
+      <div class="track"><div class="fill"></div><div class="fill2"></div></div>
+      <div class="st"><span class="warn"><b class="w1">!</b><b class="w2">1</b></span><span class="stt"><span class="sa">Профессия не выбрана</span><span class="sb">Первый шаг сделан ✓</span></span></div>
+      ${withBtn ? `<div class="btnrow" id="btnrow5"><div class="btn" id="btn5"><span>Ускорить</span><svg viewBox="0 0 48 32"><path d="M2 2l20 14L2 30zM26 2l20 14L26 30z" fill="currentColor"/></svg><span class="rip" id="rip5"></span></div></div>` : ""}
+    </div>`;
+  }
+  $("#card1").innerHTML = cardHTML(false);
+  $("#card5").innerHTML = cardHTML(true);
+  const bind = (root) => ({ fill: $(".fill", root), fill2: $(".fill2", root), pct: $(".pct", root), la: $(".la", root), lb: $(".lb", root), spin: $(".spin", root),
+    sa: $(".sa", root), sb: $(".sb", root), w1: $(".w1", root), w2: $(".w2", root), warn: $(".warn", root) });
+  const C1 = bind($("#card1")), C5 = bind($("#card5"));
+  const setBar = (c, v) => { c.fill.style.width = v.toFixed(2) + "%"; c.fill2.style.width = v.toFixed(2) + "%"; c.pct.innerHTML = Math.round(v) + "&nbsp;%"; };
+
+  // ── шум / глитч ──
+  const stripes = $$("#gl i");
+  const tok = (n) => getComputedStyle(document.body).getPropertyValue(n).trim();   // значения токенов темы
+  const GL_COL = [tok("--accent"), tok("--paper"), tok("--sky"), tok("--hi"), tok("--accent-2")];
+  const GL_A = `rgba(${tok("--hi-rgb")},.9)`, GL_B = tok("--sky");
+  function glitch(t0, dur, targets, amp = 1) {
+    const n = Math.round(dur * 30);
+    for (let i = 0; i <= n; i++) {
+      const t = t0 + i / 30, on = i < n;
+      targets.forEach((tg) => {
+        const sx = on ? rr(6, 16) * amp : 0;
+        tl.set(tg, { x: on ? rr(-26, 26) * amp : 0, skewX: on ? rr(-7, 7) * amp : 0,
+          filter: on ? `drop-shadow(${sx}px 0 0 ${GL_A}) drop-shadow(${-sx}px 0 0 ${GL_B})` : "none" }, t);
+      });
+      stripes.forEach((s, k) => {
+        tl.set(s, { opacity: on && rnd() > 0.35 ? 1 : 0, y: rr(280, 1560), height: rr(6, 46), backgroundColor: GL_COL[k], x: rr(-30, 30) }, t);
+      });
+    }
+  }
+
+  // ═══════════════════════════════════════════════
+  // СЦЕНА 1 · 0.0–3.0 · ХУК
+  // ═══════════════════════════════════════════════
+  tl.fromTo("#hook", { scale: 0.955, transformOrigin: "50% 45%" }, { scale: 1, duration: 0.7, ease: "expo.out" }, 0);
+  tl.fromTo("#card1", { y: 0 }, { y: -18, duration: 3.1, ease: "sine.inOut" }, 0);
+  tl.fromTo("#q1", { rotation: -3, y: 0 }, { rotation: 3, y: -30, duration: 3.1, ease: "none" }, 0);
+  tl.to(C1.spin, { rotation: 360 * 5, duration: 3, ease: "none" }, 0);
+  tl.fromTo(C1.fill, { backgroundPosition: "0px 0px" }, { backgroundPosition: "-240px 0px", duration: 3, ease: "none" }, 0);
+  tl.fromTo("#bgGrid", { backgroundPosition: "0px 0px" }, { backgroundPosition: "0px -540px", duration: DUR, ease: "none" }, 0);
+  // мигающее «загрузка…»
+  proc(0, 3.0, (p, t) => { C1.la.style.opacity = (t % 0.9) < 0.6 ? 1 : 0.12; });
+  // полоса «застряла» на 12 % и дёргается
+  const B1 = { v: 12 };
+  const upd1 = () => setBar(C1, B1.v);
+  seq(B1, "v", 0.42, [[0.10, 15.5, "power2.out"], [0.34, 12, "power2.in"]], upd1);
+  seq(B1, "v", 1.20, [[0.05, 36], [0.05, 5], [0.05, 23], [0.05, 8], [0.06, 12]], upd1);
+  seq(B1, "v", 1.78, [[0.10, 14, "power2.out"], [0.30, 12, "power2.in"]], upd1);
+  seq(B1, "v", 2.30, [[0.05, 47], [0.05, 3], [0.05, 30], [0.05, 9], [0.06, 12]], upd1);
+  seq(B1, "v", 2.62, [[0.08, 13.5, "power2.out"], [0.22, 12, "power2.in"]], upd1);
+  // глитч 1.2 и 2.3 с + усиленный на выходе
+  glitch(1.2, 0.27, ["#card1", "#hk1", "#hk2"], 1);
+  glitch(2.3, 0.27, ["#card1", "#hk2", "#hk1"], 1.15);
+  glitch(2.78, 0.12, ["#card1", "#hk1", "#hk2"], 1.6);
+  cue(1.2, "glitch", 1.0); cue(2.3, "glitch", 1.1); cue(0.55, "tick", 0.5); cue(1.85, "tick", 0.5);
+  cue(0.02, "pop", 0.5);
+
+  // ── переход 1 → 2: коралловая шторка ──
+  tl.fromTo("#curA", { x: -2800 }, { x: -560, duration: 0.25, ease: "power3.in", immediateRender: false }, 2.88);
+  hide("#s1", 3.14); show("#s2", 3.14);
+  tl.to("#curA", { x: 1500, duration: 0.38, ease: "power3.out" }, 3.14);
+  cue(2.86, "whoosh", 1.0);
+
+  // ═══════════════════════════════════════════════
+  // СЦЕНА 2 · 3.0–7.5 · AI УЖЕ ПИШЕТ КОД
+  // ═══════════════════════════════════════════════
+  tl.fromTo("#term", { y: 110, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: "power3.out" }, 3.3);
+  const FULL = "> AI: напиши приложение\nдля школы";
+  const typed = $("#typed");
+  const renderTyped = (n) => {
+    const s = FULL.slice(0, n);
+    typed.innerHTML = (s.startsWith(">") ? '<span class="gt">&gt;</span>' + s.slice(1) : s) + '<span id="cur"></span>';
+  };
+  const T0 = 3.85, TD = 0.95;
+  proc(T0, TD, (p) => renderTyped(Math.round(p * FULL.length)));
+  for (let i = 0; i < FULL.length; i += 2) cue(T0 + (i / FULL.length) * TD, "tick", 0.55, (i % 4 ? 0.15 : -0.15));
+  proc(T0 + TD, 3.0, (p, t) => { const c = $("#cur"); if (c) c.style.opacity = (t % 0.6) < 0.35 ? 1 : 0; });
+  // «✓ готово» мгновенно
+  tl.fromTo("#done", { opacity: 0, y: 18, scale: 0.8, transformOrigin: "0% 50%" }, { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "back.out(2)" }, 4.86);
+  cue(4.86, "pop", 0.95);
+  // терминал приглушается, вперёд выходит заявление
+  tl.to("#term", { opacity: 0.32, scale: 0.97, y: -10, duration: 0.45, ease: "power2.inOut" }, 5.2);
+  tl.fromTo("#say", { opacity: 0, scale: 1.3, y: 24, transformOrigin: "0% 50%" }, { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "expo.out" }, 4.98);
+  cue(4.98, "impact", 0.75);
+  // вопрос: построчно, слово «управлять» — с маркером
+  tl.fromTo(".aq1, .aq2, .aq3", { opacity: 0, y: 46 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.12, ease: "power3.out" }, 5.4);
+  cue(5.4, "swipe", 0.7); cue(5.52, "swipe", 0.6); cue(5.64, "swipe", 0.6);
+  tl.fromTo("#s2 .mark-y", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.4, ease: "power2.out" }, 5.95);
+  cue(5.95, "scratch", 0.55);
+
+  // ── переход 2 → 3: «двери» (серая / коралловая — намёк на две дороги) ──
+  tl.fromTo("#doorL", { x: -560 }, { x: 0, duration: 0.22, ease: "power3.in", immediateRender: false }, 7.32);
+  tl.fromTo("#doorR", { x: 560 }, { x: 0, duration: 0.22, ease: "power3.in", immediateRender: false }, 7.32);
+  hide("#s2", 7.55); show("#s3", 7.55);
+  tl.to("#doorL", { x: -560, duration: 0.42, ease: "power3.out" }, 7.56);
+  tl.to("#doorR", { x: 560, duration: 0.42, ease: "power3.out" }, 7.56);
+  cue(7.3, "whoosh", 0.9);
+
+  // ═══════════════════════════════════════════════
+  // СЦЕНА 3 · 7.5–12.5 · РАЗВИЛКА
+  // ═══════════════════════════════════════════════
+  tl.fromTo("#h3 .ln", { opacity: 0, y: 64 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.14 }, 7.72);
+  cue(7.75, "pop", 0.5);
+  // дорога (маски рисуются вдоль пути)
+  const len = (id) => { const el = document.getElementById(id); return el.getTotalLength(); };
+  const prep = (maskId, roadId) => {
+    const m = document.getElementById(maskId), L = m.getTotalLength();
+    m.style.strokeDasharray = L; m.style.strokeDashoffset = L;
+    const r = document.getElementById(roadId), RL = r.getTotalLength();
+    r.style.strokeDasharray = RL; r.style.strokeDashoffset = RL;
+    return { m, r };
+  };
+  const dStem = prep("mStemP", "rStem"), dL = prep("mLP", "rL"), dR = prep("mRP", "rR");
+  const draw = (o, t0, d, e) => { tl.to([o.m, o.r], { strokeDashoffset: 0, duration: d, ease: e || "power2.out" }, t0); };
+  draw(dStem, 8.25, 0.55);
+  cue(8.3, "swipe", 0.6);
+  // расхождение дорог + карточки «разъезжаются» из центра
+  draw(dL, 8.85, 0.85, "power3.out");
+  draw(dR, 8.85, 0.85, "power3.out");
+  cue(8.85, "whoosh", 1.1);
+  tl.fromTo("#c3L", { x: 250, scale: 0.55, opacity: 0, transformOrigin: "50% 100%" }, { x: 0, scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.4)" }, 9.15);
+  tl.fromTo("#c3R", { x: -250, scale: 0.55, opacity: 0, transformOrigin: "50% 100%" }, { x: 0, scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.4)" }, 9.25);
+  cue(9.3, "pop", 0.6, -0.4); cue(9.4, "pop", 0.8, 0.4);
+  // лента крутится (бесшовно, конечное число повторов)
+  tl.fromTo("#feed", { y: 0 }, { y: -218, duration: 0.9, ease: "none", repeat: 3, immediateRender: false }, 9.2);
+  // иконки создателя
+  tl.fromTo("#c3R .tile", { scale: 0, rotation: -25 }, { scale: 1, rotation: 0, duration: 0.45, stagger: 0.13, ease: "back.out(2.2)" }, 9.85);
+  tl.fromTo("#sp1, #sp2", { scale: 0, rotation: -60 }, { scale: 1, rotation: 0, duration: 0.5, stagger: 0.12, ease: "back.out(2.4)" }, 10.05);
+  cue(9.85, "pop", 0.6, 0.3); cue(9.98, "pop", 0.6, 0.4); cue(10.11, "pop", 0.6, 0.5);
+  // акцент на правой дороге
+  tl.to("#c3L", { opacity: 0.55, scale: 0.96, duration: 0.45, ease: "power2.inOut" }, 10.5);
+  tl.to("#roadL", { opacity: 0.35, duration: 0.45, ease: "power2.inOut" }, 10.5);
+  tl.to("#c3R", { scale: 1.05, duration: 0.5, ease: "back.out(1.6)" }, 10.5);
+  // «Навыки строятся сейчас»
+  tl.fromTo("#plaque", { y: 50, scale: 0.8, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.7)" }, 10.95);
+  cue(10.95, "pop", 0.9);
+  // подъём перед тёплой сценой
+  cue(11.05, "riser", 0.9);
+
+  // ── переход 3 → 4: тёплая «ирис»-волна ──
+  tl.fromTo("#bgWarm", { clipPath: "circle(0px at 540px 960px)" }, { clipPath: "circle(1250px at 540px 960px)", duration: 0.7, ease: "power2.in", immediateRender: false }, 12.0);
+  hide("#s3", 12.72); show("#s4", 12.72);
+  cue(12.05, "whoosh", 1.0); cue(12.5, "impact", 0.55);
+
+  // ═══════════════════════════════════════════════
+  // СЦЕНА 4 · 12.5–18.5 · ДОВЕРИЕ
+  // ═══════════════════════════════════════════════
+  tl.fromTo("#h4a", { opacity: 0, y: 60, scale: 0.92, transformOrigin: "0% 50%" }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.5)" }, 12.75);
+  tl.fromTo("#h4b", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.5 }, 12.95);
+  tl.fromTo("#h4c", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.5 }, 13.1);
+  tl.fromTo("#s4 .mark-y", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.45, ease: "power2.out" }, 13.55);
+  cue(12.8, "pop", 0.6);
+  tl.fromTo("#photo", { y: 150, scale: 0.9, opacity: 0, transformOrigin: "50% 100%" }, { y: 0, scale: 1, opacity: 1, duration: 0.7, ease: "back.out(1.25)" }, 13.25);
+  cue(13.25, "swipe", 0.8);
+  tl.fromTo("#photoImg", { scale: 1.02, xPercent: 0, yPercent: 0 }, { scale: 1.13, xPercent: -2.5, yPercent: 0, duration: 5.4, ease: "none" }, 13.2);
+  tl.fromTo("#ppill", { x: -80, opacity: 0 }, { x: 0, opacity: 1, duration: 0.5, ease: "back.out(1.4)" }, 13.75);
+  cue(13.8, "pop", 0.6);
+  ["f1", "f2", "f3", "f4"].forEach((id, i) => {
+    const t = 14.2 + i * 0.85;
+    tl.fromTo("#" + id, { x: -140, opacity: 0, scale: 0.95, transformOrigin: "0% 50%" }, { x: 0, opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, t);
+    tl.fromTo("#" + id + " .ck", { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(3)" }, t + 0.18);
+    cue(t + 0.05, "ding", 0.85, i % 2 ? 0.25 : -0.25);
+  });
+  // выход сцены 4 → карточка возвращается
+  tl.to(["#h4", "#photo", "#ppill", "#f1", "#f2", "#f3", "#f4"], { y: "-=170", opacity: 0, duration: 0.38, ease: "power3.in", stagger: 0.035 }, 18.05);
+  hide("#s4", 18.6);
+  cue(18.2, "whoosh", 0.9);
+
+  // ═══════════════════════════════════════════════
+  // СЦЕНА 5 · 18.5–25.0 · ОФФЕР + CTA
+  // ═══════════════════════════════════════════════
+  show("#s5", 18.3);
+  tl.fromTo("#card5w", { y: 1100, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "expo.out" }, 18.4);
+  tl.fromTo(C5.fill, { backgroundPosition: "0px 0px" }, { backgroundPosition: "-600px 0px", duration: 2.6, ease: "none" }, 18.4);
+  tl.to(C5.spin, { rotation: 360 * 5, duration: 2.6, ease: "none" }, 18.4);
+  tl.fromTo("#bgGlow", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 21.95);
+  proc(18.9, 1.0, (p, t) => { C5.la.style.opacity = (t % 0.9) < 0.6 ? 1 : 0.12; });
+  // кнопка «Ускорить» пульсирует
+  tl.fromTo("#btn5", { scale: 1 }, { scale: 1.04, duration: 0.3, yoyo: true, repeat: 3, ease: "sine.inOut", immediateRender: false }, 18.95);
+  // палец
+  // кончик пальца (≈ 38,6 в viewBox → ×1.28) должен лечь на кнопку; координаты берём из раскладки относительно #card5w
+  const btnEl = $("#btn5"), wrapEl = $("#card5w");
+  const bR = btnEl.getBoundingClientRect(), wR = wrapEl.getBoundingClientRect();
+  const bx = (bR.left - wR.left) + bR.width * 0.64;
+  const by = (bR.top - wR.top) + bR.height * 0.56;
+  gsap.set("#finger", { left: bx - 49, top: by - 8, opacity: 0 });
+  tl.fromTo("#finger", { x: 190, y: 420, opacity: 0, scale: 1.15, rotation: 8 }, { x: 0, y: 0, opacity: 1, scale: 1, rotation: 0, duration: 0.6, ease: "power3.out" }, 19.2);
+  tl.to("#finger", { scale: 0.86, duration: 0.09, ease: "power2.in" }, 19.85);
+  tl.to("#finger", { scale: 1, duration: 0.2, ease: "power2.out" }, 19.94);
+  tl.to("#btn5", { scale: 0.93, duration: 0.09, ease: "power2.in" }, 19.85);
+  tl.to("#btn5", { scale: 1, duration: 0.3, ease: "back.out(3)" }, 19.94);
+  tl.fromTo("#rip5", { scale: 0.2, opacity: 0.7 }, { scale: 6, opacity: 0, duration: 0.6, ease: "power2.out", immediateRender: false }, 19.86);
+  cue(19.86, "pop", 1.0);
+  cue(19.5, "riser", 0.7);
+  tl.to("#finger", { x: 90, y: 150, opacity: 0, duration: 0.4, ease: "power2.in" }, 20.15);
+  // полоса летит до конца
+  const B5 = { v: 12 };
+  const upd5 = () => setBar(C5, B5.v);
+  seq(B5, "v", 19.95, [[0.9, 100, "power2.inOut"]], upd5);
+  // готово: цвет, статус, конфетти
+  const DONE = 20.86;
+  tl.to(C5.fill2, { opacity: 1, duration: 0.2, ease: "none" }, DONE);
+  tl.to(C5.pct, { color: tok("--mint"), duration: 0.2 }, DONE);
+  tl.to(C5.la, { opacity: 0, duration: 0.12, ease: "none" }, DONE);
+  tl.to(C5.lb, { opacity: 1, duration: 0.2, ease: "none" }, DONE + 0.05);
+  tl.to(C5.sa, { opacity: 0, y: -14, duration: 0.2, ease: "power2.in" }, DONE);
+  tl.fromTo(C5.sb, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)" }, DONE + 0.1);
+  tl.to(C5.warn, { backgroundColor: tok("--mint"), duration: 0.2, ease: "none" }, DONE);
+  tl.to(C5.w1, { opacity: 0, duration: 0.1, ease: "none" }, DONE);
+  tl.to(C5.w2, { opacity: 1, duration: 0.15, ease: "none" }, DONE + 0.08);
+  tl.set("#btnrow5", { overflow: "hidden" }, DONE);
+  tl.to("#btn5", { opacity: 0, y: 16, duration: 0.25, ease: "power2.in" }, DONE);
+  tl.to("#btnrow5", { height: 0, marginTop: 0, duration: 0.45, ease: "power2.inOut" }, DONE + 0.25);
+  tl.fromTo("#card5", { scale: 1 }, { scale: 1.03, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out", immediateRender: false }, DONE);
+  cue(DONE, "success", 1.1);
+  // конфетти (детерминированно)
+  const conf = $("#confetti");
+  const COLS = [tok("--accent"), tok("--hi"), tok("--mint"), tok("--accent-2"), tok("--violet"), tok("--sky")];
+  for (let i = 0; i < 26; i++) {
+    const el = document.createElement("i");
+    el.style.background = COLS[i % COLS.length];
+    if (i % 3 === 0) el.style.borderRadius = "50%";
+    conf.appendChild(el);
+    const a = rr(0, Math.PI * 2), r = rr(300, 700);
+    tl.fromTo(el, { x: 0, y: 0, opacity: 0, scale: 0.4, rotation: 0 },
+      { x: Math.cos(a) * r, y: Math.sin(a) * r * 0.8 + 90, opacity: 1, scale: rr(0.8, 1.5), rotation: rr(-360, 360), duration: 0.8, ease: "power3.out" }, DONE + 0.02);
+    tl.to(el, { opacity: 0, duration: 0.35, ease: "none" }, DONE + 0.6);
+  }
+  // карточка «сворачивается» в плашку статуса
+  tl.to("#card5w", { y: -250, scale: 0.55, opacity: 0, duration: 0.4, ease: "power3.in", transformOrigin: "50% 0%" }, 21.5);
+  tl.fromTo("#pill5", { y: 60, scale: 0.6, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.6)" }, 21.72);
+  cue(21.5, "whoosh", 0.8);
+  // оффер: наклейка — impact
+  tl.fromTo("#stk", { scale: 2.6, opacity: 0, rotation: -16, y: -30 }, { scale: 1, opacity: 1, rotation: -3, y: 0, duration: 0.5, ease: "back.out(1.6)" }, 21.98);
+  tl.fromTo("#ring", { scale: 0.2, opacity: 0.6 }, { scale: 2.6, opacity: 0, duration: 0.7, ease: "power2.out", immediateRender: false }, 22.15);
+  cue(22.15, "impact", 1.15);
+  // удар камеры (детерминированный «shake»)
+  for (let i = 0; i < 7; i++) {
+    const t = 22.15 + i / 30, k = 1 - i / 7;
+    tl.set("#s5", { x: i < 6 ? rr(-14, 14) * k : 0, y: i < 6 ? rr(-14, 14) * k : 0 }, t);
+  }
+  tl.fromTo("#off2", { opacity: 0, y: 44 }, { opacity: 1, y: 0, duration: 0.5 }, 22.5);
+  cue(22.5, "swipe", 0.6);
+  tl.fromTo("#cta1", { opacity: 0, y: 60, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.5)" }, 22.85);
+  tl.fromTo("#s5 .mark-y", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.4, ease: "power2.out" }, 23.15);
+  cue(22.9, "pop", 0.8);
+  tl.fromTo("#hint", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45 }, 23.25);
+  tl.fromTo("#arrow", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 23.3);
+  tl.to("#arrow", { y: 16, duration: 0.38, yoyo: true, repeat: 5, ease: "sine.inOut" }, 23.75);
+  tl.fromTo("#arrowRing", { scale: 1, opacity: 0.6 }, { scale: 1.9, opacity: 0, duration: 0.7, ease: "power1.out", repeat: 2, repeatDelay: 0.05, immediateRender: false }, 23.75);
+  cue(23.3, "pop", 0.7);
+  // финал: логотип + @alfaz.school
+  tl.to("#pill5", { y: -30, opacity: 0, duration: 0.25, ease: "power2.in" }, 23.45);
+  tl.fromTo("#logo5", { opacity: 0, y: 34, scale: 0.8 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 23.6);
+  tl.fromTo("#handle5", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.45 }, 23.8);
+  cue(23.6, "notif", 0.7);
+
+  // хвост таймлайна
+  tl.set({}, {}, DUR);
+
+  // ═════════ контракт с рендером ═════════
+  window.__duration = DUR;
+  window.seek = (t) => { tl.time(Math.max(0, Math.min(DUR, t)), false); };
+  window.__cues = cues.sort((a, b) => a.t - b.t);
+  // музыка: synth.py умеет одно настроение на весь ролик → «hopeful»; тёмная первая половина добавляется
+  // пост-обработкой (mix-audio.py) по плану ниже. Неизвестные ключи synth.py игнорирует.
+  window.__music = { bpm: 100, mood: "hopeful", intro: 2, gain: 0.5, plan: [{ mood: "dark", until: 12.4 }, { mood: "hopeful", from: 12.4 }] };
+})();
+</script>
+</body></html>

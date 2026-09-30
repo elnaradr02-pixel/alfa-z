@@ -1,0 +1,30 @@
+{
+  "kok": {
+    "accent": "#1FB8DA", "accent-d": "#065F7B", "accent-2": "#8FE3F0", "on-accent": "#062A40",
+    "hi": "#F2B632", "on-hi": "#1B1200", "paper": "#F7F7EE", "tint": "#E6EEE9",
+    "ink": "#0F2436", "night": "#082B44", "night-2": "#0E3D5D", "logo-bg": "#FF6B47",
+    "logo-accent": "#FF6B47", "logo-fg": "#FFFBF5",
+    "note": "көк — небесная бирюза и золото; светлая: жемчужная слоновая кость, глубокая бирюза (accent-d) для рукописных фраз; тёмная: лазурит-бирюзовая ночь"
+  },
+  "altyn": {
+    "accent": "#F2B632", "accent-d": "#855A00", "accent-2": "#FFE08A", "on-accent": "#0C1A45",
+    "hi": "#5CD3E8", "on-hi": "#071433", "paper": "#FCF5E3", "tint": "#F5E7C4",
+    "ink": "#101F45", "night": "#0C1E4E", "night-2": "#152F73", "logo-bg": "#FF6B47",
+    "logo-accent": "#FF6B47", "logo-fg": "#FFFBF5",
+    "note": "алтын — золото на ляпис-лазури; светлая: медовая слоновая кость, бронза (accent-d) для текста; hi = светлая бирюза"
+  },
+  "kyzyl": {
+    "accent": "#E94B54", "accent-d": "#8E1A22", "accent-2": "#F5A0A6", "on-accent": "#1C070C",
+    "hi": "#F2B632", "on-hi": "#2A1015", "paper": "#FBF1EA", "tint": "#F6DDD2",
+    "ink": "#2A1015", "night": "#1C070C", "night-2": "#35121B", "logo-bg": "#FF6B47",
+    "logo-accent": "#FF6B47", "logo-fg": "#FFFBF5",
+    "note": "қызыл — гранат и золото; светлая: розовая слоновая кость, гранатовый accent-d; тёмная: гранатово-чёрная ночь"
+  },
+  "jasyl": {
+    "accent": "#34C78E", "accent-d": "#14593F", "accent-2": "#9DE6C4", "on-accent": "#062A1E",
+    "hi": "#F2B632", "on-hi": "#06201A", "paper": "#F4F8EF", "tint": "#E2EEDA",
+    "ink": "#0B2C22", "night": "#082A20", "night-2": "#0F3D30", "logo-bg": "#FF6B47",
+    "logo-accent": "#FF6B47", "logo-fg": "#FFFBF5",
+    "note": "жасыл — изумруд и золото; светлая: листовая слоновая кость, тёмный изумруд; тёмная: хвойная ночь"
+  }
+}

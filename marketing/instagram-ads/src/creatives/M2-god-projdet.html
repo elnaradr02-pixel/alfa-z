@@ -1,0 +1,59 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>M2 · Год пройдёт в любом случае</title>
+<link rel="stylesheet" href="../base.css">
+<style>
+  /* фон: насыщенный лавандовый градиент paper→tint→accent-2 + свечения (сверху-слева, справа за «цветным» годом, снизу-справа) */
+  .bg { background:
+      radial-gradient(900px 650px at 0% 0%, rgba(var(--accent-2-rgb),.95), transparent 62%),
+      radial-gradient(760px 520px at 100% 800px, rgba(var(--accent-2-rgb),.9), transparent 68%),
+      radial-gradient(820px 560px at 100% 1350px, rgba(var(--accent-2-rgb),.8), transparent 66%),
+      radial-gradient(760px 300px at 45% 800px, rgba(var(--accent-rgb),.18), transparent 70%),
+      linear-gradient(170deg, color-mix(in srgb, var(--accent-2) 40%, var(--paper)), var(--tint) 55%, color-mix(in srgb, var(--accent-2) 55%, var(--paper))); }
+  body.story .bg { background:
+      radial-gradient(900px 650px at 0% 0%, rgba(var(--accent-2-rgb),.95), transparent 62%),
+      radial-gradient(760px 520px at 100% 1030px, rgba(var(--accent-2-rgb),.9), transparent 68%),
+      radial-gradient(820px 560px at 100% 1920px, rgba(var(--accent-2-rgb),.8), transparent 66%),
+      radial-gradient(760px 300px at 45% 1030px, rgba(var(--accent-rgb),.18), transparent 70%),
+      linear-gradient(170deg, color-mix(in srgb, var(--accent-2) 40%, var(--paper)), var(--tint) 55%, color-mix(in srgb, var(--accent-2) 55%, var(--paper))); }
+  .yr { margin-top: 40px; }
+  .yr .cap { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .yr .cap b { font: 800 38px "Manrope"; letter-spacing: -0.02em; }
+  .yr .cap span { font: 700 24px "JetBrains Mono", monospace; opacity: .55; }
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; }
+  /* «серый» год: холодный нейтраль, подмешанный из чернил темы — гармонирует с лавандовой бумагой */
+  .grid i { display: grid; place-items: center; height: 104px; border-radius: 18px;
+    background: color-mix(in srgb, var(--ink) 13%, var(--paper)); color: color-mix(in srgb, var(--ink) 50%, var(--paper));
+    font: 800 30px "Manrope"; font-style: normal; }
+  .yr.grey b { color: color-mix(in srgb, var(--ink) 58%, var(--paper)); }
+  /* «цветной» год: от светлой лаванды к глубокому индиго — клетки «набирают цвет» */
+  .yr.hot .grid i {
+    background: color-mix(in srgb, color-mix(in srgb, var(--accent-d) 82%, var(--night)) calc(var(--k, 0) * 100%), var(--accent-2));
+    color: var(--ink);
+    box-shadow: 0 12px 22px -12px rgba(var(--accent-d-rgb),.95), inset 0 2px 0 rgba(var(--paper-rgb),.38); }
+  .yr.hot .grid i:nth-child(n+9) { color: var(--paper); }
+  .yr.hot .grid i.end { background: var(--night); color: var(--paper); font-size: 50px;
+    box-shadow: 0 0 0 5px var(--hi), 0 16px 28px -10px rgba(var(--night-rgb),.7); }
+  .arrow { margin: 22px 0 0; text-align: center; font: 800 30px "Manrope"; color: var(--accent-d); letter-spacing: .04em; text-transform: uppercase; }
+  .h1 { margin-top: 34px; }
+  .h1 .mark-y { white-space: nowrap; } /* предлог «в» не повисает в конце строки */
+  .sub { margin-top: 24px; }
+  body.story .yr { margin-top: 64px; } body.story .h1 { margin-top: 56px; }
+</style></head>
+<body class="theme-sky"><div class="frame"><div class="bg bg-dots"></div>
+<div class="content">
+  <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa Z<small>школа программирования · 12–17 лет</small></div></div>
+  <h1 class="h1 xl" style="font-size:100px;line-height:1.04;margin-top:34px">Год пройдёт <span class="mark-y">в любом случае</span></h1>
+  <p class="sub" style="font-size:38px;margin-top:20px">Вопрос — с чем ваш подросток придёт к его концу.</p>
+
+  <div class="yr grey"><div class="cap"><b>Год в ленте</b><span>12 месяцев</span></div><div class="grid" id="g1"></div></div>
+  <div class="yr hot" style="margin-top:34px"><div class="cap"><b style="color:var(--accent-d)">Год за созданием своего</b><span>→ проект в портфолио</span></div><div class="grid" id="g2"></div></div>
+
+  <div class="grow"></div>
+  <div class="why"><span class="k">Почему сейчас</span><span class="t">Каждый месяц ожидания — пустая клетка</span></div>
+  <div class="cta">Записаться на пробный урок <span class="arr">→</span></div>
+  <div class="trust" style="margin-top:22px"><span>60 минут онлайн</span><span>без обязательств</span><span>живой ментор</span></div>
+</div></div>
+<script>
+  const M='ЯФМАМИИАСОНД'.split(''), g1=document.getElementById('g1'), g2=document.getElementById('g2');
+  M.forEach((m,i)=>{ const a=document.createElement('i'); a.textContent=m; g1.appendChild(a); const e=document.createElement('i'); e.textContent=(i===11?'🚀':m); e.style.setProperty('--k', i/11); if(i===11) e.className='end'; g2.appendChild(e); });
+</script>
+<script src="../fmt.js"></script></body></html>

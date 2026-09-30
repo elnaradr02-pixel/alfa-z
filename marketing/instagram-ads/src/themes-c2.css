@@ -1,0 +1,113 @@
+/* СГЕНЕРИРОВАНО tools/build-themes.py из src/themes.json — не правьте вручную.
+   Токены переключаются классом на <body class="theme-XXX">. Для каждого цвета есть -rgb вариант: rgba(var(--accent-rgb), .5).
+   --accent основной акцент (кнопка, маркер) · --accent-d тёмный оттенок · --accent-2 парный светлый (свечение, градиенты)
+   --on-accent текст на акценте · --hi/--on-hi «наклейка» и текст на ней · --paper/--tint светлая поверхность/подложка
+   --ink текст на светлом · --night/--night-2 тёмная сцена и панели · --logo-* плитка и буквы логотипа (фирменный коралл). */
+
+/* көк — небесная бирюза и золото; светлая: жемчужная слоновая кость, глубокая бирюза (accent-d) для рукописных фраз; тёмная: лазурит-бирюзовая ночь */
+.theme-kok {
+  --accent: #1FB8DA;
+  --accent-d: #065F7B;
+  --accent-2: #8FE3F0;
+  --on-accent: #062A40;
+  --hi: #F2B632;
+  --on-hi: #1B1200;
+  --paper: #F7F7EE;
+  --tint: #E6EEE9;
+  --ink: #0F2436;
+  --night: #082B44;
+  --night-2: #0E3D5D;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 31,184,218;
+  --accent-d-rgb: 6,95,123;
+  --accent-2-rgb: 143,227,240;
+  --hi-rgb: 242,182,50;
+  --paper-rgb: 247,247,238;
+  --tint-rgb: 230,238,233;
+  --ink-rgb: 15,36,54;
+  --night-rgb: 8,43,68;
+  --night-2-rgb: 14,61,93;
+}
+
+/* алтын — золото на ляпис-лазури; светлая: медовая слоновая кость, бронза (accent-d) для текста; hi = светлая бирюза */
+.theme-altyn {
+  --accent: #F2B632;
+  --accent-d: #855A00;
+  --accent-2: #FFE08A;
+  --on-accent: #0C1A45;
+  --hi: #5CD3E8;
+  --on-hi: #071433;
+  --paper: #FCF5E3;
+  --tint: #F5E7C4;
+  --ink: #101F45;
+  --night: #0C1E4E;
+  --night-2: #152F73;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 242,182,50;
+  --accent-d-rgb: 133,90,0;
+  --accent-2-rgb: 255,224,138;
+  --hi-rgb: 92,211,232;
+  --paper-rgb: 252,245,227;
+  --tint-rgb: 245,231,196;
+  --ink-rgb: 16,31,69;
+  --night-rgb: 12,30,78;
+  --night-2-rgb: 21,47,115;
+}
+
+/* қызыл — гранат и золото; светлая: розовая слоновая кость, гранатовый accent-d; тёмная: гранатово-чёрная ночь */
+.theme-kyzyl {
+  --accent: #E94B54;
+  --accent-d: #8E1A22;
+  --accent-2: #F5A0A6;
+  --on-accent: #1C070C;
+  --hi: #F2B632;
+  --on-hi: #2A1015;
+  --paper: #FBF1EA;
+  --tint: #F6DDD2;
+  --ink: #2A1015;
+  --night: #1C070C;
+  --night-2: #35121B;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 233,75,84;
+  --accent-d-rgb: 142,26,34;
+  --accent-2-rgb: 245,160,166;
+  --hi-rgb: 242,182,50;
+  --paper-rgb: 251,241,234;
+  --tint-rgb: 246,221,210;
+  --ink-rgb: 42,16,21;
+  --night-rgb: 28,7,12;
+  --night-2-rgb: 53,18,27;
+}
+
+/* жасыл — изумруд и золото; светлая: листовая слоновая кость, тёмный изумруд; тёмная: хвойная ночь */
+.theme-jasyl {
+  --accent: #34C78E;
+  --accent-d: #14593F;
+  --accent-2: #9DE6C4;
+  --on-accent: #062A1E;
+  --hi: #F2B632;
+  --on-hi: #06201A;
+  --paper: #F4F8EF;
+  --tint: #E2EEDA;
+  --ink: #0B2C22;
+  --night: #082A20;
+  --night-2: #0F3D30;
+  --logo-bg: #FF6B47;
+  --logo-accent: #FF6B47;
+  --logo-fg: #FFFBF5;
+  --accent-rgb: 52,199,142;
+  --accent-d-rgb: 20,89,63;
+  --accent-2-rgb: 157,230,196;
+  --hi-rgb: 242,182,50;
+  --paper-rgb: 244,248,239;
+  --tint-rgb: 226,238,218;
+  --ink-rgb: 11,44,34;
+  --night-rgb: 8,42,32;
+  --night-2-rgb: 15,61,48;
+}

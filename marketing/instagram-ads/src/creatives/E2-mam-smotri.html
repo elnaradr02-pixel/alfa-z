@@ -1,0 +1,55 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>E2 · Мам, смотри, что я сделал</title>
+<link rel="stylesheet" href="../base.css">
+<style>
+  .frame { background: var(--accent); }
+  /* фон: малина со светлым бликом сверху-слева, мягким глубоким тоном снизу-справа и тонкой сеткой точек */
+  .bg { background:
+      radial-gradient(820px 620px at 0% 0%, rgba(var(--accent-2-rgb),.75), transparent 62%),
+      radial-gradient(760px 700px at 110% 100%, rgba(var(--accent-d-rgb),.85), transparent 60%),
+      var(--accent); overflow: hidden; }
+  .bg::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(var(--paper-rgb),.2) 2.4px, transparent 2.8px); background-size: 34px 34px; -webkit-mask-image: linear-gradient(180deg,#000,transparent 40%,transparent 62%,#000); mask-image: linear-gradient(180deg,#000,transparent 40%,transparent 62%,#000); }
+  /* декор: мятный «стикер»-круг и кольцо — работают в зонах, свободных от текста */
+  .bg::before { content: ""; position: absolute; width: 300px; height: 300px; border-radius: 50%; right: -120px; top: -130px; background: var(--hi); box-shadow: 0 0 0 26px rgba(var(--accent-2-rgb),.5); }
+  body.story .bg::before { top: 40px; right: -110px; }
+  .ring { position: absolute; width: 360px; height: 360px; border-radius: 50%; left: -200px; bottom: -70px; border: 22px solid rgba(var(--accent-2-rgb),.55); display: none; }
+  body.story .ring { display: block; }
+  /* фирменный оранжевый знак — на светлой плашке, чтобы читался на малине */
+  .logo { align-self: flex-start; margin: 0 0 -8px -8px; padding: 8px 28px 8px 8px; border-radius: 26px; background: var(--paper); box-shadow: 0 16px 34px -18px rgba(var(--night-rgb),.6); } .logo .name { color: var(--ink); }
+  .tag { align-self: flex-start; margin-top: 26px; background: rgba(var(--night-rgb),.92); color: var(--paper); }
+  .chat { margin-top: 22px; display: flex; flex-direction: column; gap: 16px; }
+  .bub { position: relative; max-width: 800px; border-radius: 44px; padding: 28px 40px; font: 800 64px/1.06 "Manrope"; letter-spacing: -0.03em; box-shadow: 0 30px 50px -28px rgba(var(--night-rgb),.65); }
+  .bub.l { align-self: flex-start; background: var(--paper); color: var(--ink); border-bottom-left-radius: 12px; }
+  .bub.r { align-self: flex-end; background: var(--night); color: var(--paper); border-bottom-right-radius: 12px; font-size: 46px; padding: 28px 38px; font-weight: 700; letter-spacing: -0.02em; max-width: 720px; }
+  .shot { align-self: flex-start; width: 430px; height: 214px; border-radius: 36px; border-bottom-left-radius: 12px; background: var(--paper); padding: 16px; box-shadow: 0 30px 50px -28px rgba(var(--night-rgb),.65); display: grid; grid-template-columns: 1.1fr 1fr; gap: 14px; }
+  .shot .q { border-radius: 24px; background: var(--tint); padding: 14px; display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+  .shot .q i { display: block; height: 30px; border-radius: 10px; }
+  .shot .q i:nth-child(1) { background: var(--accent); }
+  .shot .q i:nth-child(2) { background: var(--accent-2); }
+  .shot .q i:nth-child(3) { background: var(--hi); }
+  .shot .q i:nth-child(4) { background: color-mix(in srgb, var(--night-2) 70%, var(--accent)); }
+  .shot .ok { border-radius: 24px; background: var(--hi); display: grid; place-items: center; text-align: center; font: 800 26px/1.1 "Manrope"; color: var(--on-hi); }
+  .shot .ok b { display: block; font-size: 70px; line-height: 1; }
+  .read { align-self: flex-end; font: 700 24px "Manrope"; color: rgba(var(--paper-rgb),.9); margin-top: -8px; margin-right: 8px; }
+  .h { margin-top: 26px; color: var(--ink); }
+  .cta.dark { background: var(--night); color: var(--paper); box-shadow: 0 22px 50px -20px rgba(var(--night-rgb),.65), inset 0 -6px 0 rgba(var(--paper-rgb),.08); }
+  .cta.dark .arr { color: var(--hi); }
+  body.story .chat { gap: 30px; margin-top: 44px; } body.story .h { margin-top: 60px; }
+  body.story .shot { width: 540px; height: 290px; }
+</style></head>
+<body class="theme-berry"><div class="frame"><div class="bg"><i class="ring"></i></div>
+<div class="content">
+  <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa Z<small>школа программирования · 12–17 лет</small></div></div>
+  <span class="pill tag">Представьте: через час после первого урока</span>
+
+  <div class="chat">
+    <div class="bub l">Мам, смотри, что я&nbsp;сделал!</div>
+    <div class="shot"><div class="q"><i></i><i></i><i></i><i></i></div><div class="ok"><div><b>✓</b>работает!</div></div></div>
+    <div class="bub r">Сам?! Это же настоящее приложение 😍</div>
+  </div>
+
+  <h1 class="h1 md h" style="font-size:68px">Этот момент начинается <span class="mark-sun">с одного урока</span></h1>
+  <div class="grow"></div>
+  <div class="why"><span class="k">Почему сейчас</span><span class="t">Запишитесь сегодня — подберём время</span></div>
+  <div class="cta dark" style="font-size:38px">Записаться на пробный урок — 3000 ₸ <span class="arr">→</span></div>
+</div></div>
+<script src="../fmt.js"></script></body></html>

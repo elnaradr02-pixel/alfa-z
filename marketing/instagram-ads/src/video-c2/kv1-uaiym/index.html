@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="kk"><head><meta charset="utf-8"><title>KV1 · Уайымдар өшеді (9:16, ~26 с)</title>
+<meta name="viewport" content="width=1080, initial-scale=1">
+<!-- Кампания 2 · видео KV1 «Уайымдар өшеді». Сценарий: .cache/c2-native-plan.json → videos → KV1.
+     Три тревоги мамы пишутся от руки и перечёркиваются, на их месте — спокойный ответ из фактов; финал: «Мама, уайымдамаңыз» в арке-обереге.
+     Все тексты — только в словаре i18n ниже (kk — основной, ?lang=ru — вторая версия). Таймлайн считается из длины текстов (scene.js),
+     поэтому правка формулировок не требует правки тайминга.
+     Рендер:  node render-video.mjs kv1-uaiym --dir video-c2 --lang kk   (кадр: --still 12) -->
+<link rel="stylesheet" href="../../base.css"><link rel="stylesheet" href="../../themes-c2.css"><link rel="stylesheet" href="../../fonts-c2.css">
+<link rel="stylesheet" href="../../ornament.css"><link rel="stylesheet" href="../../lettering.css">
+<link rel="stylesheet" href="scene.css">
+</head>
+<body class="story theme-kok">
+<div class="frame" id="frame">
+
+  <!-- ── страница-«тетрадь» (светлая) ── -->
+  <div class="paper" id="paper">
+    <div class="orn-pattern pat"></div>
+    <div class="orn-band band-t"></div>
+    <div class="orn-corner tl"></div><div class="orn-corner tr"></div>
+    <div class="orn-corner bl"></div><div class="orn-corner br"></div>
+    <div class="orn-band band-b"></div>
+  </div>
+
+  <!-- ── финал: ночь вокруг арки-оберега ── -->
+  <div class="night" id="night">
+    <div class="glow"></div>
+    <div class="orn-pattern npat"></div>
+    <div class="orn-band nband-t"></div>
+    <div class="orn-band nband-b"></div>
+  </div>
+  <div class="orn-arch-in arch-in" id="archIn"></div>
+  <div class="arch-line" id="archLine"></div>
+
+  <!-- ── тревоги → ответы ── -->
+  <div class="view" id="view">
+  <div class="page" id="page">
+    <div class="label" id="label"><i class="orn-horns"></i><span data-i="label"></span></div>
+
+    <section class="slot" id="s1">
+      <div class="worry lt-hand"><span class="wq s3" data-i="w1"></span></div>
+      <div class="ans-row"><span class="ans lt-hand" data-i="a1"></span><i class="lt-ico i-tick1 tick"></i></div>
+      <p class="fact" data-i="f1"></p>
+    </section>
+
+    <section class="slot" id="s2">
+      <div class="worry lt-hand"><span class="wq s3" data-i="w2"></span></div>
+      <div class="ans-row"><span class="ans lt-hand" data-i="a2"></span><i class="lt-ico i-tick1 tick"></i></div>
+      <p class="fact" data-i="f2"></p>
+    </section>
+
+    <section class="slot" id="s3">
+      <div class="worry lt-hand"><span class="wq s3" data-i="w3"></span></div>
+      <div class="ans-row"><span class="ans lt-hand" data-i="a3"></span><i class="lt-ico i-tick1 tick"></i></div>
+      <p class="fact" data-i="f3"></p>
+    </section>
+  </div>
+  </div>
+
+  <!-- ── финал в проёме арки ── -->
+  <div class="fin" id="fin">
+    <div class="hero">
+      <div class="hero-l1"><span class="lt-hand" id="h1" data-i="h1"></span><i class="lt-ico i-heart2 heart" id="heart"></i></div>
+      <div class="hero-l2"><span class="lt-hand" id="h2" data-i="h2"></span></div>
+    </div>
+    <h2 class="head" id="head" data-i="head"></h2>
+    <div class="price" id="price"><span data-i="p1"></span><span data-i="p2"></span></div>
+  </div>
+
+  <div class="ctabox" id="ctabox">
+    <div class="btn" id="btn"><i class="lt-ico i-spark2 spark" id="spark"></i><span data-i="cta"></span><span class="arr">→</span></div>
+    <div class="contact" id="contact">
+      <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa Z</div></div>
+      <span class="ct" data-i="contact"></span>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="i18n">
+{"kk":{
+  "label":"Таныс па?",
+  "w1":"Қиын болмас па?",
+  "a1":"Ешкім <span class=\"lt-under u3\">тұрып қалмайды</span>",
+  "f1":"Ментор 24/7 байланыста<br>Аптасына 2 тірі сабақ",
+  "w2":"Оны кім үйретеді?",
+  "a2":"Теоретик <span class=\"nb\">емес —</span> <span class=\"lt-circle r2\">практик</span>",
+  "f2":"Ұстаз қазір IT-компанияда жұмыс істейді",
+  "w3":"Онлайн қауіпсіз бе?",
+  "a3":"Топта <span class=\"lt-mark\">8-ге дейін</span> оқушы",
+  "f3":"Камера қосулы<br>Ұстаздар іріктеуден өтеді<br>Ата-анаға әр 3 аптада есеп",
+  "h1":"Мама,",
+  "h2":"<span class=\"lt-under u2\">уайымдамаңыз</span>",
+  "head":"IT-де біз балаңызбен біргеміз",
+  "p1":"Сынақ сабақ · 60 минут · онлайн",
+  "p2":"3000 ₸ · міндеттемесіз",
+  "cta":"Сынақ сабаққа жазылыңыз",
+  "contact":"alfa-z.kz · WhatsApp +7 700 724 03 53"
+ },
+ "ru":{
+  "label":"Знакомо?",
+  "w1":"Будет ли сложно?",
+  "a1":"Никто <span class=\"lt-under u3\">не застревает</span>",
+  "f1":"Ментор на связи 24/7<br>2 живых занятия в неделю",
+  "w2":"Кто его научит?",
+  "a2":"Не <span class=\"nb\">теоретик —</span> <span class=\"lt-circle r2\">практик</span>",
+  "f2":"Преподаватель сейчас работает в IT-компании",
+  "w3":"Безопасно ли онлайн?",
+  "a3":"В группе <span class=\"lt-mark\">до 8</span> человек",
+  "f3":"Камеры включены<br>Преподаватели проходят отбор<br>Отчёт родителям каждые 3 недели",
+  "h1":"Мама,",
+  "h2":"<span class=\"lt-under u2\">не волнуйтесь</span>",
+  "head":"В IT мы рядом с вашим ребёнком",
+  "p1":"Пробный урок · 60 минут · онлайн",
+  "p2":"3000 ₸ · без обязательств",
+  "cta":"Запишитесь на пробный урок",
+  "contact":"alfa-z.kz · WhatsApp +7 700 724 03 53"
+ }}
+</script>
+<script src="../../i18n.js"></script>
+<script src="../../../node_modules/gsap/dist/gsap.min.js"></script>
+<script src="../../lettering.js"></script>
+<script src="scene.js"></script>
+</body></html>

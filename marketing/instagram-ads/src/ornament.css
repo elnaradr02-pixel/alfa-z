@@ -1,0 +1,76 @@
+/* Alfa Z · кампания 2 — национальный орнамент (SVG-маски).
+   Подключение из креативов:  <link rel="stylesheet" href="../ornament.css">   (пути url() ниже — относительно ЭТОГО файла).
+   Все SVG одноцветные; цвет задаётся токеном темы:  --orn (по умолчанию var(--hi) — золото/бирюза темы).
+   Примеры:  style="--orn: var(--accent-2)"   |   style="--orn: rgba(var(--ink-rgb), .08)"   |   style="--o: .35" (прозрачность).
+
+   Размеры — переменными на самом элементе (--w / --h). Отдельные классы:
+     .orn-band       лента-борт, повтор по X. Высота --h (по умолчанию 64px; берите ЦЕЛЫЕ px — шов не виден), ширина --w (100%).
+                     Плитка 2:1, поэтому одна плитка = 2×--h по ширине. --ox — сдвиг узора по X (по умолчанию 0).
+     .orn-corner     угол 256×256 (рисунок в левом верхнем углу). --w (256px), поворот --rot; модификаторы .tl .tr .br .bl
+                     ставят абсолютное положение в углу родителя (--in — отступ) и нужный поворот.
+     .orn-medallion  круглая розетка 512×512. --w (512px).
+     .orn-horns      қошқар мүйіз (пара мүйіз), 256×256. --w (256px).
+     .orn-arch       арочная рамка 512×640 (проём под фото/карточку). --w (512px), высота по пропорции 4:5 (или --h).
+     .orn-arch-in    заливка проёма арки той же формы (подложка/фото): --fill (цвет или url(...) center/cover), по умолчанию var(--paper).
+     .orn-pattern    бесшовный фоновый узор 160×160. Плитка --s (160px), размер области --w/--h (100%); по умолчанию прозрачность .18.
+   Общие: --rot (поворот), --fx / --fy (зеркало: -1), --o (прозрачность). Для перекраски нескольких слоёв — --orn на родителе. */
+
+.orn-band, .orn-corner, .orn-medallion, .orn-horns, .orn-arch, .orn-arch-in, .orn-pattern {
+  display: block; flex: none; pointer-events: none;
+  background: var(--orn, var(--hi));
+  opacity: var(--o, 1);
+  rotate: var(--rot, 0deg);
+  scale: var(--fx, 1) var(--fy, 1);
+  -webkit-mask-repeat: no-repeat;   mask-repeat: no-repeat;
+  -webkit-mask-position: center;    mask-position: center;
+  -webkit-mask-size: contain;       mask-size: contain;
+}
+
+/* лента: плитка 128×64 (2:1) повторяется по X */
+.orn-band {
+  width: var(--w, 100%); height: var(--h, 64px);
+  -webkit-mask-image: url('ornament/band.svg'); mask-image: url('ornament/band.svg');
+  -webkit-mask-repeat: repeat-x; mask-repeat: repeat-x;
+  -webkit-mask-position: var(--ox, 0px) center; mask-position: var(--ox, 0px) center;
+  -webkit-mask-size: auto 100%; mask-size: auto 100%;
+}
+
+/* угол: рисунок в левом верхнем углу; повороты 90° дают остальные три */
+.orn-corner {
+  width: var(--w, 256px); height: var(--h, var(--w, 256px));
+  -webkit-mask-image: url('ornament/corner.svg'); mask-image: url('ornament/corner.svg');
+}
+.orn-corner.tl, .orn-corner.tr, .orn-corner.br, .orn-corner.bl { position: absolute; }
+.orn-corner.tl { --rot: 0deg;   top: var(--in, 0px);    left: var(--in, 0px); }
+.orn-corner.tr { --rot: 90deg;  top: var(--in, 0px);    right: var(--in, 0px); }
+.orn-corner.br { --rot: 180deg; bottom: var(--in, 0px); right: var(--in, 0px); }
+.orn-corner.bl { --rot: 270deg; bottom: var(--in, 0px); left: var(--in, 0px); }
+
+.orn-medallion {
+  width: var(--w, 512px); height: var(--h, var(--w, 512px));
+  -webkit-mask-image: url('ornament/medallion.svg'); mask-image: url('ornament/medallion.svg');
+}
+
+.orn-horns {
+  width: var(--w, 256px); height: var(--h, var(--w, 256px));
+  -webkit-mask-image: url('ornament/horns.svg'); mask-image: url('ornament/horns.svg');
+}
+
+.orn-arch {
+  width: var(--w, 512px); height: var(--h, auto); aspect-ratio: 512 / 640;
+  -webkit-mask-image: url('ornament/frame-arch.svg'); mask-image: url('ornament/frame-arch.svg');
+}
+.orn-arch-in {
+  width: var(--w, 512px); height: var(--h, auto); aspect-ratio: 512 / 640;
+  background: var(--fill, var(--paper));
+  -webkit-mask-image: url('ornament/frame-arch-in.svg'); mask-image: url('ornament/frame-arch-in.svg');
+}
+
+/* бесшовный узор: плитка 160×160 (--s), заполняет область; лёгкий по умолчанию */
+.orn-pattern {
+  width: var(--w, 100%); height: var(--h, 100%); opacity: var(--o, .18);
+  -webkit-mask-image: url('ornament/pattern-tile.svg'); mask-image: url('ornament/pattern-tile.svg');
+  -webkit-mask-repeat: repeat; mask-repeat: repeat;
+  -webkit-mask-position: 0 0; mask-position: 0 0;
+  -webkit-mask-size: var(--s, 160px) var(--s, 160px); mask-size: var(--s, 160px) var(--s, 160px);
+}

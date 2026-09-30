@@ -1,0 +1,48 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>Theme board</title>
+<link rel="stylesheet" href="../base.css">
+<style>
+  html,body{background:#15151c}
+  .grid{display:flex;flex-wrap:wrap;gap:22px;padding:22px;width:1980px}
+  .cell{width:462px}
+  .cell h4{font:700 22px "JetBrains Mono",monospace;color:#cfcfe0;margin:0 0 10px}
+  .tile{zoom:.4275;width:1080px;height:1350px;position:relative;overflow:hidden;border-radius:28px}
+  .tile .content{padding:64px}
+  .light{background:var(--paper);color:var(--ink)}
+  .light .bg{background:radial-gradient(800px 600px at 100% 0%,rgba(var(--accent-2-rgb),.55),transparent 62%),radial-gradient(760px 600px at 0% 100%,rgba(var(--accent-rgb),.22),transparent 62%),var(--paper)}
+  .dark{background:var(--night);color:var(--paper)}
+  .dark .bg{background:radial-gradient(800px 640px at 100% 0%,rgba(var(--accent-rgb),.42),transparent 62%),radial-gradient(760px 600px at 0% 100%,rgba(var(--accent-2-rgb),.20),transparent 62%),var(--night)}
+  .tile .win{margin-top:34px}
+  .tile .h1{margin-top:34px;font-size:92px}
+  .tile .sub{margin-top:22px}
+  .swatches{display:flex;gap:10px;margin-top:26px}
+  .swatches i{display:block;width:96px;height:96px;border-radius:24px;box-shadow:inset 0 0 0 3px rgba(128,128,128,.25)}
+  .stk{position:absolute;right:56px;top:210px;z-index:5}
+</style></head>
+<body>
+<div class="grid" id="g"></div>
+<script>
+  const q=new URLSearchParams(location.search);
+  const extra=q.get('css'); if(extra){const l=document.createElement('link');l.rel='stylesheet';l.href=extra;document.head.appendChild(l);}
+  const names=(q.get('themes')||'').split(',').filter(Boolean);
+  window.__build=()=>{
+    const g=document.getElementById('g');
+    const tile=(n,mode)=>`
+      <div class="cell theme-${n}"><h4>${n} · ${mode==='light'?'светлая сцена':'тёмная сцена'}</h4>
+      <div class="tile ${mode} ${mode==='dark'?'on-dark':''} theme-${n}"><div class="bg ${'bg-dots'}"></div>
+        <div class="content">
+          <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa Z<small>школа программирования · 12–17 лет</small></div></div>
+          <h1 class="h1">Пусть он не листает, а <span class="mark-y">создаёт</span></h1>
+          <p class="sub" style="font-size:34px">Первый урок с живым ментором — и <b>свой мини-проект</b>.</p>
+          <div class="win"><div class="bar"><i></i><i></i><i></i><em>my_app.py</em></div><div class="code"><span class="k">def</span> <span class="f">start</span>():\n  <span class="n">quiz</span> = <span class="f">build</span>(<span class="s">"Какой ты герой?"</span>)\n  <span class="c"># мой первый проект</span></div></div>
+          <div class="swatches"><i style="background:var(--accent)"></i><i style="background:var(--accent-2)"></i><i style="background:var(--hi)"></i><i style="background:var(--paper)"></i><i style="background:var(--night)"></i></div>
+          <div class="grow"></div>
+          <div class="why"><span class="k">Почему сейчас</span><span class="t">Без ожидания потока</span></div>
+          <div class="cta">Записаться на пробный урок <span class="arr">→</span></div>
+        </div>
+        <div class="sticker stk"><span class="a">пробный урок</span><span class="p">3000 ₸</span><span class="b">60 мин · онлайн</span></div>
+      </div></div>`;
+    g.innerHTML=names.map(n=>tile(n,'light')+tile(n,'dark')).join('');
+    document.body.dataset.ready='1';
+  };
+  window.__build();
+</script></body></html>

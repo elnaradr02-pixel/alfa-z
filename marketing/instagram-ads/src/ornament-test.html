@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="kk"><head><meta charset="utf-8"><title>Орнамент кампании 2 — проверка</title>
+<!-- Проверочная доска орнамента кампании 2: все элементы на светлой и тёмной сцене в темах kok / altyn / kyzyl / jasyl
+     (themes-c2.css), затем пример макета 4:5. Открывать напрямую (file://): playwright-core из node_modules,
+     executablePath /opt/pw-browsers/chromium, args --no-sandbox --allow-file-access-from-files (нужен для mask-image из file://).
+     Перегенерация SVG: python3 tools/gen-ornament.py. -->
+<link rel="stylesheet" href="base.css"><link rel="stylesheet" href="themes-c2.css"><link rel="stylesheet" href="ornament.css">
+<style>
+  html, body { background: #0a0d14; }
+  body { font-family: "Manrope", sans-serif; padding: 28px; }
+  h2 { font: 700 22px/1 "JetBrains Mono", monospace; color: #cfd6e6; margin: 0 0 14px; }
+  .theme-block { margin-bottom: 40px; }
+  .pair { display: flex; gap: 28px; }
+
+  /* ── каталог: сцена = фон + подписанные ячейки ── */
+  .scene { position: relative; width: 1000px; height: 800px; overflow: hidden; border-radius: 6px; padding: 0; }
+  .scene.light { background: var(--paper); color: var(--ink); }
+  .scene.dark  { background: var(--night); color: var(--paper); }
+  .scene .bgp { position: absolute; inset: 0; }
+  .scene.light .bgp { --orn: var(--accent-d); --o: .14; }
+  .scene.dark  .bgp { --orn: var(--accent-2); --o: .12; }
+  .scene .cell { position: absolute; }
+  .scene .lbl { position: absolute; font: 600 13px/1 "JetBrains Mono", monospace; opacity: .55; white-space: nowrap; }
+  /* цвета по сцене (рекомендуемые пары; в altyn акцент — золото, hi — бирюза) */
+  .scene.light .orn-band, .scene.light .orn-medallion, .scene.light .orn-horns, .scene.light .orn-arch { --orn: var(--accent-d); }
+  .scene.light .orn-corner { --orn: var(--accent); }
+  .scene.light .orn-arch-in { --fill: linear-gradient(160deg, var(--tint), var(--accent-2)); }
+  .scene.dark .orn-band, .scene.dark .orn-medallion, .scene.dark .orn-horns, .scene.dark .orn-arch, .scene.dark .orn-corner { --orn: var(--accent-2); }
+  .scene.dark .orn-arch-in { --fill: linear-gradient(160deg, rgba(var(--accent-rgb), .9), var(--night-2)); }
+  .altyn .scene.light .orn-band, .altyn .scene.light .orn-medallion, .altyn .scene.light .orn-horns, .altyn .scene.light .orn-arch { --orn: var(--hi); }
+  .altyn .scene.dark  .orn-band, .altyn .scene.dark  .orn-medallion, .altyn .scene.dark  .orn-horns, .altyn .scene.dark  .orn-arch, .altyn .scene.dark .orn-corner { --orn: var(--accent); }
+  .scene.dark .orn-medallion { --orn: var(--hi); }
+  .altyn .scene.dark .orn-medallion { --orn: var(--accent-2); }
+
+  /* ── пример макета 4:5 ── */
+  .samples { display: flex; gap: 28px; margin-top: 10px; }
+  .samp { zoom: .62; flex: none; }
+  .frame.sample { width: 1080px; height: 1350px; background: var(--paper); }
+  .frame.sample.dark { background: var(--night); color: var(--paper); }
+  .sample .orn-band.t { position: absolute; left: 0; top: 0; right: 0; --h: 64px; }
+  .sample .orn-band.b { position: absolute; left: 0; bottom: 0; right: 0; --h: 64px; }
+  .sample .orn-corner { --w: 200px; --in: 84px; }
+  .sample .archwrap { position: absolute; left: 280px; top: 150px; width: 520px; --w: 520px; }
+  .sample .archwrap > * { position: absolute; left: 0; top: 0; }
+  .sample .archwrap .ph { position: absolute; inset: 0; }
+  .sample .h { position: absolute; left: 110px; right: 110px; top: 846px; text-align: center; font: 800 56px/1.1 "Unbounded", sans-serif; letter-spacing: -0.02em; }
+  .sample .s { position: absolute; left: 110px; right: 110px; top: 990px; text-align: center; font: 600 34px/1.3 "Manrope", sans-serif; opacity: .8; }
+  .sample .cta2 { position: absolute; left: 150px; right: 150px; bottom: 104px; height: 108px; font-size: 38px; }
+  .sample.light .orn-band, .sample.light .orn-arch { --orn: var(--accent-d); }
+  .sample.light .orn-corner { --orn: var(--hi); }
+  .sample.light .orn-arch-in { --fill: linear-gradient(160deg, var(--tint), var(--accent-2)); }
+  .sample.dark .orn-band, .sample.dark .orn-arch, .sample.dark .orn-corner { --orn: var(--accent-2); }
+  .sample.dark .orn-arch-in { --fill: linear-gradient(160deg, rgba(var(--accent-rgb), .9), var(--night-2)); }
+  .sample .orn-pattern { position: absolute; inset: 0; }
+  .sample.light .orn-pattern { --orn: var(--accent-d); --o: .12; }
+  .sample.dark .orn-pattern { --orn: var(--accent-2); --o: .10; }
+  .sample .med { position: absolute; left: 90px; top: 25px; --w: 900px; --o: .16; }
+  .sample.light .med { --orn: var(--accent-d); }
+  .sample.dark .med { --orn: var(--hi); }
+</style></head>
+<body>
+<script>
+  const themes = [["kok", "көк"], ["altyn", "алтын"], ["kyzyl", "қызыл"], ["jasyl", "жасыл"]];
+  const box = (rot) => `<div style="width:118px;height:118px;position:relative;outline:1px dashed rgba(128,128,128,.4)"><div class="orn-corner" style="--w:118px;--rot:${rot}deg"></div></div>`;
+  const scene = (mode) => `
+    <div class="scene ${mode}">
+      <div class="orn-pattern bgp"></div>
+      <div class="orn-band" style="position:absolute;left:0;top:0;right:0;--h:64px"></div>
+      <div class="lbl" style="left:24px;top:80px">.orn-band --h:64 · фон .orn-pattern --o:.14</div>
+
+      <div class="lbl" style="left:24px;top:112px">.orn-corner (--rot 0/90/180/270)</div>
+      <div class="cell" style="left:24px;top:132px;width:246px;display:flex;flex-wrap:wrap;gap:10px">${box(0)}${box(90)}${box(270)}${box(180)}</div>
+
+      <div class="lbl" style="left:24px;top:402px">.orn-horns --w:190</div>
+      <div class="cell" style="left:24px;top:424px"><div class="orn-horns" style="--w:190px"></div></div>
+      <div class="lbl" style="left:24px;top:632px">.orn-horns --w:96 / 64 / 44</div>
+      <div class="cell" style="left:24px;top:654px;display:flex;gap:16px;align-items:center"><div class="orn-horns" style="--w:96px"></div><div class="orn-horns" style="--w:64px"></div><div class="orn-horns" style="--w:44px"></div></div>
+
+      <div class="lbl" style="left:296px;top:112px">.orn-medallion --w:330</div>
+      <div class="cell" style="left:296px;top:132px"><div class="orn-medallion" style="--w:330px"></div></div>
+      <div class="lbl" style="left:296px;top:480px">.orn-pattern --s:160 --o:.55</div>
+      <div class="cell" style="left:296px;top:502px;width:330px;height:130px;overflow:hidden;outline:1px dashed rgba(128,128,128,.3)"><div class="orn-pattern" style="--o:.55"></div></div>
+      <div class="lbl" style="left:296px;top:646px">.orn-band --h:40 / 24</div>
+      <div class="cell" style="left:296px;top:668px;width:330px;display:flex;flex-direction:column;gap:12px"><div class="orn-band" style="--h:40px"></div><div class="orn-band" style="--h:24px"></div></div>
+
+      <div class="lbl" style="left:652px;top:112px">.orn-arch + .orn-arch-in --w:300</div>
+      <div class="cell" style="left:652px;top:132px;width:300px;height:375px;--w:300px">
+        <div class="orn-arch-in" style="position:absolute;left:0;top:0"></div><div class="orn-arch" style="position:absolute;left:0;top:0"></div>
+      </div>
+      <div class="lbl" style="left:652px;top:526px">.orn-arch --w:96 · --orn · --o:.35</div>
+      <div class="cell" style="left:652px;top:548px;display:flex;gap:12px;align-items:flex-start">
+        <div class="orn-arch" style="--w:96px"></div>
+        <div class="orn-arch" style="--w:96px;--orn:var(--hi)"></div>
+        <div class="orn-arch" style="--w:96px;--o:.35"></div>
+      </div>
+
+      <div class="orn-band" style="position:absolute;left:0;bottom:0;right:0;--h:48px"></div>
+    </div>`;
+  const sample = (mode) => `
+    <div class="samp"><div class="frame sample ${mode}">
+      <div class="orn-pattern"></div>
+      <div class="orn-medallion med"></div>
+      <div class="orn-band t"></div><div class="orn-band b"></div>
+      <div class="orn-corner tl"></div><div class="orn-corner tr"></div><div class="orn-corner br"></div><div class="orn-corner bl"></div>
+      <div class="archwrap"><div class="orn-arch-in"></div><div class="orn-arch"></div></div>
+      <div class="h">Сынақ сабаққа жазылыңыз</div>
+      <div class="s">Іс жүзіндегі IT-маман — ұстаз · қазақша және орысша</div>
+      <div class="cta cta2"><span>Сынақ сабаққа жазылу</span> <span class="arr">→</span></div>
+    </div></div>`;
+  document.body.innerHTML = themes.map(([t, n]) =>
+    `<section class="theme-block theme-${t} ${t}" id="${t}"><h2>${t} · ${n}</h2><div class="pair">${scene("light")}${scene("dark")}</div></section>`).join("")
+    + `<section class="theme-block theme-kok kok" id="sample-kok"><h2>пример макета 4:5 · kok</h2><div class="samples">${sample("light")}${sample("dark")}</div></section>`
+    + `<section class="theme-block theme-kyzyl kyzyl" id="sample-kyzyl"><h2>пример макета 4:5 · kyzyl</h2><div class="samples">${sample("light")}${sample("dark")}</div></section>`;
+</script>
+</body></html>

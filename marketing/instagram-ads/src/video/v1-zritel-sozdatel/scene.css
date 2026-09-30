@@ -1,0 +1,187 @@
+/* V1 · «Зритель → Создатель» — стили сцен (1080×1920). Опирается на ../../base.css и токены темы (../../themes.css).
+   Цвета — только через токены темы (класс theme-* на <body>); жёстко заданы лишь нейтральные серые (лента) и «красный» бейдж уведомления. */
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+.frame { width: 1080px; height: 1920px; background: var(--night); }
+.scene { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; overflow: hidden; visibility: hidden; }
+#s1 { visibility: visible; }
+.txt { font-family: "Manrope", sans-serif; font-weight: 800; letter-spacing: -0.035em; }
+.grid { position: absolute; inset: 0; background-image: radial-gradient(rgba(var(--paper-rgb), .10) 2.2px, transparent 2.6px); background-size: 34px 34px;
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent 55%, transparent 70%, #000); mask-image: linear-gradient(180deg, #000, transparent 55%, transparent 70%, #000); }
+.glow { position: absolute; border-radius: 50%; }
+.mask { position: relative; display: block; overflow: hidden; padding: .08em 0 .16em; margin: -.08em 0 -.16em; }
+.mask > .w { display: inline-block; position: relative; will-change: transform; }
+.spark { position: absolute; width: 60px; height: 60px; pointer-events: none; }
+.spark svg { width: 100%; height: 100%; display: block; }
+
+/* ───────── S1 · хук (тёмная сцена, холодное свечение) ───────── */
+#s1 { background: var(--night); color: var(--paper); }
+#s1 .g1 { left: -300px; top: 520px; width: 1680px; height: 1500px; background: radial-gradient(closest-side, color-mix(in srgb, var(--sky) 38%, transparent), color-mix(in srgb, var(--sky) 13%, transparent) 55%, transparent); }
+#s1 .g2 { left: -420px; top: -520px; width: 1400px; height: 1400px; background: radial-gradient(closest-side, rgba(var(--accent-rgb), .34), rgba(var(--accent-rgb), 0)); }
+#s1 .g3 { right: -520px; top: 260px; width: 1200px; height: 1200px; background: radial-gradient(closest-side, color-mix(in srgb, var(--sky) 16%, transparent), transparent); }
+#s1 .hook { position: absolute; left: 64px; top: 292px; font-size: 140px; line-height: .98; letter-spacing: -0.045em; z-index: 6; color: var(--paper); text-shadow: 0 8px 40px rgba(var(--night-rgb), .55); }
+#s1 .hook .q { color: var(--accent-2); }
+.ph1 { position: absolute; left: 250px; top: 700px; width: 600px; height: 1300px; z-index: 2; background: var(--ink); border: 5px solid rgba(var(--paper-rgb), .16);
+  box-shadow: 0 0 0 2px rgba(255,255,255,.04), 0 0 180px color-mix(in srgb, var(--sky) 42%, transparent), 0 60px 120px -30px #000; }
+.ph1 .scr { background: #dbd9d4; filter: saturate(.12); }
+.ph1 .scrfade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(var(--night-rgb), 0) 55%, rgba(var(--night-rgb), .35)); z-index: 4; }
+.fl { position: absolute; left: 0; top: 0; width: 100%; padding-top: 78px; }
+.fc { margin: 0 22px 24px; background: #efede9; border-radius: 32px; padding: 24px 24px 26px; }
+.fc .fh { display: flex; align-items: center; gap: 18px; height: 66px; }
+.fc .av { width: 62px; height: 62px; border-radius: 50%; background: #aaa7a1; flex: none; }
+.fc .fh b { display: block; height: 17px; border-radius: 9px; background: #bdbab4; margin: 9px 0; }
+.fc .fi { position: relative; margin-top: 20px; height: 300px; border-radius: 24px; background: linear-gradient(135deg, #c4c1bb, #a7a49e); }
+.fc .fi.v1 { background: linear-gradient(135deg, #b9b6b0, #9a9791); }
+.fc .fi.v2 { background: linear-gradient(135deg, #cbc8c2, #b0ada7); }
+.fc .fi.v3 { background: linear-gradient(135deg, #b3b0aa, #98958f); }
+.fc .fi s { position: absolute; left: 50%; top: 50%; margin: -42px 0 0 -30px; border-left: 74px solid rgba(255,255,255,.78); border-top: 42px solid transparent; border-bottom: 42px solid transparent; }
+.fc .fa { display: flex; gap: 18px; margin-top: 22px; }
+.fc .fa i { width: 46px; height: 46px; border-radius: 50%; background: #b4b1ab; display: block; }
+.nb { position: absolute; z-index: 7; display: flex; align-items: center; gap: 24px; padding: 30px 40px 30px 30px; border-radius: 64px;
+  background: rgba(var(--paper-rgb), .97); color: var(--ink); box-shadow: 0 34px 70px -22px rgba(0,0,0,.75), 0 0 0 3px rgba(255,255,255,.08); }
+.nb .nic { width: 96px; height: 96px; border-radius: 50%; background: #c9c6c0; flex: none; }
+.nb .nl b { display: block; height: 20px; border-radius: 10px; background: #cfccc6; margin: 12px 0; }
+.nb .bd { position: absolute; right: -16px; top: -34px; display: flex; align-items: center; gap: 12px; background: #ff2f45; color: #fff;
+  font: 800 52px/1 "Manrope", sans-serif; letter-spacing: -0.02em; padding: 14px 28px 14px 22px; border-radius: 999px;
+  box-shadow: 0 0 0 7px var(--night), 0 14px 34px rgba(255,47,69,.55); }
+.nb .bd svg { width: 46px; height: 46px; fill: #fff; display: block; }
+.n1 { left: 560px; top: 890px; width: 430px; }
+.n2 { left: 64px; top: 1150px; width: 430px; }
+.n3 { left: 590px; top: 1400px; width: 400px; }
+.n3 .nl b:nth-child(2) { width: 70%; }
+
+/* ───────── S2 · поворот (акцентный фон) ───────── */
+#s2 { background: linear-gradient(160deg, var(--accent) 0%, var(--accent-d) 100%); color: var(--on-accent); }
+#s2 .bg-dots::after { background-image: radial-gradient(rgba(var(--paper-rgb), .16) 2.2px, transparent 2.6px); }
+#s2 .blob.a { width: 900px; height: 900px; right: -420px; top: -200px; background: radial-gradient(circle, rgba(var(--hi-rgb), .34), rgba(var(--hi-rgb), 0) 65%); }
+#s2 .blob.b { width: 1000px; height: 1000px; left: -480px; bottom: -420px; background: radial-gradient(circle, rgba(var(--accent-2-rgb), .55), rgba(var(--accent-2-rgb), 0) 65%); }
+.clock { position: absolute; right: 64px; top: 300px; width: 300px; height: 300px; }
+.clock .face { fill: var(--paper); }
+.clock .track { fill: none; stroke: var(--ink); stroke-width: 18; opacity: .14; }
+.clock .arc { fill: none; stroke: var(--night); stroke-width: 18; stroke-linecap: round; }
+.clock .hand { fill: var(--accent); }
+.clock .hub { fill: var(--night); }
+#s2 .lines { position: absolute; left: 64px; top: 650px; width: 952px; }
+#s2 .ln1 { font-size: 100px; line-height: 1.05; }
+#s2 .ln2, #s2 .ln3 { font-size: 156px; line-height: 1; letter-spacing: -0.05em; }
+#s2 .ln2 { margin-top: 26px; }
+#s2 .ln3 { margin-top: 10px; }
+#s2 .strike { position: absolute; left: -14px; right: -6px; top: 54%; height: 20px; border-radius: 10px; background: var(--on-accent); transform-origin: 0 50%; transform: scaleX(0); }
+/* «создавать» — жёлтый маркер (--hi) и тёмный текст на нём (--on-hi) */
+.mk { position: relative; display: inline-block; padding: 0 .09em; margin: 0 -.05em; }
+.mk .mkbg { position: absolute; left: 0; right: 0; top: 12%; bottom: 4%; border-radius: .16em; background: var(--hi); transform-origin: 0 50%; transform: scaleX(0); z-index: -1; }
+.bricks { position: absolute; left: 64px; top: 1250px; width: 952px; height: 300px; }
+.bricks .br { position: absolute; bottom: 0; width: 220px; border-radius: 40px; box-shadow: 0 26px 44px -20px rgba(var(--night-rgb), .6), inset 0 -10px 0 rgba(var(--ink-rgb), .16); }
+.bricks .br::after { content: ""; position: absolute; left: 28px; top: 28px; width: 70px; height: 20px; border-radius: 10px; background: rgba(255,255,255,.5); }
+.bricks .b0 { left: 0; height: 130px; background: var(--night); }
+.bricks .b1 { left: 244px; height: 180px; background: var(--accent-2); }
+.bricks .b2 { left: 488px; height: 230px; background: var(--paper); }
+.bricks .b3 { left: 732px; height: 290px; background: var(--hi); }
+
+/* ───────── S3 · создаёт (тёмная сцена) ───────── */
+#s3 { background: var(--night); color: var(--paper); }
+#s3 .g1 { left: -560px; top: 1000px; width: 1500px; height: 1500px; background: radial-gradient(closest-side, rgba(var(--accent-rgb), .44), rgba(var(--accent-rgb), 0)); }
+#s3 .g2 { right: -600px; top: -400px; width: 1400px; height: 1400px; background: radial-gradient(closest-side, rgba(var(--accent-2-rgb), .22), rgba(var(--accent-2-rgb), 0)); }
+#grpA { position: absolute; left: 64px; top: 290px; width: 952px; }
+.pill3 { display: block; width: max-content; margin: 0 auto; padding: 20px 40px; border-radius: 999px; background: var(--accent); color: var(--on-accent);
+  font: 800 46px/1 "Manrope", sans-serif; letter-spacing: -0.02em; box-shadow: 0 20px 44px -16px rgba(var(--accent-rgb), .85); }
+.w3 { margin-top: 36px; width: 952px; transform-origin: 50% 0; background: var(--night-2); box-shadow: 0 50px 100px -30px #000, 0 0 0 3px rgba(var(--paper-rgb), .08); }
+.w3 .bar { padding: 22px 30px; gap: 12px; }
+.w3 .bar i { width: 22px; height: 22px; }
+.w3 .bar em { font-size: 34px; margin-left: 14px; }
+.w3 .code { font-size: 40px; line-height: 1.52; padding: 26px 36px 28px; position: relative; }
+.w3 .ln { display: block; min-height: 1.52em; }
+.w3 .ch { position: relative; opacity: 0; }
+.w3 .cr { position: absolute; right: -3px; top: .12em; width: 5px; height: 1.16em; background: var(--hi); border-radius: 2px; opacity: 0; }
+.w3 .cr0 { right: auto; left: 36px; top: calc(26px + .12em); }
+.w3 .k-n { color: #8ab4ff; } .w3 .k-f { color: var(--hi); } .w3 .k-s { color: #7be0b3; } .w3 .k-p { color: var(--paper); }
+.ph3 { position: absolute; left: 290px; top: 704px; width: 500px; height: 730px; z-index: 3;
+  box-shadow: 0 0 0 4px rgba(var(--paper-rgb), .16), 0 0 120px rgba(var(--accent-rgb), .45), 0 50px 90px -30px #000; }
+.ph3 .scr { background: var(--paper); }
+.ph3 .qz { position: absolute; inset: 0; padding: 78px 26px 0; }
+.ph3 .qbar { height: 14px; border-radius: 7px; background: rgba(var(--ink-rgb), .1); margin: 0 6px 22px; overflow: hidden; }
+.ph3 .qbar i { display: block; width: 32%; height: 100%; background: var(--accent); border-radius: 7px; }
+.ph3 .qh { font: 800 56px/1.04 "Manrope", sans-serif; letter-spacing: -0.035em; text-align: center; margin-bottom: 22px; color: var(--ink); }
+.ph3 .qb { position: relative; height: 90px; border-radius: 28px; margin-bottom: 14px; display: flex; align-items: center; padding: 0 28px; gap: 20px;
+  font: 800 44px/1 "Manrope", sans-serif; letter-spacing: -0.025em; box-shadow: inset 0 -7px 0 rgba(var(--ink-rgb), .16); }
+.ph3 .qb::before { content: ""; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.5); flex: none; }
+.ph3 .q0 { background: var(--accent); color: var(--on-accent); }
+.ph3 .q1 { background: var(--hi); color: var(--on-hi); }
+.ph3 .q2 { background: var(--accent-2); color: var(--ink); }
+.ph3 .q3 { background: var(--night-2); color: var(--paper); }
+.ph3 .q3::before { background: rgba(255,255,255,.28); }
+.ph3 .qdim { position: absolute; inset: 0; background: var(--night-2); z-index: 5; }
+.cap3 { position: absolute; left: 0; right: 0; top: 1458px; display: flex; justify-content: center; z-index: 6; }
+.cap3 span { display: block; padding: 22px 44px; border-radius: 999px; background: var(--hi); color: var(--on-hi);
+  font: 800 56px/1 "Manrope", sans-serif; letter-spacing: -0.035em; box-shadow: 0 24px 50px -18px rgba(var(--hi-rgb), .55); white-space: nowrap; }
+.conf { position: absolute; left: 540px; top: 1000px; width: 0; height: 0; z-index: 8; }
+.conf i { position: absolute; display: block; }
+
+/* ───────── S4 · эмоция (светлая сцена) ───────── */
+#s4 { background: var(--paper); color: var(--ink); }
+#s4 .blob.a { width: 1000px; height: 1000px; right: -480px; top: -260px; background: radial-gradient(circle, rgba(var(--accent-2-rgb), .6), rgba(var(--accent-2-rgb), 0) 65%); }
+#s4 .blob.b { width: 900px; height: 900px; left: -460px; bottom: -380px; background: radial-gradient(circle, rgba(var(--accent-rgb), .26), rgba(var(--accent-rgb), 0) 65%); }
+.note { position: absolute; left: 64px; top: 294px; width: 952px; display: flex; align-items: center; gap: 22px; font: 700 46px/1.25 "Manrope", sans-serif; letter-spacing: -0.02em; }
+.note .nd { width: 24px; height: 24px; border-radius: 50%; background: var(--accent); flex: none; align-self: flex-start; margin-top: 12px; }
+.note span { opacity: .82; }
+.msg { position: absolute; display: flex; align-items: flex-end; gap: 22px; }
+.msg.l { left: 64px; top: 452px; }
+.msg.r { right: 64px; top: 770px; flex-direction: row-reverse; }
+.avt { width: 92px; height: 92px; border-radius: 50%; flex: none; position: relative; overflow: hidden; }
+.avt::before { content: ""; position: absolute; left: 50%; top: 18px; width: 34px; height: 34px; margin-left: -17px; border-radius: 50%; background: rgba(255,255,255,.9); }
+.avt::after { content: ""; position: absolute; left: 50%; top: 58px; width: 66px; height: 60px; margin-left: -33px; border-radius: 33px 33px 0 0; background: rgba(255,255,255,.9); }
+.avt.a { background: var(--night-2); } .avt.b { background: var(--accent); }
+.bub { position: relative; padding: 34px 44px 38px; border-radius: 60px; font: 800 84px/1.04 "Manrope", sans-serif; letter-spacing: -0.04em; }
+.bub.l { background: #fff; border-bottom-left-radius: 18px; box-shadow: 0 34px 60px -32px rgba(var(--ink-rgb), .4), 0 0 0 3px rgba(var(--ink-rgb), .06); max-width: 780px; }
+.bub.r { background: var(--accent); color: var(--on-accent); border-bottom-right-radius: 18px; box-shadow: 0 34px 60px -28px rgba(var(--accent-rgb), .8); max-width: 780px; }
+.bw { position: relative; }
+.typing { position: absolute; right: 0; bottom: 0; z-index: 2; display: flex; gap: 16px; padding: 34px 40px; border-radius: 60px; border-bottom-right-radius: 18px; background: #fff;
+  box-shadow: 0 30px 50px -30px rgba(var(--ink-rgb), .4), 0 0 0 3px rgba(var(--ink-rgb), .06); }
+.typing i { width: 26px; height: 26px; border-radius: 50%; background: #b9b5ad; display: block; }
+.cap4 { position: absolute; left: 64px; top: 1200px; width: 952px; font: 800 88px/1.02 "Manrope", sans-serif; letter-spacing: -0.045em; }
+.cap4 .mark-y { background: linear-gradient(transparent 63%, var(--accent-2) 63%, var(--accent-2) 90%, transparent 90%); }
+.heart { position: absolute; width: 70px; height: 70px; z-index: 5; }
+.heart svg { width: 100%; height: 100%; fill: var(--accent); display: block; }
+
+/* ───────── S5 · почему это просто (акцентный фон) ───────── */
+#s5 { background: linear-gradient(170deg, var(--accent) 0%, var(--accent-d) 100%); color: var(--ink); }
+#s5 .bg-dots::after { background-image: radial-gradient(rgba(var(--paper-rgb), .16) 2.2px, transparent 2.6px); }
+#s5 .blob.a { width: 1000px; height: 1000px; right: -520px; top: -300px; background: radial-gradient(circle, rgba(var(--hi-rgb), .32), rgba(var(--hi-rgb), 0) 65%); }
+#s5 .blob.b { width: 900px; height: 900px; left: -450px; bottom: -350px; background: radial-gradient(circle, rgba(var(--accent-2-rgb), .6), rgba(var(--accent-2-rgb), 0) 65%); }
+#s5 .list { position: absolute; left: 64px; top: 452px; width: 952px; display: flex; flex-direction: column; gap: 36px; }
+.chk { position: relative; display: flex; align-items: center; gap: 28px; padding: 38px 36px 44px 32px; border-radius: 60px; background: var(--paper);
+  box-shadow: 0 36px 60px -30px rgba(var(--night-rgb), .65), inset 0 -8px 0 rgba(var(--ink-rgb), .07); }
+.chk .ckc { width: 100px; height: 100px; border-radius: 50%; background: var(--accent); flex: none; display: grid; place-items: center; }
+.chk .ckc svg { width: 58px; height: 58px; display: block; }
+.chk .ckp { stroke: var(--on-accent); }
+.chk .ckt { font: 800 84px/1.03 "Manrope", sans-serif; letter-spacing: -0.045em; }
+.chk .mark-sun { background-repeat: no-repeat; background-size: 0% 100%; }
+
+/* ───────── S6 · оффер + CTA (тёмная сцена) ───────── */
+#s6 { background: var(--night); color: var(--paper); }
+#s6 .g1 { left: -500px; top: 1000px; width: 1500px; height: 1500px; background: radial-gradient(closest-side, rgba(var(--accent-rgb), .46), rgba(var(--accent-rgb), 0)); }
+#s6 .g2 { right: -560px; top: -420px; width: 1400px; height: 1400px; background: radial-gradient(closest-side, rgba(var(--accent-2-rgb), .22), rgba(var(--accent-2-rgb), 0)); }
+#s6c { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; }
+.stk6 { position: absolute; left: 270px; top: 290px; width: 540px; height: 540px; border-radius: 50%; background: var(--hi); color: var(--on-hi);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; z-index: 4;
+  box-shadow: 0 40px 80px -20px rgba(0,0,0,.6), 0 0 0 14px rgba(var(--hi-rgb), .22), inset 0 0 0 12px var(--on-hi); }
+.stk6 .sp { font: 800 148px/1 "Manrope", sans-serif; letter-spacing: -0.055em; white-space: nowrap; }
+.stk6 .sl { font: 800 54px/1.1 "Manrope", sans-serif; letter-spacing: -0.03em; margin-top: 10px; }
+.shock { position: absolute; left: 270px; top: 290px; width: 540px; height: 540px; border-radius: 50%; border: 14px solid var(--hi); z-index: 3; opacity: 0; }
+.mid6 { position: absolute; left: 64px; top: 862px; width: 952px; height: 400px; }
+.mid6 > div { position: absolute; left: 0; width: 952px; }
+.cap6 { top: 0; text-align: center; font: 800 76px/1.06 "Manrope", sans-serif; letter-spacing: -0.04em; }
+.call6 { top: 190px; padding: 32px 40px 36px; border-radius: 52px; background: var(--paper); color: var(--ink); text-align: center;
+  font: 800 60px/1.12 "Manrope", sans-serif; letter-spacing: -0.035em; box-shadow: 0 30px 60px -28px rgba(0,0,0,.8); }
+.call6 .wa { color: var(--accent-d); }
+.brand6 { top: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.logo.big { gap: 26px; }
+.logo.big .mark { width: 132px; height: 132px; border-radius: 36px; font-size: 84px; line-height: 132px; }
+.logo.big .name { font-size: 100px; color: var(--paper); }
+.brand6 .tag { margin-top: 22px; font: 700 44px/1.2 "Manrope", sans-serif; opacity: .8; letter-spacing: -0.01em; }
+.brand6 .hd { margin-top: 26px; font: 800 92px/1 "Manrope", sans-serif; letter-spacing: -0.045em; color: var(--hi); }
+.hint6 { position: absolute; left: 0; right: 0; top: 1280px; display: flex; flex-direction: column; align-items: center; }
+.hint6 .ht { font: 800 68px/1 "Manrope", sans-serif; letter-spacing: -0.04em; padding: 24px 44px 28px; border-radius: 999px; background: var(--accent); color: var(--on-accent);
+  box-shadow: 0 24px 50px -16px rgba(var(--accent-rgb), .85), inset 0 -8px 0 rgba(var(--ink-rgb), .16); white-space: nowrap; }
+.hint6 .arr { margin-top: 12px; width: 122px; height: 140px; }
+.hint6 .arr svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.hint6 .arr path { stroke: var(--accent-2); }

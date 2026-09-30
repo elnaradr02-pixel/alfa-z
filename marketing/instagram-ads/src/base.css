@@ -1,0 +1,139 @@
+/* Alfa Z · Instagram ads — общая дизайн-система креативов.
+   Палитра и логотип — из сайта (app/globals.css, public/logos). Шрифты: Manrope (заголовки/текст),
+   Unbounded (крупные акценты), JetBrains Mono (код/интерфейс; Space Mono не имеет кириллицы), Inter (только знак «α» в логотипе). */
+@import url("fonts.css");
+@import url("themes.css");
+
+:root { --mint: #46d39a; --violet: #7a5cff; --sky: #4aa8ff; --grey: #c9c6c0; }
+/* Совместимость со старыми именами: значения берутся из токенов темы (см. themes.css) */
+.frame {
+  --coral: var(--accent); --coral-d: var(--accent-d); --peach: var(--accent-2); --sun: var(--hi);
+  --cream: var(--paper); --sand: var(--tint); --ink-2: var(--night-2);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { background: #000; }
+body { -webkit-font-smoothing: antialiased; text-rendering: geometricPrecision; }
+
+/* Формат задаётся классом на body: feed = 4:5 (1080×1350), story = 9:16 (1080×1920). */
+.frame {
+  position: relative; width: 1080px; overflow: hidden;
+  font-family: "Manrope", "Inter", sans-serif; color: var(--ink); background: var(--cream);
+}
+body.feed  .frame { height: 1350px; --pt: 64px;  --pb: 64px; }
+body.story .frame { height: 1920px; --pt: 270px; --pb: 330px; } /* безопасные зоны Stories/Reels */
+
+.content {
+  position: absolute; inset: 0; padding: var(--pt) 64px var(--pb);
+  display: flex; flex-direction: column;
+}
+.bg { position: absolute; inset: 0; }
+
+/* ── логотип ── */
+.logo { display: inline-flex; align-items: center; gap: 14px; }
+.logo .mark {
+  width: 64px; height: 64px; border-radius: 18px; background: var(--logo-bg); color: var(--logo-fg);
+  font: 800 40px/64px "Inter", sans-serif; text-align: center; letter-spacing: -0.02em;
+}
+.logo .name { font: 800 40px/1 "Inter", "Manrope", sans-serif; letter-spacing: -0.03em; }
+.logo .name b { color: var(--logo-accent); font-weight: 800; }
+.logo small { display: block; font: 600 19px/1.2 "Manrope", sans-serif; letter-spacing: 0; opacity: .62; margin-top: 5px; }
+.on-dark .logo .name { color: var(--cream); }
+
+/* ── типографика ── */
+.h1 {
+  font: 800 96px/0.98 "Manrope", sans-serif; letter-spacing: -0.04em; text-wrap: balance;
+}
+.h1.xl { font-size: 112px; line-height: .95; }
+.h1.lg { font-size: 88px; }
+.h1.md { font-size: 76px; line-height: 1.02; letter-spacing: -0.035em; }
+.sub { font: 600 34px/1.32 "Manrope", sans-serif; opacity: .78; text-wrap: pretty; }
+.sub b { font-weight: 800; opacity: 1; }
+.mono { font-family: "JetBrains Mono", "Space Mono", ui-monospace, monospace; }
+.hl { color: var(--accent); }
+/* «маркер» под словом */
+.mark-y {
+  background: linear-gradient(transparent 63%, var(--accent) 63%, var(--accent) 90%, transparent 90%);
+  padding: 0 .08em; margin: 0 -.08em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.mark-sun {
+  background: linear-gradient(transparent 58%, var(--hi) 58%, var(--hi) 92%, transparent 92%);
+  color: inherit; padding: 0 .08em; margin: 0 -.08em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.on-dark .mark-y { background: linear-gradient(transparent 60%, rgba(var(--accent-rgb),.9) 60%, rgba(var(--accent-rgb),.9) 92%, transparent 92%); }
+
+/* ── кнопка/оффер ── */
+.cta {
+  display: flex; align-items: center; justify-content: center; gap: 18px;
+  height: 118px; border-radius: 999px; background: var(--accent); color: var(--on-accent);
+  font: 800 40px/1 "Manrope", sans-serif; letter-spacing: -0.01em;
+  box-shadow: 0 22px 50px -18px rgba(var(--accent-rgb),.75), inset 0 -6px 0 rgba(0,0,0,.12);
+}
+.cta .arr { font-size: 46px; transform: translateY(-2px); }
+.cta.dark { background: var(--ink); box-shadow: 0 22px 50px -20px rgba(15,15,26,.6), inset 0 -6px 0 rgba(255,255,255,.08); }
+.cta.cream { background: var(--paper); color: var(--ink); box-shadow: 0 22px 50px -20px rgba(0,0,0,.5), inset 0 -6px 0 rgba(0,0,0,.08); }
+
+.sticker {
+  display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--hi); color: var(--on-hi); border-radius: 50%; width: 224px; height: 224px; padding: 0 22px;
+  font-weight: 800; text-align: center; transform: rotate(-9deg);
+  box-shadow: 0 18px 40px -14px rgba(0,0,0,.35), inset 0 0 0 6px rgba(var(--ink-rgb),.92);
+}
+.sticker .a { font: 800 19px/1.1 "Manrope"; text-transform: uppercase; letter-spacing: .07em; }
+.sticker .p { font: 800 56px/1 "Manrope"; letter-spacing: -0.035em; margin: 8px 0 6px; white-space: nowrap; }
+.sticker .b { font: 800 19px/1.15 "Manrope"; opacity: .85; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 12px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px; border-radius: 999px;
+  font: 700 25px/1 "Manrope"; background: rgba(var(--ink-rgb),.07); color: var(--ink);
+}
+.on-dark .chip { background: rgba(255,251,245,.12); color: var(--cream); }
+.chip i { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); display: inline-block; }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; border-radius: 999px;
+  font: 800 24px/1 "Manrope"; letter-spacing: .07em; text-transform: uppercase;
+}
+.pill.coral, .pill.accent { background: var(--accent); color: var(--on-accent); }
+.pill.ink { background: var(--ink); color: var(--cream); }
+.pill.cream { background: var(--paper); color: var(--ink); }
+.pill.line { border: 3px solid currentColor; }
+.pill .dot { width: 14px; height: 14px; border-radius: 50%; background: currentColor; }
+
+/* фирменная «вставка про доверие» внизу */
+.trust { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 26px; font: 700 24px/1.2 "Manrope"; opacity: .72; }
+.trust span::before { content: "✓"; color: var(--accent); margin-right: 9px; font-weight: 800; }
+
+.grow { flex: 1 1 auto; min-height: 26px; }
+.center { text-align: center; }
+.row { display: flex; align-items: center; }
+.between { justify-content: space-between; }
+
+/* «окно редактора» */
+.win { border-radius: 26px; background: var(--night-2); color: #eee; overflow: hidden; box-shadow: 0 40px 80px -30px rgba(15,15,26,.6); }
+.win .bar { display: flex; gap: 10px; align-items: center; padding: 16px 20px; background: rgba(255,255,255,.05); }
+.win .bar i { width: 15px; height: 15px; border-radius: 50%; display: block; }
+.win .bar i:nth-child(1) { background: var(--accent); } .win .bar i:nth-child(2) { background: var(--accent-2); } .win .bar i:nth-child(3) { background: rgba(255,251,245,.4); }
+.win .bar em { margin-left: 8px; font: 500 19px "JetBrains Mono", "Space Mono"; opacity: .5; font-style: normal; }
+.code { padding: 22px 26px; font: 500 25px/1.55 "JetBrains Mono", "Space Mono", monospace; white-space: pre; }
+.code .k { color: var(--accent-2); } .code .s { color: #7be0b3; } .code .f { color: var(--hi); } .code .c { color: rgba(255,255,255,.4); } .code .n { color: #8ab4ff; }
+
+/* телефон */
+.phone {
+  position: relative; border-radius: 64px; background: var(--ink); padding: 16px; box-shadow: 0 40px 80px -30px rgba(var(--ink-rgb),.55);
+}
+.phone::before { content: ""; position: absolute; top: 26px; left: 50%; transform: translateX(-50%); width: 34%; height: 26px; border-radius: 20px; background: var(--ink); z-index: 3; }
+.phone .scr { border-radius: 50px; overflow: hidden; background: #fff; height: 100%; position: relative; }
+
+/* ── фоны (полный вылет, в Stories заполняют безопасные зоны сверху/снизу) ── */
+.bg-dots::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(var(--ink-rgb),.11) 2.2px, transparent 2.6px); background-size: 34px 34px; -webkit-mask-image: linear-gradient(180deg, #000, transparent 45%, transparent 60%, #000); mask-image: linear-gradient(180deg, #000, transparent 45%, transparent 60%, #000); }
+.on-dark .bg-dots::after { background-image: radial-gradient(rgba(255,251,245,.13) 2.2px, transparent 2.6px); }
+.blob { position: absolute; border-radius: 50%; filter: blur(2px); }
+
+/* «Почему сейчас» — плашка над кнопкой */
+.why { display: flex; align-items: center; gap: 16px; margin: 0 0 22px; font: 800 31px/1.12 "Manrope"; letter-spacing: -0.015em; }
+.why .k { flex: none; background: var(--ink); color: var(--hi); border-radius: 999px; padding: 11px 20px; font: 700 21px/1 "JetBrains Mono", monospace; letter-spacing: .09em; text-transform: uppercase; }
+.on-dark .why .k, .frame.dark .why .k { background: var(--hi); color: var(--on-hi); }
+
+.cta, .why, .logo, .chips, .trust { flex: none; }
