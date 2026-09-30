@@ -1,0 +1,37 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>M2 · Год пройдёт в любом случае</title>
+<link rel="stylesheet" href="../base.css">
+<style>
+  .bg { background: radial-gradient(900px 650px at 0% 0%, rgba(255,176,136,.6), transparent 62%), var(--cream); }
+  .yr { margin-top: 40px; }
+  .yr .cap { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .yr .cap b { font: 800 38px "Manrope"; letter-spacing: -0.02em; }
+  .yr .cap span { font: 700 24px "JetBrains Mono", monospace; opacity: .55; }
+  .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 8px; }
+  .grid i { display: grid; place-items: center; height: 104px; border-radius: 18px; background: #d6d2cb; color: #8b877f; font: 800 30px "Manrope"; font-style: normal; }
+  .yr.grey b { color: #77736c; }
+  .yr.hot .grid i { background: var(--coral); color: #fff; opacity: calc(.42 + var(--k, 0) * .58); box-shadow: 0 10px 20px -12px rgba(232,85,53,.9); }
+  .yr.hot .grid i.end { background: var(--ink); opacity: 1; font-size: 50px; box-shadow: 0 0 0 5px var(--sun); }
+  .arrow { margin: 22px 0 0; text-align: center; font: 800 30px "Manrope"; color: var(--coral); letter-spacing: .04em; text-transform: uppercase; }
+  .h1 { margin-top: 34px; }
+  .sub { margin-top: 24px; }
+  body.story .yr { margin-top: 64px; } body.story .h1 { margin-top: 56px; }
+</style></head>
+<body><div class="frame"><div class="bg bg-dots"></div>
+<div class="content">
+  <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa Z<small>школа программирования · 12–17 лет</small></div></div>
+  <h1 class="h1 xl" style="font-size:100px;margin-top:34px">Год пройдёт <span class="mark-y">в любом случае</span></h1>
+  <p class="sub" style="font-size:38px;margin-top:20px">Вопрос — с чем ваш подросток придёт к его концу.</p>
+
+  <div class="yr grey"><div class="cap"><b>Год в ленте</b><span>12 месяцев</span></div><div class="grid" id="g1"></div></div>
+  <div class="yr hot" style="margin-top:34px"><div class="cap"><b style="color:var(--coral)">Год за созданием своего</b><span>→ проект в портфолио</span></div><div class="grid" id="g2"></div></div>
+
+  <div class="grow"></div>
+  <div class="why"><span class="k">Почему сейчас</span><span class="t">Каждый месяц ожидания — пустая клетка</span></div>
+  <div class="cta">Записаться на пробный урок <span class="arr">→</span></div>
+  <div class="trust" style="margin-top:22px"><span>60 минут онлайн</span><span>без обязательств</span><span>живой ментор</span></div>
+</div></div>
+<script>
+  const M='ЯФМАМИИАСОНД'.split(''), g1=document.getElementById('g1'), g2=document.getElementById('g2');
+  M.forEach((m,i)=>{ const a=document.createElement('i'); a.textContent=m; g1.appendChild(a); const e=document.createElement('i'); e.textContent=(i===11?'🚀':m); e.style.setProperty('--k', i/11); if(i===11) e.className='end'; g2.appendChild(e); });
+</script>
+<script src="../fmt.js"></script></body></html>

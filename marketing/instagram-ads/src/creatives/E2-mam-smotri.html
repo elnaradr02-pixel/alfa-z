@@ -1,0 +1,39 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>E2 · Мам, смотри, что я сделал</title>
+<link rel="stylesheet" href="../base.css">
+<style>
+  .frame { background: var(--coral); }
+  .bg { background: radial-gradient(820px 620px at 0% 0%, rgba(255,176,136,.75), transparent 62%), radial-gradient(760px 700px at 110% 100%, rgba(232,85,53,.85), transparent 60%), var(--coral); }
+  .bg::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.18) 2.4px, transparent 2.8px); background-size: 34px 34px; -webkit-mask-image: linear-gradient(180deg,#000,transparent 40%,transparent 62%,#000); mask-image: linear-gradient(180deg,#000,transparent 40%,transparent 62%,#000); }
+  .logo .mark { background: var(--ink); } .logo .name { color: var(--ink); } .logo .name b { color: var(--cream); } .logo small { color: var(--ink); opacity: .7; }
+  .tag { align-self: flex-start; margin-top: 26px; background: rgba(15,15,26,.88); color: var(--cream); }
+  .chat { margin-top: 22px; display: flex; flex-direction: column; gap: 16px; }
+  .bub { position: relative; max-width: 800px; border-radius: 44px; padding: 28px 40px; font: 800 64px/1.06 "Manrope"; letter-spacing: -0.03em; box-shadow: 0 30px 50px -28px rgba(80,20,5,.6); }
+  .bub.l { align-self: flex-start; background: #fff; color: var(--ink); border-bottom-left-radius: 12px; }
+  .bub.r { align-self: flex-end; background: var(--ink); color: var(--cream); border-bottom-right-radius: 12px; font-size: 46px; padding: 28px 38px; font-weight: 700; letter-spacing: -0.02em; max-width: 720px; }
+  .shot { align-self: flex-start; width: 430px; height: 214px; border-radius: 36px; border-bottom-left-radius: 12px; background: #fff; padding: 16px; box-shadow: 0 30px 50px -28px rgba(80,20,5,.6); display: grid; grid-template-columns: 1.1fr 1fr; gap: 14px; }
+  .shot .q { border-radius: 24px; background: #f4efe8; padding: 14px; display: flex; flex-direction: column; gap: 8px; justify-content: center; }
+  .shot .q i { display: block; height: 30px; border-radius: 10px; }
+  .shot .ok { border-radius: 24px; background: #e8fbf3; display: grid; place-items: center; text-align: center; font: 800 26px/1.1 "Manrope"; color: #138a5e; }
+  .shot .ok b { display: block; font-size: 70px; line-height: 1; }
+  .read { align-self: flex-end; font: 700 24px "Manrope"; color: rgba(255,255,255,.85); margin-top: -8px; margin-right: 8px; }
+  .h { margin-top: 26px; color: var(--ink); }
+  body.story .chat { gap: 30px; margin-top: 44px; } body.story .h { margin-top: 60px; }
+  body.story .shot { width: 540px; height: 290px; }
+</style></head>
+<body><div class="frame"><div class="bg"></div>
+<div class="content">
+  <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa Z<small>школа программирования · 12–17 лет</small></div></div>
+  <span class="pill tag">Представьте: через час после первого урока</span>
+
+  <div class="chat">
+    <div class="bub l">Мам, смотри, что я&nbsp;сделал!</div>
+    <div class="shot"><div class="q"><i style="background:#7a5cff"></i><i style="background:#a98dff"></i><i style="background:#46d39a"></i><i style="background:#4aa8ff"></i></div><div class="ok"><div><b>✓</b>работает!</div></div></div>
+    <div class="bub r">Сам?! Это же настоящее приложение 😍</div>
+  </div>
+
+  <h1 class="h1 md h" style="font-size:68px">Этот момент начинается <span class="mark-sun">с одного урока</span></h1>
+  <div class="grow"></div>
+  <div class="why"><span class="k">Почему сейчас</span><span class="t">Запишитесь сегодня — подберём время</span></div>
+  <div class="cta dark" style="font-size:38px">Записаться на пробный урок — 3000 ₸ <span class="arr">→</span></div>
+</div></div>
+<script src="../fmt.js"></script></body></html>

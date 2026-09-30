@@ -1,0 +1,53 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><title>F2 · Резюме в 18 лет</title>
+<link rel="stylesheet" href="../base.css">
+<style>
+  .bg { background: radial-gradient(900px 700px at 100% 0%, rgba(255,176,136,.7), transparent 62%), radial-gradient(700px 600px at 0% 100%, rgba(255,107,71,.22), transparent 60%), var(--cream); }
+  .cvs { display: grid; grid-template-columns: 1fr 1.12fr; gap: 26px; margin-top: 44px; position: relative; }
+  .cv { position: relative; border-radius: 36px; background: #fff; padding: 30px 30px 34px; box-shadow: 0 34px 70px -34px rgba(15,15,26,.45); border: 3px solid rgba(15,15,26,.06); }
+  .cv .cap { font: 800 22px "Manrope"; letter-spacing: .08em; text-transform: uppercase; opacity: .55; margin-bottom: 18px; }
+  .cv .who { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; }
+  .cv .av { width: 74px; height: 74px; border-radius: 50%; background: #e7e3dd; position: relative; overflow: hidden; }
+  .cv .av::before { content:""; position:absolute; left: 50%; top: 14px; width: 30px; height: 30px; border-radius: 50%; background: #c9c5be; transform: translateX(-50%); }
+  .cv .av::after { content:""; position:absolute; left: 50%; top: 46px; width: 58px; height: 46px; border-radius: 50%; background: #c9c5be; transform: translateX(-50%); }
+  .cv .ln { height: 16px; border-radius: 8px; background: #e7e3dd; }
+  .cv .row { display: flex; align-items: center; gap: 14px; padding: 15px 0; border-top: 2px dashed rgba(15,15,26,.12); font: 800 30px/1.15 "Manrope"; letter-spacing: -0.02em; }
+  .cv .row .ck { flex: none; width: 40px; height: 40px; border-radius: 50%; background: var(--coral); color: #fff; display: grid; place-items: center; font: 800 24px "Manrope"; }
+  .cv.no { filter: saturate(0); opacity: .95; }
+  .cv.no .row { color: rgba(15,15,26,.35); }
+  .cv.no .row .ck { background: #d9d5cf; color: #fff; }
+  .cv.yes { border-color: var(--coral); box-shadow: 0 40px 80px -30px rgba(255,107,71,.7); transform: rotate(1.2deg); }
+  .cv.yes .cap { color: var(--coral); opacity: 1; }
+  .badge18 { position: absolute; left: 50%; top: -30px; transform: translateX(-50%); z-index: 4; }
+  .stk { position: absolute; right: -22px; top: -104px; z-index: 6; }
+  .head { margin-top: 12px; }
+  body.story .cvs { margin-top: 64px; }
+</style></head>
+<body><div class="frame"><div class="bg bg-dots"></div>
+<div class="content">
+  <div class="logo"><div class="mark">αZ</div><div class="name"><b>α</b>lfa Z<small>школа программирования · 12–17 лет</small></div></div>
+  <h1 class="h1 lg head" style="margin-top:36px;font-size:86px">Какое резюме будет у&nbsp;вашего ребёнка <span class="mark-y">в 18 лет?</span></h1>
+
+  <div class="cvs">
+    <div class="cv no">
+      <div class="cap">Без проектов</div>
+      <div class="who"><div class="av"></div><div style="flex:1"><div class="ln" style="width:90%"></div><div class="ln" style="width:60%;margin-top:10px"></div></div></div>
+      <div class="row"><span class="ck">–</span>Портфолио: пусто</div>
+      <div class="row"><span class="ck">–</span>Сертификаты: нет</div>
+      <div class="row"><span class="ck">–</span>Опыт: нет</div>
+    </div>
+    <div class="cv yes">
+      <div class="cap">С Alfa Z</div>
+      <div class="who"><div class="av" style="background:#ffd9c9"></div><div style="flex:1"><div class="ln" style="width:90%;background:#ffc7b3"></div><div class="ln" style="width:60%;margin-top:10px;background:#ffc7b3"></div></div></div>
+      <div class="row"><span class="ck">✓</span>Проекты на GitHub</div>
+      <div class="row"><span class="ck">✓</span>Сертификаты школы</div>
+      <div class="row"><span class="ck">✓</span>Умеет работать с AI</div>
+      <div class="row"><span class="ck">✓</span>Подготовка к стажировкам</div>
+    </div>
+    <div class="sticker stk"><span class="a">пробный урок</span><span class="p">60 мин</span><span class="b">без обязательств</span></div>
+  </div>
+
+  <div class="grow"></div>
+  <div class="why"><span class="k">Почему сейчас</span><span class="t">Портфолио — это годы. Начните сейчас</span></div>
+  <div class="cta">Начать собирать — с пробного урока <span class="arr">→</span></div>
+</div></div>
+<script src="../fmt.js"></script></body></html>
