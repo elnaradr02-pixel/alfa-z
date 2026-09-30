@@ -372,6 +372,15 @@ export default function Home() {
       <motion.div className="fixed top-0 left-0 right-0 h-[3px] bg-accent origin-left z-[60]" style={{ scaleX: scrollYProgress }} />
       <FloatingMessengers />
 
+      {/* 🏛 Плашка резидентства Astana Hub — самое начало сайта */}
+      <a href="/astana-hub-cert.pdf" target="_blank" rel="noopener noreferrer" className="group block bg-foreground text-surface transition-colors hover:bg-foreground/90">
+        <div className="mx-auto flex max-w-7xl items-center justify-center gap-2 px-4 py-2 text-center text-[13px] sm:text-sm">
+          <Icon name="award" className="h-4 w-4 flex-none text-accent" />
+          <span className="font-medium whitespace-nowrap">{tr("Резидент ", "", "Resident of ")}<span className="font-bold">Astana Hub</span>{tr("", " резиденті", "")}<span className="hidden text-surface/55 sm:inline"> · официально, рег. №3882</span></span>
+          <span className="font-semibold text-accent whitespace-nowrap">{tr("Свидетельство →", "Куәлік →", "Certificate →")}</span>
+        </div>
+      </a>
+
       <header className="sticky top-0 z-50 backdrop-blur-md bg-background/80 border-b border-border">
         <nav className="max-w-7xl mx-auto px-6 sm:px-8 py-4 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2.5">
@@ -546,6 +555,7 @@ export default function Home() {
                 { icon: "graduation" as IconName, text: tr("Программа Гарварда CS50", "Гарвардтың CS50 бағдарламасы", "Harvard CS50 curriculum") },
                 { icon: "code" as IconName, text: tr("Преподаватели-практики", "Тәжірибелі ұстаздар", "Practicing instructors") },
                 { icon: "users" as IconName, text: tr("Малые группы с ментором", "Ментормен шағын топтар", "Small groups with a mentor") },
+                { icon: "award" as IconName, text: tr("Резидент Astana Hub", "Astana Hub резиденті", "Astana Hub resident") },
               ].map((t) => (
                 <div key={t.text} className="flex items-center gap-2.5">
                   <span className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white/10 border border-white/15 text-accent"><Icon name={t.icon} className="h-4 w-4" /></span>
@@ -1187,6 +1197,13 @@ async def check(update, ctx):
               </ul>
             </div>
           </div>
+          <a href="/astana-hub-cert.pdf" target="_blank" rel="noopener noreferrer" className="mb-8 flex max-w-xl flex-col items-center gap-4 rounded-2xl border border-surface/15 bg-surface/[0.04] p-4 transition-colors hover:border-accent/40 sm:flex-row">
+            <img src="/astana-hub-cert.png" alt={tr("Свидетельство участника Astana Hub", "Astana Hub қатысушысының куәлігі", "Astana Hub participant certificate")} width={480} height={340} loading="lazy" decoding="async" className="w-32 flex-none rounded-lg border border-surface/10" />
+            <div className="text-center sm:text-left">
+              <p className="font-display text-base font-bold text-surface">{tr("Официальный резидент Astana Hub", "Astana Hub-тың ресми резиденті", "Official Astana Hub resident")}</p>
+              <p className="mt-0.5 text-sm text-surface/55">{tr("Рег. №3882 · с 24.09.2026. Нажмите, чтобы открыть свидетельство.", "Тіркеу №3882 · 24.09.2026-дан. Куәлікті ашу үшін басыңыз.", "Reg. No. 3882 · since 24.09.2026. Click to open the certificate.")}</p>
+            </div>
+          </a>
           <div className="h-px bg-surface/10 mb-8" />
           <p className="text-surface/40 text-xs leading-relaxed mb-6 max-w-3xl">ТОО «Alfa Z», БИН 260740008042. Казахстан, г. Астана, район Есиль, ул. Алматы, здание 1, индекс 010000.</p>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
