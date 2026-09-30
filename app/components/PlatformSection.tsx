@@ -16,7 +16,8 @@ import { useLang } from "../i18n/lang";
  * работают в платформе (проверено по коду alfa-z platform, 2026-09-30): личный график без
  * потоков, «Продолжить», мини-игра в уроке (9 видов), разбор ДЗ ментором (вернуть без
  * объяснения нельзя), баллы / рейтинг группы за месяц / серия недель, отставание от графика
- * видно куратору, ежемесячный отчёт с комментарием куратора, сертификат с проверкой по номеру.
+ * видно куратору, отчёт родителю с комментарием куратора (школа отправляет каждые 3 недели —
+ * подтвердила владелец), сертификат с проверкой по номеру.
  *
  * Скриншотов без личных данных детей нет — поэтому экран ученика нарисован как макет
  * с вымышленными данными. Интерфейс платформы на RU/KZ (английского нет) — в EN-версии
@@ -41,7 +42,7 @@ export default function PlatformSection() {
     { icon: "message", title: tr("Разбор каждой домашки", "Әр үй жұмысына талдау", "A real review for every homework"), text: tr("Ментор ставит балл и пишет рецензию. Вернуть работу на доработку без подробного объяснения платформа не даст.", "Ментор балл қойып, пікір жазады. Толық түсіндірмесіз жұмысты қайта пысықтауға қайтаруға платформа жол бермейді.", "The mentor gives a score and writes a review. The platform won't let work be sent back without a detailed explanation.") },
     { icon: "award", title: tr("Баллы, рейтинг и серии", "Ұпай, рейтинг және серия", "Points, rankings and streaks"), text: tr("Баллы за домашки, встречи и игры, рейтинг группы, который каждый месяц начинается с нуля, и серия недель без пропусков.", "Үй жұмысы, кездесу мен ойын үшін ұпай, әр ай басынан қайта басталатын топ рейтингі және сабақ босатпаған апталар сериясы.", "Points for homework, live sessions and games, a group ranking that starts fresh every month, and a streak of weeks with no missed classes.") },
     { icon: "target", title: tr("Куратор заметит отставание", "Куратор артта қалғанын байқайды", "The curator spots when they fall behind"), text: tr("Платформа сверяет прогресс ребёнка с его личным графиком, и куратор увидит, если ребёнок отстал на неделю.", "Платформа баланың ілгерілеуін оның жеке кестесімен салыстырады. Бала бір аптаға артта қалса, куратор оны көреді.", "The platform checks your child's progress against their personal schedule, so the curator sees if they fall a week behind.") },
-    { icon: "file", title: tr("Отчёт родителю каждый месяц", "Ата-анаға ай сайынғы есеп", "A monthly report for parents"), text: tr("Цифры по урокам, домашкам, посещаемости и баллам, а к ним личный комментарий куратора.", "Сабақ, үй жұмысы, қатысу мен ұпай бойынша нақты көрсеткіштер және куратордың жеке пікірі.", "Figures on lessons, homework, attendance and points, along with the curator's personal comment.") },
+    { icon: "file", title: tr("Отчёт родителю каждые 3 недели", "Ата-анаға әр 3 апта сайын есеп", "A report for parents every 3 weeks"), text: tr("Цифры по урокам, домашкам, посещаемости и баллам, а к ним личный комментарий куратора.", "Сабақ, үй жұмысы, қатысу мен ұпай бойынша нақты көрсеткіштер және куратордың жеке пікірі.", "Figures on lessons, homework, attendance and points, along with the curator's personal comment.") },
   ];
 
   const nav: { icon: IconName; label: string; active?: boolean }[] = [
