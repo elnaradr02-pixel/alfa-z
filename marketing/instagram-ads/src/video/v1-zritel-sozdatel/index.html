@@ -5,9 +5,10 @@
 <title>V1 · Зритель → Создатель</title>
 <meta name="viewport" content="width=1080, initial-scale=1">
 <link rel="stylesheet" href="../../base.css">
+<link rel="stylesheet" href="../../themes.css">
 <link rel="stylesheet" href="scene.css">
 </head>
-<body class="story">
+<body class="story theme-berry">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></symbol>
@@ -38,16 +39,16 @@
     <div class="bg bg-dots"></div>
     <div class="blob a"></div><div class="blob b"></div>
     <svg class="clock" id="clock" viewBox="0 0 300 300">
-      <circle cx="150" cy="150" r="128" fill="#fffbf5"/>
-      <circle cx="150" cy="150" r="128" fill="none" stroke="#0f0f1a" stroke-width="18" opacity=".14"/>
-      <circle id="clockArc" cx="150" cy="150" r="128" fill="none" stroke="#0f0f1a" stroke-width="18" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" transform="rotate(-90 150 150)"/>
-      <g id="clockHand"><rect x="142" y="52" width="16" height="106" rx="8" fill="#ff6b47"/></g>
-      <circle cx="150" cy="150" r="16" fill="#0f0f1a"/>
+      <circle class="face" cx="150" cy="150" r="128"/>
+      <circle class="track" cx="150" cy="150" r="128"/>
+      <circle class="arc" id="clockArc" cx="150" cy="150" r="128" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" transform="rotate(-90 150 150)"/>
+      <g id="clockHand"><rect class="hand" x="142" y="52" width="16" height="106" rx="8"/></g>
+      <circle class="hub" cx="150" cy="150" r="16"/>
     </svg>
     <div class="lines txt" id="lines2">
       <div class="mask ln1"><span class="w">А если этот час —</span></div>
-      <div class="mask ln2"><span class="w" id="w2">не листать,<i class="strike" id="strike"></i></span></div>
-      <div class="mask ln3"><span class="w" id="w3">а <span class="mark-sun" id="mk2">создавать</span>?</span></div>
+      <div class="mask ln2"><span class="w" id="w2"><span class="tx">не листать,</span><i class="strike" id="strike"></i></span></div>
+      <div class="mask ln3"><span class="w" id="w3">а <span class="mk" id="mk2"><i class="mkbg"></i>создавать</span>?</span></div>
     </div>
     <div class="bricks" id="bricks"><i class="br b0"></i><i class="br b1"></i><i class="br b2"></i><i class="br b3"></i></div>
   </section>
@@ -89,11 +90,11 @@
     <div class="bg bg-dots"></div>
     <div class="blob a"></div><div class="blob b"></div>
     <div class="list" id="list5">
-      <div class="chk" id="k1"><div class="ckc"><svg viewBox="0 0 64 64"><path class="ckp" d="M12 34 L26 47 L52 17" fill="none" stroke="#fffbf5" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
+      <div class="chk" id="k1"><div class="ckc"><svg viewBox="0 0 64 64"><path class="ckp" d="M12 34 L26 47 L52 17" fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
         <p class="ckt"><span class="mark-sun">60 минут</span> онлайн,<br>с&nbsp;живым ментором</p></div>
-      <div class="chk" id="k2"><div class="ckc"><svg viewBox="0 0 64 64"><path class="ckp" d="M12 34 L26 47 L52 17" fill="none" stroke="#fffbf5" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
+      <div class="chk" id="k2"><div class="ckc"><svg viewBox="0 0 64 64"><path class="ckp" d="M12 34 L26 47 L52 17" fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
         <p class="ckt">Начинаем с&nbsp;нуля —<br><span class="mark-sun">опыт не нужен</span></p></div>
-      <div class="chk" id="k3"><div class="ckc"><svg viewBox="0 0 64 64"><path class="ckp" d="M12 34 L26 47 L52 17" fill="none" stroke="#fffbf5" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
+      <div class="chk" id="k3"><div class="ckc"><svg viewBox="0 0 64 64"><path class="ckp" d="M12 34 L26 47 L52 17" fill="none" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg></div>
         <p class="ckt">Не понравится —<br><span class="mark-sun">никаких<br>обязательств</span></p></div>
     </div>
   </section>
@@ -115,7 +116,7 @@
       </div>
       <div class="hint6" id="hint6">
         <div class="ht" id="ht6">Нажмите «Записаться»</div>
-        <div class="arr" id="arr6"><svg viewBox="0 0 130 150"><path d="M65 14 V104 M20 72 L65 120 L110 72" fill="none" stroke="#ff6b47" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="arr" id="arr6"><svg viewBox="0 0 130 150"><path d="M65 14 V104 M20 72 L65 120 L110 72" fill="none" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
     </div>
   </section>

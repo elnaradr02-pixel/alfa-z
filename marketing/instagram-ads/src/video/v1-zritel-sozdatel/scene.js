@@ -9,6 +9,8 @@
   const DUR = 25.0;
 
   const $ = (s, r) => (r || document).querySelector(s);
+  // значение токена темы (нужно только для твина цвета и для JS-декора)
+  const tok = (n) => getComputedStyle(document.body).getPropertyValue(n).trim();
   const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
 
   // seeded PRNG (mulberry32)
@@ -169,16 +171,17 @@
   cue(s2 + 1.0, "pop", 0.75);
   // «не листать,» — зачёркиваем и приглушаем
   tl.fromTo("#strike", { scaleX: 0 }, { scaleX: 1, duration: 0.32, ease: "power3.inOut" }, s2 + 1.05);
-  tl.to("#w2", { color: "rgba(15,15,26,.5)", duration: 0.3, ease: "power2.out" }, s2 + 1.1);
+  tl.to("#w2 .tx", { opacity: 0.5, duration: 0.3, ease: "power2.out" }, s2 + 1.1);
   cue(s2 + 1.08, "scratch", 0.35);
   // жёлтый маркер под «создавать»
-  tl.fromTo("#mk2", { backgroundSize: "0% 100%" }, { backgroundSize: "100% 100%", duration: 0.5, ease: "power2.out" }, s2 + 1.35);
+  tl.fromTo("#mk2 .mkbg", { scaleX: 0 }, { scaleX: 1, duration: 0.45, ease: "power2.out" }, s2 + 1.3);
+  tl.to("#mk2", { color: tok("--on-hi"), duration: 0.25, ease: "none" }, s2 + 1.38);
   tl.fromTo("#w3", { scale: 1 }, { scale: 1.035, duration: 0.18, yoyo: true, repeat: 1, ease: "sine.inOut", transformOrigin: "0% 50%", immediateRender: false }, s2 + 1.3);
   // кирпичики-«приложение» растут
   tl.fromTo("#bricks .br", { scaleY: 0 }, { scaleY: 1, duration: 0.55, ease: "back.out(1.8)", stagger: 0.09 }, s2 + 1.55);
   [0, 1, 2, 3].forEach(function (i) { cue(s2 + 1.6 + i * 0.09, "tick", 0.8, -0.3 + i * 0.2); });
   // искры у слова
-  const sp2 = [[820, 800, 78, "#ffd23f"], [70, 1180, 56, "#fffbf5"], [930, 1210, 64, "#ffd23f"]];
+  const sp2 = [[820, 800, 78, "var(--hi)"], [70, 1180, 56, "var(--paper)"], [930, 1210, 64, "var(--hi)"]];
   sp2.forEach(function (s, i) {
     const el = sparkle($("#s2"), s[0], s[1], s[2], s[3]);
     tl.fromTo(el, { scale: 0, rotation: -60 }, { scale: 1, rotation: 0, duration: 0.5, ease: "back.out(2.4)" }, s2 + 1.6 + i * 0.1);
@@ -241,7 +244,7 @@
   (function confetti() {
     const box = $("#conf");
     const r = rng(777);
-    const cols = ["#ff6b47", "#ffd23f", "#46d39a", "#4aa8ff", "#7a5cff", "#fffbf5", "#ffb088"];
+    const cols = ["var(--accent)", "var(--hi)", "var(--accent-2)", "var(--paper)", "var(--hi)", "var(--accent)", "var(--accent-2)", "var(--mint)"];
     const t0 = BT + 0.3;
     for (let i = 0; i < 54; i++) {
       const el = document.createElement("i");
@@ -263,7 +266,7 @@
     }
   })();
   // искры вокруг телефона
-  [[130, 760, 84, "#ffd23f"], [880, 700, 64, "#fffbf5"], [110, 1250, 60, "#ff8f6b"], [900, 1200, 90, "#ffd23f"], [860, 930, 44, "#46d39a"]].forEach(function (s, i) {
+  [[130, 760, 84, "var(--hi)"], [880, 700, 64, "var(--paper)"], [110, 1250, 60, "var(--accent-2)"], [900, 1200, 90, "var(--hi)"], [860, 930, 44, "var(--accent)"]].forEach(function (s, i) {
     const el = sparkle($("#s3"), s[0], s[1], s[2], s[3]);
     el.style.zIndex = 7;
     gsap.set(el, { scale: 0, transformOrigin: "50% 50%" });
